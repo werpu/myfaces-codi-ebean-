@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Person Details View</title>
+    </h:head>
+    <h:body>
+        <h:form id="editForm" prependId="false">
+            <!-- keepalive marker for our viewAccessScope detail view -->
+            <h:outputText value="#{personDetailView.searchData.searchMap['firstName']}" style="display:none;"/>
+
+            <h:panelGroup id="editArea" rendered="#{personDetailView.viewMode != 'delete'}">
+                <h:panelGrid columns="3" id="searchArea">
+                    <h:outputText value="First Name" />
+                    <h:inputText value="#{personDetailView.person.firstName}" />
+                    <h:outputText value="Last Name" />
+                    <h:inputText value="#{personDetailView.person.lastName}" />
+                    <h:commandLink action="#{personDetailView.addAddress}" value="Add address" />
+                </h:panelGrid>
+
+                <h:panelGroup id="addresses">
+                    <ui:repeat value="#{personDetailView.person.addresses}" var="adr">
+                        <h:outputFormat value="AddressType"/>
+                        <h:selectOneMenu value="#{adr.addressType}">
+                            <f:selectItems value="#{addressTypeBean.addressTypes}"/>
+                        </h:selectOneMenu>
+                        <h:outputFormat value="Street"/>
+                        <h:inputText value="#{adr.street}" />
+                        <h:outputFormat value="Number"/>
+                        <h:inputText value="#{adr.houseNumber}" />
+                        <h:outputFormat value="Door"/>
+                        <h:inputText value="#{adr.door}" />
+                        <h:outputFormat value="Door"/>
+                        <h:inputText value="#{adr.door}" />
+                        <h:commandLink action="#{personDetailView.removeAddress}" value="delete" onclick="javascript: jsf.ajax.request(this, event, {render: 'addresses', execute:'addresses'}); return true;">
+                            <f:setPropertyActionListener target="#{personDetailView.address}" value="#{adr}"  />
+                           
+                        </h:commandLink>
+                        <hr />
+                    </ui:repeat>
+                </h:panelGroup>
+
+                <h:commandLink action="#{personDetailView.doSave}" value="save" />
+                <h:commandLink action="#{personDetailView.doCancel}" value="Cancel" />
+            </h:panelGroup>
+
+            <h:panelGroup id="displayArea" rendered="#{personDetailView.viewMode == 'delete'}">
+                <h:panelGrid columns="3" id="searchAreaReadonly">
+                    <h:outputText value="First Name" />
+                    <h:outputFormat value="#{personDetailView.person.firstName}" />
+                    <h:outputText value="Last Name" />
+                    <h:outputFormat value="#{personDetailView.person.lastName}" />
+                </h:panelGrid>
+
+                <h:commandLink action="#{personDetailView.doDelete}" value="Delete" />
+                <h:commandLink action="#{personDetailView.doCancel}" value="Cancel" />
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>
+

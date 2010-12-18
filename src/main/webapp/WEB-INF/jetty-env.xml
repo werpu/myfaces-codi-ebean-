@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure id="wac" class="org.eclipse.jetty.webapp.WebAppContext">
+    <!--
+    <New id="testPatternPU" class="org.eclipse.jetty.plus.jndi.Resource">
+         <Arg>jdbc/testPatternPU</Arg>
+         <Arg>
+              <New class="org.apache.commons.dbcp.BasicDataSource">
+                    <Set name="Url">jdbc:derby:memory:modernEEApplication;create=true</Set>
+                    <Set name="DriverClassName">org.apache.derby.jdbc.EmbeddedDriver</Set>
+                    <Set name="Username">test</Set>
+                    <Set name="Password">test</Set>
+                    <Set name="MaxActive">30</Set>
+                    <Set name="MaxIdle">10</Set>
+                    <Set name="MinIdle">2</Set>
+                    <Set name="MaxWait">5000</Set>
+                    <Set name="MinEvictableIdleTimeMillis">25000</Set>
+                    <Set name="TimeBetweenEvictionRunsMillis">30000</Set>
+             </New>
+         </Arg>
+    </New>
+    -->
+
+    <New id="testPatternPU" class="org.eclipse.jetty.plus.jndi.Resource">
+         <Arg></Arg>
+         <Arg>jdbc/testPatternPU</Arg>
+  
+         <Arg>
+              <New class="org.apache.commons.dbcp.BasicDataSource">
+                    <Set name="url">jdbc:h2:tcp://localhost/~/test2</Set>
+                    <Set name="driverClassName">org.h2.Driver</Set>
+                    <Set name="username">sa</Set>
+                    <Set name="password"></Set>
+                   
+             </New>
+         </Arg>
+    </New>
+
+  
+</Configure>

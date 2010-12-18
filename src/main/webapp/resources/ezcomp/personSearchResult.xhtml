@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="value" required="true" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:dataTable value="#{cc.attrs.value}" var="item" rendered="#{cc.attrs.value != null}">
+            <h:column id="firstName">
+                <f:facet name="header">
+                    <h:outputText value="First Name"/>
+                </f:facet>
+                <h:outputText value="#{item.firstName}" />
+            </h:column>
+            <h:column id="lastName">
+                <f:facet name="header">
+                    <h:outputText value="Last Name"/>
+                </f:facet>
+                <h:outputText value="#{item.lastName}" />
+            </h:column>
+            <h:column id="operation">
+                <f:facet name="header">
+                    <h:outputText value="Operation"/>
+                </f:facet>
+                <h:commandLink action="#{personDetailView.goDeta}" value="Detail">
+                    <f:setPropertyActionListener target="#{personDetailView.personId}" value="#{item.id}" />
+                </h:commandLink>
+
+                <h:commandLink action="#{personDetailView.goDelete}" value="Delete">
+                    <f:setPropertyActionListener target="#{personDetailView.personId}" value="#{item.id}" />
+                </h:commandLink>
+
+            </h:column>
+        </h:dataTable>
+    </cc:implementation>
+</html>

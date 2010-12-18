@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        debug page for codi support code
+        <script type="text/javascript">
+        <!--
+            window.onload = function() {
+                alert("onload hello");
+            }
+
+            //reserve namespace for codi
+            if(!myfaces) {
+                var myfaces = {};
+            }
+            myfaces.codi = myfaces.codi || {};
+
+
+            myfaces.codi._decorateOnClick = function(element, url) {
+                var oldOnClick = element.onclick;
+                var newOnClick = function() {
+                   // addWindowCookie(url); return true;
+                   myfaces.codi.addWindowCookie(url);
+                   return true;
+                }
+                //now to the complicated part normally onclick delivers an event object
+                //but in case of ie the event is a window.event object, so we cannot rely
+                //on the object being delivered
+                element.onclick =  function(event) {
+                    var ret = newOnClick.apply(this, arguments);
+                    if(ret && oldOnClick) {
+                        return oldOnClick.apply(this, arguments);
+                    }
+                    return ret;
+                };
+            }
+
+
+            //now we store our handlers in the namespace for codi
+            myfaces.codi._initOnLoad = function(){
+                var onLoadHandler =  function() {
+                    var anchors = document.getElementsByTagName("a");
+                    var i=0;
+                    for (i=0;i < anchors.length;i++) {
+                        var a = anchors[i];
+                        var url = a.getAttribute('href');
+                        myfaces.codi._decorateOnClick(a, url);
+                    }
+                }
+                var oldOnLoadHandler = window.onload;
+                window.onload = function() {
+                    onLoadHandler();
+                    if(oldOnLoadHandler) {
+                        oldOnLoadHandler();
+                    }
+                }
+            }
+
+
+            //we now trigger the setup
+            myfaces.codi._initOnLoad();
+        //-->
+        </script>
+
+        <h:form>
+            <a href="#" onclick="javascript: alert('original handler'); return true;"> Press me </a>
+
+        </h:form>
+
+    </h:body>
+</html>
+
