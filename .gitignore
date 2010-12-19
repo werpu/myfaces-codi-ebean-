@@ -2,3 +2,6 @@ target/
 .svn
 out/
 test/
+*.iml
+*.ipr
+*.iws
