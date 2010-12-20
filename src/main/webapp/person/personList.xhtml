@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,32 +18,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
-    <h:head>
+      xmlns:ez="http://java.sun.com/jsf/composite/ezcomp"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="../templates/default.xhtml">
+    <ui:define name="header">
+
         <title>Person List view</title>
         <f:metadata>
-              <f:event type="preRenderView" listener="#{personListView.preRenderView}"  />
+            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
         </f:metadata>
-    </h:head>
-    <h:body>
-      
-        <h:form id="mainForm" prependId="false">
-           
-            <h:panelGrid columns="3" id="searchArea">
+
+    </ui:define>
+
+    <ui:define name="search">
+      <h:form id="searchform" prependId="false">
+        <div id="search">
+        <h:panelGrid columns="3" id="searchArea">
                 <ez:personSearch searchData="#{personListView.searchData.searchMap}"/>
-                <h:commandLink action="#{personListView.doSearchList}" value="Search" >
-                    <f:ajax execute="searchArea" render="resultArea" />
+                <h:commandLink action="#{personListView.doSearchList}" value="Search" onclick="jsf.ajax.request(this, event, {execute:'searchform', render:'@this, resultarea'}); return true;">
+
                 </h:commandLink>
             </h:panelGrid>
+        </div>
+      </h:form>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="mainForm" prependId="false">
+
+
             <h:panelGroup id="otherActions">
-                <h:commandLink value="Create a new Person" action="#{personDetailView.goCreate}" />
+                <h:commandLink value="Create a new Person" action="#{personDetailView.goCreate}"/>
             </h:panelGroup>
 
             <h:panelGroup id="resultArea">
                 <ez:personSearchResult value="#{personListView.listModel}"/>
             </h:panelGroup>
-            
+
         </h:form>
-    </h:body>
+    </ui:define>
+</ui:composition>
+
+
 </html>
 
