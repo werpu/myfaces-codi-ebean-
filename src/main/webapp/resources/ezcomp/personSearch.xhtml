@@ -12,21 +12,24 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:h="http://java.sun.com/jsf/html">
 
-    <!-- INTERFACE -->
-    <cc:interface>
-        <cc:attribute name="searchData" required="true" />
-    </cc:interface>
+<!-- INTERFACE -->
+<cc:interface>
+    <cc:attribute name="searchData" required="true"/>
+</cc:interface>
 
-    <!-- IMPLEMENTATION -->
-    <cc:implementation>
-        <h:outputText value="First Name" />
-        <h:inputText value="#{cc.attrs.searchData.firstName}" />
-        <h:outputText value="Last Name" />
-        <h:inputText value="#{cc.attrs.searchData.lastName}" />
-    </cc:implementation>
+<!-- IMPLEMENTATION -->
+<cc:implementation>
+    <div class="searchfields">
+        <h:outputText class="lbl" value="First Name"/>
+        <h:inputText value="#{cc.attrs.searchData.firstName}"/>
+        <h:outputText class="lbl" value="Last Name"/>
+        <h:inputText value="#{cc.attrs.searchData.lastName}"/>
+    </div>
+</cc:implementation>
 </html>
