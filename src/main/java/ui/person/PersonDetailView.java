@@ -1,13 +1,27 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
-
 package ui.person;
 
 import ejb.bo.PersonFacadeLocal;
 import ejb.orm.Address;
 import ejb.orm.Person;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -18,10 +32,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 /**
- *
  * @author werpu2
  */
 @Named
@@ -36,21 +50,15 @@ public class PersonDetailView implements Serializable {
     @Inject
     PersonListSearchModel searchData;
 
-
     @Inject
     PersonFacadeLocal personFacade;
-
-
-
 
     Person person;
     Address address;
 
     Long personId = -1L;
 
-    String viewMode= MODE_CREATE;
-
-
+    String viewMode = MODE_CREATE;
 
     public String goCreate() {
         viewMode = MODE_CREATE;
@@ -62,7 +70,6 @@ public class PersonDetailView implements Serializable {
     public String goDeta() {
         viewMode = MODE_EDIT;
         person = personFacade.loadById(personId);
-
 
         return NAV_DETAIL;
     }
@@ -80,7 +87,6 @@ public class PersonDetailView implements Serializable {
         return NAV_LIST;
     }
 
-
     public String doSave() {
 
         personFacade.save(person);
@@ -94,7 +100,6 @@ public class PersonDetailView implements Serializable {
 
         return NAV_LIST;
     }
-
 
     public Long getPersonId() {
         return personId;
@@ -136,10 +141,6 @@ public class PersonDetailView implements Serializable {
         this.address = address;
     }
 
-
-
-
-
     public String addAddress() {
         address = personFacade.createAdr();
         person.getAddresses().add(address);
@@ -153,11 +154,6 @@ public class PersonDetailView implements Serializable {
         return NAV_DETAIL;
     }
 
-
-
-
-
-
     //now to the tricky part, in clustered situations the detail view or the session
     //Generally can be serialised and deserialised in this case we lose the entity manager
     //connection
@@ -170,5 +166,4 @@ public class PersonDetailView implements Serializable {
         }
     } */
 
- 
 }
