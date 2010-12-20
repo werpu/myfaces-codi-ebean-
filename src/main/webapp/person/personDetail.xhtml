@@ -37,7 +37,7 @@
 
 
                 </h:panelGrid>
-                <h:commandLink action="#{personDetailView.addAddress}" value="Add address">
+                <h:commandLink action="#{personDetailView.addAddress}" value="&gt;&gt;Add address">
                 </h:commandLink>
 
                 <h:panelGroup id="addresses">
@@ -69,8 +69,8 @@
                     </c:forEach>
                 </h:panelGroup>
 
-                <h:commandLink action="#{personDetailView.doSave}" value="save"/>
-                <h:commandLink action="#{personDetailView.doCancel}" value="Cancel"/>
+                <h:commandLink action="#{personDetailView.doSave}" value="&gt;&gt;Save"/>
+                <h:commandLink action="#{personDetailView.doCancel}" style="margin-left: 5px;" value="&gt;&gt;Cancel"/>
             </h:panelGroup>
 
             <h:panelGroup id="displayArea" rendered="#{personDetailView.viewMode == 'delete'}">
@@ -81,8 +81,8 @@
                     <h:outputFormat value="#{personDetailView.person.lastName}"/>
                 </h:panelGrid>
 
-                <h:commandLink action="#{personDetailView.doDelete}" value="Delete"/>
-                <h:commandLink action="#{personDetailView.doCancel}" value="Cancel"/>
+                <h:commandLink action="#{personDetailView.doDelete}" value="&gt;&gt;Delete"/>
+                <h:commandLink action="#{personDetailView.doCancel}" style="margin-left: 5px;" value="&gt;&gt;Cancel"/>
             </h:panelGroup>
         </h:form>
     </ui:define>
