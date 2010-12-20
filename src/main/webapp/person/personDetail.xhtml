@@ -19,7 +19,10 @@
                     <h:inputText value="#{personDetailView.person.firstName}" />
                     <h:outputText value="Last Name" />
                     <h:inputText value="#{personDetailView.person.lastName}" />
-                    <h:commandLink action="#{personDetailView.addAddress}" value="Add address" />
+                    <h:commandLink action="#{personDetailView.addAddress}" value="Add address" >
+                        <f:ajax execute="@this" render="addresses" />
+                    </h:commandLink>
+
                 </h:panelGrid>
 
                 <h:panelGroup id="addresses">
