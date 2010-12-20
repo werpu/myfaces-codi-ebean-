@@ -32,16 +32,18 @@
     </ui:define>
 
     <ui:define name="search">
-      <h:form id="searchform" prependId="false">
-        <div id="search">
-        <h:panelGrid columns="3" id="searchArea">
-                <ez:personSearch searchData="#{personListView.searchData.searchMap}"/>
-                <h:commandLink action="#{personListView.doSearchList}" value="Search" onclick="jsf.ajax.request(this, event, {execute:'searchform', render:'@this, resultarea'}); return true;">
+        <h:form id="searchform" prependId="false">
+            <div id="search">
+                <h:panelGrid columns="3" id="searchArea">
+                    <ez:personSearch searchData="#{personListView.searchData.searchMap}"/>
+                    <h:commandLink id="searchit" action="#{personListView.doSearchList}" value="Search"
+                                   onclick="jsf.ajax.request(this ,event, {execute:'searchArea', render:'resultArea'}); return false;">
 
-                </h:commandLink>
-            </h:panelGrid>
-        </div>
-      </h:form>
+                    </h:commandLink>
+                </h:panelGrid>
+
+            </div>
+        </h:form>
     </ui:define>
 
     <ui:define name="content">
