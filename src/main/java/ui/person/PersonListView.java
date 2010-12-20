@@ -4,17 +4,16 @@
  */
 package ui.person;
 
+import com.avaje.ebean.PagingList;
 import ejb.bo.PersonFacadeLocal;
-import java.io.Serializable;
-import java.util.List;
+import ejb.util.FilterEntry;
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import ejb.util.FilterEntry;
-import ejb.util.PagingPage;
-import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
-import ejb.orm.Person;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -31,7 +30,7 @@ public class PersonListView implements Serializable {
      */
     @Inject
     PersonFacadeLocal personFacade;
-    PagingPage<Person> listModel = null;
+    PagingList listModel = null;
 
     @PostConstruct
     public void postConstruct() {
@@ -69,11 +68,11 @@ public class PersonListView implements Serializable {
         return null;
     }
 
-    public PagingPage<Person> getListModel() {
+    public PagingList getListModel() {
         return listModel;
     }
 
-    public void setListModel(PagingPage<Person> listModel) {
+    public void setListModel(PagingList listModel) {
         this.listModel = listModel;
     }
 

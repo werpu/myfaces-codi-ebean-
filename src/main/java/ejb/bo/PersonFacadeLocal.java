@@ -4,10 +4,10 @@
  */
 package ejb.bo;
 
+import com.avaje.ebean.PagingList;
 import ejb.orm.*;
 import ejb.util.FilterEntry;
 import ejb.util.OrderEntry;
-import ejb.util.PagingPage;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public interface PersonFacadeLocal {
 
     public Person loadById(Long id);
 
-    public PagingPage<Person> loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy);
+    public PagingList loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy);
 
     void save(Person person);
 

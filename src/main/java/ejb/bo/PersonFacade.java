@@ -9,7 +9,6 @@ import com.avaje.ebean.annotation.Transactional;
 import ejb.orm.*;
 import ejb.util.FilterEntry;
 import ejb.util.OrderEntry;
-import ejb.util.PagingPage;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
@@ -59,20 +58,21 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
     }
 
     //TODO expose the list directly instead of exnapsulating it
-    public PagingPage<Person> loadFromTo(int from, int to) {
+    public PagingList loadFromTo(int from, int to) {
         Query query = em.createNamedQuery(Person.class, "person_all");
         return getPage(from, to, query);
     }
 
-    private PagingPage<Person> getPage(int from, int to, Query query) {
+    private PagingList getPage(int from, int to, Query query) {
         int pageSize = to - from;
         int page = Math.max(10, to-from);
 
         PagingList resList = query.findPagingList(to - from);
 
-        PagingPage resPage = new PagingPage<Person>(resList.getPage(page).getList(), from, to);
+        return resList;
+        /*PagingPage resPage = new PagingPage<Person>(resList.getPage(page).getList(), from, to);
         resPage.setTotal(resList.getTotalRowCount());
-        return resPage;
+        return resPage;   */
     }
 
     static int noPersons(EbeanServer em) {
@@ -87,7 +87,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
      * @param orderBy
      * @return
      */
-    public PagingPage<Person> loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
+    public PagingList loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
         Query query = em.createQuery(Person.class);
         query.fetch("addresses");
         ExpressionList queryBuilder = query.where();

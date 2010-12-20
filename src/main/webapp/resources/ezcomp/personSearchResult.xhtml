@@ -12,7 +12,8 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <h:dataTable value="#{cc.attrs.value}" var="item" rendered="#{cc.attrs.value != null}">
+        <!-- todo we need a paging controller to our page model which comes directly from ebean -->
+        <h:dataTable value="#{cc.attrs.value.getPage(0).list}" var="item" rendered="#{cc.attrs.value != null}">
             <h:column id="firstName">
                 <f:facet name="header">
                     <h:outputText value="First Name"/>
