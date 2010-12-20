@@ -27,7 +27,7 @@
                 </h:panelGrid>
 
                 <h:panelGroup id="addresses">
-                    <ui:repeat value="#{personDetailView.person.addresses}" var="adr">
+                    <c:forEach items="#{personDetailView.person.addresses}" var="adr">
                         <h:outputFormat value="AddressType"/>
                         <h:selectOneMenu value="#{adr.addressType}">
                             <f:selectItems value="#{addressTypeBean.addressTypes}"/>
@@ -40,12 +40,12 @@
                         <h:inputText value="#{adr.door}" />
                         <h:outputFormat value="Door"/>
                         <h:inputText value="#{adr.door}" />
-                        <h:commandLink action="#{personDetailView.removeAddress}" value="delete" onclick="javascript: jsf.ajax.request(this, event, {render: 'addresses', execute:'addresses'}); return true;">
+                        <h:commandLink action="#{personDetailView.removeAddress}" value="delete">
                             <f:setPropertyActionListener target="#{personDetailView.address}" value="#{adr}"  />
-                           
+                            <f:ajax render="addresses" execute="@this" />
                         </h:commandLink>
                         <hr />
-                    </ui:repeat>
+                    </c:forEach>
                 </h:panelGroup>
 
                 <h:commandLink action="#{personDetailView.doSave}" value="save" />
