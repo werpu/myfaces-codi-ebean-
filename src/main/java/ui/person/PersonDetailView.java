@@ -18,18 +18,11 @@
  */
 package ui.person;
 
-import ejb.bo.PersonFacadeLocal;
-import ejb.orm.Address;
-import ejb.orm.Person;
+import middle.bo.PersonFacadeLocal;
+import middle.orm.Address;
+import middle.orm.Person;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 

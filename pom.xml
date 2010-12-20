@@ -370,7 +370,7 @@
 							<goal>enhance</goal>
 						</goals>
 						<configuration>
-							<packages>ejb.orm</packages>
+							<packages>middle.orm</packages>
 							<transformArgs>debug=1</transformArgs>
 
 						</configuration>

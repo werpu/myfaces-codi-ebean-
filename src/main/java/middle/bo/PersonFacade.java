@@ -10,13 +10,13 @@
    See the License for the specific language governing permissions and
    limitations under the License
  */
-package ejb.bo;
+package middle.bo;
 
 import com.avaje.ebean.*;
 import com.avaje.ebean.annotation.Transactional;
-import ejb.orm.*;
-import ejb.util.FilterEntry;
-import ejb.util.OrderEntry;
+import middle.orm.*;
+import middle.util.FilterEntry;
+import middle.util.OrderEntry;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;

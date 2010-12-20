@@ -16,12 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package ejb.orm;
+package middle.orm;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import support.data.AddressType;
 
 /**
  *

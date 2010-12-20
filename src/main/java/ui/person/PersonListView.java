@@ -19,8 +19,8 @@
 package ui.person;
 
 import com.avaje.ebean.PagingList;
-import ejb.bo.PersonFacadeLocal;
-import ejb.util.FilterEntry;
+import middle.bo.PersonFacadeLocal;
+import middle.util.FilterEntry;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import javax.annotation.PostConstruct;

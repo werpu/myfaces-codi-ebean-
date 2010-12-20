@@ -26,8 +26,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 
-import ejb.util.FilterEntry;
-import ejb.util.OpType;
+import middle.util.FilterEntry;
+import middle.util.OpType;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 /**

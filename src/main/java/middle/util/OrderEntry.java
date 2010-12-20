@@ -16,26 +16,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package ejb.util;
+package middle.util;
 
-import ejb.util.OpType;
+import java.io.Serializable;
 
 /**
  *
  * @author werpu2
  */
-public class FilterEntry {
-
-    OpType opType;
-    Object value;
+public class OrderEntry implements Serializable {
     String name;
-    Class entryType;
+    boolean asc;
 
-    public FilterEntry(String name, Object value, Class entryType, OpType opType) {
-        this.opType = opType;
-        this.value = value;
-        this.name = name;
-        this.entryType = entryType;
+    public boolean isAsc() {
+        return asc;
+    }
+
+    public void setAsc(boolean asc) {
+        this.asc = asc;
     }
 
     public String getName() {
@@ -46,27 +44,4 @@ public class FilterEntry {
         this.name = name;
     }
 
-    public OpType getOpType() {
-        return opType;
-    }
-
-    public void setOpType(OpType opType) {
-        this.opType = opType;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-
-    public void setValue(Object value) {
-        this.value = value;
-    }
-
-    public Class getEntryType() {
-        return entryType;
-    }
-
-    public void setEntryType(Class entryType) {
-        this.entryType = entryType;
-    }
 }
