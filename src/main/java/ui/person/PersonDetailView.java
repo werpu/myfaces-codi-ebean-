@@ -11,6 +11,11 @@ import ejb.orm.Person;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
@@ -24,6 +29,9 @@ import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessS
 public class PersonDetailView implements Serializable {
     public static final String NAV_DETAIL = "personDetail";
     public static final String NAV_LIST = "personList";
+    private static final String MODE_CREATE = "create";
+    private static final String MODE_EDIT = "edit";
+    private static final String MODE_DELETE = "delete";
 
     @Inject
     PersonListSearchModel searchData;
@@ -32,31 +40,37 @@ public class PersonDetailView implements Serializable {
     @Inject
     PersonFacadeLocal personFacade;
 
+
+
+
     Person person;
     Address address;
 
     Long personId = -1L;
 
-    String viewMode="create";
+    String viewMode= MODE_CREATE;
+
+
 
     public String goCreate() {
-        viewMode = "create";
+        viewMode = MODE_CREATE;
         person = personFacade.create();
 
         return NAV_DETAIL;
     }
 
     public String goDeta() {
-        viewMode = "edit";
+        viewMode = MODE_EDIT;
         person = personFacade.loadById(personId);
+
 
         return NAV_DETAIL;
     }
 
     public String goDelete() {
-        viewMode = "delete";
+        viewMode = MODE_DELETE;
         person = personFacade.loadById(personId);
-        
+
         return NAV_DETAIL;
     }
 
@@ -125,11 +139,11 @@ public class PersonDetailView implements Serializable {
 
 
 
+
     public String addAddress() {
         address = personFacade.createAdr();
         person.getAddresses().add(address);
 
-        
         return NAV_DETAIL;
     }
 
@@ -140,17 +154,21 @@ public class PersonDetailView implements Serializable {
     }
 
 
+
+
+
+
     //now to the tricky part, in clustered situations the detail view or the session
     //Generally can be serialised and deserialised in this case we lose the entity manager
     //connection
     //since per spec the em hosting ejb never is passivated thanks to the em injected
     //We simply restore the person bean from there, the altered data still should be present
     //todo deserialisation, we reload the person object anew
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    /*private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         if(personId != -1L) {
             person = personFacade.loadById(personId);
         }
-    }
+    } */
 
  
 }

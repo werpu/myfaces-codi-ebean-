@@ -7,6 +7,7 @@ package ui.person;
 import ejb.bo.PersonFacadeLocal;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -32,8 +33,9 @@ public class PersonListView implements Serializable {
     PersonFacadeLocal personFacade;
     PagingPage<Person> listModel = null;
 
-    public void preRenderView() {
-        System.out.println("----------PrerenderView-------------");
+    @PostConstruct
+    public void postConstruct() {
+
         if (listModel == null && searchData.isSearchPerformed()) {
             //We run into the page
             System.out.println("refreshing");
@@ -46,6 +48,11 @@ public class PersonListView implements Serializable {
                 System.out.println("search not performed");
             }
         }
+    }
+
+
+    public void preRenderView() {
+
     }
 
     
