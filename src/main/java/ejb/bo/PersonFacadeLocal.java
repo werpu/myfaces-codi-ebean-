@@ -4,12 +4,12 @@
  */
 package ejb.bo;
 
-import ejb.orm.Address;
+import ejb.orm.*;
+import ejb.util.FilterEntry;
+import ejb.util.OrderEntry;
+import ejb.util.PagingPage;
+
 import java.util.List;
-import ejb.orm.FilterEntry;
-import ejb.orm.OrderEntry;
-import ejb.orm.PagingPage;
-import ejb.orm.Person;
 
 /**
  *
@@ -17,7 +17,7 @@ import ejb.orm.Person;
  */
 public interface PersonFacadeLocal {
 
-    void cancel();
+    void cancel(Person pers);
 
     Person create();
 

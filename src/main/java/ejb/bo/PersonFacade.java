@@ -4,30 +4,24 @@
  */
 package ejb.bo;
 
-import ejb.orm.Address;
-import ejb.orm.OrderEntry;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.io.Serializable;
-import java.util.List;
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.EbeanServer;
+import com.avaje.ebean.PagingList;
+import com.avaje.ebean.Query;
+import com.avaje.ebean.annotation.Transactional;
+import ejb.orm.*;
+import ejb.util.FilterEntry;
+import ejb.util.OrderEntry;
+import ejb.util.PagingPage;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
+import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
-import ejb.orm.FilterEntry;
-import ejb.orm.PagingPage;
-import ejb.orm.Person;
-
-import javax.persistence.PersistenceContextType;
-import org.apache.myfaces.extensions.cdi.jpa.api.Transactional;
-
+//import org.apache.myfaces.extensions.cdi.jpa.api.Transactional;
 
 /**
- *
  * @author werpu2
  */
 @Named(value = "personFacade")
@@ -47,43 +41,45 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
      * cannot be passivated in certian cluster and cloud situations
      * so we have to deal with it differently
      */
-    @PersistenceContext(unitName = "testPatternPU",type=PersistenceContextType.EXTENDED)
-    transient EntityManager em;
+    //@PersistenceContext(unitName = "testPatternPU",type=PersistenceContextType.EXTENDED)
+    //transient EntityManager em;
+    //@EbeanPersistenceContext(value = "PersonFacade")
+    EbeanServer em = Ebean.getServer(null);
 
     //passivation, activation state holder
 
-
-    public EntityManager getEm() {
+    public EbeanServer getEm() {
         return em;
     }
 
     public Person create() {
         Person ret = new Person();
-        em.persist(ret);
         return ret;
     }
 
-     public Address createAdr() {
+    public Address createAdr() {
         Address ret = new Address();
-        em.persist(ret);
         return ret;
     }
-
 
     public PagingPage<Person> loadFromTo(int from, int to) {
-        Query query = em.createNamedQuery("person_all");
-        query.setFirstResult(from);
-        query.setMaxResults(to - to);
-        return new PagingPage<Person>(query.getResultList(), from, to);
+        Query query = em.createNamedQuery(Person.class, "person_all");
+        int pageSize = to - from;
+        int page = 0;
+
+        PagingList resList = query.findPagingList(to - from);
+
+        PagingPage resPage = new PagingPage<Person>(resList.getPage(page).getList(), from, to);
+        resPage.setTotal(resList.getTotalRowCount());
+        return resPage;
     }
 
-    static int noPersons(EntityManager em) {
-        Query query = em.createNamedQuery("person_count");
-        return (Integer) query.getSingleResult();
+    static int noPersons(EbeanServer em) {
+        Query query = em.createNamedQuery(Person.class, "person_all");
+        return query.findRowCount();
     }
 
     /**
-     *
      * @param from
      * @param to
      * @param filter
@@ -91,7 +87,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
      * @return
      */
     public PagingPage<Person> loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
-        CriteriaBuilder qb = em.getCriteriaBuilder();
+        /*CriteriaBuilder qb = em.getCriteriaBuilder();
         CriteriaQuery c = qb.createQuery(Person.class);
         Root<Person> pers = c.from(Person.class);
         c.select(pers);
@@ -105,18 +101,20 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
         query.setParameter(ATTR_FIRSTNAME, "%");
         query.setFirstResult(0);
         query.setMaxResults(10);
+        */
 
-        return new PagingPage<Person>(query.getResultList(), from, to);
+        return loadFromTo(from, to);
+        //return new PagingPage<Person>(query.getResultList(), from, to);
     }
 
     @Transactional
     public void delete(Person person) {
-        if(person.getId() != null) {
+        if (person.getId() != null) {
             //just to make sure to have the correct entity we issue a quick find
             person = em.find(Person.class, person.getId());
-            em.remove(person);
+            em.delete(person);
         }
-        
+
     }
 
     /**
@@ -124,6 +122,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
      * but given that the session can be serialized we might have lost the attachment
      * (can happen in the cloud) se we deal with it by either persisting or merging the person object
      * the cascade should do the rest
+     *
      * @param person
      */
     @Transactional
@@ -132,12 +131,17 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
         //we merge just to make sure the entity will be reattached
         //in case of accidental passivation or serialisation
         //of the holding bean
-        em.merge(person);
+        em.save(person);
     }
 
-   
+    public void cancel(Person t) {
+        if (t.getId() != null) {
+            getEm().refresh(t);
+            getEm().refreshMany(t, "addresses");
+        }
+    }
 
-   
+
 
     @Override
     public Person loadById(Long id) {

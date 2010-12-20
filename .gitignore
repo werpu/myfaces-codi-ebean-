@@ -5,3 +5,4 @@ test/
 *.iml
 *.ipr
 *.iws
+bin/

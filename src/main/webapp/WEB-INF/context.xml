@@ -1,0 +1,69 @@
+<Context path="/testenterpriseweb" docBase="testenterpriseweb"
+         debug="5" reloadable="true" crossContext="true">
+
+    <!-- maxActive: Maximum number of dB connections in pool. Make sure you
+         configure your mysqld max_connections large enough to handle
+         all of your db connections. Set to -1 for no limit.
+         -->
+
+    <!-- maxIdle: Maximum number of idle dB connections to retain in pool.
+         Set to -1 for no limit.  See also the DBCP documentation on this
+         and the minEvictableIdleTimeMillis configuration parameter.
+         -->
+
+    <!-- maxWait: Maximum time to wait for a dB connection to become available
+         in ms, in this example 10 seconds. An Exception is thrown if
+         this timeout is exceeded.  Set to -1 to wait indefinitely.
+         -->
+
+    <!-- username and password: MySQL dB username and password for dB connections  -->
+
+    <!-- driverClassName: Class name for the old mm.mysql JDBC driver is
+         org.gjt.mm.mysql.Driver - we recommend using Connector/J though.
+         Class name for the official MySQL Connector/J driver is com.mysql.jdbc.Driver.
+         -->
+
+    <!-- url: The JDBC connection url for connecting to your MySQL dB.
+         -->
+    <!--
+     <Resource name="${db.jndi}" auth="Container" type="javax.sql.DataSource"
+                  maxActive="100" maxIdle="30" maxWait="10000"
+                  username="${db.user}" password="${db.password}" driverClassName="${db.driver}"
+                  url="${db.url}"/>
+    -->
+    <!--
+    <New id="testPatternPU" class="org.eclipse.jetty.plus.jndi.Resource">
+            <Arg></Arg>
+            <Arg>jdbc/testPatternPU</Arg>
+
+            <Arg>
+                 <New class="org.apache.commons.dbcp.BasicDataSource">
+                       <Set name="url">jdbc:h2:tcp://localhost/~/test2</Set>
+                       <Set name="driverClassName">org.h2.Driver</Set>
+                       <Set name="username">sa</Set>
+                       <Set name="password"></Set>
+
+                </New>
+            </Arg>
+       </New>
+
+    -->
+
+
+    <Resource name="jdbc/testPatternPU"
+              auth="Container"
+              type="javax.sql.DataSource"
+              factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
+              username="sa"
+              password=""
+              driverClassName="org.h2.Driver"
+              url="jdbc:h2:tcp://localhost/~/test2"
+              maxWait="1000"
+              removeAbandoned="true"
+              maxActive="30"
+              maxIdle="10"
+              removeAbandonedTimeout="60"
+              logAbandoned="true"/>
+
+
+</Context>

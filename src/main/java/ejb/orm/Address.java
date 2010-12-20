@@ -5,12 +5,8 @@
 package ejb.orm;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Version;
+import javax.persistence.*;
+
 import support.data.AddressType;
 
 /**
@@ -18,6 +14,7 @@ import support.data.AddressType;
  * @author werpu2
  */
 @Entity
+@Table(name="o_address")
 public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;

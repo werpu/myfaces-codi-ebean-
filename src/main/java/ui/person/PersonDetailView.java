@@ -76,7 +76,7 @@ public class PersonDetailView implements Serializable {
 
     public String doCancel() {
 
-        personFacade.cancel();
+        personFacade.cancel(person);
 
         return NAV_LIST;
     }

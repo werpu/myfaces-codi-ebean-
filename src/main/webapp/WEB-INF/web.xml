@@ -39,6 +39,7 @@
   to hook the db into the underlying server we have to live with this solution
   I am sure some hooks into jetty env also do the trick
   -->
+  <!--
     <context-param>
         <param-name>db.url</param-name>
         <param-value>jdbc:h2:~/test2</param-value>
@@ -55,12 +56,13 @@
         <param-name>db.tcpServer</param-name>
         <param-value>-tcpAllowOthers</param-value>
     </context-param>
-
+   -->
   <!-- h2 embedded -->
+  <!--
     <listener>
         <listener-class>org.h2.server.web.DbStarter</listener-class>
     </listener>
-
+ -->
     <listener>
         <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
     </listener>

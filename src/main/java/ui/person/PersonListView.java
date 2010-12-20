@@ -9,14 +9,11 @@ import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import ejb.util.FilterEntry;
+import ejb.util.PagingPage;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
-import ejb.orm.FilterEntry;
-import ejb.orm.PagingPage;
 import ejb.orm.Person;
-import javax.enterprise.event.Observes;
-import javax.enterprise.event.Reception;
-import org.apache.myfaces.extensions.cdi.core.api.config.view.View;
-import org.apache.myfaces.extensions.cdi.jsf.api.config.view.PreRenderView;
 
 /**
  *

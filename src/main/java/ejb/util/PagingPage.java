@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package ejb.orm;
+package ejb.util;
 
 import java.io.Serializable;
 import java.util.Collection;

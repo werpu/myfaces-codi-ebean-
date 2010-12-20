@@ -1,4 +1,3 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -14,12 +13,6 @@
         <!-- configurable bits -->
         <jetty.port>9192</jetty.port>
 
-        <!-- database defaults -->
-        <db.jndi>jdbc/testpattern</db.jndi>
-
-        <!--<db.url>jdbc:h2:editordb;DB_CLOSE_DELAY=-1;LOCK_MODE=0</db.url>-->
-        <db.url>${db.protocol}:${db.subprotocol}${db.separator}${db.alias}</db.url>
-
         <db.hbm2ddl>none</db.hbm2ddl>
 
         <myfaces.version>2.0.2</myfaces.version>
@@ -27,9 +20,22 @@
         <openwebbeans.version>1.0.0</openwebbeans.version>
         <geronimo_interceptor.version>1.0</geronimo_interceptor.version>
         <geronimo_cdi.version>1.0</geronimo_cdi.version>
-        <geronimo_jpa.version>1.1.1</geronimo_jpa.version>
+        <geronimo_jpa.version>${geronimo-jta_1.1_spec.version}</geronimo_jpa.version>
         <geronimo_atinject.version>1.0</geronimo_atinject.version>
 
+
+        <ebean.version>2.7.2</ebean.version>
+        <slf4j.version>1.5.10</slf4j.version>
+
+
+        <log4j.version>1.2.14</log4j.version>
+        <geronimo-validation_1.0_spec.version>1.0</geronimo-validation_1.0_spec.version>
+        <asm.version>3.1</asm.version>
+        <h2.version>1.3.146</h2.version>
+        <commons-dbcp.version>1.4</commons-dbcp.version>
+        <transactions-jta.version>3.6.4</transactions-jta.version>
+        <java.version>1.5</java.version>
+        <geronimo-jta_1.1_spec.version>1.1.1</geronimo-jta_1.1_spec.version>
     </properties>
 
     <repositories>
@@ -57,12 +63,12 @@
                 <updatePolicy>never</updatePolicy>
             </snapshots>
         </repository>
-        
-        
+
+
     </repositories>
     <dependencies>
 
-    <!-- JSF / Apache MyFace -->
+        <!-- JSF / Apache MyFace -->
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
@@ -75,7 +81,7 @@
             <version>${myfaces.version}</version>
         </dependency>
 
-    <!-- Apache MyFaces CODI -->
+        <!-- Apache MyFaces CODI -->
         <dependency>
             <groupId>org.apache.myfaces.extensions.cdi</groupId>
             <artifactId>myfaces-extcdi-dist-jsf20</artifactId>
@@ -83,7 +89,7 @@
             <scope>compile</scope>
         </dependency>
 
-    <!-- Apache OpenWebBeans -->
+        <!-- Apache OpenWebBeans -->
         <dependency>
             <groupId>org.apache.openwebbeans</groupId>
             <artifactId>openwebbeans-impl</artifactId>
@@ -115,7 +121,8 @@
             <version>${openwebbeans.version}</version>
         </dependency>
 
-    <!-- Apache OpenJPA -->
+        <!-- Apache OpenJPA -->
+        <!--
         <dependency>
             <groupId>org.apache.openjpa</groupId>
             <artifactId>openjpa-persistence-jdbc</artifactId>
@@ -131,83 +138,106 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        -->
+        <!-- ebean -->
+        <dependency>
+            <groupId>org.avaje</groupId>
+            <artifactId>ebean</artifactId>
+            <version>${ebean.version}</version>
+            <type>jar</type>
+        </dependency>
 
-    <!-- some JavaEE 6 artifacts -->
-    <!-- apache compatible spec replacement jar replacement -->
+        <!--ebean LOGGING DEPENDENCIES - LOG4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+        <!-- some JavaEE 6 artifacts -->
+        <!-- apache compatible spec replacement jar replacement -->
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-interceptor_1.1_spec</artifactId>
             <version>${geronimo_interceptor.version}</version>
-      <!--scope>runtime</scope -->
+            <!--scope>runtime</scope -->
         </dependency>
 
-    <!-- apache compatible jta spec replacement jar -->
+        <!-- apache compatible jta spec replacement jar -->
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jta_1.1_spec</artifactId>
-            <version>1.1.1</version>
+            <version>${geronimo-jta_1.1_spec.version}</version>
             <scope>compile</scope>
         </dependency>
 
-    <!-- cdi api jsr 299 -->
+        <!-- cdi api jsr 299 -->
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+            <artifactId>geronimo-jcdi_${geronimo-validation_1.0_spec.version}_spec</artifactId>
             <version>${geronimo_cdi.version}</version>
         </dependency>
 
-    <!-- javax.inject jsr 330 -->
+        <!-- javax.inject jsr 330 -->
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-atinject_1.0_spec</artifactId>
+            <artifactId>geronimo-atinject_${geronimo-validation_1.0_spec.version}_spec</artifactId>
             <version>${geronimo_atinject.version}</version>
         </dependency>
 
-    <!-- This is a lame dependency, required by the JSR 299 specification.
-         Not the fault of Apache OWB, but we have to have this here in order to be
-         able to use Apache OWB outside of the typical EE realm. (Yes here in Jetty). -->
+        <!-- This is a lame dependency, required by the JSR 299 specification.
+            Not the fault of Apache OWB, but we have to have this here in order to be
+            able to use Apache OWB outside of the typical EE realm. (Yes here in Jetty). -->
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-validation_1.0_spec</artifactId>
-            <version>1.0</version>
+            <artifactId>geronimo-validation_${geronimo-validation_1.0_spec.version}_spec</artifactId>
+            <version>${geronimo-validation_1.0_spec.version}</version>
             <scope>runtime</scope>
         </dependency>
 
-    <!-- jpa 2.0 apo spec -->
+        <!-- jpa 2.0 apo spec -->
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jpa_3.0_spec</artifactId>
             <version>${geronimo_jpa.version}</version>
+            <!-- for ebean only compile is needed -->
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>jsr250-api</artifactId>
-            <version>1.0</version>
+            <version>${geronimo-validation_1.0_spec.version}</version>
         </dependency>
 
-    <!-- Apache Derby Database -->
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.6.2.1</version>
-        </dependency>
 
-    <!-- jetty related dependencies which can be dropped once moved to another system -->
+        <!-- jetty related dependencies which can be dropped once moved to another system -->
 
         <dependency>
             <groupId>asm</groupId>
             <artifactId>asm</artifactId>
-            <version>3.1</version>
+            <version>${asm.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.3.146</version>
+            <version>${h2.version}</version>
         </dependency>
-   
+
     </dependencies>
     <build>
         <plugins>
@@ -216,8 +246,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
 
@@ -232,12 +262,12 @@
                         </goals>
                         <configuration>
                             <rules>
-               <!--noSnapshots>
-                  <message>You need approval before you use SNAPSHOTS</message>
-               </noSnapshots-->
-                <!--requireMavenVersion>
-                  <version>2.0.6</version>
-                </requireMavenVersion-->
+                                <!--noSnapshots>
+                                   <message>You need approval before you use SNAPSHOTS</message>
+                                </noSnapshots-->
+                                <!--requireMavenVersion>
+                                  <version>2.0.6</version>
+                                </requireMavenVersion-->
                                 <requireJavaVersion>
                                     <version>1.5.0</version>
                                 </requireJavaVersion>
@@ -253,15 +283,20 @@
                 <version>2.1.1</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                     <!--
                     <webResources>
                         <resource>
-                            <!-- this is relative to the pom.xml directory -->
+
+
                             <directory>src/main/resources/webapp</directory>
+
                         </resource>
                     </webResources>
+                     -->
                 </configuration>
             </plugin>
 
+            <!--
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -269,7 +304,8 @@
                         <phase>process-classes</phase>
                         <configuration>
                             <tasks>
-                                <java classname="org.apache.openjpa.enhance.PCEnhancer" classpathref="maven.runtime.classpath" dir="target/classes" fork="true" />
+                                <java classname="org.apache.openjpa.enhance.PCEnhancer"
+                                      classpathref="maven.runtime.classpath" dir="target/classes" fork="true"/>
                             </tasks>
                         </configuration>
                         <goals>
@@ -278,6 +314,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
 
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
@@ -297,104 +334,54 @@
 
                 </configuration>
                 <dependencies>
-                    <dependency>
-                        <groupId>org.apache.derby</groupId>
-                        <artifactId>derby</artifactId>
-                        <version>10.6.2.1</version>
-                    </dependency>
-                    
+
                     <dependency>
                         <groupId>commons-dbcp</groupId>
                         <artifactId>commons-dbcp</artifactId>
-                        <version>1.4</version>
+                        <version>${commons-dbcp.version}</version>
                     </dependency>
-                    
-                    <dependency>
-                        <groupId>com.atomikos</groupId>
-                        <artifactId>transactions-jta</artifactId>
-                        <version>3.6.4</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.atomikos</groupId>
-                        <artifactId>transactions-jdbc</artifactId>
-                        <version>3.6.4</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                    
-                    <dependency>
-                        <groupId>javax.transaction</groupId>
-                        <artifactId>jta</artifactId>
-                        <version>1.1</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                    
+
+
                     <dependency>
                         <groupId>asm</groupId>
                         <artifactId>asm</artifactId>
-                        <version>3.1</version>
+                        <version>${asm.version}</version>
                         <scope>runtime</scope>
                     </dependency>
                     <dependency>
                         <groupId>com.h2database</groupId>
                         <artifactId>h2</artifactId>
-                        <version>1.3.146</version>
+                        <version>${h2.version}</version>
                     </dependency>
-                    
-                   <!--
-                      <dependency>
-                        <groupId>org.apache.geronimo.specs</groupId>
-                        <artifactId>geronimo-jta_1.1_spec</artifactId>
-                        <version>1.1.1</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>javax.jms</groupId>
-                        <artifactId>jms</artifactId>
-                        <version>1.1</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                   -->
+
+
                 </dependencies>
             </plugin>
+            <!-- ebean orm enhancer -->
+            <plugin>
+				<groupId>org.avaje</groupId>
+				<artifactId>ebean-maven-enhancement-plugin</artifactId>
+				<version>${ebean.version}</version>
+				<executions>
+					<execution>
+						<id>main</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>enhance</goal>
+						</goals>
+						<configuration>
+							<packages>ejb.orm</packages>
+							<transformArgs>debug=1</transformArgs>
+
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
         </plugins>
         <finalName>testenterpriseweb2</finalName>
     </build>
-    <profiles>
 
-        <profile>
-            <id>derbyserver</id>
-            
-            <properties>
-                <db.url>jdbc:derby://localhost:1527/testpattern</db.url>
-                <db.driver>org.apache.derby.jdbc.ClientDriver</db.driver>
-                <db.user>test</db.user>
-                <db.password>test</db.password>
-                <db.hbm2ddl>create-tables update</db.hbm2ddl>
-            </properties>
-        </profile>
-
-
-        <profile>
-            <id>h2</id>
-            <properties>
-                <db.url>jdbc:h2:testpattern;DB_CLOSE_DELAY=-1;LOCK_MODE=0</db.url>
-                <db.driver>org..Driver</db.driver>
-              
-                <db.user>sa</db.user>
-                <db.password></db.password>
-                <db.hbm2ddl>update</db.hbm2ddl>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <version>1.2.121</version>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 
 </project>
 

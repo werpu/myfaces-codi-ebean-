@@ -11,9 +11,10 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
+
+import ejb.util.FilterEntry;
+import ejb.util.OpType;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
-import ejb.orm.FilterEntry;
-import ejb.orm.OpType;
 
 /**
  *
