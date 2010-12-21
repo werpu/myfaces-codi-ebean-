@@ -22,11 +22,11 @@ package at.irian.webstack.support.cdi.logging;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.logging.*;
+import java.util.logging.Filter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -88,15 +88,15 @@ public class Logger implements Serializable {
     }
 
     public void log(Level level, String s) {
-        logger.logp( level, loggerName, "", s);
+        logger.logp(level, loggerName, "", s);
     }
 
     public void log(Level level, String s, Object o) {
-        logger.logp( level, loggerName, "", s, o);
+        logger.logp(level, loggerName, "", s, o);
     }
 
     public void log(Level level, String s, Object[] objects) {
-        logger.logp( level, loggerName, "", s, objects);
+        logger.logp(level, loggerName, "", s, objects);
     }
 
     public void log(Level level, String s, Throwable throwable) {
