@@ -1,0 +1,8 @@
+12-21 11:00:07 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Tabelle "O_PERSON" nicht gefunden
+Table "O_PERSON" not found; SQL statement:
+select t0.id c0, t0.first_name c1, t0.last_name c2, t0.nick_name c3, t0.version c4
+        , t1.id c5, t1.street c6, t1.house_number c7, t1.house c8, t1.door c9, t1.zip_code c10, t1.city c11, t1.country c12, t1.region c13, t1.address_type c14, t1.version c15, t1.person_id c16 
+from o_person t0
+left outer join o_address t1 on t1.person_id = t0.id  
+order by t0.id , t1.address_type asc [42102-146]
