@@ -59,9 +59,7 @@ public class SerializableProxyFactory implements InvocationHandler, Serializable
         this.generator = generator;
     }
 
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-    }
+
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         /*we have to get injection up and running to eliminate this code here*/

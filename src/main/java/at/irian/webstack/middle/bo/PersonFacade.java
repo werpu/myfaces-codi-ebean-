@@ -82,7 +82,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
      * @return
      */
     public PagingList loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
-        try {
+        /*try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream ostr = new ObjectOutputStream(bos);
             ostr.writeObject(em);
@@ -98,7 +98,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (ClassNotFoundException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        }*/
 
         Query query = em.createQuery(Person.class);
         query.fetch("addresses");
