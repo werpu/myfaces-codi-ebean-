@@ -40,7 +40,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
 
     /*now we use cdi to inject a serializable EbeanServer proxy the
     * code for the proxy generation  can be found under at.irian.webstack.support.cdi*/
-    @Inject
+    @Inject @Name
     Logger logger;
 
 

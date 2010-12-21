@@ -57,6 +57,7 @@ public class LoggerProducer {
         return (qualifier != null) ?  qualifier.value(): null;
     }
 
+    /*
     @Produces
     public Log getLoggerCL(InjectionPoint inP) {
         return LogFactory.getLog(inP.getBean().getBeanClass());
@@ -81,6 +82,6 @@ public class LoggerProducer {
         return (val != null)? LoggerFactory.getLogger(val) :  LoggerFactory.getLogger(inP.getBean().getBeanClass());
     }
 
-
+    */
 
 }
