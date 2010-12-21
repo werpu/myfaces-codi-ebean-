@@ -16,24 +16,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package middle.util;
-
-import java.io.Serializable;
+package at.irian.webstack.middle.util;
 
 /**
  *
  * @author werpu2
  */
-public class OrderEntry implements Serializable {
+public class FilterEntry {
+
+    OpType opType;
+    Object value;
     String name;
-    boolean asc;
+    Class entryType;
 
-    public boolean isAsc() {
-        return asc;
-    }
-
-    public void setAsc(boolean asc) {
-        this.asc = asc;
+    public FilterEntry(String name, Object value, Class entryType, OpType opType) {
+        this.opType = opType;
+        this.value = value;
+        this.name = name;
+        this.entryType = entryType;
     }
 
     public String getName() {
@@ -44,4 +44,27 @@ public class OrderEntry implements Serializable {
         this.name = name;
     }
 
+    public OpType getOpType() {
+        return opType;
+    }
+
+    public void setOpType(OpType opType) {
+        this.opType = opType;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    public Class getEntryType() {
+        return entryType;
+    }
+
+    public void setEntryType(Class entryType) {
+        this.entryType = entryType;
+    }
 }

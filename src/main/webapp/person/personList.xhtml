@@ -21,7 +21,7 @@
       xmlns:ez="http://java.sun.com/jsf/composite/ezcomp"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<ui:composition template="../templates/black_gloss.xhtml">
+<ui:composition template="../templates/template.xhtml">
     <ui:define name="header">
 
         <title>Person List view</title>
@@ -37,7 +37,7 @@
             <div id="search">
                 <h:panelGrid columns="3" id="searchArea">
                     <ez:personSearch searchData="#{personListView.searchData.searchMap}"/>
-                    <h:commandLink id="searchit" action="#{personListView.doSearchList}" value="&gt;&gt; Search"
+                    <h:commandLink id="searchit" action="#{personListView.doSearchList}" value="&gt;&gt; #{msgs.search}"
                                    onclick="jsf.ajax.request(this ,event, {execute:'searchArea', render:'resultArea'}); return false;">
 
                     </h:commandLink>
@@ -53,7 +53,7 @@
 
 
             <h:panelGroup id="otherActions">
-                <h:commandLink value="&gt;&gt; Create a new Person" action="#{personDetailView.goCreate}"/>
+                <h:commandLink value="&gt;&gt; #{msgs.person_create}" action="#{personDetailView.goCreate}"/>
             </h:panelGroup>
 
 

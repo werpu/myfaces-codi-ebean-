@@ -370,7 +370,7 @@
 							<goal>enhance</goal>
 						</goals>
 						<configuration>
-							<packages>middle.orm</packages>
+							<packages>at.irian.webstack.middle.orm</packages>
 							<transformArgs>debug=1</transformArgs>
 
 						</configuration>

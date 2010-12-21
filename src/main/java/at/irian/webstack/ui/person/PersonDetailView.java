@@ -16,11 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package ui.person;
+package at.irian.webstack.ui.person;
 
-import middle.bo.PersonFacadeLocal;
-import middle.orm.Address;
-import middle.orm.Person;
+import at.irian.webstack.middle.bo.PersonFacadeLocal;
+import at.irian.webstack.middle.orm.Address;
+import at.irian.webstack.middle.orm.Person;
 
 import java.io.Serializable;
 import javax.inject.Inject;

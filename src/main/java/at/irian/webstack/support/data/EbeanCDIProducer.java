@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package support.data;
+package at.irian.webstack.support.data;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.EbeanServer;

@@ -16,35 +16,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package ui.person;
+package at.irian.webstack.support.ui;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.faces.bean.ManagedBean;
-
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
-import support.data.AddressType;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import at.irian.webstack.support.data.AddressType;
 
 /**
  *
  * @author werpu2
  */
-@ManagedBean
-@SessionScoped
-public class AddressTypeBean implements Serializable {
+@FacesConverter(value="addressTypeConverter")
+public class AddressTypeConverter implements Converter {
 
-    List items = null;
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        return AddressType.getObject(Integer.parseInt(value));
+    }
 
-    public List<SelectItem> getAddressTypes() {
-        if(items == null) {
-            items = new ArrayList<SelectItem>(6);
-            for(AddressType adrType: AddressType.values()) {
-                items.add( new SelectItem(adrType.getKey(), Integer.toString(adrType.getValue()) ));
-            }
-        }
-        return items;
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
+        return Integer.toString((int) ((AddressType) value).getValue());
     }
 
 }

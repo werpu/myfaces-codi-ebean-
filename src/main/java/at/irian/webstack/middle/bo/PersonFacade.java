@@ -10,13 +10,13 @@
    See the License for the specific language governing permissions and
    limitations under the License
  */
-package middle.bo;
+package at.irian.webstack.middle.bo;
 
 import com.avaje.ebean.*;
 import com.avaje.ebean.annotation.Transactional;
-import middle.orm.*;
-import middle.util.FilterEntry;
-import middle.util.OrderEntry;
+import at.irian.webstack.middle.orm.*;
+import at.irian.webstack.middle.util.FilterEntry;
+import at.irian.webstack.middle.util.OrderEntry;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;

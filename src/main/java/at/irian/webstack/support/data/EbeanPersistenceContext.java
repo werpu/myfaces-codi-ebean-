@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package support.data;
+package at.irian.webstack.support.data;
 
 import javax.enterprise.util.Nonbinding;
 import javax.xml.ws.BindingType;

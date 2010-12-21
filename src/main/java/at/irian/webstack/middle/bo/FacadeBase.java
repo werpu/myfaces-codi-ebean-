@@ -10,32 +10,28 @@
    See the License for the specific language governing permissions and
    limitations under the License
  */
-package middle.bo;
 
-import com.avaje.ebean.PagingList;
-import middle.orm.*;
-import middle.util.FilterEntry;
-import middle.util.OrderEntry;
+package at.irian.webstack.middle.bo;
 
-import java.util.List;
+import com.avaje.ebean.EbeanServer;
 
 /**
  *
  * @author werpu2
  */
-public interface PersonFacadeLocal {
+public abstract class FacadeBase<T> {
 
-    void cancel(Person pers);
+    public FacadeBase() {
+    }
 
-    Person create();
+    protected abstract EbeanServer getEm();
 
-    public Person loadById(Long id);
 
-    public PagingList loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy);
+    public T loadById(Object identifier) {
+        return (T) getEm().find(this.getClass().getTypeParameters()[0].getClass(), identifier);
+    }
 
-    void save(Person person);
 
-    public Address createAdr();
+   
 
-    public void delete(Person person);
 }

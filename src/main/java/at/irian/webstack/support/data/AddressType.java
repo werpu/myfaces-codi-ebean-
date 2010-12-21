@@ -16,55 +16,45 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package middle.util;
+package at.irian.webstack.support.data;
 
 /**
  *
  * @author werpu2
  */
-public class FilterEntry {
+public enum AddressType {
 
-    OpType opType;
-    Object value;
-    String name;
-    Class entryType;
+    PRIVATE(0, "PRIVATE"),
+    COMPANY(1, "COMPANY"),
+    PRIVATE_SECONDARY(2, "PRIVATE_SECONDARY"),
+    COMPANY_SECONDARY(3, "COMPANY_SECONDARY");
+    
+    int value = 0;
+    String key;
 
-    public FilterEntry(String name, Object value, Class entryType, OpType opType) {
-        this.opType = opType;
-        this.value = value;
-        this.name = name;
-        this.entryType = entryType;
+    AddressType(int adrType, String key) {
+        value = adrType;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public OpType getOpType() {
-        return opType;
-    }
-
-    public void setOpType(OpType opType) {
-        this.opType = opType;
-    }
-
-    public Object getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
+    public String getKey() {
+        return key;
     }
 
-    public Class getEntryType() {
-        return entryType;
-    }
-
-    public void setEntryType(Class entryType) {
-        this.entryType = entryType;
+    static public AddressType getObject(int value) {
+        switch (value) {
+            case 0:
+                return PRIVATE;
+            case 1:
+                return COMPANY;
+            case 2:
+                return PRIVATE_SECONDARY;
+            case 3:
+                return COMPANY_SECONDARY;
+        }
+        throw new IndexOutOfBoundsException("value does not represent a proper address type");
     }
 }

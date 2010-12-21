@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package ui.person;
+package at.irian.webstack.ui.person;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -26,8 +26,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 
-import middle.util.FilterEntry;
-import middle.util.OpType;
+import at.irian.webstack.middle.util.FilterEntry;
+import at.irian.webstack.middle.util.OpType;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 /**

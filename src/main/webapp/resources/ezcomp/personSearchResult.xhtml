@@ -30,25 +30,25 @@
         <h:dataTable value="#{cc.attrs.value.getPage(0).list}" var="item" rendered="#{cc.attrs.value != null}">
             <h:column id="firstName">
                 <f:facet name="header">
-                    <h:outputText value="First Name"/>
+                    <h:outputText value="#{msgs.person_firstnm}"/>
                 </f:facet>
                 <h:outputText value="#{item.firstName}" />
             </h:column>
             <h:column id="lastName">
                 <f:facet name="header">
-                    <h:outputText value="Last Name"/>
+                    <h:outputText value="#{msgs.person_lastnm}"/>
                 </f:facet>
                 <h:outputText value="#{item.lastName}" />
             </h:column>
             <h:column id="operation">
                 <f:facet name="header">
-                    <h:outputText value="Operation"/>
+                    <h:outputText value="#{msgs.operation}"/>
                 </f:facet>
-                <h:commandLink action="#{personDetailView.goDeta}" value="Detail">
+                <h:commandLink action="#{personDetailView.goDeta}" value="#{msgs.detail}">
                     <f:setPropertyActionListener target="#{personDetailView.personId}" value="#{item.id}" />
                 </h:commandLink>
 
-                <h:commandLink style="margin-left: 5px;" action="#{personDetailView.goDelete}" value="Delete">
+                <h:commandLink style="margin-left: 5px;" action="#{personDetailView.goDelete}" value="#{msgs.delete}">
                     <f:setPropertyActionListener target="#{personDetailView.personId}" value="#{item.id}" />
                 </h:commandLink>
 

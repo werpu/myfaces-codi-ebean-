@@ -9,9 +9,9 @@
 -->
     <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
     <non-jta-data-source>jdbc/testPatternPU</non-jta-data-source>
-    <class>middle.orm.Address</class>
-    <class>middle.orm.Person</class>
-    <class>middle.orm.Entry</class>
+    <class>at.irian.webstack.middle.orm.Address</class>
+    <class>at.irian.webstack.middle.orm.Person</class>
+    <class>at.irian.webstack.middle.orm.Entry</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     
     <properties>

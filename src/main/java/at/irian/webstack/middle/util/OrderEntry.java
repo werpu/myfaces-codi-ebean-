@@ -16,12 +16,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package middle.util;
+package at.irian.webstack.middle.util;
+
+import java.io.Serializable;
 
 /**
  *
  * @author werpu2
  */
-public enum OpType {
-    EQ, LT, GT, LTE, GTE, NOT, LIKE
+public class OrderEntry implements Serializable {
+    String name;
+    boolean asc;
+
+    public boolean isAsc() {
+        return asc;
+    }
+
+    public void setAsc(boolean asc) {
+        this.asc = asc;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

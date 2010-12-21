@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package middle.orm;
+package at.irian.webstack.middle.orm;
 
 import javax.persistence.*;
 import java.io.Serializable;

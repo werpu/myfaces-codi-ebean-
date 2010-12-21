@@ -16,11 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package ui.person;
+package at.irian.webstack.ui.person;
 
 import com.avaje.ebean.PagingList;
-import middle.bo.PersonFacadeLocal;
-import middle.util.FilterEntry;
+import at.irian.webstack.middle.bo.PersonFacadeLocal;
+import at.irian.webstack.middle.util.FilterEntry;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import javax.annotation.PostConstruct;
