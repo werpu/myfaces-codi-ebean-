@@ -30,19 +30,19 @@
             <h:panelGroup id="editArea" rendered="#{personDetailView.viewMode != 'delete'}">
 
                 <h:panelGrid columns="2" id="searchArea">
-                    <h:outputText value="First Name"/>
+                    <h:outputText value="#{msgs.person_firstnm}"/>
                     <h:inputText value="#{personDetailView.person.firstName}"/>
-                    <h:outputText value="Last Name"/>
+                    <h:outputText value="#{msgs.person_lastnm}"/>
                     <h:inputText value="#{personDetailView.person.lastName}"/>
 
 
                 </h:panelGrid>
-                <h:commandLink action="#{personDetailView.addAddress}" value="&gt;&gt; #{address_add}">
+                <h:commandLink action="#{personDetailView.addAddress}" value="&gt;&gt; #{msgs.addresses_add}">
                     <f:ajax execute="@this" render="addresses" />
                 </h:commandLink>
 
                 <h:panelGroup id="addresses">
-                    <h3>Addresses</h3>
+                    <h3>#{msgs.addresses_title}</h3>
                     <c:forEach items="#{personDetailView.person.addresses}" var="adr">
 
                         <h:panelGrid columns="4">
@@ -53,14 +53,14 @@
                             <h:outputFormat value=""/>
                             <h:outputFormat value=""/>
 
-                            <h:outputFormat value="Street"/>
+                            <h:outputFormat value="#{msgs.addresses_street}"/>
                             <h:inputText value="#{adr.street}"/>
-                            <h:outputFormat value="Number"/>
+                            <h:outputFormat value="#{msgs.addresses_number}"/>
                             <h:inputText value="#{adr.houseNumber}"/>
-                            <h:outputFormat value="Door"/>
+                            <h:outputFormat value="#{msgs.addresses_door}"/>
                             <h:inputText value="#{adr.door}"/>
-                            <h:outputFormat value="Door"/>
-                            <h:inputText value="#{adr.door}"/>
+                            <h:outputFormat value="#{msgs.addresses_street}"/>
+                            <h:inputText value="#{adr.street}"/>
                         </h:panelGrid>
                         <h:commandLink action="#{personDetailView.removeAddress}" value="#{msgs.delete}">
                             <f:setPropertyActionListener target="#{personDetailView.address}" value="#{adr}"/>
