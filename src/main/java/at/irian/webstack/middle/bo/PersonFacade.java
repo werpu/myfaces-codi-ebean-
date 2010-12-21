@@ -65,7 +65,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
         return ret;
     }
 
-    //TODO expose the list directly instead of exnapsulating it
+
     public PagingList loadFromTo(int from, int to) {
         Query query = em.createNamedQuery(Person.class, "person_all");
         return getPage(from, to, query);
