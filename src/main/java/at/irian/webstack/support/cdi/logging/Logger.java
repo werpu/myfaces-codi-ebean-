@@ -37,11 +37,8 @@ public class Logger implements Serializable {
     transient java.util.logging.Logger logger;
 
     String loggerName = null;
-    boolean first = true;
 
     public Logger(String loggerName) {
-        //TODO check varioud meta loggers how they handle the original class problematic
-
         this.logger = java.util.logging.Logger.getLogger(loggerName);
         this.loggerName = loggerName;
     }
