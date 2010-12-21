@@ -238,6 +238,22 @@
             <version>${h2.version}</version>
         </dependency>
 
+        <!-- the commons logging api for the compilation -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging-api</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- slf4 api also for the compilation due to our producer -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.8</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -283,16 +299,16 @@
                 <version>2.1.1</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                     <!--
-                    <webResources>
-                        <resource>
+                    <!--
+                   <webResources>
+                       <resource>
 
 
-                            <directory>src/main/resources/webapp</directory>
+                           <directory>src/main/resources/webapp</directory>
 
-                        </resource>
-                    </webResources>
-                     -->
+                       </resource>
+                   </webResources>
+                    -->
                 </configuration>
             </plugin>
 
@@ -359,24 +375,24 @@
             </plugin>
             <!-- ebean orm enhancer -->
             <plugin>
-				<groupId>org.avaje</groupId>
-				<artifactId>ebean-maven-enhancement-plugin</artifactId>
-				<version>${ebean.version}</version>
-				<executions>
-					<execution>
-						<id>main</id>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>enhance</goal>
-						</goals>
-						<configuration>
-							<packages>at.irian.webstack.middle.orm</packages>
-							<transformArgs>debug=1</transformArgs>
+                <groupId>org.avaje</groupId>
+                <artifactId>ebean-maven-enhancement-plugin</artifactId>
+                <version>${ebean.version}</version>
+                <executions>
+                    <execution>
+                        <id>main</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>enhance</goal>
+                        </goals>
+                        <configuration>
+                            <packages>at.irian.webstack.middle.orm</packages>
+                            <transformArgs>debug=1</transformArgs>
 
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
         <finalName>testenterpriseweb2</finalName>

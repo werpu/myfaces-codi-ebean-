@@ -20,19 +20,20 @@
 package at.irian.webstack.support.cdi.logging;
 
 import at.irian.webstack.support.cdi.util.Name;
-import at.irian.webstack.support.cdi.util.SerializableProxyFactory;
-import com.avaje.ebean.EbeanServer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Named;
-import javax.inject.Qualifier;
-import java.lang.annotation.Annotation;
-import java.util.Iterator;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
+ *
+ * Note we only have to proxy jul, both sl4j and
+ * commons-logging survive serialisation per default
  */
 
 @Named
@@ -45,14 +46,41 @@ public class LoggerProducer {
     @Produces
     @Name
     public Logger getLoggerWithName(InjectionPoint inP) {
+        String val = getValue(inP);
+
+        return (val != null) ? new Logger(val): new Logger(inP.getBean().getBeanClass().getName());
+    }
+
+    private String getValue(InjectionPoint inP) {
         Name qualifier = (Name) inP.getAnnotated().getAnnotation(Name.class);
 
-        if (qualifier != null) {
-            String val = qualifier.value();
-            return new Logger(val);
-        }
-
-        return new Logger(inP.getBean().getBeanClass().getName());
+        return (qualifier != null) ?  qualifier.value(): null;
     }
+
+    @Produces
+    public Log getLoggerCL(InjectionPoint inP) {
+        return LogFactory.getLog(inP.getBean().getBeanClass());
+    }
+
+    @Produces
+    @Name
+    public Log getLoggerCLWithName(InjectionPoint inP) {
+        String val = getValue(inP);
+        return (val != null)? LogFactory.getLog(val) :  LogFactory.getLog(inP.getBean().getBeanClass());
+    }
+
+    @Produces
+    public org.slf4j.Logger getLoggerSL(InjectionPoint inP) {
+        return LoggerFactory.getLogger(inP.getBean().getBeanClass());
+    }
+
+    @Produces
+    @Name
+    public org.slf4j.Logger getLoggerSLWithName(InjectionPoint inP) {
+        String val = getValue(inP);
+        return (val != null)? LoggerFactory.getLogger(val) :  LoggerFactory.getLogger(inP.getBean().getBeanClass());
+    }
+
+
 
 }
