@@ -15,23 +15,21 @@ package at.irian.webstack.middle.bo;
 
 import com.avaje.ebean.EbeanServer;
 
+import javax.inject.Inject;
+
 /**
- *
  * @author werpu2
  */
 public abstract class FacadeBase<T> {
 
+    @Inject
+    EbeanServer em;
+
     public FacadeBase() {
     }
 
-    protected abstract EbeanServer getEm();
-
-
     public T loadById(Object identifier) {
-        return (T) getEm().find(this.getClass().getTypeParameters()[0].getClass(), identifier);
+        return (T) em.find(this.getClass().getTypeParameters()[0].getClass(), identifier);
     }
-
-
-   
 
 }

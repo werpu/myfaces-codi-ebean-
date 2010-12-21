@@ -84,6 +84,8 @@ public class PersonDetailView implements Serializable {
 
         personFacade.save(person);
 
+
+
         return NAV_LIST;
     }
 

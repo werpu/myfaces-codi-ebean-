@@ -19,10 +19,9 @@ import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.middle.util.OrderEntry;
 
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.List;
 
 //import org.apache.myfaces.extensions.cdi.jpa.api.Transactional;
@@ -37,23 +36,10 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
     public static final String ATTR_ADDRESSES = "addresses";
     public static final String ATTR_FIRSTNAME = "firstName";
 
-    /**
-     * The section 4.2 of the ejb3 core spec says passivation cannot happen
-     * in case of a non serializable entity manager so we leave it as it is
-     * this does not mean however that our referencing scope givers
-     * cannot be passivated in certian cluster and cloud situations
-     * so we have to deal with it differently
-     */
-    //@PersistenceContext(unitName = "testPatternPU",type=PersistenceContextType.EXTENDED)
-    //transient EntityManager em;
-    //@EbeanPersistenceContext(value = "PersonFacade")
-    transient EbeanServer em = Ebean.getServer(null);
+    /*now we use cdi to inject a serializable EbeanServer proxy the
+    * code for the proxy generation  can be found under at.irian.webstack.support.cdi*/
 
-    //passivation, activation state holder
 
-    public EbeanServer getEm() {
-        return em;
-    }
 
     public Person create() {
         Person ret = new Person();
@@ -61,6 +47,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
     }
 
     public Address createAdr() {
+
         Address ret = new Address();
         return ret;
     }
@@ -95,6 +82,24 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
      * @return
      */
     public PagingList loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream ostr = new ObjectOutputStream(bos);
+            ostr.writeObject(em);
+            ostr.flush();
+            byte [] store = bos.toByteArray();
+            ByteArrayInputStream bis = new ByteArrayInputStream(store);
+            ObjectInputStream istr = new ObjectInputStream(bis);
+            em = (EbeanServer) istr.readObject();
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
         Query query = em.createQuery(Person.class);
         query.fetch("addresses");
         ExpressionList queryBuilder = query.where();
@@ -172,8 +177,8 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
 
     public void cancel(Person t) {
         if (t.getId() != null) {
-            getEm().refresh(t);
-            getEm().refreshMany(t, "addresses");
+            em.refresh(t);
+            em.refreshMany(t, "addresses");
         }
     }
 
@@ -181,8 +186,6 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
         return em.find(Person.class, id);
     }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        /*we have to get injection up and running to eliminate this code here*/
-        em = Ebean.getServer(null);
-    }
+
+
 }

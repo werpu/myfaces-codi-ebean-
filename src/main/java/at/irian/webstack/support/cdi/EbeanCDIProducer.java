@@ -16,13 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.irian.webstack.support.data;
+package at.irian.webstack.support.cdi;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.EbeanServer;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
+import javax.inject.Named;
+import java.io.Serializable;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -31,8 +33,22 @@ import javax.enterprise.inject.spi.InjectionPoint;
  * Producer which issues the correct cdi artifacts based on ajaves ebean
  *
  */
-public class EbeanCDIProducer {
+@Named
+public class EbeanCDIProducer implements Serializable {
 
+
+    public class EBeanFactory implements Factory {
+
+        String serverName = null;
+
+        public EBeanFactory(String serverName) {
+            this.serverName = serverName;
+        }
+
+        public Object createInstance() {
+            return Ebean.getServer(null);
+        }
+    }
 
     /**
      * produces an ebean server, usually if no parameter is given the default
@@ -43,14 +59,10 @@ public class EbeanCDIProducer {
     @Produces
     @EbeanPersistenceContext(value="")
     EbeanServer getEbeanServer(InjectionPoint inP) {
-        String val = inP.getAnnotated().getAnnotation(EbeanPersistenceContext.class).value();
+        //String val = inP.getAnnotated().getAnnotation(EbeanPersistenceContext.class).value();
         //String unitName =  inP.getAnnotated().getAnnotation(EbeanPersistenceContext.class).unitName();
 
-        EbeanServer serv = Ebean.getServer(val);
-
-
-        //TODO deal with the unit name override
-
+        EbeanServer serv = (EbeanServer) SerializableProxyFactory.newInstance(new EBeanFactory(null));
         return serv;
     }
 
