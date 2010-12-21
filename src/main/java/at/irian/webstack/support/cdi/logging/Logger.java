@@ -88,19 +88,19 @@ public class Logger implements Serializable {
     }
 
     public void log(Level level, String s) {
-        logger.log(level, s);
+        logger.logp( level, loggerName, "", s);
     }
 
     public void log(Level level, String s, Object o) {
-        logger.log(level, s, o);
+        logger.logp( level, loggerName, "", s, o);
     }
 
     public void log(Level level, String s, Object[] objects) {
-        logger.log(level, s, objects);
+        logger.logp( level, loggerName, "", s, objects);
     }
 
     public void log(Level level, String s, Throwable throwable) {
-        logger.log(level, s, throwable);
+        logger.logp( level, loggerName, "", s, throwable);
     }
 
     public void logp(Level level, String s, String s1, String s2) {
