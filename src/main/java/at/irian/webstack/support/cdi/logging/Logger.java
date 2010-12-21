@@ -43,7 +43,6 @@ public class Logger implements Serializable {
         this.loggerName = loggerName;
     }
 
-
     public Logger(java.util.logging.Logger logger) {
         this.logger = logger;
     }
@@ -52,11 +51,11 @@ public class Logger implements Serializable {
         return new Logger(java.util.logging.Logger.getLogger(s));
     }
 
-    public static  Logger getLogger(String s, String s1) {
+    public static Logger getLogger(String s, String s1) {
         return new Logger(java.util.logging.Logger.getLogger(s, s1));
     }
 
-    public static  Logger getAnonymousLogger() {
+    public static Logger getAnonymousLogger() {
         return new Logger(java.util.logging.Logger.getAnonymousLogger());
     }
 
@@ -97,7 +96,7 @@ public class Logger implements Serializable {
     }
 
     public void log(Level level, String s, Throwable throwable) {
-        logger.logp( level, loggerName, "", s, throwable);
+        logger.logp(level, loggerName, "", s, throwable);
     }
 
     public void logp(Level level, String s, String s1, String s2) {
@@ -157,16 +156,16 @@ public class Logger implements Serializable {
     }
 
     public void severe(String s) {
-         logger.logp(Level.SEVERE,loggerName, "", s);
+        logger.logp(Level.SEVERE, loggerName, "", s);
     }
 
     public void warning(String s) {
-         logger.logp(Level.WARNING,loggerName, "", s);
+        logger.logp(Level.WARNING, loggerName, "", s);
     }
 
     public void info(String s) {
 
-        logger.logp(Level.INFO,loggerName, "", s);
+        logger.logp(Level.INFO, loggerName, "", s);
     }
 
     public void config(String s) {
@@ -174,15 +173,15 @@ public class Logger implements Serializable {
     }
 
     public void fine(String s) {
-         logger.logp(Level.FINE,loggerName, "", s);
+        logger.logp(Level.FINE, loggerName, "", s);
     }
 
     public void finer(String s) {
-         logger.logp(Level.FINER,loggerName, "", s);
+        logger.logp(Level.FINER, loggerName, "", s);
     }
 
     public void finest(String s) {
-         logger.logp(Level.FINEST,loggerName, "", s);
+        logger.logp(Level.FINEST, loggerName, "", s);
     }
 
     public void setLevel(Level level) throws SecurityException {
