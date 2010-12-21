@@ -13,6 +13,7 @@
 
 package at.irian.webstack.middle.bo;
 
+import at.irian.webstack.support.cdi.util.Name;
 import com.avaje.ebean.EbeanServer;
 
 import javax.inject.Inject;

@@ -19,9 +19,16 @@
 
 package at.irian.webstack.support.cdi.logging;
 
+import at.irian.webstack.support.cdi.util.Name;
+import at.irian.webstack.support.cdi.util.SerializableProxyFactory;
+import com.avaje.ebean.EbeanServer;
+
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Named;
+import javax.inject.Qualifier;
+import java.lang.annotation.Annotation;
+import java.util.Iterator;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -30,13 +37,22 @@ import javax.inject.Named;
 
 @Named
 public class LoggerProducer {
-     @Produces
-     Logger getLogger(InjectionPoint inP) {
-        //String val = inP.getAnnotated().getAnnotation(EbeanPersistenceContext.class).value();
-        //String unitName =  inP.getAnnotated().getAnnotation(EbeanPersistenceContext.class).unitName();
+    @Produces
+    public Logger getLogger(InjectionPoint inP) {
+        return new Logger(inP.getBean().getBeanClass().getName());
+    }
 
+    @Produces
+    @Name
+    public Logger getLoggerWithName(InjectionPoint inP) {
+        Name qualifier = (Name) inP.getAnnotated().getAnnotation(Name.class);
 
+        if (qualifier != null) {
+            String val = qualifier.value();
+            return new Logger(val);
+        }
 
         return new Logger(inP.getBean().getBeanClass().getName());
     }
+
 }

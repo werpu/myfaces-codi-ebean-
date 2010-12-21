@@ -16,9 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.irian.webstack.support.cdi.ebean;
+package at.irian.webstack.support.cdi.util;
 
 import javax.enterprise.util.Nonbinding;
+import javax.inject.Qualifier;
 import javax.xml.ws.BindingType;
 import java.lang.annotation.Retention;
 import static java.lang.annotation.RetentionPolicy.*;
@@ -31,10 +32,9 @@ import static java.lang.annotation.ElementType.*;
  * @version $Revision$ $Date$
  */
 
-@BindingType
+@Qualifier
 @Retention(RUNTIME)
 @Target({TYPE, METHOD, FIELD, PARAMETER})
-public @interface EbeanPersistenceContext {
-    @Nonbinding public String value();
-    //@Nonbinding public String unitName();
+public @interface Name {
+    @Nonbinding public String value() default "";
 }

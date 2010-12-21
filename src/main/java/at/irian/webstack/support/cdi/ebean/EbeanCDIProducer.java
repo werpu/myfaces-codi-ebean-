@@ -19,6 +19,7 @@
 package at.irian.webstack.support.cdi.ebean;
 
 import at.irian.webstack.support.cdi.util.Factory;
+import at.irian.webstack.support.cdi.util.Name;
 import at.irian.webstack.support.cdi.util.SerializableProxyFactory;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.EbeanServer;
@@ -52,6 +53,8 @@ public class EbeanCDIProducer implements Serializable {
         }
     }
 
+
+
     /**
      * produces an ebean server, usually if no parameter is given the default
      * root server is chosen if a value param is given we use the one from the value
@@ -59,11 +62,26 @@ public class EbeanCDIProducer implements Serializable {
      */
 
     @Produces
-    @EbeanPersistenceContext(value="")
-    EbeanServer getEbeanServer(InjectionPoint inP) {
-        //String val = inP.getAnnotated().getAnnotation(EbeanPersistenceContext.class).value();
-        //String unitName =  inP.getAnnotated().getAnnotation(EbeanPersistenceContext.class).unitName();
+    public EbeanServer getEbeanServer(InjectionPoint inP) {
+        return (EbeanServer) SerializableProxyFactory.newInstance(new EBeanFactory(null));
 
+    }
+
+    /**
+     * produces an ebean server, usually if no parameter is given the default
+     * root server is chosen if a value param is given we use the one from the value
+     *
+     */
+
+    @Produces
+    @Name
+    public EbeanServer getEbeanServerWithName(InjectionPoint inP) {
+        Name qualifier =  inP.getAnnotated().getAnnotation(Name.class);
+        String unitName = (qualifier != null)? qualifier.value(): null;
+        //String val = inP.getAnnotated().getAnnotation()
+        if(unitName != null && unitName.isEmpty()) {
+            unitName = null;
+        }
         EbeanServer serv = (EbeanServer) SerializableProxyFactory.newInstance(new EBeanFactory(null));
         return serv;
     }
