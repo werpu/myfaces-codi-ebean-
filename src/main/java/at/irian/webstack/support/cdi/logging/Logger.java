@@ -48,20 +48,20 @@ public class Logger implements Serializable {
         this.logger = logger;
     }
 
-    public Logger getLogger(String s) {
-        return new Logger(logger.getLogger(s));
+    public static Logger getLogger(String s) {
+        return new Logger(java.util.logging.Logger.getLogger(s));
     }
 
-    public Logger getLogger(String s, String s1) {
-        return new Logger(logger.getLogger(s, s1));
+    public static  Logger getLogger(String s, String s1) {
+        return new Logger(java.util.logging.Logger.getLogger(s, s1));
     }
 
-    public Logger getAnonymousLogger() {
-        return new Logger(logger.getAnonymousLogger());
+    public static  Logger getAnonymousLogger() {
+        return new Logger(java.util.logging.Logger.getAnonymousLogger());
     }
 
-    public java.util.logging.Logger getAnonymousLogger(String s) {
-        return logger.getAnonymousLogger(s);
+    public static java.util.logging.Logger getAnonymousLogger(String s) {
+        return java.util.logging.Logger.getAnonymousLogger(s);
     }
 
     public ResourceBundle getResourceBundle() {
