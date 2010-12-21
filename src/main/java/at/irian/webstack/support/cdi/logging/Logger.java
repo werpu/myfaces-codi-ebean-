@@ -31,9 +31,12 @@ import java.util.logging.LogRecord;
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
+
  */
 
 public class Logger implements Serializable {
+    private static final int MIN_TRACE_DEPTH = 3;
+    private static final String PACKAGE_ID = "at.irian.webstack.support.cdi.logging";
     transient java.util.logging.Logger logger;
 
     String loggerName = null;
@@ -84,22 +87,57 @@ public class Logger implements Serializable {
     }
 
     public void log(Level level, String s) {
-        logger.logp(level, loggerName, "", s);
+        if (!logger.isLoggable(level)) {
+            return;
+        }
+        StackTraceElement traceElement = getCaller();
+
+        logger.logp(level, traceElement.getClassName(), traceElement.getFileName(), s);
+    }
+
+    private StackTraceElement getCaller() {
+        StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+
+        StackTraceElement elem = trace[Math.max(Math.min(trace.length - 1, MIN_TRACE_DEPTH), 0)];
+        int cnt = MIN_TRACE_DEPTH + 1;
+        //in case of a pattern still present we have to walk higher than the min height
+        while (elem.getClassName().startsWith(PACKAGE_ID) && cnt < trace.length) {
+            elem = trace[Math.max(Math.min(trace.length - 1, cnt), 0)];
+        }
+        return elem;
     }
 
     public void log(Level level, String s, Object o) {
-        logger.logp(level, loggerName, "", s, o);
+        if (!logger.isLoggable(level)) {
+            return;
+        }
+        StackTraceElement traceElement = getCaller();
+
+        logger.logp(level, traceElement.getClassName(), traceElement.getMethodName(), s, o);
     }
 
     public void log(Level level, String s, Object[] objects) {
-        logger.logp(level, loggerName, "", s, objects);
+        if (!logger.isLoggable(level)) {
+            return;
+        }
+
+        StackTraceElement traceElement = getCaller();
+
+        logger.logp(level, traceElement.getClassName(), traceElement.getMethodName(), s, objects);
     }
 
     public void log(Level level, String s, Throwable throwable) {
-        logger.logp(level, loggerName, "", s, throwable);
+        if (!logger.isLoggable(level)) {
+            return;
+        }
+
+        StackTraceElement traceElement = getCaller();
+
+        logger.logp(level, traceElement.getClassName(), traceElement.getMethodName(), s, throwable);
     }
 
     public void logp(Level level, String s, String s1, String s2) {
+        //no level check here, we do not do anything here so no pre performance check is needed
         logger.logp(level, s, s1, s2);
     }
 
@@ -132,23 +170,33 @@ public class Logger implements Serializable {
     }
 
     public void entering(String s, String s1) {
-        logger.entering(s, s1);
+        StackTraceElement traceElement = getCaller();
+
+        logger.entering(traceElement.getClassName(), traceElement.getMethodName());
     }
 
     public void entering(String s, String s1, Object o) {
-        logger.entering(s, s1, o);
+        StackTraceElement traceElement = getCaller();
+
+        logger.entering(traceElement.getClassName(), traceElement.getMethodName(), o);
     }
 
     public void entering(String s, String s1, Object[] objects) {
-        logger.entering(s, s1, objects);
+        StackTraceElement traceElement = getCaller();
+
+        logger.entering(traceElement.getClassName(), traceElement.getMethodName(), objects);
     }
 
     public void exiting(String s, String s1) {
-        logger.exiting(s, s1);
+        StackTraceElement traceElement = getCaller();
+
+        logger.exiting(traceElement.getClassName(), traceElement.getMethodName());
     }
 
     public void exiting(String s, String s1, Object o) {
-        logger.exiting(s, s1, o);
+        StackTraceElement traceElement = getCaller();
+
+        logger.exiting(traceElement.getClassName(), traceElement.getMethodName(), o);
     }
 
     public void throwing(String s, String s1, Throwable throwable) {
@@ -156,16 +204,33 @@ public class Logger implements Serializable {
     }
 
     public void severe(String s) {
-        logger.logp(Level.SEVERE, loggerName, "", s);
+        if (!logger.isLoggable(Level.SEVERE)) {
+            return;
+        }
+
+        StackTraceElement traceElement = getCaller();
+
+        logger.logp(Level.SEVERE, traceElement.getClassName(), traceElement.getMethodName(), s);
     }
 
     public void warning(String s) {
-        logger.logp(Level.WARNING, loggerName, "", s);
+        if (!logger.isLoggable(Level.WARNING)) {
+            return;
+        }
+
+        StackTraceElement traceElement = getCaller();
+
+        logger.logp(Level.WARNING, traceElement.getClassName(), traceElement.getMethodName(), s);
     }
 
     public void info(String s) {
+        if (!logger.isLoggable(Level.INFO)) {
+            return;
+        }
 
-        logger.logp(Level.INFO, loggerName, "", s);
+        StackTraceElement traceElement = getCaller();
+
+        logger.logp(Level.INFO, traceElement.getClassName(), traceElement.getMethodName(), s);
     }
 
     public void config(String s) {
@@ -173,15 +238,33 @@ public class Logger implements Serializable {
     }
 
     public void fine(String s) {
-        logger.logp(Level.FINE, loggerName, "", s);
+        if (!logger.isLoggable(Level.FINE)) {
+            return;
+        }
+
+        StackTraceElement traceElement = getCaller();
+
+        logger.logp(Level.FINE, traceElement.getClassName(), traceElement.getMethodName(), s);
     }
 
     public void finer(String s) {
-        logger.logp(Level.FINER, loggerName, "", s);
+        if (!logger.isLoggable(Level.FINER)) {
+            return;
+        }
+
+        StackTraceElement traceElement = getCaller();
+
+        logger.logp(Level.FINER, traceElement.getClassName(), traceElement.getMethodName(), s);
     }
 
     public void finest(String s) {
-        logger.logp(Level.FINEST, loggerName, "", s);
+        if (!logger.isLoggable(Level.FINEST)) {
+            return;
+        }
+
+        StackTraceElement traceElement = getCaller();
+
+        logger.logp(Level.FINEST, traceElement.getClassName(), traceElement.getMethodName(), s);
     }
 
     public void setLevel(Level level) throws SecurityException {

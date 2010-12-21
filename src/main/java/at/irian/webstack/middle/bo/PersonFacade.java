@@ -90,12 +90,12 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
         /*try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream ostr = new ObjectOutputStream(bos);
-            ostr.writeObject(em);
+            ostr.writeObject(logger);
             ostr.flush();
             byte [] store = bos.toByteArray();
             ByteArrayInputStream bis = new ByteArrayInputStream(store);
             ObjectInputStream istr = new ObjectInputStream(bis);
-            em = (EbeanServer) istr.readObject();
+            logger = (Logger) istr.readObject();
 
 
 
