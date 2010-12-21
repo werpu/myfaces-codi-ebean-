@@ -65,7 +65,6 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
         return ret;
     }
 
-
     public PagingList loadFromTo(int from, int to) {
         Query query = em.createNamedQuery(Person.class, "person_all");
         return getPage(from, to, query);
@@ -73,7 +72,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
 
     private PagingList getPage(int from, int to, Query query) {
         int pageSize = to - from;
-        int page = Math.max(10, to-from);
+        int page = Math.max(10, to - from);
 
         PagingList resList = query.findPagingList(to - from);
 
@@ -100,7 +99,6 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
         query.fetch("addresses");
         ExpressionList queryBuilder = query.where();
 
-
         //ebeans internally maps the values to prepared statemes
         //so doing it this way is save
 
@@ -109,33 +107,38 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
         //either way this is way superior to what jpa is doing
         //which is too low level
 
-        for(FilterEntry entry: filter) {
+        for (FilterEntry entry : filter) {
 
-              switch (entry.getOpType()) {
-                    case GTE:
-                        queryBuilder = queryBuilder.ge(entry.getName(), entry.getValue());
-                        break;
-                    case GT:
-                        queryBuilder = queryBuilder.gt(entry.getName(), entry.getValue());
-                        break;
-                    case EQ:
-                        queryBuilder = queryBuilder.eq(entry.getName(), entry.getValue());
-                        break;
-                    case LIKE:
-                        queryBuilder = queryBuilder.like(entry.getName(), (String) entry.getValue());
-                        break;
-                    case LT:
-                        queryBuilder = queryBuilder.lt(entry.getName(), (String) entry.getValue());
-                        break;
-                    case LTE:
-                        queryBuilder = queryBuilder.le(entry.getName(), (String) entry.getValue());
-                        break;
-                    default:
-                        break;
-                }
+            switch (entry.getOpType()) {
+                case GTE:
+                    queryBuilder = queryBuilder.ge(entry.getName(), entry.getValue());
+                    break;
+                case GT:
+                    queryBuilder = queryBuilder.gt(entry.getName(), entry.getValue());
+                    break;
+                case EQ:
+                    queryBuilder = queryBuilder.eq(entry.getName(), entry.getValue());
+                    break;
+                case LIKE:
+                    queryBuilder = queryBuilder.like(entry.getName(), (String) entry.getValue());
+                    break;
+                case LT:
+                    queryBuilder = queryBuilder.lt(entry.getName(),  entry.getValue());
+                    break;
+                case LTE:
+                    queryBuilder = queryBuilder.le(entry.getName(), entry.getValue());
+                    break;
+                default:
+                    break;
+            }
 
         }
 
+        if (orderBy != null) {
+            for (OrderEntry entry : orderBy) {
+                queryBuilder.orderBy(entry.getName());
+            }
+        }
 
         return getPage(from, to, query);
     }
@@ -174,14 +177,11 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
         }
     }
 
-
-
     public Person loadById(Long id) {
         return em.find(Person.class, id);
     }
 
-
-     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         /*we have to get injection up and running to eliminate this code here*/
         em = Ebean.getServer("PersonFacade");
     }
