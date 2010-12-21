@@ -12,6 +12,7 @@
  */
 package at.irian.webstack.middle.bo;
 
+import at.irian.webstack.support.cdi.logging.Logger;
 import com.avaje.ebean.*;
 import com.avaje.ebean.annotation.Transactional;
 import at.irian.webstack.middle.orm.*;
@@ -38,16 +39,18 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
 
     /*now we use cdi to inject a serializable EbeanServer proxy the
     * code for the proxy generation  can be found under at.irian.webstack.support.cdi*/
-
+    @Inject
+    Logger logger;
 
 
     public Person create() {
+        logger.info("Person create");
         Person ret = new Person();
         return ret;
     }
 
     public Address createAdr() {
-
+        logger.info("Person createAdr");
         Address ret = new Address();
         return ret;
     }
@@ -82,6 +85,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
      * @return
      */
     public PagingList loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
+        logger.info("load from to");
         /*try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream ostr = new ObjectOutputStream(bos);

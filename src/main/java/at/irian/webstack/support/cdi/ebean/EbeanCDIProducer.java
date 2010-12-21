@@ -16,8 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.irian.webstack.support.cdi;
+package at.irian.webstack.support.cdi.ebean;
 
+import at.irian.webstack.support.cdi.util.Factory;
+import at.irian.webstack.support.cdi.util.SerializableProxyFactory;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.EbeanServer;
 

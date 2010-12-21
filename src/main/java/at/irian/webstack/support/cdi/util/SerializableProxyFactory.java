@@ -17,11 +17,10 @@
  * under the License.
  */
 
-package at.irian.webstack.support.cdi;
+package at.irian.webstack.support.cdi.util;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

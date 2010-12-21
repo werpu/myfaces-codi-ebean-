@@ -16,25 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.irian.webstack.support.cdi;
 
-import javax.enterprise.util.Nonbinding;
-import javax.xml.ws.BindingType;
-import java.lang.annotation.Retention;
-import static java.lang.annotation.RetentionPolicy.*;
-import java.lang.annotation.Target;
-import static java.lang.annotation.ElementType.*;
+package at.irian.webstack.support.cdi.util;
 
+import java.io.Serializable;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 
-@BindingType
-@Retention(RUNTIME)
-@Target({TYPE, METHOD, FIELD, PARAMETER})
-public @interface EbeanPersistenceContext {
-    @Nonbinding public String value();
-    //@Nonbinding public String unitName();
+public interface Factory extends Serializable{
+    public Object createInstance();
 }
