@@ -19,10 +19,6 @@
 
 package at.irian.webstack.support.cdi.logging;
 
-import at.irian.webstack.support.cdi.ebean.EbeanPersistenceContext;
-import at.irian.webstack.support.cdi.util.SerializableProxyFactory;
-import com.avaje.ebean.EbeanServer;
-
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Named;
