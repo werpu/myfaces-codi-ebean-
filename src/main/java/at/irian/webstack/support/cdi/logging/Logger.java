@@ -22,11 +22,11 @@ package at.irian.webstack.support.cdi.logging;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.logging.Filter;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
+import java.util.logging.*;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -37,18 +37,18 @@ public class Logger implements Serializable {
     transient java.util.logging.Logger logger;
 
     String loggerName = null;
-
-    //TODO set a custom format which replaces the original class name for the logger
+    boolean first = true;
 
     public Logger(String loggerName) {
-        logger = java.util.logging.Logger.getLogger(loggerName);
+        //TODO check varioud meta loggers how they handle the original class problematic
 
+        this.logger = java.util.logging.Logger.getLogger(loggerName);
         this.loggerName = loggerName;
     }
 
+
     public Logger(java.util.logging.Logger logger) {
         this.logger = logger;
-
     }
 
     public Logger getLogger(String s) {
@@ -160,16 +160,16 @@ public class Logger implements Serializable {
     }
 
     public void severe(String s) {
-        logger.severe(s);
+         logger.logp(Level.SEVERE,loggerName, "", s);
     }
 
     public void warning(String s) {
-        logger.warning(s);
+         logger.logp(Level.WARNING,loggerName, "", s);
     }
 
     public void info(String s) {
 
-        logger.info(s);
+        logger.logp(Level.INFO,loggerName, "", s);
     }
 
     public void config(String s) {
@@ -177,15 +177,15 @@ public class Logger implements Serializable {
     }
 
     public void fine(String s) {
-        logger.fine(s);
+         logger.logp(Level.FINE,loggerName, "", s);
     }
 
     public void finer(String s) {
-        logger.finer(s);
+         logger.logp(Level.FINER,loggerName, "", s);
     }
 
     public void finest(String s) {
-        logger.finest(s);
+         logger.logp(Level.FINEST,loggerName, "", s);
     }
 
     public void setLevel(Level level) throws SecurityException {
