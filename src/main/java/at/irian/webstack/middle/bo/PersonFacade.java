@@ -47,7 +47,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
     //@PersistenceContext(unitName = "testPatternPU",type=PersistenceContextType.EXTENDED)
     //transient EntityManager em;
     //@EbeanPersistenceContext(value = "PersonFacade")
-    transient EbeanServer em = Ebean.getServer(null);
+    transient EbeanServer em = Ebean.getServer("PersonFacade");
 
     //passivation, activation state holder
 
@@ -183,6 +183,6 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
 
      private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         /*we have to get injection up and running to eliminate this code here*/
-        em = Ebean.getServer(null);
+        em = Ebean.getServer("PersonFacade");
     }
 }
