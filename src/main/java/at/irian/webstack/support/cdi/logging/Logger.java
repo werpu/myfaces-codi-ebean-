@@ -101,6 +101,7 @@ public class Logger implements Serializable {
         StackTraceElement elem = trace[Math.max(Math.min(trace.length - 1, MIN_TRACE_DEPTH), 0)];
         int cnt = MIN_TRACE_DEPTH + 1;
         //in case of a pattern still present we have to walk higher than the min height
+
         while (elem.getClassName().startsWith(PACKAGE_ID) && cnt < trace.length) {
             elem = trace[Math.max(Math.min(trace.length - 1, cnt), 0)];
         }
