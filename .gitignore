@@ -2,6 +2,7 @@ target/
 .svn
 out/
 test/
+logs/
 *.iml
 *.ipr
 *.iws

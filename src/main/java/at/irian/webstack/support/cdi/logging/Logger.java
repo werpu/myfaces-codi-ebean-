@@ -46,7 +46,7 @@ public class Logger implements Serializable {
         this.loggerName = loggerName;
     }
 
-    public Logger(java.util.logging.Logger logger) {
+    protected Logger(java.util.logging.Logger logger) {
         this.logger = logger;
     }
 
