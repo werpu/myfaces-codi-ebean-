@@ -27,18 +27,17 @@ import com.avaje.ebean.EbeanServer;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Named;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
- *
- * Producer which issues the correct cdi artifacts based on ajaves ebean
- *
+ *          <p/>
+ *          Producer which issues the correct cdi artifacts based on ajaves ebean
  */
 @Named
 public class EbeanCDIProducer implements Serializable {
-
 
     public class EBeanFactory implements Factory {
 
@@ -53,12 +52,9 @@ public class EbeanCDIProducer implements Serializable {
         }
     }
 
-
-
     /**
      * produces an ebean server, usually if no parameter is given the default
      * root server is chosen if a value param is given we use the one from the value
-     *
      */
 
     @Produces
@@ -70,20 +66,31 @@ public class EbeanCDIProducer implements Serializable {
     /**
      * produces an ebean server, usually if no parameter is given the default
      * root server is chosen if a value param is given we use the one from the value
-     *
      */
 
     @Produces
     @Name
     public EbeanServer getEbeanServerWithName(InjectionPoint inP) {
-        Name qualifier =  inP.getAnnotated().getAnnotation(Name.class);
-        String unitName = (qualifier != null)? qualifier.value(): null;
+        Name qualifier = inP.getAnnotated().getAnnotation(Name.class);
+        String unitName = (qualifier != null) ? qualifier.value() : null;
         //String val = inP.getAnnotated().getAnnotation()
-        if(unitName != null && unitName.isEmpty()) {
+        if (unitName != null && unitName.isEmpty()) {
             unitName = null;
         }
         EbeanServer serv = (EbeanServer) SerializableProxyFactory.newInstance(new EBeanFactory(null));
         return serv;
     }
+
+    /*@Produces
+    @PersistenceContext
+    public EbeanServer getEbeanServerFromEM(InjectionPoint inP) {
+        PersistenceContext qualifier = inP.getAnnotated().getAnnotation(PersistenceContext.class);
+        String unitName = (qualifier != null) ? qualifier.unitName() : null;
+        if (unitName != null && unitName.isEmpty()) {
+            unitName = null;
+        }
+        EbeanServer serv = (EbeanServer) SerializableProxyFactory.newInstance(new EBeanFactory(null));
+        return serv;
+    } */
 
 }

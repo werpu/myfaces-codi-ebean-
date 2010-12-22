@@ -121,6 +121,8 @@
             <version>${openwebbeans.version}</version>
         </dependency>
 
+
+
         <!-- Apache OpenJPA -->
         <!--
         <dependency>
