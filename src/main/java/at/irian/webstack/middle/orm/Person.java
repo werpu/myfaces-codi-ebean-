@@ -18,6 +18,8 @@
  */
 package at.irian.webstack.middle.orm;
 
+import at.irian.webstack.middle.orm.security.Security;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -64,6 +66,9 @@ public class Person implements Serializable {
     @OneToMany(cascade=CascadeType.ALL)
     @OrderBy(value="addressType asc")
     List<Address> addresses = new LinkedList<Address>();
+
+    @OneToMany
+    List<Security> credentials;
 
 
     public Long getId() {

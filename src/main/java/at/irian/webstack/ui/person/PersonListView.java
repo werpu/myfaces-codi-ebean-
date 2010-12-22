@@ -18,9 +18,9 @@
  */
 package at.irian.webstack.ui.person;
 
-import com.avaje.ebean.PagingList;
-import at.irian.webstack.middle.bo.PersonFacadeLocal;
+import at.irian.webstack.middle.bo.PersonFacade;
 import at.irian.webstack.middle.util.FilterEntry;
+import com.avaje.ebean.PagingList;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import javax.annotation.PostConstruct;
@@ -43,7 +43,7 @@ public class PersonListView implements Serializable {
      * we inject our person facade to handle the raw details
      */
     @Inject
-    PersonFacadeLocal personFacade;
+    PersonFacade personFacade;
     PagingList listModel = null;
 
     @PostConstruct

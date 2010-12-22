@@ -18,15 +18,14 @@
  */
 package at.irian.webstack.ui.person;
 
-import at.irian.webstack.middle.bo.PersonFacadeLocal;
+import at.irian.webstack.middle.bo.PersonFacade;
 import at.irian.webstack.middle.orm.Address;
 import at.irian.webstack.middle.orm.Person;
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
-import java.io.Serializable;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+import java.io.Serializable;
 
 /**
  * @author werpu2
@@ -44,7 +43,7 @@ public class PersonDetailView implements Serializable {
     PersonListSearchModel searchData;
 
     @Inject
-    PersonFacadeLocal personFacade;
+    PersonFacade personFacade;
 
     Person person;
     Address address;

@@ -13,11 +13,16 @@
 
 package at.irian.webstack.middle.bo;
 
-import at.irian.webstack.support.cdi.util.Name;
+import at.irian.webstack.middle.util.FilterEntry;
+import at.irian.webstack.middle.util.OrderEntry;
 import com.avaje.ebean.EbeanServer;
+import com.avaje.ebean.ExpressionList;
+import com.avaje.ebean.PagingList;
+import com.avaje.ebean.Query;
+import com.avaje.ebean.annotation.Transactional;
 
 import javax.inject.Inject;
-import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * @author werpu2
@@ -35,12 +40,97 @@ public abstract class FacadeBase<T> {
      */
     @Inject
     EbeanServer em;
+    Class clazz = null;
 
     public FacadeBase() {
+        this.clazz = this.getClass().getGenericInterfaces()[0].getClass();
+
     }
 
     public T loadById(Object identifier) {
         return (T) em.find(this.getClass().getTypeParameters()[0].getClass(), identifier);
     }
+
+    protected PagingList getPage(int from, int to, Query query) {
+        int pageSize = to - from;
+        int page = Math.max(10, to - from);
+
+        PagingList resList = query.findPagingList(to - from);
+
+        return resList;
+    }
+
+    public T loadById(Long id) {
+        return (T) em.find(clazz, id);
+    }
+
+    public PagingList loadFromTo(int from, int to) {
+        Query query = em.createQuery(clazz);
+        return getPage(from, to, query);
+    }
+
+
+    protected void applyFilters(Query query, List<FilterEntry> filter, List<OrderEntry> orderBy) {
+        ExpressionList queryBuilder = query.where();
+
+        //ebeans internally maps the values to prepared statemes
+        //so doing it this way is save
+
+        //Also the queryBuilder has as default concatenation op an
+        //for or you have to use separate subexpressions
+        //either way this is way superior to what jpa is doing
+        //which is too low level
+
+        for (FilterEntry entry : filter) {
+
+            switch (entry.getOpType()) {
+                case GTE:
+                    queryBuilder = queryBuilder.ge(entry.getName(), entry.getValue());
+                    break;
+                case GT:
+                    queryBuilder = queryBuilder.gt(entry.getName(), entry.getValue());
+                    break;
+                case EQ:
+                    queryBuilder = queryBuilder.eq(entry.getName(), entry.getValue());
+                    break;
+                case LIKE:
+                    queryBuilder = queryBuilder.like(entry.getName(), (String) entry.getValue());
+                    break;
+                case LT:
+                    queryBuilder = queryBuilder.lt(entry.getName(),  entry.getValue());
+                    break;
+                case LTE:
+                    queryBuilder = queryBuilder.le(entry.getName(), entry.getValue());
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        if (orderBy != null) {
+            for (OrderEntry entry : orderBy) {
+                queryBuilder.orderBy(entry.getName());
+            }
+        }
+    }
+
+
+    /**
+        * under normal circumstances our person object should be attached
+        * but given that the session can be serialized we might have lost the attachment
+        * (can happen in the cloud) se we deal with it by either persisting or merging the person object
+        * the cascade should do the rest
+        *
+        * @param entity
+        */
+       @Transactional
+       public void save(T entity) {
+           //The transaction flushes the current em
+           //we merge just to make sure the entity will be reattached
+           //in case of accidental passivation or serialisation
+           //of the holding bean
+           em.save(entity);
+       }
 
 }

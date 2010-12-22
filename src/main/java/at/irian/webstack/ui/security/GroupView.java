@@ -16,35 +16,51 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.irian.webstack.ui.person;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.PostConstruct;
-import javax.inject.Named;
+package at.irian.webstack.ui.security;
 
-import at.irian.webstack.middle.util.FilterEntry;
-import at.irian.webstack.middle.util.OpType;
-import at.irian.webstack.support.ui.BaseSearchModel;
-import at.irian.webstack.ui.security.GroupListSearchModel;
+import at.irian.webstack.middle.bo.GroupFacade;
+import at.irian.webstack.middle.orm.security.Group;
+import at.irian.webstack.support.cdi.logging.Logger;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
-/**
- * @author werpu2
- */
-@Named
-@ViewAccessScoped
-public class PersonListSearchModel extends BaseSearchModel implements Serializable {
-    public static final String FIRST_NAME = "firstName";
-    public static final String LAST_NAME = "lastName";
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
 
-    @PostConstruct
-    private void postConstruct() {
-        searchMap.put(FIRST_NAME, "");
-        searchMap.put(LAST_NAME, "");
+/**
+ * @author Werner Punz (latest modification by $Author$)
+ * @version $Revision$ $Date$
+ */
+
+/*combined list and edit view for the groups*/
+@ViewAccessScoped
+@Named
+public class GroupView implements Serializable{
+    Group selectedGroup;
+
+    @Inject
+    GroupFacade groupFacade;
+
+    @Inject
+    GroupListSearchModel searchModel;
+
+    @Inject
+    Logger log;
+
+
+    public void refreshData() {
+
+
+
     }
 
+
+    public GroupListSearchModel getSearchModel() {
+        return searchModel;
+    }
+
+    public void setSearchModel(GroupListSearchModel searchModel) {
+        this.searchModel = searchModel;
+    }
 }

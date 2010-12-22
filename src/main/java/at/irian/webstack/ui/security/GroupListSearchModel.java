@@ -16,35 +16,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.irian.webstack.ui.person;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.PostConstruct;
-import javax.inject.Named;
+package at.irian.webstack.ui.security;
 
 import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.middle.util.OpType;
 import at.irian.webstack.support.ui.BaseSearchModel;
-import at.irian.webstack.ui.security.GroupListSearchModel;
-import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
- * @author werpu2
+ * @author Werner Punz (latest modification by $Author$)
+ * @version $Revision$ $Date$
  */
+
 @Named
-@ViewAccessScoped
-public class PersonListSearchModel extends BaseSearchModel implements Serializable {
-    public static final String FIRST_NAME = "firstName";
-    public static final String LAST_NAME = "lastName";
+@Dependent
+public class GroupListSearchModel extends BaseSearchModel {
+    private static final String GROUP_NAME = "groupName";
+    private static final String DESCRIPTION = "description";
 
     @PostConstruct
     private void postConstruct() {
-        searchMap.put(FIRST_NAME, "");
-        searchMap.put(LAST_NAME, "");
+        searchMap.put(GROUP_NAME, "");
+        searchMap.put(DESCRIPTION, "");
     }
 
 }
