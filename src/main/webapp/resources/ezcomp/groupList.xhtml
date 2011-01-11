@@ -1,11 +1,12 @@
 <ui:component xmlns=""
               xmlns:ui="http://java.sun.com/jsf/facelets"
-              xmlns:cc="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html">
+              xmlns:cc="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:f="http://java.sun.com/jsf/core">
 
     <cc:interface>
-           <cc:attribute name="value" required="true" />
-       </cc:interface>
-   
+        <cc:attribute name="value" required="true"/>
+    </cc:interface>
+
 
     <cc:implementation>
         <h:dataTable model="#{cc.attrs.value.listModel.getPage(0).list}" value="item"
