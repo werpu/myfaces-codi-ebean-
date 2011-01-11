@@ -25,13 +25,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
  * @author werpu2
  */
-@NamedQuery(name="person_all", query="find person fetch addresses")
+@NamedQuery(name = "person_all", query = "find person fetch addresses")
 
 @Entity
-@Table(name="o_person")
+@Table(name = "o_person")
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,11 +38,10 @@ public class Person implements Serializable {
     private Long id;
 
     String firstName;
-    
+
     String lastName;
 
     String nickName;
-
 
     @Version
     Long version;
@@ -51,14 +49,12 @@ public class Person implements Serializable {
     @OneToMany
     Set<Entry> infoEntries;
 
-
-    @OneToMany(cascade=CascadeType.ALL)
-    @OrderBy(value="addressType asc")
+    @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy(value = "addressType asc")
     List<Address> addresses = new LinkedList<Address>();
 
     @OneToMany(fetch = FetchType.LAZY)
     List<Security> credentials;
-
 
     public Long getId() {
         return id;
@@ -115,8 +111,6 @@ public class Person implements Serializable {
     public void setInfoEntries(Set<Entry> infoEntries) {
         this.infoEntries = infoEntries;
     }
-
-  
 
     @Override
     public int hashCode() {
