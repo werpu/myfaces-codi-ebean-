@@ -35,10 +35,10 @@
     <ui:define name="search">
 
 
-        <h3>${msgs.person_search}</h3>
+        <h3>${msgs.group_search}</h3>
         <h:form id="searchform" prependId="false">
             <div id="search">
-                <h:panelGrid columns="3" id="searchArea">
+                <h:panelGrid columns="5" id="searchArea">
                     <h:outputFormat value="#{msgs.group_name}"/>
                     <h:inputText value="#{groupView.searchData['groupName']}"/>
                     <h:outputFormat value="#{msgs.description}"/>
@@ -57,61 +57,64 @@
 
     <ui:define name="content">
         <h:form id="mainForm" prependId="false">
-            <h:commandLink action="#{groupView.goCreate}">
+            <h:commandLink id="create_group" action="#{groupView.goCreate}" value="#{msgs.group_create}"
+                           onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog'});return false;">
                 <f:setPropertyActionListener target="#{groupView.pageMode}" value="create"/>
             </h:commandLink>
-            <h:dataTable model="#{groupView.listModel}" value="item">
-                <h:column id="groupNameDetaCol">
-                    <f:facet name="header">
-                        <h:outputText value="#{msgs.group_name}"/>
-                    </f:facet>
-                    <h:panelGroup id="nameop">
-                        <h:panelGroup id="groupn_view" rendered="#{item ne groupView.deta}">
-                            <h:outputFormat value="#{item.groupName}"/>
+            <h:panelGroup id="resultArea">
+                <h:dataTable model="#{groupView.listModel.getPage(0).list}" value="item"
+                             rendered="#{groupView.listModel != null}">
+                    <h:column id="groupNameDetaCol">
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.group_name}"/>
+                        </f:facet>
+                        <h:panelGroup id="nameop">
+                            <h:panelGroup id="groupn_view" rendered="#{item ne groupView.deta}">
+                                <h:outputFormat value="#{item.groupName}"/>
+                            </h:panelGroup>
+                            <h:panelGroup id="groupn_edit" rendered="#{item eq groupView.deta}">
+                                <h:inputText value="#{item.groupName}" required="true"/>
+                            </h:panelGroup>
                         </h:panelGroup>
-                        <h:panelGroup id="groupn_edit" rendered="#{item eq groupView.deta}">
-                            <h:inputText value="#{item.groupName}" required="true"/>
+                    </h:column>
+                    <h:column id="groupNameDescription">
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.description}"/>
+                        </f:facet>
+                        <h:panelGroup id="descop">
+                            <h:panelGroup id="groupd_view" rendered="#{item ne groupView.deta}">
+                                <h:outputFormat value="#{item.description}"/>
+                            </h:panelGroup>
+                            <h:panelGroup id="groupd_edit" rendered="#{item eq groupView.deta}">
+                                <h:inputTextarea value="#{item.description}"/>
+                            </h:panelGroup>
                         </h:panelGroup>
-                    </h:panelGroup>
-                </h:column>
-                <h:column id="groupNameDescription">
-                    <f:facet name="header">
-                        <h:outputText value="#{msgs.description}"/>
-                    </f:facet>
-                    <h:panelGroup id="descop">
-                        <h:panelGroup id="groupd_view" rendered="#{item ne groupView.deta}">
-                            <h:outputFormat value="#{item.description}"/>
+                    </h:column>
+                    <h:column id="operation">
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.operation}"/>
+                        </f:facet>
+                        <h:panelGroup id="ops">
+                            <h:panelGroup rendered="#{item ne groupView.deta}">
+                                <h:commandLink action="#{groupView.goDeta}" value="#{msgs.detail}">
+                                    <f:setPropertyActionListener target="#{groupView.groupId}" value="#{item.id}"/>
+                                    <f:setPropertyActionListener target="#{groupView.pageMode}" value="edit"/>
+                                </h:commandLink>
+                                <h:commandLink style="margin-left: 5px;" action="#{groupView.goDelete}"
+                                               value="#{msgs.delete}">
+                                    <f:setPropertyActionListener target="#{groupView.groupId}" value="#{item.id}"/>
+                                    <f:setPropertyActionListener target="#{groupView.pageMode}" value="delete"/>
+                                </h:commandLink>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{item eq groupView.deta}">
+                                <h:commandLink action="#{groupView.doSave}" value="#{msgs.save}"/>
+                                <h:commandLink action="#{groupView.doCancel}" value="#{msgs.cancel}"/>
+                            </h:panelGroup>
                         </h:panelGroup>
-                        <h:panelGroup id="groupd_edit" rendered="#{item eq groupView.deta}">
-                            <h:inputTextarea value="#{item.description}"/>
-                        </h:panelGroup>
-                    </h:panelGroup>
-                </h:column>
-                <h:column id="operation">
-                    <f:facet name="header">
-                        <h:outputText value="#{msgs.operation}"/>
-                    </f:facet>
-                    <h:panelGroup id="ops">
-                        <h:panelGroup rendered="#{item ne groupView.deta}">
-                            <h:commandLink action="#{groupView.goDeta}" value="#{msgs.detail}">
-                                <f:setPropertyActionListener target="#{groupView.groupId}" value="#{item.id}"/>
-                                <f:setPropertyActionListener target="#{groupView.pageMode}" value="edit"/>
-                            </h:commandLink>
-                            <h:commandLink style="margin-left: 5px;" action="#{groupView.goDelete}"
-                                           value="#{msgs.delete}">
-                                <f:setPropertyActionListener target="#{groupView.groupId}" value="#{item.id}"/>
-                                <f:setPropertyActionListener target="#{groupView.pageMode}" value="delete"/>
-                            </h:commandLink>
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{item eq groupView.deta}">
-                            <h:commandLink action="#{groupView.doSave}" value="#{msgs.save}"/>
-                            <h:commandLink action="#{groupView.doCancel}" value="#{msgs.cancel}"/>
-                        </h:panelGroup>
-                    </h:panelGroup>
-                </h:column>
+                    </h:column>
 
-            </h:dataTable>
-
+                </h:dataTable>
+            </h:panelGroup>
 
         </h:form>
 
@@ -133,10 +136,10 @@
                     <h:inputTextarea value="#{groupView.deta.description}"></h:inputTextarea>
 
                     <h:commandLink action="#{groupView.doSave}" value="#{msgs.save}"/>
-                    <h:commandLink action="#{groupView.doCancel}" value="#{msgs.cancel}"/>
+                    <h:commandLink id="edit_cancel" action="#{groupView.doCancel}" onclick="jsf.ajax.request(this ,event, {execute:'@this', render:'groupDetaDialog'}); return false;" value="#{msgs.cancel}" />
                 </h:form>
                 <script type="text/javascript">
-                    document.getElementById("groupDetaDialog").setAttribute("style", "display:");
+                    document.getElementById("groupDetaDialog").style.display = "block";
                 </script>
             </h:panelGroup>
 
@@ -153,7 +156,7 @@
                     <h:commandLink action="#{groupView.doCancel}" value="#{msgs.cancel}"/>
                 </h:form>
                 <script type="text/javascript">
-                    document.getElementById("groupDetaDialog").setAttribute("style", "display:");
+                    document.getElementById("groupDetaDialog").style.display = "block";
                 </script>
             </h:panelGroup>
         </h:panelGroup>

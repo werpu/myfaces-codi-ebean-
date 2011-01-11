@@ -96,7 +96,7 @@ public class GroupView implements Serializable {
     public String goCreate() {
         log.info("creating group");
         deta = groupFacade.createGroup();
-        return null;
+        return "groupList";
     }
 
     public void doDelete() {

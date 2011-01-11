@@ -182,11 +182,11 @@ h2 {
 
 #groupDetaDialog {
     display: none;
-    position: fixed;
+    position: absolute;
     left: auto;
     right: auto;
-    top: 100px;
-    width: 200px;
+    top: 250px;
+    width: 300px;
 
     border-radius: 5px;
     border: 1px solid black;
