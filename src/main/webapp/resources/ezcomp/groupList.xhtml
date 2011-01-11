@@ -1,13 +1,15 @@
 <ui:component xmlns=""
               xmlns:ui="http://java.sun.com/jsf/facelets"
-              xmlns:composite="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html">
+              xmlns:cc="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html">
 
-    <composite:interface>
-    </composite:interface>
+    <cc:interface>
+           <cc:attribute name="value" required="true" />
+       </cc:interface>
+   
 
-    <composite:implementation>
-        <h:dataTable model="#{groupView.listModel.getPage(0).list}" value="item"
-                     rendered="#{groupView.listModel != null}">
+    <cc:implementation>
+        <h:dataTable model="#{cc.attrs.value.listModel.getPage(0).list}" value="item"
+                     rendered="#{cc.attrs.value.listModel != null}">
             <h:column id="groupNameDetaCol">
                 <f:facet name="header">
                     <h:outputText value="#{msgs.group_name}"/>
@@ -40,24 +42,24 @@
                 </f:facet>
                 <h:panelGroup id="ops">
                     <h:panelGroup rendered="#{item ne groupView.deta}">
-                        <h:commandLink action="#{groupView.goDeta}" value="#{msgs.detail}">
-                            <f:setPropertyActionListener target="#{groupView.groupId}" value="#{item.id}"/>
-                            <f:setPropertyActionListener target="#{groupView.pageMode}" value="edit"/>
+                        <h:commandLink action="#{cc.attrs.value.goDeta}" value="#{msgs.detail}">
+                            <f:setPropertyActionListener target="#{cc.attrs.value.groupId}" value="#{item.id}"/>
+                            <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="edit"/>
                         </h:commandLink>
-                        <h:commandLink style="margin-left: 5px;" action="#{groupView.goDelete}"
+                        <h:commandLink style="margin-left: 5px;" action="#{cc.attrs.value.goDelete}"
                                        value="#{msgs.delete}">
-                            <f:setPropertyActionListener target="#{groupView.groupId}" value="#{item.id}"/>
-                            <f:setPropertyActionListener target="#{groupView.pageMode}" value="delete"/>
+                            <f:setPropertyActionListener target="#{cc.attrs.value.groupId}" value="#{item.id}"/>
+                            <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="delete"/>
                         </h:commandLink>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{item eq groupView.deta}">
-                        <h:commandLink action="#{groupView.doSave}" value="#{msgs.save}"/>
-                        <h:commandLink action="#{groupView.doCancel}" value="#{msgs.cancel}"/>
+                        <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}"/>
+                        <h:commandLink action="#{cc.attrs.value.doCancel}" value="#{msgs.cancel}"/>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:column>
 
         </h:dataTable>
-    </composite:implementation>
+    </cc:implementation>
 
 </ui:component>
