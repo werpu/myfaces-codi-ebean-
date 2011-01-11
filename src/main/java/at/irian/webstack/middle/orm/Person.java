@@ -28,16 +28,7 @@ import java.util.Set;
  *
  * @author werpu2
  */
-/*@NamedQueries({
-    @NamedQuery(name="person_all", query="select entity from Person entity"),
-    @NamedQuery(name="person_count", query="select count(entity) from Person entity")
-  
-})*/
-//@NamedQueries({
-    @NamedQuery(name="person_all", query="find person fetch addresses")
-//    @NamedQuery(name="person_count", query="select count(entity) from Person entity")
-
-//})
+@NamedQuery(name="person_all", query="find person fetch addresses")
 
 @Entity
 @Table(name="o_person")
