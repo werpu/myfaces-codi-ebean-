@@ -43,10 +43,13 @@ import java.util.List;
 @Dependent
 public class GroupFacade extends FacadeBase<Group> implements Serializable {
 
-    @Inject
-    EbeanServer em;
+
     @Inject
     Logger log;
+
+    public GroupFacade() {
+        this.clazz = Group.class;
+    }
 
     public Group createGroup() {
         return new Group();

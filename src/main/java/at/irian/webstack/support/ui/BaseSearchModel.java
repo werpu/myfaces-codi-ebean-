@@ -22,25 +22,23 @@ package at.irian.webstack.support.ui;
 import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.middle.util.OpType;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 
-public class BaseSearchModel extends HashMap<String, Object>{
-
+public class BaseSearchModel implements Map<String, Object>, Serializable {
+    protected Map<String, Object> searchMap = new HashMap<String, Object>();
     protected int from = -1;
     protected int pageSize = -1;
     protected boolean searchPerformed = false;
 
     public List<FilterEntry> toFilterList() {
         List<FilterEntry> ret = new LinkedList<FilterEntry>();
-        for (String key : this.keySet()) {
+        for (String key : searchMap.keySet()) {
             transformStrToFilter(ret, key);
         }
 
@@ -49,17 +47,17 @@ public class BaseSearchModel extends HashMap<String, Object>{
     }
 
     private void transformStrToFilter(List<FilterEntry> ret, String strAttr) {
-        if (this.get(strAttr) != null && !((String) this.get(strAttr)).isEmpty()) {
-            ret.add(new FilterEntry(strAttr, this.get(strAttr) + "%", String.class, OpType.LIKE));
+        if (searchMap.get(strAttr) != null && !((String) searchMap.get(strAttr)).isEmpty()) {
+            ret.add(new FilterEntry(strAttr, searchMap.get(strAttr) + "%", String.class, OpType.LIKE));
         }
     }
 
     public Map<String, Object> getSearchMap() {
-        return this;
+        return searchMap;
     }
 
     public void setSearchMap(Map<String, Object> searchMap) {
-        //this.searchMap = searchMap;
+        this.searchMap = searchMap;
     }
 
     public int getFrom() {
@@ -86,10 +84,60 @@ public class BaseSearchModel extends HashMap<String, Object>{
         this.searchPerformed = searchPerformed;
     }
 
+    public int size() {
+        return searchMap.size();
+    }
 
+    public boolean isEmpty() {
+        return searchMap.isEmpty();
+    }
 
-    /*map methods needed for the map shortcut*/
+    public boolean containsKey(Object o) {
+        return searchMap.containsKey(o);
+    }
 
+    public boolean containsValue(Object o) {
+        return searchMap.containsValue(o);
+    }
 
+    public Object get(Object o) {
+        Object ret = searchMap.get(o);
+        return (ret == null) ? "" : ret;
+    }
 
+    public Object put(String s, Object o) {
+        return searchMap.put(s, o);
+    }
+
+    public Object remove(Object o) {
+        return searchMap.remove(o);
+    }
+
+    public void putAll(Map<? extends String, ? extends Object> map) {
+        searchMap.putAll(map);
+    }
+
+    public void clear() {
+        searchMap.clear();
+    }
+
+    public Set<String> keySet() {
+        return searchMap.keySet();
+    }
+
+    public Collection<Object> values() {
+        return searchMap.values();
+    }
+
+    public Set<Entry<String, Object>> entrySet() {
+        return searchMap.entrySet();
+    }
+
+    public boolean equals(Object o) {
+        return searchMap.equals(o);
+    }
+
+    public int hashCode() {
+        return searchMap.hashCode();
+    }
 }

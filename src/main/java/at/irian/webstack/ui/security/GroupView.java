@@ -87,7 +87,10 @@ public class GroupView implements Serializable {
 
     public String doCancel() {
         deta = null;
+        groupId = null;
         pageMode = null;
+
+        return null;
     }
 
     public String goCreate() {

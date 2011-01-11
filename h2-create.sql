@@ -24,6 +24,14 @@ create table o_entry (
   constraint pk_o_entry primary key (id))
 ;
 
+create table group (
+  id                        bigint not null,
+  group_type                integer,
+  group_name                varchar(255),
+  description               varchar(255),
+  constraint pk_group primary key (id))
+;
+
 create table o_person (
   id                        bigint not null,
   first_name                varchar(255),
@@ -33,15 +41,39 @@ create table o_person (
   constraint pk_o_person primary key (id))
 ;
 
+create table security (
+  id                        bigint not null,
+  owner_id                  bigint,
+  user_name                 varchar(255),
+  password                  varchar(255),
+  constraint pk_security primary key (id))
+;
+
+
+create table security_group (
+  security_id                    bigint not null,
+  group_id                       bigint not null,
+  constraint pk_security_group primary key (security_id, group_id))
+;
 create sequence o_address_seq;
 
 create sequence o_entry_seq;
 
+create sequence group_seq;
+
 create sequence o_person_seq;
+
+create sequence security_seq;
 
 alter table o_address add constraint fk_o_address_person_1 foreign key (person_id) references o_person (id) on delete restrict on update restrict;
 create index ix_o_address_person_1 on o_address (person_id);
 alter table o_entry add constraint fk_o_entry_poster_2 foreign key (poster_id) references o_person (id) on delete restrict on update restrict;
 create index ix_o_entry_poster_2 on o_entry (poster_id);
+alter table security add constraint fk_security_owner_3 foreign key (owner_id) references o_person (id) on delete restrict on update restrict;
+create index ix_security_owner_3 on security (owner_id);
 
 
+
+alter table security_group add constraint fk_security_group_security_01 foreign key (security_id) references security (id) on delete restrict on update restrict;
+
+alter table security_group add constraint fk_security_group_group_02 foreign key (group_id) references group (id) on delete restrict on update restrict;

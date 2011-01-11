@@ -36,7 +36,7 @@
         <h:form id="searchform" prependId="false">
             <div id="search">
                 <h:panelGrid columns="3" id="searchArea">
-                    <ez:personSearch searchData="#{personListView.searchData.searchMap}"/>
+                    <ez:personSearch searchData="#{personListView.searchData}"/>
                     <h:commandLink id="searchit" action="#{personListView.doSearchList}" value="&gt;&gt; #{msgs.search}"
                                    onclick="jsf.ajax.request(this ,event, {execute:'searchArea', render:'resultArea'}); return false;">
 

@@ -44,6 +44,11 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable {
     @Inject
     Logger logger;
 
+    public PersonFacade() {
+        super();
+        this.clazz = Person.class;
+    }
+
     public Person create() {
         logger.info("Person create");
         return new Person();

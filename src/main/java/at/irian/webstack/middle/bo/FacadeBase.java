@@ -43,10 +43,7 @@ public abstract class FacadeBase<T> {
     EbeanServer em;
     Class clazz = null;
 
-    public FacadeBase() {
-        this.clazz = this.getClass().getGenericInterfaces()[0].getClass();
 
-    }
 
     public T loadById(Object identifier) {
         return (T) em.find(this.getClass().getTypeParameters()[0].getClass(), identifier);
@@ -145,5 +142,7 @@ public abstract class FacadeBase<T> {
            //of the holding bean
            em.save(entity);
        }
+
+
 
 }

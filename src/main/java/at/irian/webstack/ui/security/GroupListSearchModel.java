@@ -24,6 +24,7 @@ import at.irian.webstack.support.ui.BaseSearchModel;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
+import java.io.Serializable;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -32,7 +33,7 @@ import javax.inject.Named;
 
 @Named
 @Dependent
-public class GroupListSearchModel extends BaseSearchModel {
+public class GroupListSearchModel extends BaseSearchModel implements Serializable {
     public static final String GROUP_NAME = "groupName";
     public static final String DESCRIPTION = "description";
 }

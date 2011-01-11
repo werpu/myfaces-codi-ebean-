@@ -41,10 +41,6 @@ public class PersonListSearchModel extends BaseSearchModel implements Serializab
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
 
-    @PostConstruct
-    private void postConstruct() {
-        searchMap.put(FIRST_NAME, "");
-        searchMap.put(LAST_NAME, "");
-    }
+
 
 }

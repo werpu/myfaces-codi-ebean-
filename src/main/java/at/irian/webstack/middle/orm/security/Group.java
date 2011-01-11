@@ -26,6 +26,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import java.io.Serializable;
+
 import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.REFRESH;
 
@@ -35,7 +37,7 @@ import static javax.persistence.CascadeType.REFRESH;
  */
 
 @Entity
-public class Group {
+public class Group implements Serializable {
 
     @Id
     Long id;

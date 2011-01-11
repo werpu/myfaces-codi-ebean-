@@ -25,7 +25,7 @@
     <ui:define name="content">
         <h:form id="editForm" prependId="false">
             <!-- keepalive marker for our viewAccessScope detail view -->
-            <h:outputText value="#{personDetailView.searchData.searchMap['firstName']}" style="display:none;"/>
+            <h:outputText value="#{personDetailView.searchData['firstName']}" style="display:none;"/>
             <h3>#{msgs.person_details}</h3>
             <h:panelGroup id="editArea" rendered="#{personDetailView.viewMode != 'delete'}">
 
