@@ -21,6 +21,7 @@ package at.irian.webstack.middle.orm;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.REFRESH;
@@ -37,9 +38,9 @@ public class Security implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    /*@ManyToMany(fetch = FetchType.EAGER, cascade = {MERGE, REFRESH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     Set<SecGroup> group;
-      */
+
     @ManyToOne(cascade = {MERGE, REFRESH})
     Person owner;
 

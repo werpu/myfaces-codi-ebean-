@@ -10,6 +10,8 @@ drop table if exists o_secgroup;
 
 drop table if exists security;
 
+drop table if exists security_secgroup;
+
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists o_address_seq;

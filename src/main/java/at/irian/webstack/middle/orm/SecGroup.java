@@ -19,8 +19,9 @@
 
 package at.irian.webstack.middle.orm;
 
-import javax.persistence.*;
+import com.sun.tools.javac.util.List;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -45,8 +46,8 @@ public class SecGroup implements Serializable {
 
     String description;
 
-    //@ManyToMany(fetch = FetchType.LAZY, cascade =   {MERGE, REFRESH})
-    //List<Security> credentialOwners;
+    @ManyToMany(fetch = FetchType.LAZY, cascade =   {CascadeType.MERGE, CascadeType.REFRESH})
+    List<Security> credentialOwners;
 
     @Version
     Long version;
@@ -84,13 +85,13 @@ public class SecGroup implements Serializable {
         this.description = description;
     }
 
-   /* public List<Security> getCredentialOwners() {
+   public List<Security> getCredentialOwners() {
         return credentialOwners;
     }
 
     public void setCredentialOwners(List<Security> credentialOwners) {
         this.credentialOwners = credentialOwners;
-    }*/
+    }
 
     public Long getVersion() {
         return version;

@@ -50,6 +50,12 @@ create table security (
   constraint pk_security primary key (id))
 ;
 
+
+create table security_secgroup (
+  security_id                    bigint not null,
+  o_secgroup_id                  bigint not null,
+  constraint pk_security_secgroup primary key (security_id, o_secgroup_id))
+;
 create sequence o_address_seq;
 
 create sequence o_entry_seq;
@@ -68,3 +74,7 @@ alter table security add constraint fk_security_owner_3 foreign key (owner_id) r
 create index ix_security_owner_3 on security (owner_id);
 
 
+
+alter table security_secgroup add constraint fk_security_secgroup_security_01 foreign key (security_id) references security (id) on delete restrict on update restrict;
+
+alter table security_secgroup add constraint fk_security_secgroup_o_secgro_02 foreign key (o_secgroup_id) references o_secgroup (id) on delete restrict on update restrict;
