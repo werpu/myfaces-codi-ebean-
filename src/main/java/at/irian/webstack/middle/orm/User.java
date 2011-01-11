@@ -32,17 +32,17 @@ import static javax.persistence.CascadeType.REFRESH;
  */
 
 @Entity
-public class Security implements Serializable {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    Set<SecGroup> group;
+    Set<SecGroup> groups;
 
     @ManyToOne(cascade = {MERGE, REFRESH})
-    Person owner;
+    Person person;
 
     String userName;
     String password;
@@ -55,20 +55,20 @@ public class Security implements Serializable {
         this.id = id;
     }
 
-    /*public Set<SecGroup> getGroup() {
-        return group;
+    public Set<SecGroup> getGroups() {
+        return groups;
     }
 
-    public void setGroup(Set<SecGroup> group) {
-        this.group = group;
-    } */
-
-    public Person getOwner() {
-        return owner;
+    public void setGroups(Set<SecGroup> groups) {
+        this.groups = groups;
     }
 
-    public void setOwner(Person owner) {
-        this.owner = owner;
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public String getUserName() {
@@ -97,10 +97,10 @@ public class Security implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Security)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Security other = (Security) object;
+        User other = (User) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -109,7 +109,7 @@ public class Security implements Serializable {
 
     @Override
     public String toString() {
-        return "orm.Security[id=" + id + "]";
+        return "orm.User[id=" + id + "]";
     }
 }
 

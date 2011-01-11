@@ -54,7 +54,7 @@ public class Person implements Serializable {
     List<Address> addresses = new LinkedList<Address>();
 
     @OneToMany(fetch = FetchType.LAZY)
-    List<Security> credentials;
+    List<User> userData;
 
     public Long getId() {
         return id;
@@ -110,6 +110,14 @@ public class Person implements Serializable {
 
     public void setInfoEntries(Set<Entry> infoEntries) {
         this.infoEntries = infoEntries;
+    }
+
+    public List<User> getUserData() {
+        return userData;
+    }
+
+    public void setUserData(List<User> userData) {
+        this.userData = userData;
     }
 
     @Override

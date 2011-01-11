@@ -30,11 +30,13 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name="o_secgroup")
+@Table(name = "o_secgroup")
 public class SecGroup implements Serializable {
     private static final long serialVersionUID = 1L;
 
-
+    public static final int GRP_TYPE_SYSTEM = 0;
+    public static final int GRP_TYPE_USER = 1;
+    public static final int GRP_TYPE_OTHER = 2;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,12 +48,11 @@ public class SecGroup implements Serializable {
 
     String description;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade =   {CascadeType.MERGE, CascadeType.REFRESH})
-    List<Security> credentialOwners;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    List<User> credentialOwners;
 
     @Version
     Long version;
-
 
     public Long getId() {
         return id;
@@ -85,11 +86,11 @@ public class SecGroup implements Serializable {
         this.description = description;
     }
 
-   public List<Security> getCredentialOwners() {
+    public List<User> getCredentialOwners() {
         return credentialOwners;
     }
 
-    public void setCredentialOwners(List<Security> credentialOwners) {
+    public void setCredentialOwners(List<User> credentialOwners) {
         this.credentialOwners = credentialOwners;
     }
 
@@ -100,8 +101,6 @@ public class SecGroup implements Serializable {
     public void setVersion(Long version) {
         this.version = version;
     }
-
-
 
     @Override
     public boolean equals(Object object) {
