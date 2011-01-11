@@ -26,7 +26,7 @@
         <h:form id="editForm" prependId="false">
             <!-- keepalive marker for our viewAccessScope detail view -->
             <h:outputText value="#{personDetailView.searchData.searchMap['firstName']}" style="display:none;"/>
-            <h3>Person Details</h3>
+            <h3>#{msgs.person_details}</h3>
             <h:panelGroup id="editArea" rendered="#{personDetailView.viewMode != 'delete'}">
 
                 <h:panelGrid columns="2" id="searchArea">
@@ -76,9 +76,9 @@
 
             <h:panelGroup id="displayArea" rendered="#{personDetailView.viewMode == 'delete'}">
                 <h:panelGrid columns="2" id="searchAreaReadonly">
-                    <h:outputText value="First Name"/>
+                    <h:outputText value="#{msgs.person_firstnm}"/>
                     <h:outputFormat value="#{personDetailView.person.firstName}"/>
-                    <h:outputText value="Last Name"/>
+                    <h:outputText value="#{msgs.person_lastnm}"/>
                     <h:outputFormat value="#{personDetailView.person.lastName}"/>
                 </h:panelGrid>
 

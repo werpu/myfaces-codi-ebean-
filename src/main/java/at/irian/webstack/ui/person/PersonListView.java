@@ -70,7 +70,6 @@ public class PersonListView implements Serializable {
 
     
     private void refresh() {
-        System.out.println("refresh=============================");
         List<FilterEntry> filters = (searchData != null) ? searchData.toFilterList() : null;
         listModel = personFacade.loadFromTo(Math.max(searchData.getFrom(), 0), Math.max(searchData.getFrom() + searchData.getPageSize(), 0), filters, null);
     }

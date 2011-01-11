@@ -173,11 +173,25 @@ h2 {
     text-decoration: underline;
 }
 
-
 /*===== application specific styles ===*/
-
 
 .searchfields input {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+#groupDetaDialog {
+    display: none;
+    position: fixed;
+    left: auto;
+    right: auto;
+    top: 100px;
+    width: 200px;
+
+    border-radius: 5px;
+    border: 1px solid black;
+
+    background: -moz-linear-gradient(rgb(255, 255, 255) 0%, rgb(82, 65, 104) 72%, rgb(255, 255, 255) 100%);
+
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(255, 255, 255)), color-stop(72%, rgb(82, 65, 104)), color-stop(100%, rgb(255, 255, 255)));
 }

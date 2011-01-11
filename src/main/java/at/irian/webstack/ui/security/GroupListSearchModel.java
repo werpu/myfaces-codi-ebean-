@@ -19,17 +19,11 @@
 
 package at.irian.webstack.ui.security;
 
-import at.irian.webstack.middle.util.FilterEntry;
-import at.irian.webstack.middle.util.OpType;
 import at.irian.webstack.support.ui.BaseSearchModel;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -39,13 +33,6 @@ import java.util.Map;
 @Named
 @Dependent
 public class GroupListSearchModel extends BaseSearchModel {
-    private static final String GROUP_NAME = "groupName";
-    private static final String DESCRIPTION = "description";
-
-    @PostConstruct
-    private void postConstruct() {
-        searchMap.put(GROUP_NAME, "");
-        searchMap.put(DESCRIPTION, "");
-    }
-
+    public static final String GROUP_NAME = "groupName";
+    public static final String DESCRIPTION = "description";
 }

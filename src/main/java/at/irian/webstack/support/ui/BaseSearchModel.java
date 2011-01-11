@@ -32,15 +32,15 @@ import java.util.Map;
  * @version $Revision$ $Date$
  */
 
-public class BaseSearchModel {
-    Map<String, Object> searchMap = new HashMap<String, Object>();
-    int from = -1;
-    int pageSize = -1;
-    boolean searchPerformed = false;
+public class BaseSearchModel extends HashMap<String, Object>{
+
+    protected int from = -1;
+    protected int pageSize = -1;
+    protected boolean searchPerformed = false;
 
     public List<FilterEntry> toFilterList() {
         List<FilterEntry> ret = new LinkedList<FilterEntry>();
-        for (String key : searchMap.keySet()) {
+        for (String key : this.keySet()) {
             transformStrToFilter(ret, key);
         }
 
@@ -49,17 +49,17 @@ public class BaseSearchModel {
     }
 
     private void transformStrToFilter(List<FilterEntry> ret, String strAttr) {
-        if (searchMap.get(strAttr) != null && !((String) searchMap.get(strAttr)).isEmpty()) {
-            ret.add(new FilterEntry(strAttr, searchMap.get(strAttr) + "%", String.class, OpType.LIKE));
+        if (this.get(strAttr) != null && !((String) this.get(strAttr)).isEmpty()) {
+            ret.add(new FilterEntry(strAttr, this.get(strAttr) + "%", String.class, OpType.LIKE));
         }
     }
 
     public Map<String, Object> getSearchMap() {
-        return searchMap;
+        return this;
     }
 
     public void setSearchMap(Map<String, Object> searchMap) {
-        this.searchMap = searchMap;
+        //this.searchMap = searchMap;
     }
 
     public int getFrom() {
@@ -85,4 +85,11 @@ public class BaseSearchModel {
     public void setSearchPerformed(boolean searchPerformed) {
         this.searchPerformed = searchPerformed;
     }
+
+
+
+    /*map methods needed for the map shortcut*/
+
+
+
 }

@@ -19,10 +19,15 @@
 
 package at.irian.webstack.middle.orm.security;
 
-import at.irian.webstack.middle.orm.Person;
 import com.sun.tools.javac.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.REFRESH;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -41,7 +46,7 @@ public class Group {
 
     String description;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade =   {MERGE, REFRESH})
     List<Security> credentialOwners;
 
     public Long getId() {

@@ -35,7 +35,7 @@ import java.util.List;
 @Named(value = "personFacade")
 /*we inherit the scope from the caller*/
 @Dependent
-public class PersonFacade extends FacadeBase<Person> implements Serializable, PersonFacadeLocal {
+public class PersonFacade extends FacadeBase<Person> implements Serializable {
     public static final String ATTR_ADDRESSES = "addresses";
     public static final String ATTR_FIRSTNAME = "firstName";
 
@@ -64,14 +64,9 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
      * @return
      */
     public PagingList loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
-        logger.info("load from to");
-
         Query query = em.createQuery(Person.class);
         query.fetch("addresses");
-
         applyFilters(query, filter, orderBy);
-
-
         return getPage(from, to, query);
     }
 
@@ -91,8 +86,4 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable, Pe
             em.refreshMany(t, "addresses");
         }
     }
-
-
-
-
 }

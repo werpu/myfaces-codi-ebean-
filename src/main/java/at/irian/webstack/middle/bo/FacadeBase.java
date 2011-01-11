@@ -13,6 +13,7 @@
 
 package at.irian.webstack.middle.bo;
 
+import at.irian.webstack.middle.orm.security.Group;
 import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.middle.util.OrderEntry;
 import com.avaje.ebean.EbeanServer;
@@ -115,6 +116,18 @@ public abstract class FacadeBase<T> {
         }
     }
 
+      /**
+     * @param from
+     * @param to
+     * @param filter
+     * @param orderBy
+     * @return
+     */
+    public PagingList loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
+        Query query = em.createQuery(clazz);
+        applyFilters(query, filter, orderBy);
+        return getPage(from, to, query);
+    }
 
     /**
         * under normal circumstances our person object should be attached

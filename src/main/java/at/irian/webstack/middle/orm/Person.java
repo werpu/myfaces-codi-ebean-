@@ -67,7 +67,7 @@ public class Person implements Serializable {
     @OrderBy(value="addressType asc")
     List<Address> addresses = new LinkedList<Address>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     List<Security> credentials;
 
 

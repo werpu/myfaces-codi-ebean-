@@ -21,12 +21,15 @@ package at.irian.webstack.ui.security;
 
 import at.irian.webstack.middle.bo.GroupFacade;
 import at.irian.webstack.middle.orm.security.Group;
+import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.support.cdi.logging.Logger;
+import com.avaje.ebean.PagingList;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -36,31 +39,107 @@ import java.io.Serializable;
 /*combined list and edit view for the groups*/
 @ViewAccessScoped
 @Named
-public class GroupView implements Serializable{
+public class GroupView implements Serializable {
     Group selectedGroup;
 
     @Inject
     GroupFacade groupFacade;
 
     @Inject
-    GroupListSearchModel searchModel;
+    GroupListSearchModel searchData;
+
+    PagingList listModel = null;
 
     @Inject
     Logger log;
 
+    Group deta = null;
 
-    public void refreshData() {
+    Long groupId = null;
 
+    String pageMode;
 
-
+    public void refresh() {
+        List<FilterEntry> filters = (searchData != null) ? searchData.toFilterList() : null;
+        listModel = groupFacade.loadFromTo(Math.max(searchData.getFrom(), 0), Math.max(searchData.getFrom() + searchData.getPageSize(), 0), filters, null);
     }
 
-
-    public GroupListSearchModel getSearchModel() {
-        return searchModel;
+    public String doSearchList() {
+        refresh();
+        return null;
     }
 
-    public void setSearchModel(GroupListSearchModel searchModel) {
-        this.searchModel = searchModel;
+    public String goDeta() {
+        deta = groupFacade.loadById(groupId);
+        return null;
+    }
+
+    public String goDelete() {
+        deta = groupFacade.loadById(groupId);
+        return null;
+    }
+
+    public String doSave() {
+        log.info("saving group");
+        groupFacade.save(deta);
+        return null;
+    }
+
+    public String doCancel() {
+        deta = null;
+        pageMode = null;
+    }
+
+    public String goCreate() {
+        log.info("creating group");
+        deta = groupFacade.createGroup();
+        return null;
+    }
+
+    public void doDelete() {
+        log.info("deleting group");
+        groupFacade.deleteGroup(deta);
+        deta = null;
+    }
+    /*setter and getter*/
+
+    public GroupListSearchModel getSearchData() {
+        return searchData;
+    }
+
+    public void setSearchData(GroupListSearchModel searchData) {
+        this.searchData = searchData;
+    }
+
+    public PagingList getListModel() {
+        return listModel;
+    }
+
+    public void setListModel(PagingList listModel) {
+        this.listModel = listModel;
+    }
+
+    public Group getDeta() {
+        return deta;
+    }
+
+    public void setDeta(Group deta) {
+        this.deta = deta;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getPageMode() {
+        return pageMode;
+    }
+
+    public void setPageMode(String pageMode) {
+        this.pageMode = pageMode;
     }
 }

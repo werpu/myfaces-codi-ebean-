@@ -24,6 +24,9 @@ import at.irian.webstack.middle.orm.Person;
 import javax.persistence.*;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.REFRESH;
+
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
@@ -36,10 +39,10 @@ public class Security {
     Long id;
 
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {MERGE, REFRESH})
     Set<Group> group;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = {MERGE, REFRESH})
     Person owner;
 
     String userName;

@@ -20,14 +20,19 @@
 package at.irian.webstack.middle.bo;
 
 import at.irian.webstack.middle.orm.security.Group;
+import at.irian.webstack.middle.util.FilterEntry;
+import at.irian.webstack.middle.util.OrderEntry;
 import at.irian.webstack.support.cdi.logging.Logger;
 import com.avaje.ebean.EbeanServer;
+import com.avaje.ebean.PagingList;
+import com.avaje.ebean.Query;
 import com.avaje.ebean.annotation.Transactional;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -53,5 +58,7 @@ public class GroupFacade extends FacadeBase<Group> implements Serializable {
             em.delete(group);
         }
     }
+
+
 
 }
