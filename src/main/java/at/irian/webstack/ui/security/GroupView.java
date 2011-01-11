@@ -20,7 +20,7 @@
 package at.irian.webstack.ui.security;
 
 import at.irian.webstack.middle.bo.GroupFacade;
-import at.irian.webstack.middle.orm.security.Group;
+import at.irian.webstack.middle.orm.SecGroup;
 import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.support.cdi.logging.Logger;
 import com.avaje.ebean.PagingList;
@@ -40,7 +40,7 @@ import java.util.List;
 @ViewAccessScoped
 @Named
 public class GroupView implements Serializable {
-    Group selectedGroup;
+    SecGroup selectedGroup;
 
     @Inject
     GroupFacade groupFacade;
@@ -53,7 +53,7 @@ public class GroupView implements Serializable {
     @Inject
     Logger log;
 
-    Group deta = null;
+    SecGroup deta = null;
 
     Long groupId = null;
 
@@ -122,11 +122,11 @@ public class GroupView implements Serializable {
         this.listModel = listModel;
     }
 
-    public Group getDeta() {
+    public SecGroup getDeta() {
         return deta;
     }
 
-    public void setDeta(Group deta) {
+    public void setDeta(SecGroup deta) {
         this.deta = deta;
     }
 

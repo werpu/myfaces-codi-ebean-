@@ -19,20 +19,14 @@
 
 package at.irian.webstack.middle.bo;
 
-import at.irian.webstack.middle.orm.security.Group;
-import at.irian.webstack.middle.util.FilterEntry;
-import at.irian.webstack.middle.util.OrderEntry;
+import at.irian.webstack.middle.orm.SecGroup;
 import at.irian.webstack.support.cdi.logging.Logger;
-import com.avaje.ebean.EbeanServer;
-import com.avaje.ebean.PagingList;
-import com.avaje.ebean.Query;
 import com.avaje.ebean.annotation.Transactional;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -41,22 +35,22 @@ import java.util.List;
 
 @Named
 @Dependent
-public class GroupFacade extends FacadeBase<Group> implements Serializable {
+public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
 
 
     @Inject
     Logger log;
 
     public GroupFacade() {
-        this.clazz = Group.class;
+        this.clazz = SecGroup.class;
     }
 
-    public Group createGroup() {
-        return new Group();
+    public SecGroup createGroup() {
+        return new SecGroup();
     }
 
     @Transactional
-    public void deleteGroup(Group group) {
+    public void deleteGroup(SecGroup group) {
         if (group.getId() != null) {
             em.delete(group);
         }

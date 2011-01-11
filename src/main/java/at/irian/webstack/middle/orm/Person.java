@@ -18,8 +18,6 @@
  */
 package at.irian.webstack.middle.orm;
 
-import at.irian.webstack.middle.orm.security.Security;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.LinkedList;

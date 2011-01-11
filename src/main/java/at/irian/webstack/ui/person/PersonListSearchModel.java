@@ -40,7 +40,4 @@ import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessS
 public class PersonListSearchModel extends BaseSearchModel implements Serializable {
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
-
-
-
 }

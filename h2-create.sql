@@ -24,14 +24,6 @@ create table o_entry (
   constraint pk_o_entry primary key (id))
 ;
 
-create table group (
-  id                        bigint not null,
-  group_type                integer,
-  group_name                varchar(255),
-  description               varchar(255),
-  constraint pk_group primary key (id))
-;
-
 create table o_person (
   id                        bigint not null,
   first_name                varchar(255),
@@ -39,6 +31,15 @@ create table o_person (
   nick_name                 varchar(255),
   version                   bigint not null,
   constraint pk_o_person primary key (id))
+;
+
+create table o_secgroup (
+  id                        bigint not null,
+  group_type                integer,
+  group_name                varchar(255),
+  description               varchar(255),
+  version                   bigint not null,
+  constraint pk_o_secgroup primary key (id))
 ;
 
 create table security (
@@ -49,19 +50,13 @@ create table security (
   constraint pk_security primary key (id))
 ;
 
-
-create table security_group (
-  security_id                    bigint not null,
-  group_id                       bigint not null,
-  constraint pk_security_group primary key (security_id, group_id))
-;
 create sequence o_address_seq;
 
 create sequence o_entry_seq;
 
-create sequence group_seq;
-
 create sequence o_person_seq;
+
+create sequence o_secgroup_seq;
 
 create sequence security_seq;
 
@@ -73,7 +68,3 @@ alter table security add constraint fk_security_owner_3 foreign key (owner_id) r
 create index ix_security_owner_3 on security (owner_id);
 
 
-
-alter table security_group add constraint fk_security_group_security_01 foreign key (security_id) references security (id) on delete restrict on update restrict;
-
-alter table security_group add constraint fk_security_group_group_02 foreign key (group_id) references group (id) on delete restrict on update restrict;

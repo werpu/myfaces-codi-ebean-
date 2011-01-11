@@ -13,7 +13,6 @@
 
 package at.irian.webstack.middle.bo;
 
-import at.irian.webstack.middle.orm.security.Group;
 import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.middle.util.OrderEntry;
 import com.avaje.ebean.EbeanServer;
