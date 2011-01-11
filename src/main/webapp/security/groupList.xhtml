@@ -20,7 +20,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
 
       xmlns:ui="http://java.sun.com/jsf/facelets"
-        >
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp">
 
 <ui:composition template="../templates/template.xhtml">
     <ui:define name="header">
@@ -62,103 +62,13 @@
                 <f:setPropertyActionListener target="#{groupView.pageMode}" value="create"/>
             </h:commandLink>
             <h:panelGroup id="resultArea">
-                <h:dataTable model="#{groupView.listModel.getPage(0).list}" value="item"
-                             rendered="#{groupView.listModel != null}">
-                    <h:column id="groupNameDetaCol">
-                        <f:facet name="header">
-                            <h:outputText value="#{msgs.group_name}"/>
-                        </f:facet>
-                        <h:panelGroup id="nameop">
-                            <h:panelGroup id="groupn_view" rendered="#{item ne groupView.deta}">
-                                <h:outputFormat value="#{item.groupName}"/>
-                            </h:panelGroup>
-                            <h:panelGroup id="groupn_edit" rendered="#{item eq groupView.deta}">
-                                <h:inputText value="#{item.groupName}" required="true"/>
-                            </h:panelGroup>
-                        </h:panelGroup>
-                    </h:column>
-                    <h:column id="groupNameDescription">
-                        <f:facet name="header">
-                            <h:outputText value="#{msgs.description}"/>
-                        </f:facet>
-                        <h:panelGroup id="descop">
-                            <h:panelGroup id="groupd_view" rendered="#{item ne groupView.deta}">
-                                <h:outputFormat value="#{item.description}"/>
-                            </h:panelGroup>
-                            <h:panelGroup id="groupd_edit" rendered="#{item eq groupView.deta}">
-                                <h:inputTextarea value="#{item.description}"/>
-                            </h:panelGroup>
-                        </h:panelGroup>
-                    </h:column>
-                    <h:column id="operation">
-                        <f:facet name="header">
-                            <h:outputText value="#{msgs.operation}"/>
-                        </f:facet>
-                        <h:panelGroup id="ops">
-                            <h:panelGroup rendered="#{item ne groupView.deta}">
-                                <h:commandLink action="#{groupView.goDeta}" value="#{msgs.detail}">
-                                    <f:setPropertyActionListener target="#{groupView.groupId}" value="#{item.id}"/>
-                                    <f:setPropertyActionListener target="#{groupView.pageMode}" value="edit"/>
-                                </h:commandLink>
-                                <h:commandLink style="margin-left: 5px;" action="#{groupView.goDelete}"
-                                               value="#{msgs.delete}">
-                                    <f:setPropertyActionListener target="#{groupView.groupId}" value="#{item.id}"/>
-                                    <f:setPropertyActionListener target="#{groupView.pageMode}" value="delete"/>
-                                </h:commandLink>
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{item eq groupView.deta}">
-                                <h:commandLink action="#{groupView.doSave}" value="#{msgs.save}"/>
-                                <h:commandLink action="#{groupView.doCancel}" value="#{msgs.cancel}"/>
-                            </h:panelGroup>
-                        </h:panelGroup>
-                    </h:column>
-
-                </h:dataTable>
+                <ezcomp:groupList/>
             </h:panelGroup>
 
         </h:form>
 
         <h:panelGroup id="groupDetaDialog">
-            <script type="text/javascript">
-                /*small javascripts which set the styles according to their state
-                 to enable a dialog which hides and pops up*/
-                document.getElementById("groupDetaDialog").setAttribute("style", "display:none");
-            </script>
-            <h:panelGroup id="editHolder" rendered="#{groupView.pageMode eq 'create'}">
-                <h2><h:outputFormat value="#{msgs.group_edit}"/></h2>
-                <h:form id="editGroup">
-                    <h:outputFormat value="#{msgs.group_name}"/>
-                    <h:panelGroup>
-                        <h:inputText id="groupname" value="#{groupView.deta.groupName}" required="true"/>
-                        <h:message for="groupname"></h:message>
-                    </h:panelGroup>
-                    <h:outputFormat value="#{msgs.description}"/>
-                    <h:inputTextarea value="#{groupView.deta.description}"></h:inputTextarea>
-
-                    <h:commandLink action="#{groupView.doSave}" value="#{msgs.save}"/>
-                    <h:commandLink id="edit_cancel" action="#{groupView.doCancel}" onclick="jsf.ajax.request(this ,event, {execute:'@this', render:'groupDetaDialog'}); return false;" value="#{msgs.cancel}" />
-                </h:form>
-                <script type="text/javascript">
-                    document.getElementById("groupDetaDialog").style.display = "block";
-                </script>
-            </h:panelGroup>
-
-
-            <h:panelGroup id="deleteHolder" rendered="#{groupView.pageMode eq 'delete'}">
-                <h2><h:outputFormat value="#{msgs.group_delete}"/></h2>
-                <h:form id="deleteGroup">
-                    <h:outputFormat value="#{msgs.group_name}"/>
-                    <h:outputFormat value="#{groupView.deta.groupName}"/>
-                    <h:outputFormat value="#{msgs.description}"/>
-                    <h:outputFormat value="#{groupView.deta.description}"/>
-
-                    <h:commandLink action="#{groupView.doDelete}" value="#{msgs.delete}"/>
-                    <h:commandLink action="#{groupView.doCancel}" value="#{msgs.cancel}"/>
-                </h:form>
-                <script type="text/javascript">
-                    document.getElementById("groupDetaDialog").style.display = "block";
-                </script>
-            </h:panelGroup>
+            <ezcomp:groupEditDialogContent value="#{groupView}"/>
         </h:panelGroup>
 
     </ui:define>

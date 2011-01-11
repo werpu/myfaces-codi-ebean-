@@ -1,0 +1,63 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html">
+
+    <composite:interface>
+    </composite:interface>
+
+    <composite:implementation>
+        <h:dataTable model="#{groupView.listModel.getPage(0).list}" value="item"
+                     rendered="#{groupView.listModel != null}">
+            <h:column id="groupNameDetaCol">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs.group_name}"/>
+                </f:facet>
+                <h:panelGroup id="nameop">
+                    <h:panelGroup id="groupn_view" rendered="#{item ne groupView.deta}">
+                        <h:outputFormat value="#{item.groupName}"/>
+                    </h:panelGroup>
+                    <h:panelGroup id="groupn_edit" rendered="#{item eq groupView.deta}">
+                        <h:inputText value="#{item.groupName}" required="true"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:column>
+            <h:column id="groupNameDescription">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs.description}"/>
+                </f:facet>
+                <h:panelGroup id="descop">
+                    <h:panelGroup id="groupd_view" rendered="#{item ne groupView.deta}">
+                        <h:outputFormat value="#{item.description}"/>
+                    </h:panelGroup>
+                    <h:panelGroup id="groupd_edit" rendered="#{item eq groupView.deta}">
+                        <h:inputTextarea value="#{item.description}"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:column>
+            <h:column id="operation">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs.operation}"/>
+                </f:facet>
+                <h:panelGroup id="ops">
+                    <h:panelGroup rendered="#{item ne groupView.deta}">
+                        <h:commandLink action="#{groupView.goDeta}" value="#{msgs.detail}">
+                            <f:setPropertyActionListener target="#{groupView.groupId}" value="#{item.id}"/>
+                            <f:setPropertyActionListener target="#{groupView.pageMode}" value="edit"/>
+                        </h:commandLink>
+                        <h:commandLink style="margin-left: 5px;" action="#{groupView.goDelete}"
+                                       value="#{msgs.delete}">
+                            <f:setPropertyActionListener target="#{groupView.groupId}" value="#{item.id}"/>
+                            <f:setPropertyActionListener target="#{groupView.pageMode}" value="delete"/>
+                        </h:commandLink>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{item eq groupView.deta}">
+                        <h:commandLink action="#{groupView.doSave}" value="#{msgs.save}"/>
+                        <h:commandLink action="#{groupView.doCancel}" value="#{msgs.cancel}"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:column>
+
+        </h:dataTable>
+    </composite:implementation>
+
+</ui:component>
