@@ -9,7 +9,7 @@
 
 
     <cc:implementation>
-        <h:dataTable model="#{cc.attrs.value.listModel.getPage(0).list}" value="item"
+        <h:dataTable id="groupResult" value="#{cc.attrs.value.listModel.getPage(0).list}" var="item"
                      rendered="#{cc.attrs.value.listModel != null}">
             <h:column id="groupNameDetaCol">
                 <f:facet name="header">
@@ -46,6 +46,7 @@
                         <h:commandLink action="#{cc.attrs.value.goDeta}" value="#{msgs.detail}">
                             <f:setPropertyActionListener target="#{cc.attrs.value.groupId}" value="#{item.id}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="edit"/>
+                            <f:ajax execute="@this" render="groupResult" />
                         </h:commandLink>
                         <h:commandLink style="margin-left: 5px;" action="#{cc.attrs.value.goDelete}"
                                        value="#{msgs.delete}">
@@ -54,8 +55,12 @@
                         </h:commandLink>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{item eq groupView.deta}">
-                        <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}"/>
-                        <h:commandLink action="#{cc.attrs.value.doCancel}" value="#{msgs.cancel}"/>
+                        <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}">
+                            <f:ajax execute="@this" render="groupResult" />
+                        </h:commandLink>
+                        <h:commandLink action="#{cc.attrs.value.doCancel}" value="#{msgs.cancel}">
+                            <f:ajax execute="@this" render="groupResult" />
+                        </h:commandLink>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:column>
