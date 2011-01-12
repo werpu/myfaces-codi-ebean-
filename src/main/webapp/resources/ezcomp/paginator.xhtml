@@ -1,0 +1,35 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite" xmlns:="" xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <composite:interface>
+           
+        <composite:attribute name="value" required="true"/>
+        <composite:attribute name="for" required="true"/>
+        <composite:attribute name="container" required="true"/>
+              
+    </composite:interface>
+
+    <composite:implementation>
+        <h:commandLink value="#{msgs.pagination_first}" rendered="#{! cc.attrs.value.isInFirstWindow()}">
+            <f:setPropertyActionListener value="0" target="#{cc.attrs.value.lastPageAccessed}"/>
+            <f:ajax execute="@this" render="#{cc.attrs.for cc.attrs.container}"/>
+        </h:commandLink>
+
+        <c:forEach items="#{cc.attrs.value.fetchPagesWindow()}" varStatus="s" var="curVal">
+            <h:commandLink id="page_select" action="groupList" value="${curVal}"
+                           rendered="#{curVal ne cc.attrs.value.lastPageAccessed}">
+                <f:setPropertyActionListener value="curVal" target="#{cc.attrs.value.lastPageAccessed}"/>
+                <f:ajax execute="@this" render="#{cc.attrs.for cc.attrs.container}"/>
+            </h:commandLink>
+            <h:outputFormat value="" rendered="#{curVal eq cc.attrs.value.lastPageAccessed}"/>
+        </c:forEach>
+
+        <h:commandLink value="#{msgs.pagination_last}" rendered="#{! cc.attrs.value.isInLastWindow()}">
+            <f:setPropertyActionListener value="0" target="#{cc.attrs.value.lastPageAccessed}"/>
+            <f:ajax execute="@this" render="#{cc.attrs.for cc.attrs.container}"/>
+        </h:commandLink>
+    </composite:implementation>
+
+</ui:component>

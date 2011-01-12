@@ -3,7 +3,7 @@
               xmlns:cc="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html"
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:c="http://java.sun.com/jsp/jstl/core"
-        >
+              xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp">
 
     <cc:interface>
         <cc:attribute name="value" required="true"/>
@@ -92,23 +92,7 @@
               attributes needed referencingTable
               value ... value to the pageListModel delivered by ebeans
             -->
-            <h:commandLink value="#{msgs.pagination_first}" rendered="#{! cc.attrs.value.listModel.isInFirstWindow()}">
-                <f:setPropertyActionListener value="0" target="#{cc.attrs.value.listModel.lastPageAccessed}"/>
-                <f:ajax execute="@this" render="groupResult"/>
-            </h:commandLink>
-
-            <c:forEach items="#{cc.attrs.value.listModel.fetchPagesWindow()}" varStatus="s" var="curVal">
-                <h:commandLink id="page_select" action="groupList" value="${curVal}" rendered="#{curVal ne cc.attrs.value.listModel.lastPageAccessed}">
-                    <f:setPropertyActionListener value="curVal" target="#{cc.attrs.value.listModel.lastPageAccessed}"/>
-                    <f:ajax execute="@this" render="groupResult"/>
-                </h:commandLink>
-                <h:outputFormat value="" rendered="#{curVal eq cc.attrs.value.listModel.lastPageAccessed}"/>
-            </c:forEach>
-
-            <h:commandLink value="#{msgs.pagination_last}" rendered="#{! cc.attrs.value.listModel.isInLastWindow()}">
-                <f:setPropertyActionListener value="0" target="#{cc.attrs.value.listModel.lastPageAccessed}"/>
-                <f:ajax execute="@this" render="groupResult"/>
-            </h:commandLink>
+           <ezcomp:paginator value="#{cc.attrs.value.listModel}" for="groupResult" container="pagingController"/>
 
         </h:panelGroup>
     </cc:implementation>
