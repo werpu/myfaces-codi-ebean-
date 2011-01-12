@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package at.irian.webstack.middle.orm;
+package at.irian.webstack.middle.orm.credentials;
 
 import com.sun.tools.javac.util.List;
 

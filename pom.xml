@@ -359,7 +359,7 @@
                             <goal>enhance</goal>
                         </goals>
                         <configuration>
-                            <packages>at.irian.webstack.middle.orm</packages>
+                            <packages>at.irian.webstack.middle.orm.person,at.irian.webstack.middle.orm.credentials</packages>
                             <transformArgs>debug=1</transformArgs>
 
                         </configuration>

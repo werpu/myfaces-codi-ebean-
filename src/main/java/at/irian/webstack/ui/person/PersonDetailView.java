@@ -19,8 +19,8 @@
 package at.irian.webstack.ui.person;
 
 import at.irian.webstack.middle.bo.PersonFacade;
-import at.irian.webstack.middle.orm.Address;
-import at.irian.webstack.middle.orm.Person;
+import at.irian.webstack.middle.orm.person.Address;
+import at.irian.webstack.middle.orm.person.Person;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import javax.inject.Inject;

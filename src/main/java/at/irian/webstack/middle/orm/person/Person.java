@@ -16,7 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package at.irian.webstack.middle.orm;
+package at.irian.webstack.middle.orm.person;
+
+import at.irian.webstack.middle.orm.credentials.User;
 
 import javax.persistence.*;
 import java.io.Serializable;

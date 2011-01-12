@@ -20,7 +20,7 @@
 package at.irian.webstack.ui.security;
 
 import at.irian.webstack.middle.bo.GroupFacade;
-import at.irian.webstack.middle.orm.SecGroup;
+import at.irian.webstack.middle.orm.credentials.SecGroup;
 import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.support.cdi.logging.Logger;
 import com.avaje.ebean.PagingList;

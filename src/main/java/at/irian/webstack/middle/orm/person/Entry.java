@@ -16,36 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+package at.irian.webstack.middle.orm.person;
 
-package at.irian.webstack.middle.orm;
-
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
-
-import static javax.persistence.CascadeType.MERGE;
-import static javax.persistence.CascadeType.REFRESH;
+import javax.persistence.*;
 
 /**
- * @author Werner Punz (latest modification by $Author$)
- * @version $Revision$ $Date$
+ *
+ * @author werpu2
  */
-
 @Entity
-public class User implements Serializable {
-
+@Table(name="o_entry")
+public class Entry implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    Set<SecGroup> groups;
-
-    @ManyToOne(cascade = {MERGE, REFRESH})
-    Person person;
-
-    String userName;
-    String password;
+    private Long id;
 
     public Long getId() {
         return id;
@@ -55,37 +41,18 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public Set<SecGroup> getGroups() {
-        return groups;
-    }
 
-    public void setGroups(Set<SecGroup> groups) {
-        this.groups = groups;
-    }
+    String title;
 
-    public Person getPerson() {
-        return person;
-    }
+    String shortDesc;
 
-    public void setPerson(Person person) {
-        this.person = person;
-    }
+    String longDesc;
 
-    public String getUserName() {
-        return userName;
-    }
+    @Version
+    Integer version;
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    @ManyToOne
+    Person poster;
 
     @Override
     public int hashCode() {
@@ -97,10 +64,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Entry)) {
             return false;
         }
-        User other = (User) object;
+        Entry other = (Entry) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -109,7 +76,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "orm.User[id=" + id + "]";
+        return "orm.Entry[id=" + id + "]";
     }
-}
 
+}

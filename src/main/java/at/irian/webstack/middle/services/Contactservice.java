@@ -17,45 +17,32 @@
  * under the License.
  */
 
-package at.irian.webstack.middle.bo;
+package at.irian.webstack.middle.services;
 
-import at.irian.webstack.middle.orm.credentials.SecGroup;
+/**
+ * @author Werner Punz (latest modification by $Author$)
+ * @version $Revision$ $Date$
+ *
+ * Note this is a service, services are per default stateless
+ */
+
 import at.irian.webstack.support.cdi.logging.Logger;
-import com.avaje.ebean.annotation.Transactional;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
-/**
- * @author Werner Punz (latest modification by $Author$)
- * @version $Revision$ $Date$
- */
-
 @Named
 @Dependent
-public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
-
+public class Contactservice implements Serializable {
 
     @Inject
-    Logger log;
+    Logger logger;
 
-    public GroupFacade() {
-        this.clazz = SecGroup.class;
+    public void sendMain(String message, String firstName, String lastName, String senderMail) {
+        //send mail from here
+        //the service provider is called here on demand
     }
-
-    public SecGroup createGroup() {
-        return new SecGroup();
-    }
-
-    @Transactional
-    public void deleteGroup(SecGroup group) {
-        if (group.getId() != null) {
-            em.delete(group);
-        }
-    }
-
-
 
 }

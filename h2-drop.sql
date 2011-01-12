@@ -8,9 +8,9 @@ drop table if exists o_person;
 
 drop table if exists o_secgroup;
 
-drop table if exists security;
+drop table if exists user;
 
-drop table if exists security_secgroup;
+drop table if exists user_secgroup;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
@@ -22,5 +22,5 @@ drop sequence if exists o_person_seq;
 
 drop sequence if exists o_secgroup_seq;
 
-drop sequence if exists security_seq;
+drop sequence if exists user_seq;
 

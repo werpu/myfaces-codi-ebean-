@@ -12,8 +12,8 @@
  */
 package at.irian.webstack.middle.bo;
 
-import at.irian.webstack.middle.orm.Address;
-import at.irian.webstack.middle.orm.Person;
+import at.irian.webstack.middle.orm.person.Person;
+import at.irian.webstack.middle.orm.person.Address;
 import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.middle.util.OrderEntry;
 import at.irian.webstack.support.cdi.logging.Logger;
