@@ -32,8 +32,8 @@ import java.util.*;
 
 public class BaseSearchModel implements Map<String, Object>, Serializable {
     protected Map<String, Object> searchMap = new HashMap<String, Object>();
-    protected int from = -1;
-    protected int pageSize = -1;
+    protected int from = 0;
+    protected int pageSize = 10;
     protected boolean searchPerformed = false;
 
     public List<FilterEntry> toFilterList() {

@@ -19,7 +19,9 @@
 package at.irian.webstack.ui.person;
 
 import at.irian.webstack.middle.bo.PersonFacade;
+import at.irian.webstack.middle.orm.person.Person;
 import at.irian.webstack.middle.util.FilterEntry;
+import at.irian.webstack.support.data.PaginationController;
 import com.avaje.ebean.PagingList;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
@@ -44,7 +46,7 @@ public class PersonListView implements Serializable {
      */
     @Inject
     PersonFacade personFacade;
-    PagingList listModel = null;
+    PaginationController listModel = null;
 
     @PostConstruct
     public void postConstruct() {
@@ -71,7 +73,7 @@ public class PersonListView implements Serializable {
     
     private void refresh() {
         List<FilterEntry> filters = (searchData != null) ? searchData.toFilterList() : null;
-        listModel = personFacade.loadFromTo(Math.max(searchData.getFrom(), 0), Math.max(searchData.getFrom() + searchData.getPageSize(), 0), filters, null);
+        listModel = personFacade.loadFromTo(Math.max(searchData.getFrom(), 0), searchData.getPageSize(), filters, null);
     }
 
 
@@ -81,11 +83,11 @@ public class PersonListView implements Serializable {
         return null;
     }
 
-    public PagingList getListModel() {
+    public PaginationController getListModel() {
         return listModel;
     }
 
-    public void setListModel(PagingList listModel) {
+    public void setListModel(PaginationController listModel) {
         this.listModel = listModel;
     }
 

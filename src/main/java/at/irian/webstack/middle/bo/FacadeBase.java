@@ -15,6 +15,7 @@ package at.irian.webstack.middle.bo;
 
 import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.middle.util.OrderEntry;
+import at.irian.webstack.support.data.PaginationController;
 import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.PagingList;
@@ -48,11 +49,11 @@ public abstract class FacadeBase<T> {
         return (T) em.find(this.getClass().getTypeParameters()[0].getClass(), identifier);
     }
 
-    protected PagingList getPage(int from, int to, Query query) {
-        int pageSize = to - from;
-        int page = Math.max(10, to - from);
+    protected PaginationController<T> getPage(int from, int pageSize, Query query) {
+        //query.set(pageSize);
+        query.setFirstRow(from);
 
-        PagingList resList = query.findPagingList(to - from);
+        PaginationController<T> resList = new PaginationController<T>(query.findPagingList(pageSize));
 
         return resList;
     }
@@ -61,9 +62,9 @@ public abstract class FacadeBase<T> {
         return (T) em.find(clazz, id);
     }
 
-    public PagingList loadFromTo(int from, int to) {
+    public PaginationController<T> loadFromTo(int from, int pageSize) {
         Query query = em.createQuery(clazz);
-        return getPage(from, to, query);
+        return getPage(from, pageSize, query);
     }
 
 
@@ -114,15 +115,15 @@ public abstract class FacadeBase<T> {
 
       /**
      * @param from
-     * @param to
+     * @param pageSize
      * @param filter
      * @param orderBy
      * @return
      */
-    public PagingList loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
+    public PaginationController<T> loadFromTo(int from, int pageSize, List<FilterEntry> filter, List<OrderEntry> orderBy) {
         Query query = em.createQuery(clazz);
         applyFilters(query, filter, orderBy);
-        return getPage(from, to, query);
+        return getPage(from, pageSize, query);
     }
 
     /**

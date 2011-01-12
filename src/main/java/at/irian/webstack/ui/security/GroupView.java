@@ -23,6 +23,7 @@ import at.irian.webstack.middle.bo.GroupFacade;
 import at.irian.webstack.middle.orm.credentials.SecGroup;
 import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.support.cdi.logging.Logger;
+import at.irian.webstack.support.data.PaginationController;
 import com.avaje.ebean.PagingList;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
@@ -48,20 +49,20 @@ public class GroupView implements Serializable {
     @Inject
     GroupListSearchModel searchData;
 
-    PagingList listModel = null;
+    PaginationController listModel = null;
 
     @Inject
     Logger log;
 
     SecGroup deta = null;
 
-    Long groupId = null;
+
 
     String pageMode;
 
     public void refresh() {
         List<FilterEntry> filters = (searchData != null) ? searchData.toFilterList() : null;
-        listModel = groupFacade.loadFromTo(Math.max(searchData.getFrom(), 0), Math.max(searchData.getFrom() + searchData.getPageSize(), 0), filters, null);
+        listModel = groupFacade.loadFromTo(Math.max(searchData.getFrom(), 0), searchData.getPageSize(), filters, null);
     }
 
     public String doSearchList() {
@@ -70,13 +71,11 @@ public class GroupView implements Serializable {
     }
 
     public String goDeta() {
-        deta = groupFacade.loadById(groupId);
-        return null;
+        return "groupList";
     }
 
     public String goDelete() {
-        deta = groupFacade.loadById(groupId);
-        return null;
+        return "groupLists";
     }
 
     public String doSave() {
@@ -88,7 +87,6 @@ public class GroupView implements Serializable {
 
     private void resetPageModeData() {
         pageMode = null;
-        groupId = null;
         deta = null;
     }
 
@@ -119,11 +117,11 @@ public class GroupView implements Serializable {
         this.searchData = searchData;
     }
 
-    public PagingList getListModel() {
+    public PaginationController getListModel() {
         return listModel;
     }
 
-    public void setListModel(PagingList listModel) {
+    public void setListModel(PaginationController listModel) {
         this.listModel = listModel;
     }
 
@@ -135,13 +133,7 @@ public class GroupView implements Serializable {
         this.deta = deta;
     }
 
-    public Long getGroupId() {
-        return groupId;
-    }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
-    }
 
     public String getPageMode() {
         return pageMode;

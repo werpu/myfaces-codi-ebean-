@@ -17,6 +17,7 @@ import at.irian.webstack.middle.orm.person.Address;
 import at.irian.webstack.middle.util.FilterEntry;
 import at.irian.webstack.middle.util.OrderEntry;
 import at.irian.webstack.support.cdi.logging.Logger;
+import at.irian.webstack.support.data.PaginationController;
 import com.avaje.ebean.PagingList;
 import com.avaje.ebean.Query;
 import com.avaje.ebean.annotation.Transactional;
@@ -68,7 +69,7 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable {
      * @param orderBy
      * @return
      */
-    public PagingList loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
+    public PaginationController<Person> loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
         Query query = em.createQuery(Person.class);
         query.fetch("addresses");
         applyFilters(query, filter, orderBy);

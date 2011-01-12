@@ -48,7 +48,6 @@ public class PersonDetailView implements Serializable {
     Person person;
     Address address;
 
-    Long personId = -1L;
 
     String viewMode = MODE_CREATE;
 
@@ -61,14 +60,13 @@ public class PersonDetailView implements Serializable {
 
     public String goDeta() {
         viewMode = MODE_EDIT;
-        person = personFacade.loadById(personId);
 
         return NAV_DETAIL;
     }
 
     public String goDelete() {
         viewMode = MODE_DELETE;
-        person = personFacade.loadById(personId);
+
 
         return NAV_DETAIL;
     }
@@ -95,13 +93,7 @@ public class PersonDetailView implements Serializable {
         return NAV_LIST;
     }
 
-    public Long getPersonId() {
-        return personId;
-    }
 
-    public void setPersonId(Long personId) {
-        this.personId = personId;
-    }
 
     public Person getPerson() {
         return person;

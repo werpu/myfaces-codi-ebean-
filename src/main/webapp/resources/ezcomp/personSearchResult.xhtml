@@ -45,11 +45,11 @@
                     <h:outputText value="#{msgs.operation}"/>
                 </f:facet>
                 <h:commandLink action="#{personDetailView.goDeta}" value="#{msgs.detail}">
-                    <f:setPropertyActionListener target="#{personDetailView.personId}" value="#{item.id}" />
+                    <f:setPropertyActionListener target="#{personDetailView.person}" value="#{item}" />
                 </h:commandLink>
 
                 <h:commandLink style="margin-left: 5px;" action="#{personDetailView.goDelete}" value="#{msgs.delete}">
-                    <f:setPropertyActionListener target="#{personDetailView.personId}" value="#{item.id}" />
+                    <f:setPropertyActionListener target="#{personDetailView.person}" value="#{item}" />
                 </h:commandLink>
 
             </h:column>

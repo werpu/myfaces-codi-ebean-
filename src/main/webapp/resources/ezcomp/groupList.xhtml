@@ -1,7 +1,9 @@
 <ui:component xmlns=""
               xmlns:ui="http://java.sun.com/jsf/facelets"
               xmlns:cc="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html"
-              xmlns:f="http://java.sun.com/jsf/core">
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
 
     <cc:interface>
         <cc:attribute name="value" required="true"/>
@@ -9,7 +11,7 @@
 
 
     <cc:implementation>
-        <h:dataTable id="groupResult" value="#{cc.attrs.value.listModel.getPage(0).list}" var="item"
+        <h:dataTable id="groupResult" value="#{cc.attrs.value.listModel.getPage().list}" var="item"
                      rendered="#{cc.attrs.value.listModel != null}">
             <h:column id="groupNameDetaCol">
                 <f:facet name="header">
@@ -42,12 +44,12 @@
                     <h:outputText value="#{msgs.group_type}"></h:outputText>
                 </f:facet>
                 <h:panelGroup id="grpType">
-                     <h:panelGroup id="groupt_view" rendered="#{item ne groupView.deta}">
+                    <h:panelGroup id="groupt_view" rendered="#{item ne groupView.deta}">
                         <h:outputFormat value="#{item.groupType}"/>
                     </h:panelGroup>
                     <h:panelGroup id="groupt_edit" rendered="#{item eq groupView.deta}">
                         <h:selectOneMenu value="#{item.groupType}">
-                            <f:selectItems value="#{groupTypes.allGroupTypes}" />
+                            <f:selectItems value="#{groupTypes.allGroupTypes}"/>
                         </h:selectOneMenu>
                     </h:panelGroup>
                 </h:panelGroup>
@@ -60,28 +62,55 @@
                 <h:panelGroup id="ops">
                     <h:panelGroup rendered="#{item ne groupView.deta}">
                         <h:commandLink action="#{cc.attrs.value.goDeta}" value="#{msgs.detail}">
-                            <f:setPropertyActionListener target="#{cc.attrs.value.groupId}" value="#{item.id}"/>
+                            <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="edit"/>
-                            <f:ajax execute="@this" render="groupResult" />
+                            <f:ajax execute="@this" render="groupResult"/>
                         </h:commandLink>
                         <h:commandLink style="margin-left: 5px;" action="#{cc.attrs.value.goDelete}"
                                        value="#{msgs.delete}">
-                            <f:setPropertyActionListener target="#{cc.attrs.value.groupId}" value="#{item.id}"/>
+                            <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="delete"/>
                         </h:commandLink>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{item eq groupView.deta}">
                         <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}">
-                            <f:ajax execute="groupResult" render="groupResult" />
+                            <f:ajax execute="groupResult" render="groupResult"/>
                         </h:commandLink>
                         <h:commandLink action="#{cc.attrs.value.doCancel}" value="#{msgs.cancel}">
-                            <f:ajax execute="@this" render="groupResult" />
+                            <f:ajax execute="@this" render="groupResult"/>
                         </h:commandLink>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:column>
 
         </h:dataTable>
+
+
+        <h:panelGroup id="pagingController">
+            <!-- todo make a paginator ala
+              first currentPos currentPos+1 .... 8 last
+              attributes needed referencingTable
+              value ... value to the pageListModel delivered by ebeans
+            -->
+            <h:commandLink value="#{msgs.pagination_first}" rendered="#{! cc.attrs.value.listModel.isInFirstWindow()}">
+                <f:setPropertyActionListener value="0" target="#{cc.attrs.value.listModel.lastPageAccessed}"/>
+                <f:ajax execute="@this" render="groupResult"/>
+            </h:commandLink>
+
+            <c:forEach items="#{cc.attrs.value.listModel.fetchPagesWindow()}" varStatus="s" var="curVal">
+                <h:commandLink id="page_select" action="groupList" value="${curVal}" rendered="#{curVal ne cc.attrs.value.listModel.lastPageAccessed}">
+                    <f:setPropertyActionListener value="curVal" target="#{cc.attrs.value.listModel.lastPageAccessed}"/>
+                    <f:ajax execute="@this" render="groupResult"/>
+                </h:commandLink>
+                <h:outputFormat value="" rendered="#{curVal eq cc.attrs.value.listModel.lastPageAccessed}"/>
+            </c:forEach>
+
+            <h:commandLink value="#{msgs.pagination_last}" rendered="#{! cc.attrs.value.listModel.isInLastWindow()}">
+                <f:setPropertyActionListener value="0" target="#{cc.attrs.value.listModel.lastPageAccessed}"/>
+                <f:ajax execute="@this" render="groupResult"/>
+            </h:commandLink>
+
+        </h:panelGroup>
     </cc:implementation>
 
 </ui:component>
