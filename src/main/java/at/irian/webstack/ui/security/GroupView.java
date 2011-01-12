@@ -82,15 +82,20 @@ public class GroupView implements Serializable {
     public String doSave() {
         log.info("saving group");
         groupFacade.save(deta);
-        return null;
+        resetPageModeData();
+        return "groupList";
+    }
+
+    private void resetPageModeData() {
+        pageMode = null;
+        groupId = null;
+        deta = null;
     }
 
     public String doCancel() {
-        deta = null;
-        groupId = null;
-        pageMode = null;
+        resetPageModeData();
 
-        return null;
+        return "groupList";
     }
 
     public String goCreate() {

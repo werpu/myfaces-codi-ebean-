@@ -33,10 +33,26 @@
                         <h:outputFormat value="#{item.description}"/>
                     </h:panelGroup>
                     <h:panelGroup id="groupd_edit" rendered="#{item eq groupView.deta}">
-                        <h:inputTextarea value="#{item.description}"/>
+                        <h:inputText value="#{item.description}"/>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:column>
+            <h:column id="groupTypeCol">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs.group_type}"></h:outputText>
+                </f:facet>
+                <h:panelGroup id="grpType">
+                     <h:panelGroup id="groupt_view" rendered="#{item ne groupView.deta}">
+                        <h:outputFormat value="#{item.groupType}"/>
+                    </h:panelGroup>
+                    <h:panelGroup id="groupt_edit" rendered="#{item eq groupView.deta}">
+                        <h:selectOneMenu value="#{item.groupType}">
+                            <f:selectItems value="#{groupTypes.allGroupTypes}" />
+                        </h:selectOneMenu>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:column>
+
             <h:column id="operation">
                 <f:facet name="header">
                     <h:outputText value="#{msgs.operation}"/>
@@ -56,7 +72,7 @@
                     </h:panelGroup>
                     <h:panelGroup rendered="#{item eq groupView.deta}">
                         <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}">
-                            <f:ajax execute="@this" render="groupResult" />
+                            <f:ajax execute="groupResult" render="groupResult" />
                         </h:commandLink>
                         <h:commandLink action="#{cc.attrs.value.doCancel}" value="#{msgs.cancel}">
                             <f:ajax execute="@this" render="groupResult" />
