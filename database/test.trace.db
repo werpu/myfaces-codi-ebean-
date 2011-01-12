@@ -1,0 +1,4 @@
+01-12 09:50:54 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: NULL nicht zulässig für Feld "ID"
+NULL not allowed for column "ID"; SQL statement:
+insert into o_secgroup (group_type, group_name, description, version) values (?,?,?,?) [90006-146]
