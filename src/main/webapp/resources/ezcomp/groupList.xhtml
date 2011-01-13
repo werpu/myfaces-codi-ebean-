@@ -9,9 +9,8 @@
         <cc:attribute name="value" required="true"/>
     </cc:interface>
 
-
     <cc:implementation>
-        <h:dataTable id="groupResult" value="#{cc.attrs.value.listModel.getPage().list}" var="item"
+        <h:dataTable id="groupResult" model="#{cc.attrs.value.listModel.getPage().list}" var="item"
                      rendered="#{cc.attrs.value.listModel != null}">
             <h:column id="groupNameDetaCol">
                 <f:facet name="header">
@@ -86,15 +85,14 @@
         </h:dataTable>
 
 
-        <h:panelGroup id="pagingController">
-            <!-- todo make a paginator ala
-              first currentPos currentPos+1 .... 8 last
-              attributes needed referencingTable
-              value ... value to the pageListModel delivered by ebeans
-            -->
-           <ezcomp:paginator value="#{cc.attrs.value.listModel}" for="groupResult" container="pagingController"/>
+        <!-- todo make a paginator ala
+          first currentPos currentPos+1 .... 8 last
+          attributes needed referencingTable
+          value ... value to the pageListModel delivered by ebeans
+        -->
+        <ezcomp:paginator forTable="groupResult" value="#{cc.attrs.value.listModel}"/>
 
-        </h:panelGroup>
+
     </cc:implementation>
 
 </ui:component>

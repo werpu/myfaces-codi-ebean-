@@ -73,7 +73,7 @@ public class PaginationController<T> {
         return _delegate.getPage(i);
     }
 
-    public Page<T> getPage() {
+    public Page<T> fetchPage() {
         return _delegate.getPage(lastPageAccessed);
     }
 
@@ -81,7 +81,7 @@ public class PaginationController<T> {
         return lastPageAccessed;
     }
 
-    public void setLastPageAccessed() {
+    public void setLastPageAccessed(int lastPageAccessed) {
         this.lastPageAccessed = lastPageAccessed;
     }
 

@@ -1,35 +1,53 @@
 <ui:component xmlns="http://www.w3.org/1999/xhtml"
               xmlns:ui="http://java.sun.com/jsf/facelets"
-              xmlns:composite="http://java.sun.com/jsf/composite" xmlns:="" xmlns:h="http://java.sun.com/jsf/html"
-              xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-    <composite:interface>
-           
+    <composite:interface componentType="at.irian.PaginatorComponent">
+
+        <!-- the referencing table which must be present in the same naming container as our component -->
+        <composite:attribute name="forTable" required="true"/>
+
+        <!-- the value pointing to a pagination controller object -->
         <composite:attribute name="value" required="true"/>
-        <composite:attribute name="for" required="true"/>
-        <composite:attribute name="container" required="true"/>
-              
+
     </composite:interface>
 
     <composite:implementation>
-        <h:commandLink value="#{msgs.pagination_first}" rendered="#{! cc.attrs.value.isInFirstWindow()}">
-            <f:setPropertyActionListener value="0" target="#{cc.attrs.value.lastPageAccessed}"/>
-            <f:ajax execute="@this" render="#{cc.attrs.for cc.attrs.container}"/>
-        </h:commandLink>
+        <h:panelGroup id="pagingController">
+            <!--
+                todo we have to set a component here because we have to make the connection between
+                this markup and the corresponding table
+            -->
 
-        <c:forEach items="#{cc.attrs.value.fetchPagesWindow()}" varStatus="s" var="curVal">
-            <h:commandLink id="page_select" action="groupList" value="${curVal}"
-                           rendered="#{curVal ne cc.attrs.value.lastPageAccessed}">
-                <f:setPropertyActionListener value="curVal" target="#{cc.attrs.value.lastPageAccessed}"/>
-                <f:ajax execute="@this" render="#{cc.attrs.for cc.attrs.container}"/>
+
+            <h:commandLink id="first" value="#{msgs.pagination_first}" rendered="#{! cc.value.isInFirstWindow()}"
+                           onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
+                    >
+                <f:setPropertyActionListener value="0" target="#{cc.value.lastPageAccessed}"/>
+
             </h:commandLink>
-            <h:outputFormat value="" rendered="#{curVal eq cc.attrs.value.lastPageAccessed}"/>
-        </c:forEach>
 
-        <h:commandLink value="#{msgs.pagination_last}" rendered="#{! cc.attrs.value.isInLastWindow()}">
-            <f:setPropertyActionListener value="0" target="#{cc.attrs.value.lastPageAccessed}"/>
-            <f:ajax execute="@this" render="#{cc.attrs.for cc.attrs.container}"/>
-        </h:commandLink>
+            <ui:repeat value="#{cc.value.fetchPagesWindow()}" varStatus="s" var="curVal">
+                <h:commandLink id="page_select" action="groupList" value="${curVal}"
+                               rendered="#{curVal ne cc.value.lastPageAccessed}"
+                               onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
+                        >
+                    <f:setPropertyActionListener value="${curVal}" target="#{cc.value.lastPageAccessed}"/>
+
+                </h:commandLink>
+                <h:outputFormat value="${curVal}" rendered="#{curVal eq cc.value.lastPageAccessed}"/>
+            </ui:repeat>
+
+            <h:commandLink id="last" value="#{msgs.pagination_last}" rendered="#{! cc.value.isInLastWindow()}"
+                           onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
+                    >
+                <f:setPropertyActionListener value="0" target="#{cc.value.lastPageAccessed}"/>
+            </h:commandLink>
+
+        </h:panelGroup>
     </composite:implementation>
 
 </ui:component>
