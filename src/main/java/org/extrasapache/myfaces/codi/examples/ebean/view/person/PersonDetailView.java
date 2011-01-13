@@ -19,8 +19,8 @@
 package org.extrasapache.myfaces.codi.examples.ebean.view.person;
 
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.PersonFacade;
-import org.extrasapache.myfaces.codi.examples.ebean.orm.Address;
-import org.extrasapache.myfaces.codi.examples.ebean.orm.Person;
+import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address;
+import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import javax.inject.Inject;

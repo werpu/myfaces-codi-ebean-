@@ -20,7 +20,7 @@
 package org.extrasapache.myfaces.codi.examples.ebean.view.security;
 
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.GroupFacade;
-import org.extrasapache.myfaces.codi.examples.ebean.orm.SecGroup;
+import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;
 import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.logging.Logger;
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController;
@@ -54,8 +54,6 @@ public class GroupView implements Serializable {
     Logger log;
 
     SecGroup deta = null;
-
-
 
     String pageMode;
 
@@ -101,10 +99,11 @@ public class GroupView implements Serializable {
         return "groupList";
     }
 
-    public void doDelete() {
+    public String doDelete() {
         log.info("deleting group");
         groupFacade.deleteGroup(deta);
-        deta = null;
+        resetPageModeData();
+        return "groupList";
     }
     /*setter and getter*/
 
@@ -131,8 +130,6 @@ public class GroupView implements Serializable {
     public void setDeta(SecGroup deta) {
         this.deta = deta;
     }
-
-
 
     public String getPageMode() {
         return pageMode;

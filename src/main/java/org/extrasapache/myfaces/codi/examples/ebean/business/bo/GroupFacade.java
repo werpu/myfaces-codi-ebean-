@@ -19,7 +19,7 @@
 
 package org.extrasapache.myfaces.codi.examples.ebean.business.bo;
 
-import org.extrasapache.myfaces.codi.examples.ebean.orm.SecGroup;
+import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
 import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.logging.Logger;
 import com.avaje.ebean.annotation.Transactional;
 

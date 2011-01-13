@@ -18,6 +18,8 @@
  */
 package org.extrasapache.myfaces.codi.examples.ebean.support.cdi.ebean;
 
+import com.avaje.ebean.EbeanServerFactory;
+import com.avaje.ebean.config.ServerConfig;
 import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.util.Factory;
 import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.util.Name;
 import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.util.SerializableProxyFactory;
@@ -47,6 +49,7 @@ public class EbeanCDIProducer implements Serializable {
         }
 
         public Object createInstance() {
+
             return Ebean.getServer(null);
         }
     }
@@ -77,6 +80,7 @@ public class EbeanCDIProducer implements Serializable {
             unitName = null;
         }
         EbeanServer serv = (EbeanServer) SerializableProxyFactory.newInstance(new EBeanFactory(null));
+
         return serv;
     }
 

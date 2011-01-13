@@ -12,8 +12,8 @@
  */
 package org.extrasapache.myfaces.codi.examples.ebean.business.bo;
 
-import org.extrasapache.myfaces.codi.examples.ebean.orm.Person;
-import org.extrasapache.myfaces.codi.examples.ebean.orm.Address;
+import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person;
+import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.OrderEntry;
 import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.logging.Logger;
@@ -63,16 +63,16 @@ public class PersonFacade extends FacadeBase<Person> implements Serializable {
 
     /**
      * @param from
-     * @param to
-     * @param filter
+     * @param pageSize
+     * @param pageSize
      * @param orderBy
      * @return
      */
-    public PaginationController<Person> loadFromTo(int from, int to, List<FilterEntry> filter, List<OrderEntry> orderBy) {
+    public PaginationController<Person> loadFromTo(int from, int pageSize, List<FilterEntry> filter, List<OrderEntry> orderBy) {
         Query query = em.createQuery(Person.class);
         query.fetch("addresses");
         applyFilters(query, filter, orderBy);
-        return getPage(from, to, query);
+        return getPage(from, pageSize, query);
     }
 
     @Transactional

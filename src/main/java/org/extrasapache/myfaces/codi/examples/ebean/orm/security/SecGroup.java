@@ -17,14 +17,12 @@
  * under the License.
  */
 
-package org.extrasapache.myfaces.codi.examples.ebean.orm;
+package org.extrasapache.myfaces.codi.examples.ebean.orm.security;
+
+import com.sun.tools.javac.util.List;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
-
-import static javax.persistence.CascadeType.MERGE;
-import static javax.persistence.CascadeType.REFRESH;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -32,75 +30,85 @@ import static javax.persistence.CascadeType.REFRESH;
  */
 
 @Entity
-public class User implements Serializable {
+@Table(name = "o_secgroup")
+public class SecGroup implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    public static final int GRP_TYPE_SYSTEM = 0;
+    public static final int GRP_TYPE_USER = 1;
+    public static final int GRP_TYPE_OTHER = 2;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    Set<SecGroup> groups;
+    Integer groupType;
 
-    @ManyToOne(cascade = {MERGE, REFRESH})
-    Person person;
+    String groupName;
 
-    String userName;
-    String password;
+    String description;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    List<User> credentialOwners;
+
+    @Version
+    Long version;
 
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        id = id;
     }
 
-    public Set<SecGroup> getGroups() {
-        return groups;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setGroups(Set<SecGroup> groups) {
-        this.groups = groups;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
-    public Person getPerson() {
-        return person;
+    public Integer getGroupType() {
+        return groupType;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setGroupType(Integer groupType) {
+        this.groupType = groupType;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPassword() {
-        return password;
+    public List<User> getCredentialOwners() {
+        return credentialOwners;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCredentialOwners(List<User> credentialOwners) {
+        this.credentialOwners = credentialOwners;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof SecGroup)) {
             return false;
         }
-        User other = (User) object;
+        SecGroup other = (SecGroup) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -109,7 +117,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User[id=" + id + "]";
+        return "SecGroup[id=" + id + "]";
     }
 }
-

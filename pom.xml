@@ -364,7 +364,7 @@
                             <goal>enhance</goal>
                         </goals>
                         <configuration>
-                            <packages>org.extrasapache.myfaces.codi.examples.ebean.orm</packages>
+                            <packages>org.extrasapache.myfaces.codi.examples.ebean.orm.person,org.extrasapache.myfaces.codi.examples.ebean.orm.security</packages>
                             <transformArgs>debug=1</transformArgs>
 
                         </configuration>

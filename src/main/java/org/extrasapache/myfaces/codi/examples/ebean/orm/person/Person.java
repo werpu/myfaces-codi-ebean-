@@ -16,7 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.extrasapache.myfaces.codi.examples.ebean.orm;
+package org.extrasapache.myfaces.codi.examples.ebean.orm.person;
+
+import org.extrasapache.myfaces.codi.examples.ebean.orm.security.User;
 
 import javax.persistence.*;
 import java.io.Serializable;

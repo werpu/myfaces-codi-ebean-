@@ -16,22 +16,38 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.extrasapache.myfaces.codi.examples.ebean.orm;
 
-import java.io.Serializable;
+package org.extrasapache.myfaces.codi.examples.ebean.orm.security;
+
+import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
+
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.REFRESH;
 
 /**
- *
- * @author werpu2
+ * @author Werner Punz (latest modification by $Author$)
+ * @version $Revision$ $Date$
  */
+
 @Entity
-@Table(name="o_entry")
-public class Entry implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    Long id;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    Set<SecGroup> groups;
+
+    @ManyToOne(cascade = {MERGE, REFRESH})
+    Person person;
+
+    String userName;
+    String password;
 
     public Long getId() {
         return id;
@@ -41,18 +57,37 @@ public class Entry implements Serializable {
         this.id = id;
     }
 
+    public Set<SecGroup> getGroups() {
+        return groups;
+    }
 
-    String title;
+    public void setGroups(Set<SecGroup> groups) {
+        this.groups = groups;
+    }
 
-    String shortDesc;
+    public Person getPerson() {
+        return person;
+    }
 
-    String longDesc;
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
-    @Version
-    Integer version;
+    public String getUserName() {
+        return userName;
+    }
 
-    @ManyToOne
-    Person poster;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public int hashCode() {
@@ -64,10 +99,10 @@ public class Entry implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Entry)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Entry other = (Entry) object;
+        User other = (User) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -76,7 +111,7 @@ public class Entry implements Serializable {
 
     @Override
     public String toString() {
-        return "Entry[id=" + id + "]";
+        return "User[id=" + id + "]";
     }
-
 }
+

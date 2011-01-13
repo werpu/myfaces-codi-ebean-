@@ -19,7 +19,7 @@
 
 package org.extrasapache.myfaces.codi.examples.ebean.view.security;
 
-import org.extrasapache.myfaces.codi.examples.ebean.orm.SecGroup;
+import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.model.SelectItem;
