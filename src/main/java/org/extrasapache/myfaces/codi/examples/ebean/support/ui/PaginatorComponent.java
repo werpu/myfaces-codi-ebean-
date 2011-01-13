@@ -24,6 +24,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationContr
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
+import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -81,7 +82,8 @@ public class PaginatorComponent extends UINamingContainer {
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
         //now we have to find the forTable
-        UIComponent forTable = this.getParent().findComponent(getForTable());
+        HtmlDataTable forTable = (HtmlDataTable) this.getParent().findComponent(getForTable());
+        //setValue((PaginationController)forTable.getValue());
         //TODO improve the for handling for this case because currently our component and our table
         //need the same parent
         setForTableClientId(forTable.getClientId());

@@ -10,7 +10,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <h:dataTable id="groupResult" value="#{cc.attrs.value.listModel}" var="item"
+        <h:dataTable id="groupResult" value="#{cc.attrs.value.listModel.pageAsList}" var="item"
                      rendered="#{cc.attrs.value.listModel != null}">
             <h:column id="groupNameDetaCol">
                 <f:facet name="header">

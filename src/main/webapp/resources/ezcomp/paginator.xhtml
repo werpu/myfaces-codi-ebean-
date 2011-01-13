@@ -30,15 +30,15 @@
 
             </h:commandLink>
 
-            <ui:repeat value="#{cc.value.fetchPagesWindow()}" varStatus="s" var="curVal">
+            <ui:repeat value="${cc.value.fetchPagesWindow()}" varStatus="s" var="curVal">
                 <h:commandLink id="page_select" action="groupList" value="${curVal}"
-                               rendered="#{curVal ne cc.value.lastPageAccessed}"
+                               rendered="#{curVal != cc.value.getLastPageAccessed()}"
                                onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
                         >
                     <f:setPropertyActionListener value="${curVal}" target="#{cc.value.lastPageAccessed}"/>
 
                 </h:commandLink>
-                <h:outputFormat value="${curVal}" rendered="#{curVal eq cc.value.lastPageAccessed}"/>
+                <h:outputFormat value="${curVal}" rendered="#{curVal eq cc.value.getLastPageAccessed()}"/>
             </ui:repeat>
 
             <h:commandLink id="last" value="#{msgs.pagination_last}" rendered="#{! cc.value.isInLastWindow()}"

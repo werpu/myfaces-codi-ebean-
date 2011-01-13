@@ -29,7 +29,7 @@
 <cc:implementation>
     <h3>Person Results</h3>
     <!-- todo we need a paging controller to our page model which comes directly from ebean -->
-    <h:dataTable id="personResult" value="#{cc.attrs.value.fetchPage().list}" var="item"
+    <h:dataTable id="personResult" value="#{cc.attrs.value.pageAsList}" var="item"
                  rendered="#{cc.attrs.value != null}">
         <h:column id="firstName">
             <f:facet name="header">

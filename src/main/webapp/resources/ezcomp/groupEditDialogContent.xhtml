@@ -2,25 +2,26 @@
               xmlns:ui="http://java.sun.com/jsf/facelets"
               xmlns:cc="http://java.sun.com/jsf/composite"
               xmlns:h="http://java.sun.com/jsf/html"
-              >
+        >
 
-  <!-- INTERFACE -->
+    <!-- INTERFACE -->
     <cc:interface>
-        <cc:attribute name="value" required="true" />
+        <cc:attribute name="value" required="true"/>
     </cc:interface>
 
     <cc:implementation>
 
-            <script type="text/javascript">
-                /*small javascripts which set the styles according to their state
-                 to enable a dialog which hides and pops up*/
-                document.getElementById("groupDetaDialog").setAttribute("style", "display:none");
-            </script>
-            <h:panelGroup id="editHolder" rendered="#{cc.attrs.value.pageMode eq 'create'}">
-                <h2>
-                    <h:outputFormat value="#{msgs.group_edit}"/>
-                </h2>
-                <h:form id="editGroup">
+        <script type="text/javascript">
+            /*small javascripts which set the styles according to their state
+             to enable a dialog which hides and pops up*/
+            document.getElementById("groupDetaDialog").setAttribute("style", "display:none");
+        </script>
+        <h:panelGroup id="editHolder" rendered="#{cc.attrs.value.pageMode eq 'create'}">
+            <h2>
+                <h:outputFormat value="#{msgs.group_edit}"/>
+            </h2>
+            <h:form id="editGroup">
+                <h:panelGrid columns="2">
                     <h:outputFormat value="#{msgs.group_name}"/>
                     <h:panelGroup>
                         <h:inputText id="groupname" value="#{cc.attrs.value.deta.groupName}" required="true"/>
@@ -29,34 +30,46 @@
                     <h:outputFormat value="#{msgs.description}"/>
                     <h:inputTextarea value="#{cc.attrs.value.deta.description}"></h:inputTextarea>
 
+                </h:panelGrid>
+                <h:panelGroup>
                     <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}"/>
                     <h:commandLink id="edit_cancel" action="#{cc.attrs.value.doCancel}"
                                    onclick="jsf.ajax.request(this ,event, {execute:'@this', render:'groupDetaDialog'}); return false;"
                                    value="#{msgs.cancel}"/>
-                </h:form>
-                <script type="text/javascript">
+                </h:panelGroup>
+            </h:form>
+            <script type="text/javascript">
+
                     document.getElementById("groupDetaDialog").style.display = "block";
-                </script>
-            </h:panelGroup>
+                    setTimeout(function() {document.getElementById("groupDetaDialog").style.opacity = "1";} , 10);
+
+            </script>
+        </h:panelGroup>
 
 
-            <h:panelGroup id="deleteHolder" rendered="#{cc.attrs.value.pageMode eq 'delete'}">
-                <h2>
-                    <h:outputFormat value="#{msgs.group_delete}"/>
-                </h2>
-                <h:form id="deleteGroup">
+        <h:panelGroup id="deleteHolder" rendered="#{cc.attrs.value.pageMode eq 'delete'}">
+            <h2>
+                <h:outputFormat value="#{msgs.group_delete}"/>
+            </h2>
+            <h:form id="deleteGroup">
+                <h:panelGrid columns="2">
                     <h:outputFormat value="#{msgs.group_name}"/>
                     <h:outputFormat value="#{cc.attrs.value.deta.groupName}"/>
                     <h:outputFormat value="#{msgs.description}"/>
                     <h:outputFormat value="#{cc.attrs.value.deta.description}"/>
-
+                </h:panelGrid>
+                <h:panelGroup>
                     <h:commandLink action="#{cc.attrs.value.doDelete}" value="#{msgs.delete}"/>
                     <h:commandLink action="#{cc.attrs.value.doCancel}" value="#{msgs.cancel}"/>
-                </h:form>
-                <script type="text/javascript">
+                </h:panelGroup>
+            </h:form>
+            <script type="text/javascript">
+
                     document.getElementById("groupDetaDialog").style.display = "block";
-                </script>
-            </h:panelGroup>
+                    setTimeout(function() {document.getElementById("groupDetaDialog").style.opacity = "1";} , 10);
+
+            </script>
+        </h:panelGroup>
 
     </cc:implementation>
 

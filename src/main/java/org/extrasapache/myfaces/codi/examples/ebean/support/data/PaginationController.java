@@ -30,9 +30,9 @@ import java.util.concurrent.Future;
  * @version $Revision$ $Date$
  */
 
-public class PaginationController<T> implements List<T>{
+public class PaginationController<T> {
     PagingList<T> _delegate;
-    int lastPageAccessed = 0;
+    Integer lastPageAccessed = 0;
 
     int pagingWindowSize = 8;
 
@@ -78,11 +78,11 @@ public class PaginationController<T> implements List<T>{
         return _delegate.getPage(lastPageAccessed);
     }
 
-    public int getLastPageAccessed() {
+    public Integer getLastPageAccessed() {
         return lastPageAccessed;
     }
 
-    public void setLastPageAccessed(int lastPageAccessed) {
+    public void setLastPageAccessed(Integer lastPageAccessed) {
         this.lastPageAccessed = lastPageAccessed;
     }
 
@@ -117,101 +117,7 @@ public class PaginationController<T> implements List<T>{
         return ret;
     }
 
-    
-    /*we also have to implement a list interface for the jsf datatable,
-    * either that or the table model I prefer the later*/
-    
-    
-    public int size() {
-        return fetchPage().getList().size();  
-    }
-
-    public boolean isEmpty() {
-        return fetchPage().getList().isEmpty();  
-    }
-
-    public boolean contains(Object o) {
-        return fetchPage().getList().contains(o);  
-    }
-
-    public Iterator<T> iterator() {
-        return fetchPage().getList().iterator();  
-    }
-
-    public Object[] toArray() {
-        return fetchPage().getList().toArray();  
-    }
-
-    public <T> T[] toArray(T[] ts) {
-        return fetchPage().getList().toArray(ts);  
-    }
-
-    public boolean add(T t) {
-        return fetchPage().getList().add(t);  
-    }
-
-    public boolean remove(Object o) {
-        return fetchPage().getList().remove(o);  
-    }
-
-    public boolean containsAll(Collection<?> objects) {
-        return fetchPage().getList().containsAll(objects);  
-    }
-
-    public boolean addAll(Collection<? extends T> ts) {
-        return fetchPage().getList().addAll(ts);  
-    }
-
-    public boolean addAll(int i, Collection<? extends T> ts) {
-        return fetchPage().getList().addAll(i, ts);  
-    }
-
-    public boolean removeAll(Collection<?> objects) {
-        return fetchPage().getList().removeAll(objects);  
-    }
-
-    public boolean retainAll(Collection<?> objects) {
-        return fetchPage().getList().retainAll(objects);  
-    }
-
-    public void clear() {
-        fetchPage().getList().clear();
-    }
-
-    public T get(int i) {
-        return fetchPage().getList().get(i);  
-    }
-
-    public T set(int i, T t) {
-        return fetchPage().getList().set(i, t);  
-    }
-
-    public void add(int i, T t) {
-        
-        fetchPage().getList().add(i,t);
-    }
-
-    public T remove(int i) {
-        return fetchPage().getList().remove(i);  
-    }
-
-    public int indexOf(Object o) {
-        return fetchPage().getList().indexOf(o);
-    }
-
-    public int lastIndexOf(Object o) {
-        return fetchPage().getList().lastIndexOf(o);
-    }
-
-    public ListIterator<T> listIterator() {
-        return fetchPage().getList().listIterator();
-    }
-
-    public ListIterator<T> listIterator(int i) {
-        return fetchPage().getList().listIterator(i);  
-    }
-
-    public List<T> subList(int i, int i1) {
-        return fetchPage().getList().subList(i, i1);  
+    public List getPageAsList() {
+        return fetchPage().getList();
     }
 }
