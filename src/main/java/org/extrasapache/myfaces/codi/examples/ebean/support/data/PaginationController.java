@@ -87,29 +87,51 @@ public class PaginationController<T> {
     }
 
     public boolean isInFirstWindow() {
-        if(getPageSize() == 0) {
+        if (getPageSize() == 0) {
             return true;
         }
         return lastPageAccessed == 0;
     }
 
+    public boolean hasPreviousPagesWindow() {
+        return false;
+    }
 
+    public Integer getFirstPageIdx() {
+
+        return 0;
+    }
+
+    public Integer getLastPageIdx() {
+
+        return _delegate.getTotalPageCount() - 1;
+    }
+
+    public Integer getNextWindowIdx() {
+        if (isInLastWindow()) return null;
+        return (int) (Math.floor((double) lastPageAccessed / (double) pagingWindowSize) + 1) * pagingWindowSize;
+    }
+
+    public Integer getPreviousWindowIdx() {
+        if (isInFirstWindow()) return null;
+        return (int) (Math.floor((double) lastPageAccessed / (double) pagingWindowSize) - 1) * pagingWindowSize;
+    }
 
     public boolean isInLastWindow() {
-        if(getPageSize() == 0) {
+        if (getPageSize() == 0) {
             return true;
         }
-        return lastPageAccessed >= getTotalPageCount()-1;
+        return lastPageAccessed >= getTotalPageCount() - 1;
     }
 
     public List<Integer> fetchPagesWindow() {
         List<Integer> ret = new ArrayList<Integer>(getPageSize());
 
-        if(getTotalPageCount() == 1) {
+        if (getTotalPageCount() == 1) {
             return ret;
         }
 
-        int pagingWindowPos = (int) Math.floor((double) lastPageAccessed  / (double) pagingWindowSize);
+        int pagingWindowPos = (int) Math.floor((double) lastPageAccessed / (double) pagingWindowSize);
 
         for (int cnt = pagingWindowPos; cnt < getTotalPageCount(); cnt++) {
             ret.add(cnt);

@@ -30,7 +30,7 @@ import java.util.List;
 public abstract class FacadeBase<T> {
 
     /**
-     * not we have added
+     * note we have added
      * a serializable proxy to the ebean
      * server, so that in the passivation
      * activation case the server

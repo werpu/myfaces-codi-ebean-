@@ -26,8 +26,14 @@
             <h:commandLink id="first" value="#{msgs.pagination_first}" rendered="#{! cc.value.isInFirstWindow()}"
                            onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
                     >
-                <f:setPropertyActionListener value="0" target="#{cc.value.lastPageAccessed}"/>
+                <f:setPropertyActionListener value="#{cc.value.firstPageIdx}" target="#{cc.value.lastPageAccessed}"/>
 
+            </h:commandLink>
+
+            <h:commandLink id="previousPage" value="#{msgs.pagination_previous_window}"
+                           rendered="#{! cc.value.isInFirstWindow()}">
+                <f:setPropertyActionListener value="#{cc.value.previousWindowIdx}"
+                                             target="#{cc.value.lastPageAccessed}"/>
             </h:commandLink>
 
             <ui:repeat value="${cc.value.fetchPagesWindow()}" varStatus="s" var="curVal">
@@ -41,13 +47,21 @@
                 <h:outputFormat value="${curVal}" rendered="#{curVal eq cc.value.getLastPageAccessed()}"/>
             </ui:repeat>
 
+            <h:commandLink id="previousPage" value="#{msgs.pagination_next_window}"
+                           rendered="#{! cc.value.isInLastWindow()}">
+                <f:setPropertyActionListener value="#{cc.value.nextWindowIdx}" target="#{cc.value.lastPageAccessed}"/>
+            </h:commandLink>
+
+
             <h:commandLink id="last" value="#{msgs.pagination_last}" rendered="#{! cc.value.isInLastWindow()}"
                            onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
                     >
-                <f:setPropertyActionListener value="0" target="#{cc.value.lastPageAccessed}"/>
+                <f:setPropertyActionListener value="#{cc.value.lastPageIdx}" target="#{cc.value.lastPageAccessed}"/>
             </h:commandLink>
 
         </h:panelGroup>
     </composite:implementation>
 
 </ui:component>
+
+
