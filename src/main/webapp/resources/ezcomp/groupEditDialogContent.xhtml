@@ -16,7 +16,7 @@
              to enable a dialog which hides and pops up*/
             document.getElementById("groupDetaDialog").setAttribute("style", "display:none");
         </script>
-        <h:panelGroup id="editHolder" rendered="#{cc.attrs.value.pageMode eq 'create'}">
+        <h:panelGroup layout="block" id="editHolder" class="editform" rendered="#{cc.attrs.value.pageMode eq 'create'}">
             <h2>
                 <h:outputFormat value="#{msgs.group_edit}"/>
             </h2>
@@ -31,11 +31,11 @@
                     <h:inputTextarea value="#{cc.attrs.value.deta.description}"></h:inputTextarea>
 
                 </h:panelGrid>
-                <h:panelGroup>
-                    <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}"/>
+                <h:panelGroup layout="block"  styleClass="actions">
+                    <h:commandLink action="#{cc.attrs.value.doSave}" value="[#{msgs.save}]"/>
                     <h:commandLink id="edit_cancel" action="#{cc.attrs.value.doCancel}"
                                    onclick="jsf.ajax.request(this ,event, {execute:'@this', render:'groupDetaDialog'}); return false;"
-                                   value="#{msgs.cancel}"/>
+                                   value="[#{msgs.cancel}]"/>
                 </h:panelGroup>
             </h:form>
             <script type="text/javascript">
@@ -44,6 +44,12 @@
                     setTimeout(function() {document.getElementById("groupDetaDialog").style.opacity = "1";} , 10);
 
             </script>
+
+            <h:panelGroup layout="block" class="about">
+                <h3>#{msgs.group_about_create}</h3>
+                <p>#{msgs.group_create_help}</p>
+            </h:panelGroup>
+
         </h:panelGroup>
 
 
@@ -58,11 +64,17 @@
                     <h:outputFormat value="#{msgs.description}"/>
                     <h:outputFormat value="#{cc.attrs.value.deta.description}"/>
                 </h:panelGrid>
-                <h:panelGroup>
-                    <h:commandLink action="#{cc.attrs.value.doDelete}" value="#{msgs.delete}"/>
-                    <h:commandLink action="#{cc.attrs.value.doCancel}" value="#{msgs.cancel}"/>
+                <h:panelGroup layout="block" styleClass="actions">
+                    <h:commandLink action="#{cc.attrs.value.doDelete}" value="[#{msgs.delete}]"/>
+                    <h:commandLink action="#{cc.attrs.value.doCancel}" value="[#{msgs.cancel}]"/>
                 </h:panelGroup>
             </h:form>
+
+             <h:panelGroup layout="block" class="about">
+                <h3>#{msgs.group_about_delete}</h3>
+                <p>#{msgs.group_delete_help}</p>
+            </h:panelGroup>
+
             <script type="text/javascript">
 
                     document.getElementById("groupDetaDialog").style.display = "block";

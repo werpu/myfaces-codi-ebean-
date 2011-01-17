@@ -188,7 +188,7 @@ h2 {
     left: auto;
     right: auto;
     top: 250px;
-    width: 300px;
+    width: 500px;
 
     border: 1px solid black;
 
@@ -207,4 +207,37 @@ h2 {
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px #888;
     box-shadow: 0 0 5px #888;
+
+    padding-left: 0.2em;
 }
+
+#groupDetaDialog .about {
+    width: 200px;
+    position: absolute;
+    left: 300px;
+    top: 30px;
+    height: 100%;
+    overflow: hidden;
+
+}
+
+.editform input {
+    min-width: 15em;
+}
+
+div.actions {
+    width: 200px;
+    border-top: 1px groove gray;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+div.actions a {
+    margin-right: 0.2em;
+}
+
+div.actions>a {
+    margin-left: 0.2em;
+}
+
+
