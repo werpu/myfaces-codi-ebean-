@@ -25,18 +25,18 @@ import org.apache.myfaces.extensions.cdi.jsf.api.config.view.Page;
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
- *
- * We move over to the codi navigation system
- * to be able to handle the security decently
- *
- * also we will be able to get viewController mechanisms with this
+ *          <p/>
+ *          We move over to the codi navigation system
+ *          to be able to handle the security decently
+ *          <p/>
+ *          also we will be able to get viewController mechanisms with this
  */
 
-@Page
 public interface Person extends ViewConfig {
     @Page
-    public class PersonList implements ViewConfig{
+    public class PersonList implements ViewConfig {
     }
+
     @Page
     public class PersonDetail implements ViewConfig {
 

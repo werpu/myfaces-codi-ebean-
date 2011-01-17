@@ -63,7 +63,7 @@
                         <h:commandLink action="#{cc.attrs.value.goDeta}" value="#{msgs.detail}">
                             <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="edit"/>
-                            <f:ajax execute="@this" render="groupResult"/>
+                            <f:ajax execute="@this" render="nameop descop grpType ops"/>
                         </h:commandLink>
                         <h:commandLink style="margin-left: 5px;" action="#{cc.attrs.value.goDelete}"
                                        value="#{msgs.delete}">
@@ -73,10 +73,10 @@
                     </h:panelGroup>
                     <h:panelGroup rendered="#{item eq groupView.deta}">
                         <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}">
-                            <f:ajax execute="groupResult" render="groupResult"/>
+                            <f:ajax execute="groupResult" render="nameop descop grpType ops"/>
                         </h:commandLink>
                         <h:commandLink action="#{cc.attrs.value.doCancel}" value="#{msgs.cancel}">
-                            <f:ajax execute="@this" render="groupResult"/>
+                            <f:ajax execute="@this" render="nameop descop grpType ops"/>
                         </h:commandLink>
                     </h:panelGroup>
                 </h:panelGroup>

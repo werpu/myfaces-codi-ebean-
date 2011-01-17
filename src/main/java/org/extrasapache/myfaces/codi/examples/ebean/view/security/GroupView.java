@@ -19,12 +19,12 @@
 
 package org.extrasapache.myfaces.codi.examples.ebean.view.security;
 
-import org.extrasapache.myfaces.codi.examples.ebean.business.bo.GroupFacade;
-import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
-import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;
-import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.logging.Logger;
-import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController;
+import org.apache.myfaces.extensions.cdi.core.api.logging.Logger;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+import org.extrasapache.myfaces.codi.examples.ebean.business.bo.GroupFacade;
+import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;
+import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -68,7 +68,7 @@ public class GroupView implements Serializable {
     }
 
     public Class goDeta() {
-        return security.groupList.class;
+        return Security.GroupList.class;
     }
 
     public String goDelete() {
@@ -79,7 +79,7 @@ public class GroupView implements Serializable {
         log.info("saving group");
         groupFacade.save(deta);
         resetPageModeData();
-        return security.groupList.class;
+        return Security.GroupList.class;
     }
 
     private void resetPageModeData() {
@@ -90,7 +90,7 @@ public class GroupView implements Serializable {
     public Class doCancel() {
         resetPageModeData();
 
-        return security.groupList.class;
+        return Security.GroupList.class;
     }
 
     public String goCreate() {
@@ -103,7 +103,7 @@ public class GroupView implements Serializable {
         log.info("deleting group");
         groupFacade.deleteGroup(deta);
         resetPageModeData();
-        return security.groupList.class;
+        return Security.GroupList.class;
     }
     /*setter and getter*/
 

@@ -26,7 +26,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.business.services;
  * Note this is a service, services are per default stateless
  */
 
-import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.logging.Logger;
+import org.apache.myfaces.extensions.cdi.core.api.logging.Logger;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;

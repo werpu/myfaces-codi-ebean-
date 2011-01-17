@@ -27,14 +27,14 @@ import org.apache.myfaces.extensions.cdi.jsf.api.config.view.Page;
  * @version $Revision$ $Date$
  */
 
-public class security implements ViewConfig {
+public interface Security extends ViewConfig {
 
     @Page
-    public static class groupList implements ViewConfig {
+    public static class GroupList implements ViewConfig {
     }
 
     @Page
-    public static class userList implements ViewConfig {
+    public static class UserList implements ViewConfig {
     }
 
 }
