@@ -30,7 +30,7 @@
 
             </h:commandLink>
 
-            <h:commandLink id="previousPage" value="#{msgs.pagination_previous_window}"
+            <h:commandLink id="previousWindow" value="#{msgs.pagination_previous_window}"
                            rendered="#{! cc.value.isInFirstWindow()}">
                 <f:setPropertyActionListener value="#{cc.value.previousWindowIdx}"
                                              target="#{cc.value.lastPageAccessed}"/>
@@ -47,7 +47,7 @@
                 <h:outputFormat value="${curVal}" rendered="#{curVal eq cc.value.getLastPageAccessed()}"/>
             </ui:repeat>
 
-            <h:commandLink id="previousPage" value="#{msgs.pagination_next_window}"
+            <h:commandLink id="nextWindow" value="#{msgs.pagination_next_window}"
                            rendered="#{! cc.value.isInLastWindow()}">
                 <f:setPropertyActionListener value="#{cc.value.nextWindowIdx}" target="#{cc.value.lastPageAccessed}"/>
             </h:commandLink>
