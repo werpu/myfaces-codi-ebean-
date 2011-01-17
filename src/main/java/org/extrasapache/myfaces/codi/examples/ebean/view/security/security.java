@@ -17,45 +17,24 @@
  * under the License.
  */
 
-package org.extrasapache.myfaces.codi.examples.ebean.business.bo;
+package org.extrasapache.myfaces.codi.examples.ebean.view.security;
 
-import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
-import com.avaje.ebean.annotation.Transactional;
-import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.logging.Logger;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.Serializable;
+import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig;
+import org.apache.myfaces.extensions.cdi.jsf.api.config.view.Page;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 
-@Named
-@Dependent
-public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
+public class security implements ViewConfig {
 
-
-    @Inject
-    Logger log;
-
-    public GroupFacade() {
-        this.clazz = SecGroup.class;
+    @Page
+    public static class groupList implements ViewConfig {
     }
 
-    public SecGroup createGroup() {
-        return new SecGroup();
+    @Page
+    public static class userList implements ViewConfig {
     }
-
-    @Transactional
-    public void deleteGroup(SecGroup group) {
-        if (group.getId() != null) {
-            em.delete(group);
-        }
-    }
-
-
 
 }

@@ -17,16 +17,10 @@
  * under the License.
  */
 
-package org.extrasapache.myfaces.codi.examples.ebean.business.bo;
-
-import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
-import com.avaje.ebean.annotation.Transactional;
-import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.logging.Logger;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -34,28 +28,20 @@ import java.io.Serializable;
  */
 
 @Named
-@Dependent
-public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
+public class Tmp {
+    List<Integer> _vals = new LinkedList<Integer>();
 
-
-    @Inject
-    Logger log;
-
-    public GroupFacade() {
-        this.clazz = SecGroup.class;
-    }
-
-    public SecGroup createGroup() {
-        return new SecGroup();
-    }
-
-    @Transactional
-    public void deleteGroup(SecGroup group) {
-        if (group.getId() != null) {
-            em.delete(group);
+    public Tmp() {
+        for(int cnt = 0; cnt < 100; cnt++) {
+            _vals.add(cnt);
         }
     }
 
+    public List<Integer> getVals() {
+        return _vals;
+    }
 
-
+    public void setVals(List<Integer> vals) {
+        _vals = vals;
+    }
 }

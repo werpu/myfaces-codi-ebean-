@@ -67,19 +67,19 @@ public class GroupView implements Serializable {
         return null;
     }
 
-    public String goDeta() {
-        return "groupList";
+    public Class goDeta() {
+        return security.groupList.class;
     }
 
     public String goDelete() {
         return "groupLists";
     }
 
-    public String doSave() {
+    public Class doSave() {
         log.info("saving group");
         groupFacade.save(deta);
         resetPageModeData();
-        return "groupList";
+        return security.groupList.class;
     }
 
     private void resetPageModeData() {
@@ -87,10 +87,10 @@ public class GroupView implements Serializable {
         deta = null;
     }
 
-    public String doCancel() {
+    public Class doCancel() {
         resetPageModeData();
 
-        return "groupList";
+        return security.groupList.class;
     }
 
     public String goCreate() {
@@ -99,11 +99,11 @@ public class GroupView implements Serializable {
         return "groupList";
     }
 
-    public String doDelete() {
+    public Class doDelete() {
         log.info("deleting group");
         groupFacade.deleteGroup(deta);
         resetPageModeData();
-        return "groupList";
+        return security.groupList.class;
     }
     /*setter and getter*/
 

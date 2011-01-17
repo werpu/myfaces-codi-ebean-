@@ -76,9 +76,9 @@ public class PersonListView implements Serializable {
 
 
 
-    public String doSearchList() {
+    public Class doSearchList() {
         refresh();
-        return null;
+        return Person.PersonList.class;
     }
 
     public PaginationController getListModel() {

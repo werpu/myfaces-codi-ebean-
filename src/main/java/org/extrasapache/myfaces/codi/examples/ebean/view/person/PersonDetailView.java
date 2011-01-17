@@ -18,9 +18,9 @@
  */
 package org.extrasapache.myfaces.codi.examples.ebean.view.person;
 
+import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig;
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.PersonFacade;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address;
-import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import javax.inject.Inject;
@@ -33,8 +33,7 @@ import java.io.Serializable;
 @Named
 @ViewAccessScoped
 public class PersonDetailView implements Serializable {
-    public static final String NAV_DETAIL = "personDetail";
-    public static final String NAV_LIST = "personList";
+
     private static final String MODE_CREATE = "create";
     private static final String MODE_EDIT = "edit";
     private static final String MODE_DELETE = "delete";
@@ -45,61 +44,58 @@ public class PersonDetailView implements Serializable {
     @Inject
     PersonFacade personFacade;
 
-    Person person;
+    org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person person;
     Address address;
 
 
     String viewMode = MODE_CREATE;
 
-    public String goCreate() {
+    public Class goCreate() {
         viewMode = MODE_CREATE;
         person = personFacade.create();
 
-        return NAV_DETAIL;
+        return Person.PersonDetail.class;
     }
 
-    public String goDeta() {
+    public Class<? extends ViewConfig> goDeta() {
         viewMode = MODE_EDIT;
 
-        return NAV_DETAIL;
+        return  Person.PersonDetail.class;
     }
 
-    public String goDelete() {
+    public Class<? extends ViewConfig> goDelete() {
         viewMode = MODE_DELETE;
 
-
-        return NAV_DETAIL;
+        return  Person.PersonDetail.class;
     }
 
-    public String doDelete() {
+    public Class<? extends ViewConfig> doDelete() {
         personFacade.delete(person);
 
-        return NAV_LIST;
+        return  Person.PersonList.class;
     }
 
-    public String doSave() {
+    public Class<? extends ViewConfig> doSave() {
 
         personFacade.save(person);
 
-
-
-        return NAV_LIST;
+        return Person.PersonList.class;
     }
 
-    public String doCancel() {
+    public Class<? extends ViewConfig> doCancel() {
 
         personFacade.cancel(person);
 
-        return NAV_LIST;
+        return Person.PersonList.class;
     }
 
 
 
-    public Person getPerson() {
+    public org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person getPerson() {
         return person;
     }
 
-    public void setPerson(Person person) {
+    public void setPerson(org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person person) {
         this.person = person;
     }
 
@@ -127,29 +123,17 @@ public class PersonDetailView implements Serializable {
         this.address = address;
     }
 
-    public String addAddress() {
+    public Class<? extends ViewConfig> addAddress() {
         address = personFacade.createAdr();
         person.getAddresses().add(address);
 
-        return NAV_DETAIL;
+        return Person.PersonDetail.class;
     }
 
-    public String removeAddress() {
+    public Class<? extends ViewConfig> removeAddress() {
         person.getAddresses().remove(address);
 
-        return NAV_DETAIL;
+        return Person.PersonDetail.class;
     }
-
-    //now to the tricky part, in clustered situations the detail view or the session
-    //Generally can be serialised and deserialised in this case we lose the entity manager
-    //connection
-    //since per spec the em hosting ejb never is passivated thanks to the em injected
-    //We simply restore the person bean from there, the altered data still should be present
-    //todo deserialisation, we reload the person object anew
-    /*private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        if(personId != -1L) {
-            person = personFacade.loadById(personId);
-        }
-    } */
 
 }

@@ -12,11 +12,11 @@
  */
 package org.extrasapache.myfaces.codi.examples.ebean.business.bo;
 
+import org.apache.myfaces.extensions.cdi.core.api.logging.Logger;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.OrderEntry;
-import org.extrasapache.myfaces.codi.examples.ebean.support.cdi.logging.Logger;
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController;
 import com.avaje.ebean.Query;
 import com.avaje.ebean.annotation.Transactional;
