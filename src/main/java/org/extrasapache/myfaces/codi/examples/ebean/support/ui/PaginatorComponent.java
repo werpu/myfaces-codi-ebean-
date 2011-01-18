@@ -43,6 +43,16 @@ public class PaginatorComponent extends UINamingContainer {
 
     enum PropertyKeys {forTable, value, forTableClientId, enclosingContainerClientId}
 
+    public PaginatorComponent() {
+        super();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    public void beforeEncode(ComponentSystemEvent event) {
+        HtmlDataTable forTable = (HtmlDataTable) this.getParent().findComponent(getForTable());
+        setForTableClientId(forTable.getClientId());
+        setEnclosingContainerClientId(this.findComponent(PAGING_CONTROLLER).getClientId());
+    }
+
     public PaginationController getValue() {
         return (PaginationController) getStateHelper().eval(
                 PropertyKeys.value, null);
@@ -77,28 +87,8 @@ public class PaginatorComponent extends UINamingContainer {
 
     }
 
-    private void initData() {
-
-        HtmlDataTable forTable = (HtmlDataTable) this.getParent().findComponent(getForTable());
-        //setValue((PaginationController)forTable.getValue());
-        //TODO improve the for handling for this case because currently our component and our table
-        //need the same parent
-        setForTableClientId(forTable.getClientId());
-        setEnclosingContainerClientId(this.findComponent(PAGING_CONTROLLER).getClientId());
-
-    }
-
     public void setEnclosingContainerClientId(String collapsed) {
         getStateHelper().put(PropertyKeys.enclosingContainerClientId, collapsed);
     }
-
-    public PaginatorComponent() {
-        super();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    public void beforeEncode(ComponentSystemEvent event) {
-        initData();
-    }
-
 
 }
