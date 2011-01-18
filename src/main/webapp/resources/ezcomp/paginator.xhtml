@@ -16,7 +16,7 @@
 
     <composite:implementation>
 
-        <h:panelGroup layout="block" class="pagingController" id="pagingController">
+        <h:panelGroup layout="block" class="pagingController" id="pagingController" rendered="#{cc.value.getTotalPageCount() != null and cc.value.getTotalPageCount() > 1}">
             <!--
                 todo we have to set a component here because we have to make the connection between
                 this markup and the corresponding table
