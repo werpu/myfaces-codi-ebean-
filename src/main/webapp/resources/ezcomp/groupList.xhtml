@@ -10,17 +10,18 @@
     </cc:interface>
 
     <cc:implementation>
-        <h:dataTable id="groupResult" value="#{cc.attrs.value.listModel.pageAsList}" var="item"
+        <h:dataTable id="groupResult" styleClass="fadeIn" value="#{cc.attrs.value.listModel.pageAsList}" var="item"
                      rendered="#{cc.attrs.value.listModel != null}">
             <h:column id="groupNameDetaCol">
                 <f:facet name="header">
                     <h:outputText value="#{msgs.group_name}"/>
                 </f:facet>
                 <h:panelGroup id="nameop">
-                    <h:panelGroup id="groupn_view" rendered="#{item ne groupView.deta}">
+
+                    <h:panelGroup id="groupn_view" rendered="#{!groupView.spreadSheetController.isEditable(item)}">
                         <h:outputFormat value="#{item.groupName}"/>
                     </h:panelGroup>
-                    <h:panelGroup id="groupn_edit" rendered="#{item eq groupView.deta}">
+                    <h:panelGroup id="groupn_edit" rendered="#{groupView.spreadSheetController.isEditable(item)}">
                         <h:inputText value="#{item.groupName}" required="true"/>
                     </h:panelGroup>
                 </h:panelGroup>
@@ -30,10 +31,10 @@
                     <h:outputText value="#{msgs.description}"/>
                 </f:facet>
                 <h:panelGroup id="descop">
-                    <h:panelGroup id="groupd_view" rendered="#{item ne groupView.deta}">
+                    <h:panelGroup id="groupd_view" rendered="#{!groupView.spreadSheetController.isEditable(item)}">
                         <h:outputFormat value="#{item.description}"/>
                     </h:panelGroup>
-                    <h:panelGroup id="groupd_edit" rendered="#{item eq groupView.deta}">
+                    <h:panelGroup id="groupd_edit" rendered="#{groupView.spreadSheetController.isEditable(item)}">
                         <h:inputText value="#{item.description}"/>
                     </h:panelGroup>
                 </h:panelGroup>
@@ -43,10 +44,10 @@
                     <h:outputText value="#{msgs.group_type}"></h:outputText>
                 </f:facet>
                 <h:panelGroup id="grpType">
-                    <h:panelGroup id="groupt_view" rendered="#{item ne groupView.deta}">
+                    <h:panelGroup id="groupt_view" rendered="#{!groupView.spreadSheetController.isEditable(item)}">
                         <h:outputFormat value="#{item.groupType}"/>
                     </h:panelGroup>
-                    <h:panelGroup id="groupt_edit" rendered="#{item eq groupView.deta}">
+                    <h:panelGroup id="groupt_edit" rendered="#{groupView.spreadSheetController.isEditable(item)}">
                         <h:selectOneMenu value="#{item.groupType}">
                             <f:selectItems value="#{groupTypes.allGroupTypes}"/>
                         </h:selectOneMenu>
@@ -59,7 +60,7 @@
                     <h:outputText value="#{msgs.operation}"/>
                 </f:facet>
                 <h:panelGroup id="ops">
-                    <h:panelGroup rendered="#{item ne groupView.deta}">
+                    <h:panelGroup rendered="#{!groupView.spreadSheetController.isEditable(item)}">
                         <h:commandLink action="#{cc.attrs.value.goDeta}" value="#{msgs.detail}">
                             <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="edit"/>
@@ -71,11 +72,14 @@
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="delete"/>
                         </h:commandLink>
                     </h:panelGroup>
-                    <h:panelGroup rendered="#{item eq groupView.deta}">
+                    <h:panelGroup rendered="#{groupView.spreadSheetController.isEditable(item)}">
                         <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}">
+                            <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:ajax execute="groupResult" render="nameop descop grpType ops"/>
                         </h:commandLink>
                         <h:commandLink action="#{cc.attrs.value.doCancel}" value="#{msgs.cancel}">
+                            <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
+
                             <f:ajax execute="@this" render="nameop descop grpType ops"/>
                         </h:commandLink>
                     </h:panelGroup>

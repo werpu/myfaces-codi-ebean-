@@ -58,7 +58,7 @@
     <ui:define name="content">
         <h:form id="mainForm" prependId="false">
             <h:commandLink id="create_group" action="#{groupView.goCreate}" value="#{msgs.group_create}"
-                           onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog'});return false;">
+                           onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog:ajaxTarget'});return false;">
                 <f:setPropertyActionListener target="#{groupView.pageMode}" value="create"/>
             </h:commandLink>
             <h:panelGroup id="resultArea">
@@ -67,9 +67,9 @@
 
         </h:form>
 
-        <h:panelGroup layout="block" id="groupDetaDialog">
-            <ezcomp:groupEditDialogContent value="#{groupView}"/>
-        </h:panelGroup>
+
+            <ezcomp:groupEditDialogContent id="groupDetaDialog" value="#{groupView}"/>
+
 
     </ui:define>
 </ui:composition>

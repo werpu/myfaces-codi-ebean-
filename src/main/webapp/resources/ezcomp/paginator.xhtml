@@ -2,8 +2,7 @@
               xmlns:ui="http://java.sun.com/jsf/facelets"
               xmlns:composite="http://java.sun.com/jsf/composite"
               xmlns:h="http://java.sun.com/jsf/html"
-              xmlns:f="http://java.sun.com/jsf/core"
-              xmlns:c="http://java.sun.com/jsp/jstl/core">
+              xmlns:f="http://java.sun.com/jsf/core">
 
     <composite:interface componentType="at.irian.PaginatorComponent">
 
@@ -16,48 +15,80 @@
     </composite:interface>
 
     <composite:implementation>
-        <h:panelGroup id="pagingController">
+
+        <h:panelGroup layout="block" class="pagingController" id="pagingController">
             <!--
                 todo we have to set a component here because we have to make the connection between
                 this markup and the corresponding table
             -->
 
+            <h:panelGrid columns="3" class="paginationGroups">
+                <h:panelGroup layout="block" id="previousGroup" styleClass="previousGroup">
+                    <h:commandLink id="first" styleClass="fader firstLink paginatorEntry" value="#{msgs.pagination_first}"
+                                   rendered="#{! cc.value.isInFirstWindow()}"
+                                   onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
+                            >
+                        <f:setPropertyActionListener value="#{cc.value.firstPageIdx}"
+                                                     target="#{cc.value.lastPageAccessed}"/>
 
-            <h:commandLink id="first" value="#{msgs.pagination_first}" rendered="#{! cc.value.isInFirstWindow()}"
-                           onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
-                    >
-                <f:setPropertyActionListener value="#{cc.value.firstPageIdx}" target="#{cc.value.lastPageAccessed}"/>
+                    </h:commandLink>
 
-            </h:commandLink>
+                    <h:commandLink id="previousWindow" styleClass="fader previousWindow paginatorEntry"
+                                   value="#{msgs.pagination_previous_window}"
+                                   rendered="#{! cc.value.isInFirstWindow()}">
+                        <f:setPropertyActionListener value="#{cc.value.previousWindowIdx}"
+                                                     target="#{cc.value.lastPageAccessed}"/>
+                    </h:commandLink>
 
-            <h:commandLink id="previousWindow" value="#{msgs.pagination_previous_window}"
-                           rendered="#{! cc.value.isInFirstWindow()}">
-                <f:setPropertyActionListener value="#{cc.value.previousWindowIdx}"
-                                             target="#{cc.value.lastPageAccessed}"/>
-            </h:commandLink>
+                    <h:commandLink id="previousPage" styleClass="fader previousPage paginatorEntry"
+                                   value="#{msgs.pagination_previous_page}"
+                                   rendered="#{! cc.value.isInFirstWindow()}">
+                        <f:setPropertyActionListener value="#{cc.value.previousPage}"
+                                                     target="#{cc.value.lastPageAccessed}"/>
+                    </h:commandLink>
+                </h:panelGroup>
 
-            <ui:repeat value="${cc.value.fetchPagesWindow()}" varStatus="s" var="curVal">
-                <h:commandLink id="page_select" action="groupList" value="${curVal}"
-                               rendered="#{curVal != cc.value.getLastPageAccessed()}"
-                               onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
-                        >
-                    <f:setPropertyActionListener value="${curVal}" target="#{cc.value.lastPageAccessed}"/>
+                <h:panelGroup layout="block" id="pages" styleClass="pages">
+                    <ui:repeat value="${cc.value.fetchPagesWindow()}" varStatus="s" var="curVal">
+                        <h:commandLink id="page_select" styleClass="fader page paginatorEntry" action="groupList"
+                                       value="${curVal}"
+                                       rendered="#{curVal != cc.value.getLastPageAccessed()}"
+                                       onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
+                                >
+                            <f:setPropertyActionListener value="${curVal}" target="#{cc.value.lastPageAccessed}"/>
 
-                </h:commandLink>
-                <h:outputFormat value="${curVal}" rendered="#{curVal eq cc.value.getLastPageAccessed()}"/>
-            </ui:repeat>
+                        </h:commandLink>
+                        <h:outputFormat value="${curVal}" styleClass="fader page paginatorEntry"
+                                        rendered="#{curVal eq cc.value.getLastPageAccessed()}"/>
+                    </ui:repeat>
+                </h:panelGroup>
 
-            <h:commandLink id="nextWindow" value="#{msgs.pagination_next_window}"
-                           rendered="#{! cc.value.isInLastWindow()}">
-                <f:setPropertyActionListener value="#{cc.value.nextWindowIdx}" target="#{cc.value.lastPageAccessed}"/>
-            </h:commandLink>
+                <h:panelGroup layout="block" id="nextGroup" styleClass="nextGroup">
+                    <h:commandLink id="nextPage" styleClass="fader nextPage paginatorEntry"
+                                   value="#{msgs.pagination_next_page}"
+                                   rendered="#{! cc.value.isInFirstWindow()}">
+                        <f:setPropertyActionListener value="#{cc.value.nextPage}"
+                                                     target="#{cc.value.lastPageAccessed}"/>
+                    </h:commandLink>
+
+                    <h:commandLink id="nextWindow" styleClass="fader nextWindow paginatorEntry"
+                                   value="#{msgs.pagination_next_window}"
+                                   rendered="#{! cc.value.isInLastWindow()}">
+                        <f:setPropertyActionListener value="#{cc.value.nextWindowIdx}"
+                                                     target="#{cc.value.lastPageAccessed}"/>
+                    </h:commandLink>
 
 
-            <h:commandLink id="last" value="#{msgs.pagination_last}" rendered="#{! cc.value.isInLastWindow()}"
-                           onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
-                    >
-                <f:setPropertyActionListener value="#{cc.value.lastPageIdx}" target="#{cc.value.lastPageAccessed}"/>
-            </h:commandLink>
+                    <h:commandLink id="last" styleClass="fader last paginatorEntry" value="#{msgs.pagination_last}"
+                                   rendered="#{! cc.value.isInLastWindow()}"
+                                   onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
+                            >
+                        <f:setPropertyActionListener value="#{cc.value.lastPageIdx}"
+                                                     target="#{cc.value.lastPageAccessed}"/>
+                    </h:commandLink>
+                </h:panelGroup>
+            </h:panelGrid>
+
 
         </h:panelGroup>
     </composite:implementation>

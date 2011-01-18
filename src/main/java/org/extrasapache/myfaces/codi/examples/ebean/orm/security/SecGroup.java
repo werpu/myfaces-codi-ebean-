@@ -20,6 +20,7 @@
 package org.extrasapache.myfaces.codi.examples.ebean.orm.security;
 
 import com.sun.tools.javac.util.List;
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.Identifyable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,7 +32,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "o_secgroup")
-public class SecGroup implements Serializable {
+public class SecGroup implements Serializable, Identifyable {
     private static final long serialVersionUID = 1L;
 
     public static final int GRP_TYPE_SYSTEM = 0;

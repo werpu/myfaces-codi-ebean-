@@ -25,6 +25,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.business.bo.GroupFacade;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController;
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.SpreadSheetController;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -51,6 +52,9 @@ public class GroupView implements Serializable {
     PaginationController listModel = null;
 
     @Inject
+    SpreadSheetController spreadSheetController;
+
+    @Inject
     Logger log;
 
     SecGroup deta = null;
@@ -60,14 +64,17 @@ public class GroupView implements Serializable {
     public void refresh() {
         List<FilterEntry> filters = (searchData != null) ? searchData.toFilterList() : null;
         listModel = groupFacade.loadFromTo(Math.max(searchData.getFrom(), 0), searchData.getPageSize(), filters, null);
+        spreadSheetController.clear();
     }
 
     public String doSearchList() {
+        resetPageModeData();
         refresh();
         return null;
     }
 
     public Class goDeta() {
+        spreadSheetController.enableEdit(deta);
         return Security.GroupList.class;
     }
 
@@ -78,25 +85,34 @@ public class GroupView implements Serializable {
     public Class doSave() {
         log.info("saving group");
         groupFacade.save(deta);
-        resetPageModeData();
+        spreadSheetController.disableEdit(deta);
+        if(spreadSheetController.isEmpty()) {
+            resetPageModeData();
+        }
+
         return Security.GroupList.class;
     }
 
     private void resetPageModeData() {
         pageMode = null;
         deta = null;
+
     }
 
     public Class doCancel() {
-        resetPageModeData();
+        spreadSheetController.disableEdit(deta);
+        if(spreadSheetController.isEmpty()) {
+            resetPageModeData();
+        }
 
         return Security.GroupList.class;
     }
 
-    public String goCreate() {
+    public Class goCreate() {
         log.info("creating group");
         deta = groupFacade.createGroup();
-        return "groupList";
+
+        return Security.GroupList.class;
     }
 
     public Class doDelete() {
@@ -137,5 +153,13 @@ public class GroupView implements Serializable {
 
     public void setPageMode(String pageMode) {
         this.pageMode = pageMode;
+    }
+
+    public SpreadSheetController getSpreadSheetController() {
+        return spreadSheetController;
+    }
+
+    public void setSpreadSheetController(SpreadSheetController spreadSheetController) {
+        this.spreadSheetController = spreadSheetController;
     }
 }

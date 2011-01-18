@@ -180,25 +180,61 @@ h2 {
     margin-right: 5px;
 }
 
-#groupDetaDialog {
-    display: none;
-    opacity: 0;
+/*paginator raw styling*/
+div.pagingController {
+    border: 1px groove #a9a9a9;
+    background-color: #d8d8e7;
 
-    position: absolute;
-    left: auto;
-    right: auto;
-    top: 250px;
-    width: 500px;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
 
-    border: 1px solid black;
+div.pagingController {
+    font-size: 15px;
+}
 
-    background-color: white;
-
-    -webkit-transition: all 0.3s ease-in;
+div.pagingController .paginationGroups {
+    border-collapse: collapse;
+    border: none;
 
 }
 
-#groupDetaDialog h2 {
+div.pagingController .paginationGroups td {
+    padding: 0px;
+    margin: 0px;
+}
+
+div.pagingController .pages .paginatorEntry {
+    margin-right: 0.4em;
+    padding-left: 0.2em;
+    border-left: 1px dashed gray;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+div.pagingController .pages .paginatorEntry:first-child {
+    margin-left: 0.2em;
+    border-left: none;
+    padding-left: 0.2em;
+
+}
+
+.dialog {
+    display: none;
+    border: 1px solid black;
+    position: absolute;
+    left: auto;
+    right: auto;
+}
+
+.groupDetaDialog {
+    top: 250px;
+    width: 500px;
+    height: 150px;
+    background-color: white;
+}
+
+.groupDetaDialog h2 {
     background: url(http://localhost:9090/resources/images/menu.jpg) no-repeat;
     background-position: -30px 0;
     height: 30px;
@@ -211,23 +247,33 @@ h2 {
     padding-left: 0.2em;
 }
 
-#groupDetaDialog .about {
-    width: 200px;
-    position: absolute;
+
+
+.dialog .about {
+    background-color: #D2DAEE;
+    border-left: 1px solid silver;
+    bottom: 0px;
     left: 300px;
-    top: 30px;
-    height: 100%;
     overflow: hidden;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: absolute;
+    top: 31px;
+    width: auto;
 
 }
 
 .editform input {
-    min-width: 15em;
+    min-width: 18em;
 }
 
 div.actions {
     width: 200px;
-    border-top: 1px groove gray;
+    border-top: 1px dashed gray;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    font-size: 13px;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
 }
@@ -239,5 +285,11 @@ div.actions a {
 div.actions>a {
     margin-left: 0.2em;
 }
+
+.fadeIn {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease-in;
+}
+
 
 

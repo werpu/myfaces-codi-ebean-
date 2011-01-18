@@ -86,11 +86,19 @@ public class PaginationController<T> {
         this.lastPageAccessed = lastPageAccessed;
     }
 
+    public boolean isFirstPage() {
+        return this.lastPageAccessed == 0;
+    }
+
+    public boolean isLastPage() {
+        return this.lastPageAccessed >= this.getTotalPageCount() - 1;
+    }
+
     public boolean isInFirstWindow() {
         if (getPageSize() == 0) {
             return true;
         }
-        return lastPageAccessed == 0;
+        return lastPageAccessed < pagingWindowSize;
     }
 
     public boolean hasPreviousPagesWindow() {
@@ -107,6 +115,14 @@ public class PaginationController<T> {
         return _delegate.getTotalPageCount() - 1;
     }
 
+    public Integer getPreviousPage() {
+        return Math.max(0, this.lastPageAccessed -1);
+    }
+
+    public Integer getNextPage() {
+        return Math.max(0,Math.min(this.lastPageAccessed, this.getTotalPageCount() -1));
+    }
+
     public Integer getNextWindowIdx() {
         if (isInLastWindow()) return null;
         return (int) (Math.floor((double) lastPageAccessed / (double) pagingWindowSize) + 1) * pagingWindowSize;
@@ -121,7 +137,7 @@ public class PaginationController<T> {
         if (getPageSize() == 0) {
             return true;
         }
-        return lastPageAccessed >= getTotalPageCount() - 1;
+        return lastPageAccessed >= getTotalPageCount() - pagingWindowSize;
     }
 
     public List<Integer> fetchPagesWindow() {

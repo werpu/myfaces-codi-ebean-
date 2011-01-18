@@ -102,6 +102,54 @@
             <a href="http://www.ecommercewebsites.com.au/" target="_blank">Web Design</a></p>
     </div>
 
+    <script type="text/javascript">
+        function dialog() {
+            var fadeIn = document.querySelectorAll(".dialog");
+            for (var cnt = 0; cnt != dialog.length; cnt++) {
+                fadeIn[cnt].style.display = "block";
+            }
+        }
+
+
+        function fadeIn() {
+            setTimeout(function() {
+                var fadeIn = document.querySelectorAll(".fadeIn");
+                for (var cnt = 0; cnt != fadeIn.length; cnt++) {
+                    fadeIn[cnt].style.opacity = 1;
+                }
+            }, 0);
+        }
+
+        function fadeInFullForce() {
+            var fadeIn = document.querySelectorAll(".fadeIn");
+            for (var cnt = 0; cnt != fadeIn.length; cnt++) {
+                fadeIn[cnt].style.transitionDuration =
+                        fadeIn[cnt].style.mozTransitionDuration =
+                                fadeIn[cnt].style.webkitTransitionDuration = "0s";
+
+                fadeIn[cnt].style.opacity = 1;
+            }
+
+            setTimeout(function() {
+                for (var cnt = 0; cnt != fadeIn.length; cnt++) {
+                    //by setting it blank we reset the transition
+                    fadeIn[cnt].style.transitionDuration =
+                            fadeIn[cnt].style.mozTransitionDuration =
+                                    fadeIn[cnt].style.webkitTransitionDuration = "";
+                }
+            }, 10);
+
+        }
+
+        jsf.ajax.addOnEvent(function (event) {
+            if (event.status == "success") {
+                fadeIn();
+                dialog();
+            }
+        });
+        fadeInFullForce();
+    </script>
+
 </div>
 
 </body>
