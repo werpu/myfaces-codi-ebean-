@@ -18,7 +18,7 @@
  */
 package org.extrasapache.myfaces.codi.examples.ebean.view.person;
 
-import org.extrasapache.myfaces.codi.examples.ebean.business.bo.PersonFacade;
+import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
@@ -44,6 +44,7 @@ public class PersonListView implements Serializable {
      */
     @Inject
     PersonFacade personFacade;
+
     PaginationController listModel = null;
 
     @PostConstruct

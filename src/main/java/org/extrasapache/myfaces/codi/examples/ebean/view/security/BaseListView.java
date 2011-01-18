@@ -19,26 +19,10 @@
 
 package org.extrasapache.myfaces.codi.examples.ebean.view.security;
 
-import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig;
-import org.apache.myfaces.extensions.cdi.jsf.api.config.view.Page;
-
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 
-public interface Security extends ViewConfig {
-
-    @Page
-    public static class GroupList implements ViewConfig {
-    }
-
-    @Page
-    public static class UserList implements ViewConfig {
-    }
-
-    @Page
-    public static class UserDetail implements ViewConfig {
-    }
-
+public class BaseListView {
 }

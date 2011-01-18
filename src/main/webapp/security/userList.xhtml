@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp">
+
+<ui:composition template="../templates/template.xhtml">
+    <ui:define name="header">
+
+        <title>Person List view</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
+        </f:metadata>
+
+    </ui:define>
+
+    <ui:define name="search">
+
+
+        <h3>${msgs.user_search}</h3>
+        <h:form id="searchform" prependId="false">
+            <div id="search">
+                <h:panelGrid columns="5" id="searchArea">
+
+                    <h:outputFormat value="#{msgs.user_name}"/>
+                    <h:inputText value="#{userListView.searchData['userName']}"/>
+
+                    <h:outputFormat value="#{msgs.person_firstnm}"/>
+                    <h:inputText value="#{groupView.searchData['person.firstName']}"/>
+
+                    <h:outputFormat value="#{msgs.person_lastnm}"/>
+                    <h:inputText value="#{groupView.searchData['person.lastName']}"/>
+
+                    <h:outputFormat value="#{msgs.group_name}"/>
+                    <h:inputText value="#{groupView.searchData['groups.groupName']}"/>
+
+
+                    <h:commandLink id="searchit" action="#{userListView.doSearch}" value="&gt;&gt; #{msgs.search}"
+                                   onclick="jsf.ajax.request(this ,event, {execute:'searchArea', render:'resultArea'}); return false;">
+
+                    </h:commandLink>
+                </h:panelGrid>
+
+            </div>
+
+            <h:panelGroup id="otherActions">
+                <h:commandLink value="&gt;&gt; #{msgs.user_create}" action="#{userDetailView.goCreate}"/>
+            </h:panelGroup>
+
+        </h:form>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:panelGroup id="resultArea" layout="block">
+            <h:form id="mainForm" prependId="false">
+
+                <h3>User Results</h3>
+                <!-- todo we need a paging controller to our page model which comes directly from ebean -->
+                <h:dataTable styleClass="userResult fadeIn" id="userResult"
+                             value="#{userListView.listModel.pageAsList}"
+                             var="item"
+                             rendered="#{userListView.listModel != null}">
+
+                    <h:column id="firstName">
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.person_firstnm}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.person.firstName}"/>
+                    </h:column>
+
+                    <h:column id="firstName">
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.person_firstnm}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.person.firstName}"/>
+                    </h:column>
+                    <h:column id="lastName">
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.person_lastnm}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.person.lastName}"/>
+                    </h:column>
+
+                    <h:column id="lastName">
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.user_groups}"/>
+                        </f:facet>
+                        <ul>
+                            <ui:repeat value="#{item.groups}" var="group">
+                                <h:outputFormat value="<li>#{group.groupName}</li>" escape="false"/>
+                            </ui:repeat>
+                        </ul>
+                    </h:column>
+
+                    <h:column id="operation">
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.operation}"/>
+                        </f:facet>
+
+                        <h:commandLink action="#{userDetailView.goDeta}" value="#{msgs.detail}">
+                            <f:setPropertyActionListener target="#{userDetailView.pageMode}" value="edit"/>
+                            <f:setPropertyActionListener target="#{userDetailView.model}" value="#{item}"/>
+                        </h:commandLink>
+
+                        <h:commandLink style="margin-left: 5px;" action="#{userDetailView.goDeta}"
+                                       value="#{msgs.delete}">
+                            <f:setPropertyActionListener target="#{userDetailView.pageMode}" value="delete"/>
+                            <f:setPropertyActionListener target="#{userDetailView.model}" value="#{item}"/>
+                        </h:commandLink>
+
+
+                    </h:column>
+                </h:dataTable>
+
+
+                <ezcomp:paginator forTable="personResult" value="#{cc.attrs.value}"/>
+
+            </h:form>
+        </h:panelGroup>
+
+    </ui:define>
+</ui:composition>
+</html>

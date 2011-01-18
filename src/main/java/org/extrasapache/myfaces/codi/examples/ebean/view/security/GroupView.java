@@ -21,7 +21,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.view.security;
 
 import org.apache.myfaces.extensions.cdi.core.api.logging.Logger;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
-import org.extrasapache.myfaces.codi.examples.ebean.business.bo.GroupFacade;
+import org.extrasapache.myfaces.codi.examples.ebean.business.bo.security.GroupFacade;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController;

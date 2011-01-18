@@ -17,14 +17,11 @@
  * under the License.
  */
 
-package org.extrasapache.myfaces.codi.examples.ebean.business.bo;
+package org.extrasapache.myfaces.codi.examples.ebean.view.security;
 
-import com.avaje.ebean.annotation.Transactional;
-import org.apache.myfaces.extensions.cdi.core.api.logging.Logger;
-import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.BaseSearchModel;
 
 import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
@@ -35,27 +32,5 @@ import java.io.Serializable;
 
 @Named
 @Dependent
-public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
-
-
-    @Inject
-    Logger log;
-
-    public GroupFacade() {
-        this.clazz = SecGroup.class;
-    }
-
-    public SecGroup createGroup() {
-        return new SecGroup();
-    }
-
-    @Transactional
-    public void deleteGroup(SecGroup group) {
-        if (group.getId() != null) {
-            em.delete(group);
-        }
-    }
-
-
-
+public class UserListSearchModel extends BaseSearchModel implements Serializable {
 }

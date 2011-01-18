@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp">
+<ui:composition template="../templates/template.xhtml">
+
+    <ui:define name="content">
+        <h:form id="editForm" prependId="false">
+
+            <h3>
+                <c:if test="#{userDetailView.pageMode == 'create'}">
+                    #{msgs.user_create}
+                </c:if>
+                <c:if test="#{userDetailView.pageMode == 'edit'}">
+                    #{msgs.user_edit}
+                </c:if>
+            </h3>
+
+            <h:panelGroup id="person_selector" rendered="#{userDetailView.pageMode == 'create'}">
+                <h:panelGroup id="new_person" rendered="#{userDetailView.newPerson}">
+                    <h4>#{msgs.user_new_person}</h4>
+                    <h:commandLink action="#{userDetailView.goDeta}" value="Person Exists &gt;gt;">
+                        <f:setPropertyActionListener target="#{userDetailView.newPerson}" value="false"/>
+                    </h:commandLink>
+
+
+                </h:panelGroup>
+
+                <h:panelGroup id="existing_person" rendered="#{!userDetailView.newPerson}">
+                    <h4>#{msgs.user_new_person}</h4>
+                    <h:commandLink action="#{userDetailView.goDeta}" value="New Person &gt;gt;">
+                        <f:setPropertyActionListener target="#{userDetailView.newPerson}" value="false"/>
+                    </h:commandLink>
+                </h:panelGroup>
+
+                <h:panelGroup id="personEdit" rendered="#{userDetailView.model.person != null}">
+                    <ezcomp:personEdit value="#{userDetailView.model.person}" addressModel="#{userDetailView.address}" addAddress="#{userDetailView.addAddress}" removeAddress="#{userDetailView.removeAddress}"/>
+                </h:panelGroup>
+
+
+            </h:panelGroup>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

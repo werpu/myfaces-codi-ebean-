@@ -10,9 +10,10 @@
    See the License for the specific language governing permissions and
    limitations under the License
  */
-package org.extrasapache.myfaces.codi.examples.ebean.business.bo;
+package org.extrasapache.myfaces.codi.examples.ebean.business.bo.person;
 
 import org.apache.myfaces.extensions.cdi.core.api.logging.Logger;
+import org.extrasapache.myfaces.codi.examples.ebean.business.bo.common.FacadeBase;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;

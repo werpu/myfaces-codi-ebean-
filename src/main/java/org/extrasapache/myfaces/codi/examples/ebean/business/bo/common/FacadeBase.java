@@ -11,7 +11,7 @@
    limitations under the License
  */
 
-package org.extrasapache.myfaces.codi.examples.ebean.business.bo;
+package org.extrasapache.myfaces.codi.examples.ebean.business.bo.common;
 
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.OrderEntry;
@@ -39,8 +39,8 @@ public abstract class FacadeBase<T> {
      * implementation
      */
     @Inject
-    EbeanServer em;
-    Class clazz = null;
+    protected EbeanServer em;
+    protected Class clazz = null;
 
 
 

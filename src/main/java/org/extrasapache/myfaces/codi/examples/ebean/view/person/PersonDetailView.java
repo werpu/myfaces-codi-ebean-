@@ -19,7 +19,7 @@
 package org.extrasapache.myfaces.codi.examples.ebean.view.person;
 
 import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig;
-import org.extrasapache.myfaces.codi.examples.ebean.business.bo.PersonFacade;
+import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 

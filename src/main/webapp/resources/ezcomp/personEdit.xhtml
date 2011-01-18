@@ -1,0 +1,59 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <composite:interface>
+        <composite:attribute name="value" required="true"/>
+        <composite:attribute name="addAddress" required="true" method-signature="java.lang.Class f()"/>
+        <composite:attribute name="removeAddress" required="true" method-signature="java.lang.Class f()"/>
+        <composite:attribute name="addressModel" required="true"/>
+
+    </composite:interface>
+
+    <composite:implementation>
+        <h:panelGrid columns="2" id="searchArea">
+            <h:outputText value="#{msgs.person_firstnm}"/>
+            <h:inputText value="#{cc.attrs.value.firstName}"/>
+            <h:outputText value="#{msgs.person_lastnm}"/>
+            <h:inputText value="#{cc.attrs.value.lastName}"/>
+
+
+        </h:panelGrid>
+        <h:commandLink action="#{cc.attrs.addAddress}" value="&gt;&gt; #{msgs.addresses_add}">
+            <f:ajax execute="@this" render="addresses"/>
+        </h:commandLink>
+
+        <h:panelGroup id="addresses">
+            <h3>#{msgs.addresses_title}</h3>
+            <c:forEach items="#{cc.attrs.value.addresses}" var="adr">
+
+                <h:panelGrid columns="4">
+                    <h:outputFormat value="AddressType"/>
+                    <h:selectOneMenu value="#{adr.addressType}">
+                        <f:selectItems value="#{addressTypeBean.addressTypes}"/>
+                    </h:selectOneMenu>
+                    <h:outputFormat value=""/>
+                    <h:outputFormat value=""/>
+
+                    <h:outputFormat value="#{msgs.addresses_street}"/>
+                    <h:inputText value="#{adr.street}"/>
+                    <h:outputFormat value="#{msgs.addresses_number}"/>
+                    <h:inputText value="#{adr.houseNumber}"/>
+                    <h:outputFormat value="#{msgs.addresses_door}"/>
+                    <h:inputText value="#{adr.door}"/>
+                    <h:outputFormat value="#{msgs.addresses_street}"/>
+                    <h:inputText value="#{adr.street}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{cc.attrs.removeAddress}" value="#{msgs.delete}">
+                    <f:setPropertyActionListener target="#{addressModel}" value="#{adr}"/>
+                    <f:ajax render="addresses" execute="@this"/>
+                </h:commandLink>
+                <hr/>
+            </c:forEach>
+        </h:panelGroup>
+    </composite:implementation>
+
+</ui:component>
