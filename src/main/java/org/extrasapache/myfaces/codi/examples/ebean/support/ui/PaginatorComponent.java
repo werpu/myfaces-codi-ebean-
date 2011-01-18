@@ -28,6 +28,8 @@ import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.SystemEvent;
+import javax.faces.event.SystemEventListener;
 import java.io.IOException;
 
 /**
@@ -60,12 +62,9 @@ public class PaginatorComponent extends UINamingContainer {
     }
 
     public String getForTableClientId() {
-        String ret = (String) getStateHelper().eval(
-                PropertyKeys.forTableClientId, "");
-        if (!ret.equals("")) return ret;
-        initData(ret);
         return (String) getStateHelper().eval(
                 PropertyKeys.forTableClientId, "");
+
     }
 
     public void setForTableClientId(String collapsed) {
@@ -73,23 +72,20 @@ public class PaginatorComponent extends UINamingContainer {
     }
 
     public String getEnclosingContainerClientId() {
-        String ret = (String) getStateHelper().eval(
-                PropertyKeys.enclosingContainerClientId, "");
-        if (!ret.equals("")) return ret;
-        initData(ret);
         return (String) getStateHelper().eval(
                 PropertyKeys.enclosingContainerClientId, "");
+
     }
 
-    private void initData(String ret) {
-        if (ret.equals("")) {
-            HtmlDataTable forTable = (HtmlDataTable) this.getParent().findComponent(getForTable());
-            //setValue((PaginationController)forTable.getValue());
-            //TODO improve the for handling for this case because currently our component and our table
-            //need the same parent
-            setForTableClientId(forTable.getClientId());
-            setEnclosingContainerClientId(this.findComponent(PAGING_CONTROLLER).getClientId());
-        }
+    private void initData() {
+
+        HtmlDataTable forTable = (HtmlDataTable) this.getParent().findComponent(getForTable());
+        //setValue((PaginationController)forTable.getValue());
+        //TODO improve the for handling for this case because currently our component and our table
+        //need the same parent
+        setForTableClientId(forTable.getClientId());
+        setEnclosingContainerClientId(this.findComponent(PAGING_CONTROLLER).getClientId());
+
     }
 
     public void setEnclosingContainerClientId(String collapsed) {
@@ -100,9 +96,9 @@ public class PaginatorComponent extends UINamingContainer {
         super();    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    @Override
-    public void encodeBegin(FacesContext context) throws IOException {
-
-        super.encodeBegin(context);
+    public void beforeEncode(ComponentSystemEvent event) {
+        initData();
     }
+
+
 }
