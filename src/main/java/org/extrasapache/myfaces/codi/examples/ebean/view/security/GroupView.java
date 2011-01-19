@@ -86,9 +86,8 @@ public class GroupView implements Serializable {
         log.info("saving group");
         groupFacade.save(deta);
         spreadSheetController.disableEdit(deta);
-        if(spreadSheetController.isEmpty()) {
-            resetPageModeData();
-        }
+        resetPageModeData();
+        refresh();
 
         return Security.GroupList.class;
     }
@@ -101,9 +100,9 @@ public class GroupView implements Serializable {
 
     public Class doCancel() {
         spreadSheetController.disableEdit(deta);
-        if(spreadSheetController.isEmpty()) {
+        //if(spreadSheetController.isEmpty()) {
             resetPageModeData();
-        }
+        //}
 
         return Security.GroupList.class;
     }
@@ -119,6 +118,7 @@ public class GroupView implements Serializable {
         log.info("deleting group");
         groupFacade.deleteGroup(deta);
         resetPageModeData();
+        refresh();
         return Security.GroupList.class;
     }
     /*setter and getter*/

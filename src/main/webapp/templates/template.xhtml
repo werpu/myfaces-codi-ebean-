@@ -103,6 +103,11 @@
     </div>
 
     <script type="text/javascript">
+        //fixup for an issue of the jsf2.0 and 2.1 ajax spec to deal with multiple forms per page
+
+        myfaces.config = myfaces.config || {};
+        myfaces.config.no_portlet_env = true;
+
         function dialog() {
             var fadeIn = document.querySelectorAll(".dialog");
             for (var cnt = 0; cnt != dialog.length; cnt++) {
