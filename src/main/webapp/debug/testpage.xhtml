@@ -19,6 +19,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ez="http://java.sun.com/jsf/composite/ezcomp"
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition template="../templates/template.xhtml">
@@ -31,7 +32,7 @@
         aaa
         <h:form id="mainForm" prependId="false">
             #{testBean.personList.get(0).firstName}
-            <ez:outputInputFormat value="bbbb#{testBean.personList.get(0).firstName}" editable="false"  />
+            <ezw:outputInputFormat value="bbbb#{testBean.personList.get(0).firstName}" editable="false"  />
 
             <h:dataTable styleClass="personResult" id="personResult" value="#{testBean.personList}"
                          var="item"
@@ -40,7 +41,7 @@
                     <f:facet name="header">
                         <h:outputText value="#{msgs.person_firstnm}"/>
                     </f:facet>
-                    <ez:outputInputFormat value="#{item.firstName}" editable="false" required="true" />
+                    <ezw:outputInputFormat value="#{item.firstName}" editable="false" required="true" />
                 </h:column>
                 <h:column id="lastName">
                     <f:facet name="header">

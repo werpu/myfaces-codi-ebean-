@@ -4,6 +4,7 @@
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:c="http://java.sun.com/jsp/jstl/core"
               xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
         >
 
     <cc:interface>
@@ -21,7 +22,7 @@
                 <h:panelGroup id="nameop">
 
 
-                    <ezcomp:outputInputFormat id="groupn"
+                    <ezw:outputInputFormat id="groupn"
                                               value="#{item.groupName}"
                                               editable="#{groupView.spreadSheetController.isEditable(item)}"
                                               required="true"/>
@@ -33,7 +34,7 @@
                 </f:facet>
                 <h:panelGroup id="descop">
 
-                    <ezcomp:outputInputFormat id="groupd"
+                    <ezw:outputInputFormat id="groupd"
                                               value="#{item.description}"
                                               editable="#{groupView.spreadSheetController.isEditable(item)}"/>
                 </h:panelGroup>
@@ -44,7 +45,7 @@
                 </f:facet>
 
                 <h:panelGroup id="grpType">
-                    <ezcomp:outputInputSelectOne value="#{item.groupType}"
+                    <ezw:outputInputSelectOne value="#{item.groupType}"
                                                  editable="#{groupView.spreadSheetController.isEditable(item)}"
                                                  items="#{groupTypes.allGroupTypes}"
                             />
