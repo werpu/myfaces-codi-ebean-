@@ -3,14 +3,16 @@
               xmlns:cc="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html"
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:c="http://java.sun.com/jsp/jstl/core"
-              xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp">
+              xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+        >
 
     <cc:interface>
         <cc:attribute name="value" required="true"/>
     </cc:interface>
 
     <cc:implementation>
-        <h:dataTable id="groupResult" styleClass="groupResult fadeIn" value="#{cc.attrs.value.listModel.pageAsList}" var="item"
+        <h:dataTable id="groupResult" styleClass="groupResult fadeIn" value="#{cc.attrs.value.listModel.pageAsList}"
+                     var="item"
                      rendered="#{cc.attrs.value.listModel != null}">
             <h:column id="groupNameDetaCol">
                 <f:facet name="header">
@@ -18,12 +20,11 @@
                 </f:facet>
                 <h:panelGroup id="nameop">
 
-                    <h:panelGroup id="groupn_view" rendered="#{!groupView.spreadSheetController.isEditable(item)}">
-                        <h:outputFormat value="#{item.groupName}"/>
-                    </h:panelGroup>
-                    <h:panelGroup id="groupn_edit" rendered="#{groupView.spreadSheetController.isEditable(item)}">
-                        <h:inputText value="#{item.groupName}" required="true"/>
-                    </h:panelGroup>
+
+                    <ezcomp:outputInputFormat id="groupn"
+                                              value="#{item.groupName}"
+                                              editable="#{groupView.spreadSheetController.isEditable(item)}"
+                                              required="true"/>
                 </h:panelGroup>
             </h:column>
             <h:column id="groupNameDescription">
@@ -31,27 +32,22 @@
                     <h:outputText value="#{msgs.description}"/>
                 </f:facet>
                 <h:panelGroup id="descop">
-                    <h:panelGroup id="groupd_view" rendered="#{!groupView.spreadSheetController.isEditable(item)}">
-                        <h:outputFormat value="#{item.description}"/>
-                    </h:panelGroup>
-                    <h:panelGroup id="groupd_edit" rendered="#{groupView.spreadSheetController.isEditable(item)}">
-                        <h:inputText value="#{item.description}"/>
-                    </h:panelGroup>
+
+                    <ezcomp:outputInputFormat id="groupd"
+                                              value="#{item.description}"
+                                              editable="#{groupView.spreadSheetController.isEditable(item)}"/>
                 </h:panelGroup>
             </h:column>
             <h:column id="groupTypeCol">
                 <f:facet name="header">
                     <h:outputText value="#{msgs.group_type}"></h:outputText>
                 </f:facet>
+
                 <h:panelGroup id="grpType">
-                    <h:panelGroup id="groupt_view" rendered="#{!groupView.spreadSheetController.isEditable(item)}">
-                        <h:outputFormat value="#{item.groupType}"/>
-                    </h:panelGroup>
-                    <h:panelGroup id="groupt_edit" rendered="#{groupView.spreadSheetController.isEditable(item)}">
-                        <h:selectOneMenu value="#{item.groupType}">
-                            <f:selectItems value="#{groupTypes.allGroupTypes}"/>
-                        </h:selectOneMenu>
-                    </h:panelGroup>
+                    <ezcomp:outputInputSelectOne value="#{item.groupType}"
+                                                 editable="#{groupView.spreadSheetController.isEditable(item)}"
+                                                 items="#{groupTypes.allGroupTypes}"
+                            />
                 </h:panelGroup>
             </h:column>
 

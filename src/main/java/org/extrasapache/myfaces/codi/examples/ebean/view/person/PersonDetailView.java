@@ -47,7 +47,6 @@ public class PersonDetailView implements Serializable {
     org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person person;
     Address address;
 
-
     String viewMode = MODE_CREATE;
 
     public Class goCreate() {
@@ -60,19 +59,19 @@ public class PersonDetailView implements Serializable {
     public Class<? extends ViewConfig> goDeta() {
         viewMode = MODE_EDIT;
 
-        return  Person.PersonDetail.class;
+        return Person.PersonDetail.class;
     }
 
     public Class<? extends ViewConfig> goDelete() {
         viewMode = MODE_DELETE;
 
-        return  Person.PersonDetail.class;
+        return Person.PersonDetail.class;
     }
 
     public Class<? extends ViewConfig> doDelete() {
         personFacade.delete(person);
 
-        return  Person.PersonList.class;
+        return Person.PersonList.class;
     }
 
     public Class<? extends ViewConfig> doSave() {
@@ -89,7 +88,20 @@ public class PersonDetailView implements Serializable {
         return Person.PersonList.class;
     }
 
+    public Class<? extends ViewConfig> addAddress() {
+        address = personFacade.createAdr();
+        person.getAddresses().add(address);
 
+        return Person.PersonDetail.class;
+    }
+
+    public Class<? extends ViewConfig> removeAddress() {
+        person.getAddresses().remove(address);
+
+        return Person.PersonDetail.class;
+    }
+
+    //----------------- setter and getter part ------------------
 
     public org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person getPerson() {
         return person;
@@ -121,19 +133,6 @@ public class PersonDetailView implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public Class<? extends ViewConfig> addAddress() {
-        address = personFacade.createAdr();
-        person.getAddresses().add(address);
-
-        return Person.PersonDetail.class;
-    }
-
-    public Class<? extends ViewConfig> removeAddress() {
-        person.getAddresses().remove(address);
-
-        return Person.PersonDetail.class;
     }
 
 }

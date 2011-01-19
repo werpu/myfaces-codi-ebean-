@@ -44,13 +44,13 @@
                     <h:inputText value="#{userListView.searchData['userName']}"/>
 
                     <h:outputFormat value="#{msgs.person_firstnm}"/>
-                    <h:inputText value="#{groupView.searchData['person.firstName']}"/>
+                    <h:inputText value="#{userListView.searchData['person.firstName']}"/>
 
                     <h:outputFormat value="#{msgs.person_lastnm}"/>
-                    <h:inputText value="#{groupView.searchData['person.lastName']}"/>
+                    <h:inputText value="#{userListView.searchData['person.lastName']}"/>
 
                     <h:outputFormat value="#{msgs.group_name}"/>
-                    <h:inputText value="#{groupView.searchData['groups.groupName']}"/>
+                    <h:inputText value="#{userListView.searchData['groups.groupName']}"/>
 
 
                     <h:commandLink id="searchit" action="#{userListView.doSearch}" value="&gt;&gt; #{msgs.search}"
@@ -79,11 +79,11 @@
                              var="item"
                              rendered="#{userListView.listModel != null}">
 
-                    <h:column id="firstName">
+                    <h:column id="userName">
                         <f:facet name="header">
-                            <h:outputText value="#{msgs.person_firstnm}"/>
+                            <h:outputText value="#{msgs.user_name}"/>
                         </f:facet>
-                        <h:outputText value="#{item.person.firstName}"/>
+                        <h:outputText value="#{item.userName}"/>
                     </h:column>
 
                     <h:column id="firstName">
@@ -99,15 +99,17 @@
                         <h:outputText value="#{item.person.lastName}"/>
                     </h:column>
 
-                    <h:column id="lastName">
+                    <h:column id="userGroups">
                         <f:facet name="header">
                             <h:outputText value="#{msgs.user_groups}"/>
                         </f:facet>
-                        <ul>
-                            <ui:repeat value="#{item.groups}" var="group">
-                                <h:outputFormat value="<li>#{group.groupName}</li>" escape="false"/>
-                            </ui:repeat>
-                        </ul>
+                        <h:panelGroup rendered="#{item.groups != null}">
+                            <ul>
+                                <ui:repeat value="#{item.groups}" var="group">
+                                    <li><h:outputFormat value="#{group.groupName}" escape="false"/></li>
+                                </ui:repeat>
+                            </ul>
+                        </h:panelGroup>
                     </h:column>
 
                     <h:column id="operation">
@@ -131,7 +133,7 @@
                 </h:dataTable>
 
 
-                <ezcomp:paginator forTable="personResult" value="#{cc.attrs.value}"/>
+                <ezcomp:paginator forTable="userResult" value="#{userListView.listModel}"/>
 
             </h:form>
         </h:panelGroup>

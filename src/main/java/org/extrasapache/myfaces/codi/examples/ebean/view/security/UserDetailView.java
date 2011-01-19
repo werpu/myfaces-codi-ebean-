@@ -28,6 +28,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.view.person.Person;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -35,7 +36,7 @@ import javax.inject.Named;
  */
 
 @Named
-public class UserDetailView {
+public class UserDetailView implements Serializable {
 
     @Inject
     UserFacade bo;

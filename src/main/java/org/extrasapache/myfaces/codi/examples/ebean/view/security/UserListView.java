@@ -27,6 +27,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationContr
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ import java.util.List;
 
 @Named
 @ViewAccessScoped
-public class UserListView extends BaseListView {
+public class UserListView extends BaseListView implements Serializable {
 
     @Inject
     UserListSearchModel searchData;
