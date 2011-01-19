@@ -61,9 +61,15 @@ public class GroupView implements Serializable {
 
     String pageMode;
 
+    /**
+     * refresh operation which refreshes our master list
+     *
+     */
     public void refresh() {
         List<FilterEntry> filters = (searchData != null) ? searchData.toFilterList() : null;
+        int oldPaginatorPosition = (listModel != null)? listModel.getLastPageAccessed():0;
         listModel = groupFacade.loadFromTo(Math.max(searchData.getFrom(), 0), searchData.getPageSize(), filters, null);
+        listModel.setLastPageAccessed(oldPaginatorPosition);
         spreadSheetController.clear();
     }
 
@@ -75,7 +81,7 @@ public class GroupView implements Serializable {
 
     public Class goDeta() {
         spreadSheetController.enableEdit(deta);
-        return Security.GroupList.class;
+        return null;
     }
 
     public String goDelete() {
@@ -89,37 +95,58 @@ public class GroupView implements Serializable {
         resetPageModeData();
         refresh();
 
-        return Security.GroupList.class;
+        return null;
     }
 
+    /**
+     * resets any temporary page data
+     */
     private void resetPageModeData() {
         pageMode = null;
         deta = null;
-
     }
 
+    /**
+     * cancel operation
+     * rests basically the mode
+     * and navigates back to
+     * the page
+     *
+     * @return the navigational outcome codiwise
+     */
     public Class doCancel() {
         spreadSheetController.disableEdit(deta);
-        //if(spreadSheetController.isEmpty()) {
-            resetPageModeData();
-        //}
+        resetPageModeData();
 
-        return Security.GroupList.class;
+        return null;
     }
 
+    /**
+     * callback which initiates a create lifecycle
+     * note that the application state implicitly is
+     * changed from the ui to create
+     *
+     * @return the navigational case for the goCreate lifecycle
+     */
     public Class goCreate() {
         log.info("creating group");
         deta = groupFacade.createGroup();
 
-        return Security.GroupList.class;
+        return null;
     }
 
+    /**
+     * callback for the delete operation from the ui
+     *
+     * @return the codi navigational class for the delete case
+     * in our case a return onto the same page
+     */
     public Class doDelete() {
         log.info("deleting group");
         groupFacade.deleteGroup(deta);
         resetPageModeData();
         refresh();
-        return Security.GroupList.class;
+        return null;
     }
     /*setter and getter*/
 
