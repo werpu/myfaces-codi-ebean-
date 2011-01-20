@@ -120,7 +120,7 @@ public class PaginationController<T> {
     }
 
     public Integer getNextPage() {
-        return Math.max(0,Math.min(this.lastPageAccessed, this.getTotalPageCount() -1));
+        return Math.max(0, Math.min(this.lastPageAccessed, this.getTotalPageCount() - 1));
     }
 
     public Integer getNextWindowIdx() {
@@ -157,5 +157,13 @@ public class PaginationController<T> {
 
     public List getPageAsList() {
         return fetchPage().getList();
+    }
+
+    public int getPagingWindowSize() {
+        return pagingWindowSize;
+    }
+
+    public void setPagingWindowSize(int pagingWindowSize) {
+        this.pagingWindowSize = pagingWindowSize;
     }
 }

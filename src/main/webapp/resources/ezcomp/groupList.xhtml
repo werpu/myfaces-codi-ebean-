@@ -4,6 +4,7 @@
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:c="http://java.sun.com/jsp/jstl/core"
               xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+
               xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
         >
 
@@ -12,6 +13,7 @@
     </cc:interface>
 
     <cc:implementation>
+
         <h:dataTable id="groupResult" styleClass="groupResult fadeIn" value="#{cc.attrs.value.listModel.pageAsList}"
                      var="item"
                      rendered="#{cc.attrs.value.listModel != null}">
@@ -23,9 +25,9 @@
 
 
                     <ezw:outputInputFormat id="groupn"
-                                              value="#{item.groupName}"
-                                              editable="#{groupView.spreadSheetController.isEditable(item)}"
-                                              required="true"/>
+                                           value="#{item.groupName}"
+                                           editable="#{groupView.spreadSheetController.isEditable(item)}"
+                                           required="true"/>
                 </h:panelGroup>
             </h:column>
             <h:column id="groupNameDescription">
@@ -35,8 +37,8 @@
                 <h:panelGroup id="descop">
 
                     <ezw:outputInputFormat id="groupd"
-                                              value="#{item.description}"
-                                              editable="#{groupView.spreadSheetController.isEditable(item)}"/>
+                                           value="#{item.description}"
+                                           editable="#{groupView.spreadSheetController.isEditable(item)}"/>
                 </h:panelGroup>
             </h:column>
             <h:column id="groupTypeCol">
@@ -46,8 +48,8 @@
 
                 <h:panelGroup id="grpType">
                     <ezw:outputInputSelectOne value="#{item.groupType}"
-                                                 editable="#{groupView.spreadSheetController.isEditable(item)}"
-                                                 items="#{groupTypes.allGroupTypes}"
+                                              editable="#{groupView.spreadSheetController.isEditable(item)}"
+                                              items="#{groupTypes.allGroupTypes}"
                             />
                 </h:panelGroup>
             </h:column>
@@ -56,14 +58,14 @@
                 <f:facet name="header">
                     <h:outputText value="#{msgs.operation}"/>
                 </f:facet>
-                <h:panelGroup id="ops">
+                <h:panelGroup class="ops" id="ops">
                     <h:panelGroup rendered="#{!groupView.spreadSheetController.isEditable(item)}">
                         <h:commandLink action="#{cc.attrs.value.goDeta}" value="#{msgs.detail}">
                             <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="edit"/>
                             <f:ajax execute="@this" render="nameop descop grpType ops"/>
                         </h:commandLink>
-                        <h:commandLink style="margin-left: 5px;" action="#{cc.attrs.value.goDelete}"
+                        <h:commandLink  action="#{cc.attrs.value.goDelete}"
                                        value="#{msgs.delete}">
                             <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="delete"/>
@@ -85,13 +87,16 @@
 
         </h:dataTable>
 
+        <h:commandLink action="#{cc.attrs.value.doSaveAll}" value="[#{msgs.group_saveAll}]"
+                       rendered="#{!cc.attrs.value.spreadSheetController.isEmpty()}"/>
+
 
         <!-- todo make a paginator ala
           first currentPos currentPos+1 .... 8 last
           attributes needed referencingTable
           value ... value to the pageListModel delivered by ebeans
         -->
-        <ezcomp:paginator forTable="groupResult" value="#{cc.attrs.value.listModel}"/>
+        <ezw:paginator forTable="groupResult" value="#{cc.attrs.value.listModel}"/>
 
 
     </cc:implementation>

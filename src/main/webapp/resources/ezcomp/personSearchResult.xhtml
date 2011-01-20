@@ -18,7 +18,8 @@
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp">
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+        xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
 
 <!-- INTERFACE -->
 <cc:interface>
@@ -60,7 +61,7 @@
     </h:dataTable>
 
 
-    <ezcomp:paginator forTable="personResult" value="#{cc.attrs.value}"/>
+    <ezw:paginator forTable="personResult" value="#{cc.attrs.value}"/>
 
 
 </cc:implementation>

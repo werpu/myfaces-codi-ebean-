@@ -29,6 +29,7 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -39,7 +40,6 @@ import java.io.Serializable;
 @Dependent
 public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
 
-
     @Inject
     Logger log;
 
@@ -49,6 +49,13 @@ public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
 
     public SecGroup createGroup() {
         return new SecGroup();
+    }
+
+    @Transactional
+    public void saveAll(Collection<SecGroup> groups) {
+        for (SecGroup group : groups) {
+            em.save(group);
+        }
     }
 
     @Transactional
@@ -63,6 +70,5 @@ public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
             em.refresh(t);
         }
     }
-
 
 }

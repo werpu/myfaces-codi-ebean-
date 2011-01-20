@@ -30,6 +30,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.SpreadSheetCont
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,19 +64,19 @@ public class GroupView implements Serializable {
 
     /**
      * refresh operation which refreshes our master list
-     *
      */
     public void refresh() {
         List<FilterEntry> filters = (searchData != null) ? searchData.toFilterList() : null;
-        int oldPaginatorPosition = (listModel != null)? listModel.getLastPageAccessed():0;
+        int oldPaginatorPosition = (listModel != null) ? listModel.getLastPageAccessed() : 0;
         listModel = groupFacade.loadFromTo(Math.max(searchData.getFrom(), 0), searchData.getPageSize(), filters, null);
         listModel.setLastPageAccessed(oldPaginatorPosition);
-        spreadSheetController.clear();
+
     }
 
     public String doSearchList() {
         resetPageModeData();
         refresh();
+        spreadSheetController.clear();
         return null;
     }
 
@@ -121,6 +122,35 @@ public class GroupView implements Serializable {
         return null;
     }
 
+    public Class doSaveAll() {
+        //We iterate over all entries with enabled edits
+        List<SecGroup> groups = listModel.getPageAsList();
+        List<SecGroup> saveList = new ArrayList<SecGroup>(listModel.getPageSize());
+        for (SecGroup group : groups) {
+            if (spreadSheetController.isEditable(group)) {
+                saveList.add(group);
+            }
+        }
+        groupFacade.saveAll(groups);
+        spreadSheetController.clear();
+        return null;
+    }
+
+    public Class doCancelAll() {
+        spreadSheetController.clear();
+        resetPageModeData();
+        refresh();
+
+        return null;
+    }
+
+    public Class doChangePageSize() {
+
+        refresh();
+
+        return null;
+    }
+
     /**
      * callback which initiates a create lifecycle
      * note that the application state implicitly is
@@ -139,11 +169,13 @@ public class GroupView implements Serializable {
      * callback for the delete operation from the ui
      *
      * @return the codi navigational class for the delete case
-     * in our case a return onto the same page
+     *         in our case a return onto the same page
      */
     public Class doDelete() {
         log.info("deleting group");
+        spreadSheetController.disableEdit(deta);
         groupFacade.deleteGroup(deta);
+
         resetPageModeData();
         refresh();
         return null;

@@ -291,5 +291,9 @@ div.actions>a {
     -webkit-transition: opacity 0.3s ease-in;
 }
 
+.ops a {
+    margin-right: 0.2em;
+}
+
 
 
