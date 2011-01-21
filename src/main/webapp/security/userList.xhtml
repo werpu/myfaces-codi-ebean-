@@ -20,7 +20,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
 
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security">
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"  >
 
 <ui:composition template="../templates/template.xhtml">
     <ui:define name="header">
@@ -133,7 +134,7 @@
                 </h:dataTable>
 
 
-                <ezcomp:paginator forTable="userResult" value="#{userListView.listModel}"/>
+                <ezw:paginator forTable="userResult" value="#{userListView.listModel}"/>
 
             </h:form>
         </h:panelGroup>
