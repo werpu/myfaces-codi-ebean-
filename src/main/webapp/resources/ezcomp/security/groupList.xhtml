@@ -3,8 +3,7 @@
               xmlns:cc="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html"
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:c="http://java.sun.com/jsp/jstl/core"
-              xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
-
+              xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
               xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
         >
 
@@ -65,7 +64,7 @@
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="edit"/>
                             <f:ajax execute="@this" render="nameop descop grpType ops"/>
                         </h:commandLink>
-                        <h:commandLink  action="#{cc.attrs.value.goDelete}"
+                        <h:commandLink action="#{cc.attrs.value.goDelete}"
                                        value="#{msgs.delete}">
                             <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="delete"/>
