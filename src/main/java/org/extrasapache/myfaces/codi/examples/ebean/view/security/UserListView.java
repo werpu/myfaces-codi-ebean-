@@ -44,6 +44,7 @@ public class UserListView extends BaseListView implements Serializable {
 
     PaginationController listModel = null;
 
+    @Inject
     UserFacade bo;
 
     public UserListView() {
@@ -56,7 +57,7 @@ public class UserListView extends BaseListView implements Serializable {
 
     public Class doSearch() {
         refresh();
-        return Security.UserList.class;
+        return null;
     }
 
 

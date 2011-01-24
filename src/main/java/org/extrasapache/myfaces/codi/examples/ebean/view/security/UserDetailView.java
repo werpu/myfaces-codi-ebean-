@@ -20,6 +20,7 @@
 package org.extrasapache.myfaces.codi.examples.ebean.view.security;
 
 import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig;
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade;
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.security.UserFacade;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address;
@@ -36,6 +37,7 @@ import java.io.Serializable;
  */
 
 @Named
+@ViewAccessScoped
 public class UserDetailView implements Serializable {
 
     @Inject
@@ -61,7 +63,7 @@ public class UserDetailView implements Serializable {
 
     public Class goCreate() {
         model = bo.createUser();
-        newPerson = true;
+
         return Security.UserDetail.class;
     }
 
