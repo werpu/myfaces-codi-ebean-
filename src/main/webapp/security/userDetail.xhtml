@@ -28,27 +28,28 @@
         <h:form id="editForm" prependId="false">
 
             <h3>
-                <c:if test="#{userDetailView.pageMode == 'create'}">
+                <c:if test="#{userDetailView.pageMode eq 'create'}">
                     #{msgs.user_create}
                 </c:if>
-                <c:if test="#{userDetailView.pageMode == 'edit'}">
+                <c:if test="#{userDetailView.pageMode eq 'edit'}">
                     #{msgs.user_edit}
                 </c:if>
             </h3>
 
-            <h:panelGroup id="person_selector" rendered="#{userDetailView.pageMode == 'create'}">
-                <h:panelGroup id="new_person" rendered="#{userDetailView.newPerson}">
+            #{userDetailView.pageMode}
+            <h:panelGroup id="person_selector" rendered="#{userDetailView.pageMode eq 'create'}">
+
+
+                <h:panelGroup id="new_person" rendered="#{userDetailView.model.id eq null}">
                     <h4>#{msgs.user_new_person}</h4>
-                    <h:commandLink action="#{userDetailView.goDeta}" value="Person Exists &gt;gt;">
+                    <h:commandLink action="#{userDetailView.goDeta}" value="#{msgs.user_use_existing_person} &gt;&gt;">
                         <f:setPropertyActionListener target="#{userDetailView.newPerson}" value="false"/>
                     </h:commandLink>
-
-
                 </h:panelGroup>
 
-                <h:panelGroup id="existing_person" rendered="#{!userDetailView.newPerson}">
-                    <h4>#{msgs.user_new_person}</h4>
-                    <h:commandLink action="#{userDetailView.goDeta}" value="New Person &gt;gt;">
+                <h:panelGroup id="existing_person" rendered="#{userDetailView.model.id ne null}">
+                    <h4>#{msgs.user_existing_person}</h4>
+                    <h:commandLink action="#{userDetailView.goDeta}" value="#{msgs.user_use_new_person} &gt;gt;">
                         <f:setPropertyActionListener target="#{userDetailView.newPerson}" value="false"/>
                     </h:commandLink>
                 </h:panelGroup>

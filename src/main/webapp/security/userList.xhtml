@@ -21,7 +21,7 @@
 
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
-      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"  >
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
 
 <ui:composition template="../templates/template.xhtml">
     <ui:define name="header">
@@ -39,7 +39,7 @@
         <h3>${msgs.user_search}</h3>
         <h:form id="searchform" prependId="false">
             <div id="search">
-                <h:panelGrid columns="5" id="searchArea">
+                <h:panelGrid columns="4" id="searchArea">
 
                     <h:outputFormat value="#{msgs.user_name}"/>
                     <h:inputText value="#{userListView.searchData['userName']}"/>
@@ -63,7 +63,9 @@
             </div>
 
             <h:panelGroup id="otherActions">
-                <h:commandLink value="&gt;&gt; #{msgs.user_create}" action="#{userDetailView.goCreate}"/>
+                <h:commandLink value="&gt;&gt; #{msgs.user_create}" action="#{userDetailView.goCreate}">
+                    <f:setPropertyActionListener value="create" target="#{userDetailView.pageMode}"/>
+                </h:commandLink>
             </h:panelGroup>
 
         </h:form>
