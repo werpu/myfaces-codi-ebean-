@@ -19,7 +19,8 @@
 
 package org.extrasapache.myfaces.codi.examples.ebean.orm.security;
 
-import com.sun.tools.javac.util.List;
+
+import java.util.List;
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.Identifyable;
 
 import javax.persistence.*;
