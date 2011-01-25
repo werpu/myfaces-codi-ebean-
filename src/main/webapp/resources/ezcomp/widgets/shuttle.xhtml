@@ -6,6 +6,8 @@
 
     <composite:interface>
         <composite:attribute name="controller" required="true" />
+        <composite:attribute name="labelLeft" required="true" targets=""/>
+        <composite:attribute name="labelRight" required="true" targets=""/>
     </composite:interface>
 
     <composite:implementation>
@@ -47,7 +49,7 @@
             <!-- left menu -->
             <h:panelGroup layout="block" styleClass="left">
                 <h:panelGroup layout="block" styleClass="title_left">
-                    <h:outputFormat value="Groups" styleClass="title_left"/>
+                    <h:outputFormat value="#{cc.attrs.labelLeft}" styleClass="title_left"/>
                 </h:panelGroup>
                 <h:selectManyMenu id="menu_left" styleClass="left"
                                   value="#{cc.attrs.controller.selectionsLeft}">
@@ -111,7 +113,7 @@
 
             <h:panelGroup layout="block" styleClass="right">
                 <h:panelGroup layout="block" styleClass="title_right">
-                    <h:outputFormat value="Groups" styleClass="title_right"/>
+                    <h:outputFormat value="#{cc.attrs.labelRight}" styleClass="title_right"/>
                 </h:panelGroup>
                 <h:selectManyMenu id="menu_right" styleClass="right"
                                   value="#{cc.attrs.controller.selectionsRight}">

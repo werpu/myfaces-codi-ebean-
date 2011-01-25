@@ -39,7 +39,7 @@
 
             <h3>#{msgs.user_groups}</h3>
 
-            <widgets:shuttle controller="#{userDetailView.shuttleController}"/>
+            <widgets:shuttle labelLeft="#{msgs.user_groups_assigned}" labelRight="#{msgs.user_groups_unassigned}" controller="#{userDetailView.shuttleController}"/>
 
             #{userDetailView.pageMode}
             <h:panelGroup id="person_selector" rendered="#{userDetailView.pageMode eq 'create'}">
