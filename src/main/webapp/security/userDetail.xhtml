@@ -41,15 +41,15 @@
                 <!-- todo value binding into the controller -->
                 <h:panelGroup layout="block" styleClass="shuttle shuttle_left">
                     <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink action="#{userDetailView.shuttleController.shuttleUpLeft}" class="left_up"
+                        <h:commandLink id="shuttle_up_left" action="#{userDetailView.shuttleController.shuttleUpLeft}" class="left_up"
                                        value="#{msgs.shuttle_up}">
-                            <f:ajax execute="left" render="left"/>
+                            <f:ajax execute="menu_left" render="menu_left"/>
                         </h:commandLink>
                     </h:panelGroup>
                     <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink action="#{userDetailView.shuttleController.shuttleDownLeft}" class="left_down"
+                        <h:commandLink id="shuttle_down_left" action="#{userDetailView.shuttleController.shuttleDownLeft}" class="left_down"
                                        value="#{msgs.shuttle_down}">
-                            <f:ajax execute="left" render="left"/>
+                            <f:ajax execute="menu_left" render="menu_left"/>
                         </h:commandLink>
                     </h:panelGroup>
                 </h:panelGroup>
@@ -58,43 +58,41 @@
                     <h:panelGroup layout="block" styleClass="title_left">
                         <h:outputFormat value="Groups" styleClass="title_left"/>
                     </h:panelGroup>
-                    <h:selectManyMenu id="left" styleClass="left">
+                    <h:selectManyMenu id="menu_left" styleClass="left" value="#{userDetailView.shuttleController.selectionsLeft}">
                         <f:selectItems value="#{userDetailView.shuttleController.dest}"></f:selectItems>
                     </h:selectManyMenu>
                 </h:panelGroup>
 
                 <h:panelGroup layout="block" styleClass="shuttle shuttle_center">
                     <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink
+                        <h:commandLink id="shuttle_left"
                                 action="#{userDetailView.shuttleController.fromSourceToDest}" value="&lt;&lt;">
-                            <f:ajax execute="left right" render="left right"/>
+                            <f:ajax execute="menu_left menu_right" render="menu_left menu_right"/>
                         </h:commandLink>
 
                     </h:panelGroup>
                     <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="right"
-                                       action="#{userDetailView.shuttleController.fromSourceToDest}" value="&gt;&gt;">
-                            <f:ajax execute="left right" render="left right"/>
+                        <h:commandLink id="shuttle_right"
+                                       action="#{userDetailView.shuttleController.fromDestToSource}" value="&gt;&gt;">
+                            <f:ajax execute="menu_left menu_right" render="menu_left menu_right"/>
                         </h:commandLink>
                     </h:panelGroup>
                 </h:panelGroup>
 
 
-                <h:commandLink action="#{userDetailView.shuttleController.fromDestToSource}">
-                    <f:ajax execute="left right" render="left right"/>
-                </h:commandLink>
+
 
                 <h:panelGroup layout="block" styleClass="shuttle shuttle_right">
                     <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink action="#{userDetailView.shuttleController.shuttleUpRight}" class="right_up"
+                        <h:commandLink id="shuttle_up_right" action="#{userDetailView.shuttleController.shuttleUpRight}" class="right_up"
                                        value="#{msgs.shuttle_up}">
-                            <f:ajax execute="left" render="left"/>
+                            <f:ajax execute="menu_right" render="menu_right"/>
                         </h:commandLink>
                     </h:panelGroup>
                     <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink action="#{userDetailView.shuttleController.shuttleDownRight}" class="right_down"
+                        <h:commandLink id="shuttle_down_right" action="#{userDetailView.shuttleController.shuttleDownRight}" class="right_down"
                                        value="#{msgs.shuttle_down}">
-                            <f:ajax execute="left" render="left"/>
+                            <f:ajax execute="menu_right" render="menu_right"/>
                         </h:commandLink>
                     </h:panelGroup>
                 </h:panelGroup>
@@ -102,7 +100,7 @@
                     <h:panelGroup layout="block" styleClass="title_right">
                         <h:outputFormat value="Groups" styleClass="title_right"/>
                     </h:panelGroup>
-                    <h:selectManyMenu styleClass="right">
+                    <h:selectManyMenu id="menu_right" styleClass="right" value="#{userDetailView.shuttleController.selectionsRight}">
                         <f:selectItems value="#{userDetailView.shuttleController.source}"/>
                     </h:selectManyMenu>
                 </h:panelGroup>

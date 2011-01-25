@@ -117,7 +117,7 @@ public class ShuttleController implements Serializable {
 
     public String fromDestToSource() {
         for (String key : _selectionsLeft) {
-            _dest.put(key, _source.remove(key));
+            _source.put(key, _dest.remove(key));
             _destIdx.remove(key);
             _sourceIdx.add(key);
         }

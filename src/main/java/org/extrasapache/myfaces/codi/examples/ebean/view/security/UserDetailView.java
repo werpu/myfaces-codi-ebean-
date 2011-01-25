@@ -37,7 +37,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Set;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -71,12 +71,27 @@ public class UserDetailView implements Serializable {
 
     @PostConstruct
     public void postInit() {
+
+
+    }
+
+    private void initShuttle() {
+        //we split the user groups into the ones selected by the user and
+        //the ones which are yet to be added
         List<SecGroup> groups = groupBo.loadAll();
-        List selectItems = new ArrayList<SecGroup>(groups.size());
+        List selectItemsRight = new ArrayList<SecGroup>(groups.size());
+        List selectItemsLeft = new ArrayList<SecGroup>(groups.size());
+        Set<SecGroup> userGroups = model.getGroups();
         for (SecGroup group : groups) {
             //TODO we have to add an identifier remapping service but for now this suffices
-            selectItems.add(new SelectItem(group.getId().toString(), group.getGroupName()));
+            if (userGroups.contains(group)) {
+                selectItemsLeft.add(new SelectItem(group.getId().toString(), group.getGroupName()));
+            } else {
+                selectItemsRight.add(new SelectItem(group.getId().toString(), group.getGroupName()));
+            }
         }
+        shuttleController.setDest(selectItemsLeft);
+        shuttleController.setSource(selectItemsRight);
     }
 
     public Class doSave() {
@@ -91,6 +106,7 @@ public class UserDetailView implements Serializable {
     public Class goNewPerson() {
         personHistory = model.getPerson();
         model.setPerson(personBo.create());
+
         return null;
     }
 
@@ -101,13 +117,13 @@ public class UserDetailView implements Serializable {
     }
 
     public Class goDeta() {
+         initShuttle();
         return Security.UserDetail.class;
     }
 
     public Class goCreate() {
         model = bo.createUser();
-
-
+         initShuttle();
         return Security.UserDetail.class;
     }
 
