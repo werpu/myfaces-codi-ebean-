@@ -244,7 +244,6 @@ div.pagingController .pages .paginatorEntry:first-child {
     -webkit-box-shadow: 0 0 5px #888;
     -o-box-shadow: 0 0 5px #888;
 
-
     box-shadow: 0 0 5px #888;
 
     padding-left: 0.2em;
@@ -335,6 +334,10 @@ div.actions>a {
 .shuttleController div.shuttle {
     width: 2.5em;
     position: absolute;
+    top: 2.5em;
+}
+
+.shuttleController div.shuttle_center {
     top: 4.5em;
 }
 

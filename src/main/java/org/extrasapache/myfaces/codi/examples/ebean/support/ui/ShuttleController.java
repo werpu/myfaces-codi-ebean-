@@ -52,42 +52,85 @@ public class ShuttleController implements Serializable {
     List<String> _selectionsLeft = new LinkedList<String>();
     List<String> _selectionsRight = new LinkedList<String>();
 
-
+    public String shuttleTopLeft() {
+        _dest = _shuffleTop(_dest, _destIdx, _selectionsLeft);
+        return null;
+    }
 
     public String shuttleUpLeft() {
         _dest = _shuffleUp(_dest, _destIdx, _selectionsLeft);
         return null;
     }
 
-    public String shuttleUpRight() {
-        _source = _shuffleUp(_source, _destIdx, _selectionsLeft);
+    public String shuttleTopRight() {
+        _source = _shuffleTop(_source, _sourceIdx, _selectionsRight);
         return null;
     }
 
-     public String shuttleDownLeft() {
+    public String shuttleUpRight() {
+        _source = _shuffleUp(_source, _sourceIdx, _selectionsRight);
+        return null;
+    }
+
+    public String shuttleDownLeft() {
         _dest = _shuffleDown(_dest, _destIdx, _selectionsLeft);
         return null;
     }
 
-    public String shuttleDownRight() {
-        _source = _shuffleDown(_source, _destIdx, _selectionsLeft);
+    public String shuttleBottomLeft() {
+        _dest = _shuffleBottom(_dest, _destIdx, _selectionsLeft);
         return null;
     }
 
-     LinkedHashMap _shuffleDown(LinkedHashMap<String, SelectItem> holder, List<String> idx, List<String> currentItem) {
+    public String shuttleDownRight() {
+        _source = _shuffleDown(_source, _sourceIdx, _selectionsRight);
+        return null;
+    }
+
+    public String shuttleBottomRight() {
+        _source = _shuffleBottom(_source, _sourceIdx, _selectionsRight);
+        return null;
+    }
+
+    LinkedHashMap _shuffleTop(LinkedHashMap<String, SelectItem> holder, List<String> idx, List<String> currentItem) {
+        int cnt = 0;
+        for (String key : currentItem) {
+            int pos = idx.indexOf(key);
+            idx.remove(key);
+            idx.add(cnt, key);
+            cnt++;
+        }
+        return getReorganizedMap(holder, idx);
+    }
+
+    LinkedHashMap _shuffleBottom(LinkedHashMap<String, SelectItem> holder, List<String> idx, List<String> currentItem) {
+        int cnt = 0;
+        for (String key : currentItem) {
+            int pos = idx.indexOf(key);
+            idx.remove(key);
+            idx.add(key);
+        }
+        return getReorganizedMap(holder, idx);
+    }
+
+    LinkedHashMap _shuffleDown(LinkedHashMap<String, SelectItem> holder, List<String> idx, List<String> currentItem) {
 
         for (String key : currentItem) {
             int pos = idx.indexOf(key);
             idx.remove(key);
             idx.add(Math.min(pos + 1, idx.size() - 1), key);
         }
+        return getReorganizedMap(holder, idx);
+
+    }
+
+    private LinkedHashMap getReorganizedMap(LinkedHashMap<String, SelectItem> holder, List<String> idx) {
         LinkedHashMap<String, SelectItem> finalMap = new LinkedHashMap<String, SelectItem>();
         for (String key : idx) {
             finalMap.put(key, holder.get(key));
         }
 
         return finalMap;
-
     }
 
     LinkedHashMap _shuffleUp(LinkedHashMap<String, SelectItem> holder, List<String> idx, List<String> currentItem) {
@@ -97,12 +140,7 @@ public class ShuttleController implements Serializable {
             idx.remove(key);
             idx.add(Math.max(pos - 1, 0), key);
         }
-        LinkedHashMap<String, SelectItem> finalMap = new LinkedHashMap<String, SelectItem>();
-        for (String key : idx) {
-            finalMap.put(key, holder.get(key));
-        }
-
-        return finalMap;
+        return getReorganizedMap(holder, idx);
 
     }
 
@@ -133,7 +171,7 @@ public class ShuttleController implements Serializable {
         _sourceIdx.clear();
         for (SelectItem sourceItem : source) {
             _source.put((String) sourceItem.getValue(), sourceItem);
-            _destIdx.add((String) sourceItem.getValue());
+            _sourceIdx.add((String) sourceItem.getValue());
         }
     }
 
