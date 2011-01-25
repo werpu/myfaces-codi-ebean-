@@ -7,3 +7,7 @@ logs/
 *.ipr
 *.iws
 bin/
+h2-create.sql
+h2-drop.sql
+database/
+logs/
