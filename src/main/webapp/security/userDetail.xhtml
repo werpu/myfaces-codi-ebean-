@@ -39,9 +39,10 @@
 
             <h3>#{msgs.user_groups}</h3>
 
-            <widgets:shuttle labelLeft="#{msgs.user_groups_assigned}" labelRight="#{msgs.user_groups_unassigned}" controller="#{userDetailView.shuttleController}"/>
+            <widgets:shuttle labelLeft="#{msgs.user_groups_assigned}" labelRight="#{msgs.user_groups_unassigned}"
+                             controller="#{userDetailView.shuttleController}"/>
 
-            #{userDetailView.pageMode}
+
             <h:panelGroup id="person_selector" rendered="#{userDetailView.pageMode eq 'create'}">
 
 
@@ -51,6 +52,9 @@
                                    value="#{msgs.user_use_existing_person} &gt;&gt;">
                     </h:commandLink>
                     <h4>#{msgs.user_new_person}</h4>
+
+
+
                 </h:panelGroup>
 
                 <h:panelGroup id="existing_person" rendered="#{userDetailView.model.id ne null}">
