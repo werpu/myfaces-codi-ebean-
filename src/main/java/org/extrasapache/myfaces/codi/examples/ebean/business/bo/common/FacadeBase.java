@@ -22,6 +22,7 @@ import com.avaje.ebean.Query;
 import com.avaje.ebean.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -55,6 +56,11 @@ public abstract class FacadeBase<T> {
         PaginationController<T> resList = new PaginationController<T>(query.findPagingList(pageSize));
 
         return resList;
+    }
+
+    public List<T> loadAll() {
+        Query query = em.createQuery(clazz);
+        return query.findList();
     }
 
     public T loadById(Long id) {

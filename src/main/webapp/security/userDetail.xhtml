@@ -36,24 +36,99 @@
                 </c:if>
             </h3>
 
+            <h3>#{msgs.user_groups}</h3>
+            <h:panelGroup layout="block" styleClass="shuttleController">
+                <!-- todo value binding into the controller -->
+                <h:panelGroup layout="block" styleClass="shuttle shuttle_left">
+                    <h:panelGroup layout="block" styleClass="command_holder">
+                        <h:commandLink action="#{userDetailView.shuttleController.shuttleUpLeft}" class="left_up"
+                                       value="#{msgs.shuttle_up}">
+                            <f:ajax execute="left" render="left"/>
+                        </h:commandLink>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="command_holder">
+                        <h:commandLink action="#{userDetailView.shuttleController.shuttleDownLeft}" class="left_down"
+                                       value="#{msgs.shuttle_down}">
+                            <f:ajax execute="left" render="left"/>
+                        </h:commandLink>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="left">
+                    <h:panelGroup layout="block" styleClass="title_left">
+                        <h:outputFormat value="Groups" styleClass="title_left"/>
+                    </h:panelGroup>
+                    <h:selectManyMenu id="left" styleClass="left">
+                        <f:selectItems value="#{userDetailView.shuttleController.dest}"></f:selectItems>
+                    </h:selectManyMenu>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="shuttle shuttle_center">
+                    <h:panelGroup layout="block" styleClass="command_holder">
+                        <h:commandLink
+                                action="#{userDetailView.shuttleController.fromSourceToDest}" value="&lt;&lt;">
+                            <f:ajax execute="left right" render="left right"/>
+                        </h:commandLink>
+
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="command_holder">
+                        <h:commandLink id="right"
+                                       action="#{userDetailView.shuttleController.fromSourceToDest}" value="&gt;&gt;">
+                            <f:ajax execute="left right" render="left right"/>
+                        </h:commandLink>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+
+                <h:commandLink action="#{userDetailView.shuttleController.fromDestToSource}">
+                    <f:ajax execute="left right" render="left right"/>
+                </h:commandLink>
+
+                <h:panelGroup layout="block" styleClass="shuttle shuttle_right">
+                    <h:panelGroup layout="block" styleClass="command_holder">
+                        <h:commandLink action="#{userDetailView.shuttleController.shuttleUpRight}" class="right_up"
+                                       value="#{msgs.shuttle_up}">
+                            <f:ajax execute="left" render="left"/>
+                        </h:commandLink>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="command_holder">
+                        <h:commandLink action="#{userDetailView.shuttleController.shuttleDownRight}" class="right_down"
+                                       value="#{msgs.shuttle_down}">
+                            <f:ajax execute="left" render="left"/>
+                        </h:commandLink>
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="right">
+                    <h:panelGroup layout="block" styleClass="title_right">
+                        <h:outputFormat value="Groups" styleClass="title_right"/>
+                    </h:panelGroup>
+                    <h:selectManyMenu styleClass="right">
+                        <f:selectItems value="#{userDetailView.shuttleController.source}"/>
+                    </h:selectManyMenu>
+                </h:panelGroup>
+            </h:panelGroup>
+
+
             #{userDetailView.pageMode}
             <h:panelGroup id="person_selector" rendered="#{userDetailView.pageMode eq 'create'}">
 
 
                 <h:panelGroup id="new_person" rendered="#{userDetailView.model.id eq null}">
-                    <h4>#{msgs.user_new_person}</h4>
-                    <h:commandLink action="#{userDetailView.goDeta}" value="#{msgs.user_use_existing_person} &gt;&gt;">
-                        <f:setPropertyActionListener target="#{userDetailView.newPerson}" value="false"/>
+
+                    <h:commandLink action="#{userDetailView.goExistingPerson}"
+                                   value="#{msgs.user_use_existing_person} &gt;&gt;">
                     </h:commandLink>
+                    <h4>#{msgs.user_new_person}</h4>
                 </h:panelGroup>
 
                 <h:panelGroup id="existing_person" rendered="#{userDetailView.model.id ne null}">
-                    <h4>#{msgs.user_existing_person}</h4>
-                    <h:commandLink action="#{userDetailView.goDeta}" value="#{msgs.user_use_new_person} &gt;gt;">
-                        <f:setPropertyActionListener target="#{userDetailView.newPerson}" value="false"/>
+
+                    <h:commandLink action="#{userDetailView.goNewPerson}" value="#{msgs.user_use_new_person} &gt;gt;">
                     </h:commandLink>
+                    <h4>#{msgs.user_existing_person}</h4>
                 </h:panelGroup>
 
+                <!-- dodo find the correct ui elements for the person editing -->
                 <h:panelGroup id="personEdit" rendered="#{userDetailView.model.person != null}">
                     <ezp:personEdit value="#{userDetailView.model.person}" addressModel="#{userDetailView.address}"
                                     addAddress="#{userDetailView.addAddress}"

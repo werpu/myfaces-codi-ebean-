@@ -19,7 +19,12 @@
 
 package org.extrasapache.myfaces.codi.examples.ebean.business.bo.security;
 
+import com.avaje.ebean.Query;
 import com.avaje.ebean.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.myfaces.extensions.cdi.core.api.logging.Logger;
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.common.FacadeBase;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person;
@@ -49,6 +54,20 @@ public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
 
     public SecGroup createGroup() {
         return new SecGroup();
+    }
+
+    public List<SecGroup> loadByIdsStr(Collection<String> ids) {
+        ArrayList<Long> list = new ArrayList<Long>(ids.size());
+        for(String id: ids) {
+            list.add(Long.parseLong(id));
+        }
+        return loadByIds(list);
+    }
+
+    public List<SecGroup> loadByIds(Collection<Long> ids) {
+        Query query = em.createQuery(clazz);
+        query.where().in("id", ids);
+        return query.findList();
     }
 
     @Transactional

@@ -22,6 +22,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.business.bo.security;
 import com.avaje.ebean.Query;
 import com.avaje.ebean.annotation.Transactional;
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.common.FacadeBase;
+import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry;
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.OrderEntry;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person;
@@ -29,6 +30,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.orm.security.User;
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController;
 
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -41,13 +43,19 @@ import java.util.List;
 @Named
 @Dependent
 public class UserFacade extends FacadeBase<User> implements Serializable {
+
+    @Inject
+    PersonFacade personBo;
+
     public UserFacade() {
         super();
         clazz = User.class;
     }
 
     public User createUser() {
-        return new User();
+        User ret = new User();
+        ret.setPerson(personBo.create());
+        return ret;
     }
 
     @Transactional
