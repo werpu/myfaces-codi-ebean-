@@ -21,7 +21,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
-      xmlns:ezp="http://java.sun.com/jsf/composite/ezcomp/person">
+      xmlns:ezp="http://java.sun.com/jsf/composite/ezcomp/person"
+      xmlns:widgets="http://java.sun.com/jsf/composite/ezcomp/widgets">
 <ui:composition template="../templates/template.xhtml">
 
     <ui:define name="content">
@@ -37,116 +38,8 @@
             </h3>
 
             <h3>#{msgs.user_groups}</h3>
-            <h:panelGroup layout="block" styleClass="shuttleController">
-                <!-- todo value binding into the controller -->
-                <h:panelGroup layout="block" styleClass="shuttle shuttle_left">
-                    <!-- bottom - top control layout block left -->
-                    <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="shuttle_top_left" action="#{userDetailView.shuttleController.shuttleTopLeft}"
-                                       class="left_top"
-                                       value="#{msgs.shuttle_top}">
-                            <f:ajax execute="menu_left" render="menu_left"/>
-                        </h:commandLink>
-                    </h:panelGroup>
-                    <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="shuttle_up_left" action="#{userDetailView.shuttleController.shuttleUpLeft}"
-                                       class="left_up"
-                                       value="#{msgs.shuttle_up}">
-                            <f:ajax execute="menu_left" render="menu_left"/>
-                        </h:commandLink>
-                    </h:panelGroup>
-                    <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="shuttle_down_left"
-                                       action="#{userDetailView.shuttleController.shuttleDownLeft}" class="left_down"
-                                       value="#{msgs.shuttle_down}">
-                            <f:ajax execute="menu_left" render="menu_left"/>
-                        </h:commandLink>
-                    </h:panelGroup>
-                    <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="shuttle_bottom_left" action="#{userDetailView.shuttleController.shuttleBottomLeft}"
-                                       class="left_bottom"
-                                       value="#{msgs.shuttle_bottom}">
-                            <f:ajax execute="menu_left" render="menu_left"/>
-                        </h:commandLink>
-                    </h:panelGroup>
-                </h:panelGroup>
 
-                <!-- left menu -->
-                <h:panelGroup layout="block" styleClass="left">
-                    <h:panelGroup layout="block" styleClass="title_left">
-                        <h:outputFormat value="Groups" styleClass="title_left"/>
-                    </h:panelGroup>
-                    <h:selectManyMenu id="menu_left" styleClass="left"
-                                      value="#{userDetailView.shuttleController.selectionsLeft}">
-                        <f:selectItems value="#{userDetailView.shuttleController.dest}"></f:selectItems>
-                    </h:selectManyMenu>
-                </h:panelGroup>
-
-                <!-- central shuttle block -->
-                <h:panelGroup layout="block" styleClass="shuttle shuttle_center">
-                    <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="shuttle_left"
-                                       action="#{userDetailView.shuttleController.fromSourceToDest}" value="&lt;&lt;">
-                            <f:ajax execute="menu_left menu_right" render="menu_left menu_right"/>
-                        </h:commandLink>
-
-                    </h:panelGroup>
-                    <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="shuttle_right"
-                                       action="#{userDetailView.shuttleController.fromDestToSource}" value="&gt;&gt;">
-                            <f:ajax execute="menu_left menu_right" render="menu_left menu_right"/>
-                        </h:commandLink>
-                    </h:panelGroup>
-                </h:panelGroup>
-
-
-                <!-- bottom - top control layout block right -->
-                <h:panelGroup layout="block" styleClass="shuttle shuttle_right">
-                    <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="shuttle_top_right" action="#{userDetailView.shuttleController.shuttleTopRight}"
-                                       class="right_top"
-                                       value="#{msgs.shuttle_top}">
-                            <f:ajax execute="menu_right" render="menu_right"/>
-                        </h:commandLink>
-                    </h:panelGroup>
-
-                    <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="shuttle_up_right" action="#{userDetailView.shuttleController.shuttleUpRight}"
-                                       class="right_up"
-                                       value="#{msgs.shuttle_up}">
-                            <f:ajax execute="menu_right" render="menu_right"/>
-                        </h:commandLink>
-                    </h:panelGroup>
-                    <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="shuttle_down_right"
-                                       action="#{userDetailView.shuttleController.shuttleDownRight}" class="right_down"
-                                       value="#{msgs.shuttle_down}">
-                            <f:ajax execute="menu_right" render="menu_right"/>
-                        </h:commandLink>
-                    </h:panelGroup>
-
-                    <h:panelGroup layout="block" styleClass="command_holder">
-                        <h:commandLink id="shuttle_bottom_right" action="#{userDetailView.shuttleController.shuttleBottomRight}"
-                                       class="right_bottom"
-                                       value="#{msgs.shuttle_bottom}">
-                            <f:ajax execute="menu_right" render="menu_right"/>
-                        </h:commandLink>
-                    </h:panelGroup>
-                </h:panelGroup>
-
-
-
-                <h:panelGroup layout="block" styleClass="right">
-                    <h:panelGroup layout="block" styleClass="title_right">
-                        <h:outputFormat value="Groups" styleClass="title_right"/>
-                    </h:panelGroup>
-                    <h:selectManyMenu id="menu_right" styleClass="right"
-                                      value="#{userDetailView.shuttleController.selectionsRight}">
-                        <f:selectItems value="#{userDetailView.shuttleController.source}"/>
-                    </h:selectManyMenu>
-                </h:panelGroup>
-            </h:panelGroup>
-
+            <widgets:shuttle controller="#{userDetailView.shuttleController}"/>
 
             #{userDetailView.pageMode}
             <h:panelGroup id="person_selector" rendered="#{userDetailView.pageMode eq 'create'}">

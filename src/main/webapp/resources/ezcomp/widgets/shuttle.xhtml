@@ -1,0 +1,125 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface>
+        <composite:attribute name="controller" required="true" />
+    </composite:interface>
+
+    <composite:implementation>
+        <h:panelGroup layout="block" styleClass="shuttleController">
+            <!-- todo value binding into the controller -->
+            <h:panelGroup layout="block" styleClass="shuttle shuttle_left">
+                <!-- bottom - top control layout block left -->
+                <h:panelGroup layout="block" styleClass="command_holder">
+                    <h:commandLink id="shuttle_top_left" action="#{cc.attrs.controller.shuttleTopLeft}"
+                                   class="left_top"
+                                   value="#{msgs.shuttle_top}">
+                        <f:ajax execute="menu_left" render="menu_left"/>
+                    </h:commandLink>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="command_holder">
+                    <h:commandLink id="shuttle_up_left" action="#{cc.attrs.controller.shuttleUpLeft}"
+                                   class="left_up"
+                                   value="#{msgs.shuttle_up}">
+                        <f:ajax execute="menu_left" render="menu_left"/>
+                    </h:commandLink>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="command_holder">
+                    <h:commandLink id="shuttle_down_left"
+                                   action="#{cc.attrs.controller.shuttleDownLeft}" class="left_down"
+                                   value="#{msgs.shuttle_down}">
+                        <f:ajax execute="menu_left" render="menu_left"/>
+                    </h:commandLink>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="command_holder">
+                    <h:commandLink id="shuttle_bottom_left"
+                                   action="#{cc.attrs.controller.shuttleBottomLeft}"
+                                   class="left_bottom"
+                                   value="#{msgs.shuttle_bottom}">
+                        <f:ajax execute="menu_left" render="menu_left"/>
+                    </h:commandLink>
+                </h:panelGroup>
+            </h:panelGroup>
+
+            <!-- left menu -->
+            <h:panelGroup layout="block" styleClass="left">
+                <h:panelGroup layout="block" styleClass="title_left">
+                    <h:outputFormat value="Groups" styleClass="title_left"/>
+                </h:panelGroup>
+                <h:selectManyMenu id="menu_left" styleClass="left"
+                                  value="#{cc.attrs.controller.selectionsLeft}">
+                    <f:selectItems value="#{cc.attrs.controller.dest}"></f:selectItems>
+                </h:selectManyMenu>
+            </h:panelGroup>
+
+            <!-- central shuttle block -->
+            <h:panelGroup layout="block" styleClass="shuttle shuttle_center">
+                <h:panelGroup layout="block" styleClass="command_holder">
+                    <h:commandLink id="shuttle_left"
+                                   action="#{cc.attrs.controller.fromSourceToDest}" value="&lt;&lt;">
+                        <f:ajax execute="menu_left menu_right" render="menu_left menu_right"/>
+                    </h:commandLink>
+
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="command_holder">
+                    <h:commandLink id="shuttle_right"
+                                   action="#{cc.attrs.controller.fromDestToSource}" value="&gt;&gt;">
+                        <f:ajax execute="menu_left menu_right" render="menu_left menu_right"/>
+                    </h:commandLink>
+                </h:panelGroup>
+            </h:panelGroup>
+
+
+            <!-- bottom - top control layout block right -->
+            <h:panelGroup layout="block" styleClass="shuttle shuttle_right">
+                <h:panelGroup layout="block" styleClass="command_holder">
+                    <h:commandLink id="shuttle_top_right" action="#{cc.attrs.controller.shuttleTopRight}"
+                                   class="right_top"
+                                   value="#{msgs.shuttle_top}">
+                        <f:ajax execute="menu_right" render="menu_right"/>
+                    </h:commandLink>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="command_holder">
+                    <h:commandLink id="shuttle_up_right" action="#{cc.attrs.controller.shuttleUpRight}"
+                                   class="right_up"
+                                   value="#{msgs.shuttle_up}">
+                        <f:ajax execute="menu_right" render="menu_right"/>
+                    </h:commandLink>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="command_holder">
+                    <h:commandLink id="shuttle_down_right"
+                                   action="#{cc.attrs.controller.shuttleDownRight}" class="right_down"
+                                   value="#{msgs.shuttle_down}">
+                        <f:ajax execute="menu_right" render="menu_right"/>
+                    </h:commandLink>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="command_holder">
+                    <h:commandLink id="shuttle_bottom_right"
+                                   action="#{cc.attrs.controller.shuttleBottomRight}"
+                                   class="right_bottom"
+                                   value="#{msgs.shuttle_bottom}">
+                        <f:ajax execute="menu_right" render="menu_right"/>
+                    </h:commandLink>
+                </h:panelGroup>
+            </h:panelGroup>
+
+
+            <h:panelGroup layout="block" styleClass="right">
+                <h:panelGroup layout="block" styleClass="title_right">
+                    <h:outputFormat value="Groups" styleClass="title_right"/>
+                </h:panelGroup>
+                <h:selectManyMenu id="menu_right" styleClass="right"
+                                  value="#{cc.attrs.controller.selectionsRight}">
+                    <f:selectItems value="#{cc.attrs.controller.source}"/>
+                </h:selectManyMenu>
+            </h:panelGroup>
+        </h:panelGroup>
+
+    </composite:implementation>
+
+</ui:component>
