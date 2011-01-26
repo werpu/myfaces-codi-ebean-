@@ -90,8 +90,8 @@ public class UserDetailView implements Serializable {
                 selectItemsRight.add(new SelectItem(group.getId().toString(), group.getGroupName()));
             }
         }
-        shuttleController.setDest(selectItemsLeft);
-        shuttleController.setSource(selectItemsRight);
+        shuttleController.setLeft(selectItemsLeft);
+        shuttleController.setRight(selectItemsRight);
     }
 
     public Class doSave() {

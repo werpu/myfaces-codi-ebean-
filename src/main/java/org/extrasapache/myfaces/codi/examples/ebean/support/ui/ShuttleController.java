@@ -19,8 +19,6 @@
 
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui;
 
-import org.apache.commons.collections.list.TreeList;
-
 import javax.enterprise.context.Dependent;
 import javax.faces.model.SelectItem;
 import java.io.Serializable;
@@ -42,53 +40,53 @@ import java.util.LinkedHashMap;
 public class ShuttleController implements Serializable {
 
     //TODO I need to implemen a ListMap to roll things
-    LinkedHashMap<String, SelectItem> _source = new LinkedHashMap<String, SelectItem>();
-    LinkedHashMap<String, SelectItem> _dest = new LinkedHashMap<String, SelectItem>();
+    LinkedHashMap<String, SelectItem> _right = new LinkedHashMap<String, SelectItem>();
+    LinkedHashMap<String, SelectItem> _left = new LinkedHashMap<String, SelectItem>();
 
     //separate idx to determine the current position of a given element
-    List<String> _sourceIdx = new LinkedList<String>();
-    List<String> _destIdx = new LinkedList<String>();
+    List<String> _rightIdx = new LinkedList<String>();
+    List<String> _leftIdx = new LinkedList<String>();
 
     List<String> _selectionsLeft = new LinkedList<String>();
     List<String> _selectionsRight = new LinkedList<String>();
 
     public String shuttleTopLeft() {
-        _dest = _shuffleTop(_dest, _destIdx, _selectionsLeft);
+        _left = _shuffleTop(_left, _leftIdx, _selectionsLeft);
         return null;
     }
 
     public String shuttleUpLeft() {
-        _dest = _shuffleUp(_dest, _destIdx, _selectionsLeft);
+        _left = _shuffleUp(_left, _leftIdx, _selectionsLeft);
         return null;
     }
 
     public String shuttleTopRight() {
-        _source = _shuffleTop(_source, _sourceIdx, _selectionsRight);
+        _right = _shuffleTop(_right, _rightIdx, _selectionsRight);
         return null;
     }
 
     public String shuttleUpRight() {
-        _source = _shuffleUp(_source, _sourceIdx, _selectionsRight);
+        _right = _shuffleUp(_right, _rightIdx, _selectionsRight);
         return null;
     }
 
     public String shuttleDownLeft() {
-        _dest = _shuffleDown(_dest, _destIdx, _selectionsLeft);
+        _left = _shuffleDown(_left, _leftIdx, _selectionsLeft);
         return null;
     }
 
     public String shuttleBottomLeft() {
-        _dest = _shuffleBottom(_dest, _destIdx, _selectionsLeft);
+        _left = _shuffleBottom(_left, _leftIdx, _selectionsLeft);
         return null;
     }
 
     public String shuttleDownRight() {
-        _source = _shuffleDown(_source, _sourceIdx, _selectionsRight);
+        _right = _shuffleDown(_right, _rightIdx, _selectionsRight);
         return null;
     }
 
     public String shuttleBottomRight() {
-        _source = _shuffleBottom(_source, _sourceIdx, _selectionsRight);
+        _right = _shuffleBottom(_right, _rightIdx, _selectionsRight);
         return null;
     }
 
@@ -144,47 +142,47 @@ public class ShuttleController implements Serializable {
 
     }
 
-    public String fromSourceToDest() {
+    public String fromRightToLeft() {
         for (String key : _selectionsRight) {
-            _dest.put(key, _source.remove(key));
-            _sourceIdx.remove(key);
-            _destIdx.add(key);
+            _left.put(key, _right.remove(key));
+            _rightIdx.remove(key);
+            _leftIdx.add(key);
         }
         return null;
     }
 
-    public String fromDestToSource() {
+    public String fromLeftToRight() {
         for (String key : _selectionsLeft) {
-            _source.put(key, _dest.remove(key));
-            _destIdx.remove(key);
-            _sourceIdx.add(key);
+            _right.put(key, _left.remove(key));
+            _leftIdx.remove(key);
+            _rightIdx.add(key);
         }
         return null;
     }
 
-    public Collection<SelectItem> getSource() {
-        return _source.values();
+    public Collection<SelectItem> getRight() {
+        return _right.values();
     }
 
-    public void setSource(Collection<SelectItem> source) {
-        _source = new LinkedHashMap();
-        _sourceIdx.clear();
-        for (SelectItem sourceItem : source) {
-            _source.put((String) sourceItem.getValue(), sourceItem);
-            _sourceIdx.add((String) sourceItem.getValue());
+    public void setRight(Collection<SelectItem> right) {
+        _right = new LinkedHashMap();
+        _rightIdx.clear();
+        for (SelectItem sourceItem : right) {
+            _right.put((String) sourceItem.getValue(), sourceItem);
+            _rightIdx.add((String) sourceItem.getValue());
         }
     }
 
-    public Collection<SelectItem> getDest() {
-        return _dest.values();
+    public Collection<SelectItem> getLeft() {
+        return _left.values();
     }
 
-    public void setDest(List<SelectItem> dest) {
-        _dest = new LinkedHashMap();
-        _dest.clear();
-        for (SelectItem sourceItem : dest) {
-            _dest.put((String) sourceItem.getValue(), sourceItem);
-            _destIdx.add((String) sourceItem.getValue());
+    public void setLeft(List<SelectItem> left) {
+        _left = new LinkedHashMap();
+        _left.clear();
+        for (SelectItem sourceItem : left) {
+            _left.put((String) sourceItem.getValue(), sourceItem);
+            _leftIdx.add((String) sourceItem.getValue());
         }
     }
 

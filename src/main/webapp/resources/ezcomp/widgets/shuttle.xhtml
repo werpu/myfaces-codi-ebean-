@@ -53,7 +53,7 @@
                 </h:panelGroup>
                 <h:selectManyMenu id="menu_left" styleClass="left"
                                   value="#{cc.attrs.controller.selectionsLeft}">
-                    <f:selectItems value="#{cc.attrs.controller.dest}"></f:selectItems>
+                    <f:selectItems value="#{cc.attrs.controller.left}"></f:selectItems>
                 </h:selectManyMenu>
             </h:panelGroup>
 
@@ -61,14 +61,14 @@
             <h:panelGroup layout="block" styleClass="shuttle shuttle_center">
                 <h:panelGroup layout="block" styleClass="command_holder">
                     <h:commandLink id="shuttle_left"
-                                   action="#{cc.attrs.controller.fromSourceToDest}" value="&lt;&lt;">
+                                   action="#{cc.attrs.controller.fromRightToLeft}" value="#{msgs.fast_left}">
                         <f:ajax execute="menu_left menu_right" render="menu_left menu_right"/>
                     </h:commandLink>
 
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="command_holder">
                     <h:commandLink id="shuttle_right"
-                                   action="#{cc.attrs.controller.fromDestToSource}" value="&gt;&gt;">
+                                   action="#{cc.attrs.controller.fromLeftToRight}" value="#{msgs.fast_right}">
                         <f:ajax execute="menu_left menu_right" render="menu_left menu_right"/>
                     </h:commandLink>
                 </h:panelGroup>
@@ -117,7 +117,7 @@
                 </h:panelGroup>
                 <h:selectManyMenu id="menu_right" styleClass="right"
                                   value="#{cc.attrs.controller.selectionsRight}">
-                    <f:selectItems value="#{cc.attrs.controller.source}"/>
+                    <f:selectItems value="#{cc.attrs.controller.right}"/>
                 </h:selectManyMenu>
             </h:panelGroup>
         </h:panelGroup>
