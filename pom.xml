@@ -37,6 +37,7 @@
         <java.version>1.5</java.version>
         <geronimo-jta_1.1_spec.version>1.1.1</geronimo-jta_1.1_spec.version>
         <jstl.version>1.2</jstl.version>
+        <maven-scala-plugin.scalaVersion>2.8</maven-scala-plugin.scalaVersion>
     </properties>
 
     <repositories>
@@ -49,6 +50,11 @@
             <id>apache</id>
             <name>release repo apache</name>
             <url>https://repository.apache.org/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>scala</id>
+            <name>scala final</name>
+            <url>http://scala-tools.org/repo-releases/</url>
         </repository>
         <repository>
             <id>jboss-public-repository-group</id>
@@ -67,6 +73,16 @@
 
 
     </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>scala-tools.org</id>
+            <name>Scala-tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+
     <dependencies>
 
         <!-- JSF / Apache MyFace -->
@@ -274,10 +290,53 @@
             <version>${h2.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+
 
     </dependencies>
     <build>
+
         <plugins>
+
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <executions>
+
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <phase>test-compile</phase>
+                    </execution>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -430,12 +489,24 @@
                             </packages>
                             <transformArgs>debug=1</transformArgs>
 
+
                         </configuration>
                     </execution>
+
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.scala-lang</groupId>
+                        <artifactId>scala-library</artifactId>
+                        <version>2.8.0</version>
+                    </dependency>
+
+                </dependencies>
             </plugin>
 
+
         </plugins>
+
         <finalName>testenterpriseweb2</finalName>
     </build>
 

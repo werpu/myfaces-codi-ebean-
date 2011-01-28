@@ -27,8 +27,10 @@ import org.extrasapache.myfaces.codi.examples.ebean.business.bo.security.UserFac
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.User;
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController;
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.ShuttleController;
 import org.extrasapache.myfaces.codi.examples.ebean.view.person.Person;
+import org.extrasapache.myfaces.codi.examples.ebean.view.person.PersonListSearchModel;
 
 import javax.annotation.PostConstruct;
 import javax.faces.model.SelectItem;
@@ -61,6 +63,7 @@ public class UserDetailView implements Serializable {
 
     User model;
     Address address;
+    Person person;
 
     @Inject
     ShuttleController shuttleController;
@@ -69,9 +72,13 @@ public class UserDetailView implements Serializable {
 
     boolean newPerson = false;
 
+    @Inject
+    PersonListSearchModel personSearchData;
+
+    PaginationController personListModel = null;
+
     @PostConstruct
     public void postInit() {
-
 
     }
 
@@ -117,14 +124,18 @@ public class UserDetailView implements Serializable {
     }
 
     public Class goDeta() {
-         initShuttle();
+        initShuttle();
         return Security.UserDetail.class;
     }
 
     public Class goCreate() {
         model = bo.createUser();
-         initShuttle();
+        initShuttle();
         return Security.UserDetail.class;
+    }
+
+    public String selectPerson() {
+        return null;
     }
 
     public Class<? extends ViewConfig> addAddress() {
@@ -178,5 +189,29 @@ public class UserDetailView implements Serializable {
 
     public void setShuttleController(ShuttleController shuttleController) {
         this.shuttleController = shuttleController;
+    }
+
+    public PersonListSearchModel getPersonSearchData() {
+        return personSearchData;
+    }
+
+    public void setPersonSearchData(PersonListSearchModel personSearchData) {
+        this.personSearchData = personSearchData;
+    }
+
+    public PaginationController getPersonListModel() {
+        return personListModel;
+    }
+
+    public void setPersonListModel(PaginationController personListModel) {
+        this.personListModel = personListModel;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }
