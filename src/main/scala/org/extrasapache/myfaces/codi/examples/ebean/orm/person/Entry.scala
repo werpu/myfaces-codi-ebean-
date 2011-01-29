@@ -3,6 +3,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.orm.person
 import java.io.Serializable
 import javax.persistence._
 import reflect.BeanProperty
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 
 /**
  *
@@ -12,11 +13,8 @@ import reflect.BeanProperty
 
 @Entity
 @Table(name = "o_entry")
-class Entry extends Serializable {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @BeanProperty
-  protected var id: java.lang.Long = _
+class Entry extends Serializable with StdEntity  {
+
 
   @BeanProperty
   protected var title: String = ""
@@ -26,10 +24,6 @@ class Entry extends Serializable {
 
   @BeanProperty
   protected var longDesc: String = ""
-
-  @Version
-  @BeanProperty
-  protected var version: java.lang.Long  = _
 
   @ManyToOne
   @BeanProperty

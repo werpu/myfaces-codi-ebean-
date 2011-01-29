@@ -20,6 +20,7 @@
 package org.extrasapache.myfaces.codi.examples.ebean.view.security;
 
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup;
+import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroupConst;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.model.SelectItem;
@@ -39,9 +40,9 @@ public class GroupTypes {
 
     public GroupTypes() {
         groupTypes = new ArrayList<SelectItem>(3);
-        groupTypes.add(new SelectItem(SecGroup.GRP_TYPE_SYSTEM, "System"));
-        groupTypes.add(new SelectItem(SecGroup.GRP_TYPE_USER, "User"));
-        groupTypes.add(new SelectItem(SecGroup.GRP_TYPE_OTHER, "Other"));
+        groupTypes.add(new SelectItem(SecGroupConst.GRP_TYPE_SYSTEM(), "System"));
+        groupTypes.add(new SelectItem(SecGroupConst.GRP_TYPE_USER(), "User"));
+        groupTypes.add(new SelectItem(SecGroupConst.GRP_TYPE_OTHER(), "Other"));
 
     }
 

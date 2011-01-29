@@ -1,11 +1,10 @@
 package org.extrasapache.myfaces.codi.examples.ebean.orm.person
 
 import javax.persistence._
-import java.util.LinkedList
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.User
 import java.io.Serializable
 import reflect.BeanProperty
-
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 
 /**
  *
@@ -18,12 +17,8 @@ import reflect.BeanProperty
 
 @Entity
 @Table(name = "o_person")
-class Person extends Serializable {
+class Person extends Serializable with StdEntity  {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @BeanProperty
-  protected var id: java.lang.Long = _
 
   @BeanProperty
   protected var firstName: String = _
@@ -33,10 +28,6 @@ class Person extends Serializable {
 
   @BeanProperty
   protected var nickName: String = _
-
-  @Version
-  @BeanProperty
-  protected var version: java.lang.Long = _
 
   @OneToMany
   @BeanProperty
@@ -51,8 +42,5 @@ class Person extends Serializable {
   @BeanProperty
   protected var userData: java.util.List[User] = _
 
-
-  //def getId(): Long = { this.id }
-  //def setId(newId:Long) { this.id = _  }
 
 }

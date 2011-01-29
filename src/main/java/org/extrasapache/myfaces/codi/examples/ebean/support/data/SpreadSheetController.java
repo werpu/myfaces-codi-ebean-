@@ -43,15 +43,15 @@ public class SpreadSheetController implements Serializable {
         _editable.clear();
     }
 
-    public void enableEdit(Identifyable instance) {
+    public void enableEdit(StdEntity instance) {
         _editable.add(instance.getId());
     }
 
-    public void disableEdit(Identifyable instance) {
+    public void disableEdit(StdEntity instance) {
         _editable.remove(instance.getId());
     }
 
-    public Boolean isEditable(Identifyable instance) {
+    public Boolean isEditable(StdEntity instance) {
         return _editable.contains(instance.getId());
     }
 
