@@ -164,33 +164,31 @@ class ShuttleController extends Serializable {
   //(so that we can switch easily between impls)
 
   protected def _membersUp(idx: Buffer[String], selections: Buffer[String]): Buffer[String] = {
-    var idxClone = idx.clone
-    selections.foreach(key => {
-      val pos = idxClone.indexOf(key)
-      idxClone.remove(pos)
-      idxClone.insert(max(pos - 1, 0), key)
-    })
-    idxClone
+    selections.foldLeft(idx.clone){(idxClone, key) => {
+        val pos = idxClone.indexOf(key)
+        idxClone.remove(pos)
+        idxClone.insert(max(pos - 1, 0), key)
+        idxClone
+      }
+    }
   }
 
   protected def _membersDown(idx: Buffer[String], selections: Buffer[String]): Buffer[String] = {
-    var idxClone = idx.clone
-     selections.foreach(key => {
-      val pos = idxClone.indexOf(key)
-      idxClone.remove(pos)
-      idxClone.insert(max(pos + 1, idxClone.size - 1), key)
-    })
-    idxClone
+    selections.foldLeft(idx.clone){(idxClone, key) => {
+        val pos = idxClone.indexOf(key)
+        idxClone.remove(pos)
+        idxClone.insert(max(pos + 1, idxClone.size - 1), key)
+        idxClone
+      }
+    }
   }
 
   protected def _shuttleTop(list1: Buffer[String], list2: Buffer[String]): Buffer[String] = {
-    val ret = list1 ++ list2
-    ret
+    list1 ++ list2
   }
 
   protected def _shuttleBottom(list1: Buffer[String], list2: Buffer[String]): Buffer[String] = {
-    val ret = list2 ++ list1
-    ret
+    list2 ++ list1
   }
 
   protected def _reorgMap(applyClosure: (Buffer[String], Buffer[String]) => Buffer[String],
