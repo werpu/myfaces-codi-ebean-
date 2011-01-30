@@ -15,6 +15,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 @Entity
 class User extends Serializable with StdEntity {
 
+
   @ManyToMany(fetch = FetchType.EAGER, cascade = Array(CascadeType.MERGE, CascadeType.REFRESH))
   @BeanProperty
   protected var groups: java.util.Set[SecGroup] = _

@@ -179,7 +179,7 @@ public class ShuttleController implements Serializable {
 
     public void setLeft(List<SelectItem> left) {
         _left = new LinkedHashMap();
-        _left.clear();
+        _leftIdx.clear();
         for (SelectItem sourceItem : left) {
             _left.put((String) sourceItem.getValue(), sourceItem);
             _leftIdx.add((String) sourceItem.getValue());
