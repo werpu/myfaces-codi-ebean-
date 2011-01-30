@@ -46,7 +46,6 @@ class ShuttleController extends Serializable {
     _left = res._1
     _leftIdx = res._2
 
-
     null
   }
 
@@ -183,15 +182,15 @@ class ShuttleController extends Serializable {
     }
   }
 
-  protected def _shuttleTop(list1: Buffer[String], list2: Buffer[String]): Buffer[String] = {
+  def _shuttleTop(list1: Buffer[String], list2: Buffer[String]): Buffer[String] = {
     list1 ++ list2
   }
 
-  protected def _shuttleBottom(list1: Buffer[String], list2: Buffer[String]): Buffer[String] = {
+  def _shuttleBottom(list1: Buffer[String], list2: Buffer[String]): Buffer[String] = {
     list2 ++ list1
   }
 
-  protected def _reorgMap(applyClosure: (Buffer[String], Buffer[String]) => Buffer[String],
+  def _reorgMap(applyClosure: (Buffer[String], Buffer[String]) => Buffer[String],
                           idx: Buffer[String],
                           selections: Buffer[String],
                           dataMap: LinkedHashMap[String, SelectItem]
