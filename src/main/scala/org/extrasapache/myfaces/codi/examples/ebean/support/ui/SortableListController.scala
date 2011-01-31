@@ -6,6 +6,7 @@ import reflect.BeanProperty
 import collection.mutable.{ArrayBuffer, Buffer, LinkedHashMap}
 import collection.JavaConversions._
 import scala.math._
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -20,6 +21,22 @@ class SortableListController extends Serializable {
 
   @BeanProperty
   var selections: java.util.List[String] = ArrayBuffer[String]()
+
+  def setModel(source: java.util.Collection[SelectItem]) {
+    _model = new LinkedHashMap[String, SelectItem]
+    _idx = new ArrayBuffer[String]
+    val buf = source
+    buf.foreach(item => {
+      _model.put(item.getValue.toString, item)
+      _idx += item.getValue.toString
+    }
+    )
+  }
+
+  def getModel: java.util.Collection[SelectItem] = {
+    val ret: java.util.Map[String, SelectItem] = _model
+    ret.values
+  }
 
   def shuttleTop: String = {
     val res = _reorgMap(_shuttleTop, _idx, selections, _model)
@@ -51,12 +68,22 @@ class SortableListController extends Serializable {
     null
   }
 
-  def  membersRemove: Buffer[SelectItem] = {
-    null
+  def membersRemove: LinkedHashMap[String, SelectItem] = {
+    val newModel = LinkedHashMap[String, SelectItem]()
+    newModel.putAll(_model.filterKeys {
+      !selections.contains(_)
+    })
+    val ret = LinkedHashMap[String, SelectItem]()
+    newModel.putAll(_model.filterKeys {
+      selections.contains(_)
+    })
+
+    _model = newModel
+    ret
   }
 
-  def membersAdd(toAdd: Buffer[SelectItem]) = {
-
+  def membersAdd(toAdd: LinkedHashMap[String, SelectItem]) = {
+    _model.putAll(toAdd)
   }
 
   //the following helpers work in a pure functional manner
