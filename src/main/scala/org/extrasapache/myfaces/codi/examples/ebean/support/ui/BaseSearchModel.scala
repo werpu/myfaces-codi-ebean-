@@ -2,7 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 
 import java.io.Serializable
 
-import javax.faces.model.SelectItem
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OpType, FilterEntry}
 import collection.mutable._
 import collection.JavaConversions._
