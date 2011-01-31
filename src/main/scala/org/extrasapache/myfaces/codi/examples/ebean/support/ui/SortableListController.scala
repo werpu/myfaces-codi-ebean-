@@ -39,7 +39,7 @@ class SortableListController extends Serializable {
   }
 
   def shuttleTop: String = {
-    val res = _reorgMap(_shuttleTop, _idx, selections, _model)
+    val res = _reorder(_shuttleTop, _idx, selections, _model)
     _model = res._1
     _idx = res._2
 
@@ -47,7 +47,7 @@ class SortableListController extends Serializable {
   }
 
   def shuttleBottom: String = {
-    val res = _reorgMap(_shuttleBottom, _idx, selections, _model)
+    val res = _reorder(_shuttleBottom, _idx, selections, _model)
     _model = res._1
     _idx = res._2
 
@@ -122,7 +122,7 @@ class SortableListController extends Serializable {
     list2 ++ list1
   }
 
-  def _reorgMap(applyClosure: (Buffer[String], Buffer[String]) => Buffer[String],
+  def _reorder(applyClosure: (Buffer[String], Buffer[String]) => Buffer[String],
                 idx: Buffer[String],
                 selections: Buffer[String],
                 dataMap: LinkedHashMap[String, SelectItem]
