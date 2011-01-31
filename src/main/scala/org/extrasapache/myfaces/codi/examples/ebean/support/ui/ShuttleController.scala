@@ -47,6 +47,7 @@ class ShuttleController extends Serializable {
   def getLeft:java.util.Collection[SelectItem] = _leftCtrl.getModel
   def getRight:java.util.Collection[SelectItem] = _rightCtrl.getModel
 
+  /*additional functionality of the right left shutteling*/
   def fromRightToLeft: String = {
     _leftCtrl.membersAdd(_rightCtrl.membersRemove)
     null
