@@ -74,9 +74,10 @@ class SortableListController extends Serializable {
       !selections.contains(_)
     })
     val ret = LinkedHashMap[String, SelectItem]()
-    newModel.putAll(_model.filterKeys {
+    ret.putAll(_model.filterKeys {
       selections.contains(_)
     })
+    _idx.removeAll(ret.keySet)
 
     _model = newModel
     ret
@@ -84,6 +85,7 @@ class SortableListController extends Serializable {
 
   def membersAdd(toAdd: LinkedHashMap[String, SelectItem]) = {
     _model.putAll(toAdd)
+    _idx.addAll(toAdd.keySet)
   }
 
   //the following helpers work in a pure functional manner
