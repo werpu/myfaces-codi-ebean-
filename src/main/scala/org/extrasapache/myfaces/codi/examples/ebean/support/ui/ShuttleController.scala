@@ -29,6 +29,25 @@ import java.util.Collections
 
 @Dependent
 class ShuttleController extends Serializable {
+
+  private var _leftCtrl: SortableListController = new SortableListController
+  private var _rightCtrl: SortableListController = new SortableListController
+
+  /*delegation methods*/
+  def shuttleTopLeft2: String = _leftCtrl.shuttleTop
+  def shuttleTopRight2: String = _rightCtrl.shuttleTop
+  def shuttleBottomLeft2: String = _leftCtrl.shuttleBottom
+  def shuttleBottomRight2: String = _rightCtrl.shuttleBottom
+  def shuttleUpLeft2: String = _leftCtrl.shuttleUp
+  def shuttleUpRight2: String = _rightCtrl.shuttleUp
+  def shuttleDownLeft2: String = _leftCtrl.shuttleDown
+  def shuttleDownRight2: String = _rightCtrl.shuttleDown
+  def getSelectionsLeft2: java.util.List[String] = _leftCtrl.getSelections
+  def setSelectionsLeft2(sel: java.util.List[String]) = _leftCtrl.setSelections(sel)
+  def getSelectionsRight2: java.util.List[String] = _rightCtrl.getSelections
+  def setSelectionsRight2(sel: java.util.List[String]) = _rightCtrl.setSelections(sel)
+
+
   private var _left: LinkedHashMap[String, SelectItem] = LinkedHashMap[String, SelectItem]()
   private var _right: LinkedHashMap[String, SelectItem] = LinkedHashMap[String, SelectItem]()
 
@@ -163,7 +182,8 @@ class ShuttleController extends Serializable {
   //(so that we can switch easily between impls)
 
   protected def _membersUp(idx: Buffer[String], selections: Buffer[String]): Buffer[String] = {
-    selections.foldLeft(idx.clone){(idxClone, key) => {
+    selections.foldLeft(idx.clone) {
+      (idxClone, key) => {
         val pos = idxClone.indexOf(key)
         idxClone.remove(pos)
         idxClone.insert(max(pos - 1, 0), key)
@@ -173,7 +193,8 @@ class ShuttleController extends Serializable {
   }
 
   protected def _membersDown(idx: Buffer[String], selections: Buffer[String]): Buffer[String] = {
-    selections.foldLeft(idx.clone){(idxClone, key) => {
+    selections.foldLeft(idx.clone) {
+      (idxClone, key) => {
         val pos = idxClone.indexOf(key)
         idxClone.remove(pos)
         idxClone.insert(max(pos + 1, idxClone.size - 1), key)
@@ -191,10 +212,10 @@ class ShuttleController extends Serializable {
   }
 
   def _reorgMap(applyClosure: (Buffer[String], Buffer[String]) => Buffer[String],
-                          idx: Buffer[String],
-                          selections: Buffer[String],
-                          dataMap: LinkedHashMap[String, SelectItem]
-                           ):
+                idx: Buffer[String],
+                selections: Buffer[String],
+                dataMap: LinkedHashMap[String, SelectItem]
+                 ):
   (LinkedHashMap[String, SelectItem], Buffer[String]) = {
 
     val filteredIdx = idx.filter(!selections.contains(_));

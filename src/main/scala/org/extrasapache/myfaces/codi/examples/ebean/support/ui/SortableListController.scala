@@ -21,7 +21,7 @@ class SortableListController extends Serializable {
   @BeanProperty
   var selections: java.util.List[String] = ArrayBuffer[String]()
 
-  def shuttleTopLeft: String = {
+  def shuttleTop: String = {
     val res = _reorgMap(_shuttleTop, _idx, selections, _model)
     _model = res._1
     _idx = res._2
@@ -29,7 +29,7 @@ class SortableListController extends Serializable {
     null
   }
 
-  def shuttleBottomLeft: String = {
+  def shuttleBottom: String = {
     val res = _reorgMap(_shuttleBottom, _idx, selections, _model)
     _model = res._1
     _idx = res._2
@@ -37,15 +37,15 @@ class SortableListController extends Serializable {
     null
   }
 
-  def shuttleUpLeft: String = {
+  def shuttleUp: String = {
     _idx = _membersUp(_idx, selections)
     _model = _sortMap(_idx, _model)
 
     null
   }
 
-  def shuttleUpRight: String = {
-    _idx = _membersUp(_idx, selections)
+  def shuttleDown: String = {
+    _idx = _membersDown(_idx, selections)
     _model = _sortMap(_idx, _model)
 
     null
@@ -114,5 +114,4 @@ class SortableListController extends Serializable {
     )
     resMap
   }
-
 }
