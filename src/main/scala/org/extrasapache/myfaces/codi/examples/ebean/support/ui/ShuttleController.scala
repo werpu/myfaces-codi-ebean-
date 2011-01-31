@@ -3,12 +3,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 import javax.enterprise.context.Dependent
 import javax.faces.model.SelectItem
 import java.io.Serializable
-import reflect.BeanProperty
-import collection.mutable.{ArrayBuffer, Buffer, LinkedHashMap}
-import collection.JavaConversions._
-import scala.math._
-import java.util.Collections
-
 /*see http://www.scala-lang.org/docu/files/collections-api/collections.html
 */
 
