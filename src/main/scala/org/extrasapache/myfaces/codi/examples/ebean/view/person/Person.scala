@@ -11,10 +11,14 @@ import org.apache.myfaces.extensions.cdi.jsf.api.config.view.Page
  * We use traits as interfaces for the codi type safe navigation
  */
 
-class Person extends ViewConfig {
+object Person extends ViewConfig {
     @Page
     class PersonList extends ViewConfig
 
     @Page
     class PersonDetail extends ViewConfig
 }
+
+
+
+

@@ -9,10 +9,10 @@ import java.io.Serializable
  * @version $Revision$ $Date$
  */
 
-class FilterEntry (
+class FilterEntry  (
   @BeanProperty var name: String,
-  @BeanProperty var value: Object,
-  @BeanProperty var entryType: java.lang.Class[_ <: java.lang.Object],
+  @BeanProperty var value: java.lang.Object,
+  @BeanProperty var entryType: java.lang.Class[_],
   @BeanProperty var opType: OpType
 ) extends Serializable
 

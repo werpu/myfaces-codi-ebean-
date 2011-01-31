@@ -129,7 +129,7 @@ public class BaseSearchModel implements Map<String, Object>, Serializable {
         return searchMap.values();
     }
 
-    public Set<Entry<String, Object>> entrySet() {
+    public Set<Map.Entry<String, Object>> entrySet() {
         return searchMap.entrySet();
     }
 
