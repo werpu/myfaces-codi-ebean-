@@ -85,7 +85,7 @@ public abstract class FacadeBase<T> {
         //which is too low level
 
         for (FilterEntry entry : filter) {
-
+            if(entry == null) continue;
             switch (entry.getOpType()) {
                 case GTE:
                     queryBuilder = queryBuilder.ge(entry.getName(), entry.getValue());
