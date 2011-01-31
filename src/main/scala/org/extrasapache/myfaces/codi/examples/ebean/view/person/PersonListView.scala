@@ -18,20 +18,23 @@ import scala.math._
  * @version $Revision$ $Date$
  */
 
+trait PersonListViewModel extends Serializable {
+   @Inject
+   @BeanProperty
+   var searchData: PersonListSearchModel = null
+   /**
+    * we inject our person facade to handle the raw details
+    */
+   @Inject
+   var personFacade: PersonFacade = null
+
+   @BeanProperty
+   var listModel: PaginationController[org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person] = null
+}
+
 @Named
 @ViewAccessScoped
-class PersonListView extends Serializable {
-  @Inject
-  @BeanProperty
-  protected var searchData: PersonListSearchModel = null
-  /**
-   * we inject our person facade to handle the raw details
-   */
-  @Inject
-  private var personFacade: PersonFacade = null
-
-  @BeanProperty
-  protected var listModel: PaginationController[org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person] = null
+class PersonListView extends PersonListViewModel with Serializable {
 
   def preRenderView = {}
 
@@ -42,7 +45,7 @@ class PersonListView extends Serializable {
     }
   }
 
-  private def refresh = {
+  protected def refresh = {
     var filters: java.util.List[FilterEntry] = null
     if (searchData != null)  filters = searchData.toFilterList
     listModel = personFacade.loadFromTo(max(searchData.getFrom, 0), searchData.getPageSize, filters, null)
