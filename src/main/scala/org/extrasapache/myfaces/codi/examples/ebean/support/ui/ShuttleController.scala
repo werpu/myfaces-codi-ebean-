@@ -14,11 +14,6 @@ import java.io.Serializable
  *
  * A scala version of our shuttle controller
  *
- * ok scrapping the work on it again, the java
- * version is not that much more locs
- * so it does not make sense
- * to roll it into scala
- *
  */
 
 @Dependent
