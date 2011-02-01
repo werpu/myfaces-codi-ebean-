@@ -12,16 +12,17 @@
         <!-- the value pointing to a pagination controller object -->
         <composite:attribute name="value" required="true"/>
 
-        <composite:attribute name="enclosingContainerClientId" />
-         <composite:attribute name="forTableClientId" />
+        <composite:attribute name="enclosingContainerClientId"/>
+        <composite:attribute name="forTableClientId"/>
 
 
     </composite:interface>
 
     <composite:implementation>
 
-        <h:panelGroup layout="block" class="pagingController" id="pagingController" rendered="#{cc.value.getTotalPageCount() != null and cc.value.getTotalPageCount() > 1}">
-            <f:event type="preRenderComponent" listener="#{cc.beforeEncode}" />
+        <h:panelGroup layout="block" class="pagingController" id="pagingController"
+                      rendered="#{cc.value.getTotalPageCount() != null and cc.value.getTotalPageCount() > 1}">
+            <f:event type="preRenderComponent" listener="#{cc.beforeEncode}"/>
             <!--
                 todo we have to set a component here because we have to make the connection between
                 this markup and the corresponding table
@@ -29,7 +30,8 @@
 
             <h:panelGrid columns="3" class="paginationGroups">
                 <h:panelGroup layout="block" id="previousGroup" styleClass="previousGroup">
-                    <h:commandLink id="first" styleClass="fader firstLink paginatorEntry" value="#{msgs.pagination_first}"
+                    <h:commandLink id="first" styleClass="fader firstLink paginatorEntry"
+                                   value="#{msgs.pagination_first}"
                                    rendered="#{! cc.value.isInFirstWindow()}"
                                    onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.forTableClientId} #{cc.enclosingContainerClientId}'});return false;"
                             >
