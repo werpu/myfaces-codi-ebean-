@@ -23,7 +23,7 @@ object Const extends Serializable {
 }
 
 @FacesComponent("at.irian.PaginatorComponent")
-class Component extends UINamingContainer {
+class Paginator extends UINamingContainer {
 
   def beforeEncode(event: ComponentSystemEvent) = {
     def putAttr(key: String, entry: String) {
