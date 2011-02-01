@@ -14,22 +14,22 @@ import java.io.Serializable
  */
 package paginator {
 
-object Const extends Serializable {
-  val FOR_TABLE = "forTable"
-  val VALUE = "value"
-  val FOR_TABLE_CLIENTID = "forTableClientId"
-  val ENCLOSING_CONTAINER_CLIENT_ID = "enclosingContainerClientId"
-  val PAGING_CONTROLLER = "pagingController"
-}
-
-@FacesComponent("at.irian.PaginatorComponent")
-class Paginator extends UINamingContainer with AttributeHandler with Serializable {
-
-  def beforeEncode(event: ComponentSystemEvent) = {
-    val forTable = this.getParent().findComponent(getAttr[String](Const.FOR_TABLE,"")).asInstanceOf[HtmlDataTable]
-    setAttr[String](Const.FOR_TABLE_CLIENTID,forTable.getClientId)
-    setAttr[String](Const.ENCLOSING_CONTAINER_CLIENT_ID, this.findComponent(Const.PAGING_CONTROLLER).getClientId);
+  object Const extends Serializable {
+    val FOR_TABLE = "forTable"
+    val VALUE = "value"
+    val FOR_TABLE_CLIENTID = "forTableClientId"
+    val ENCLOSING_CONTAINER_CLIENT_ID = "enclosingContainerClientId"
+    val PAGING_CONTROLLER = "pagingController"
   }
-}
+
+  @FacesComponent("at.irian.PaginatorComponent")
+  class Paginator extends UINamingContainer with AttributeHandler with Serializable {
+
+    def beforeEncode(event: ComponentSystemEvent) = {
+      val forTable = this.getParent().findComponent(getAttr[String](Const.FOR_TABLE, "")).asInstanceOf[HtmlDataTable]
+      setAttr[String](Const.FOR_TABLE_CLIENTID, forTable.getClientId)
+      setAttr[String](Const.ENCLOSING_CONTAINER_CLIENT_ID, this.findComponent(Const.PAGING_CONTROLLER).getClientId);
+    }
+  }
 
 }
