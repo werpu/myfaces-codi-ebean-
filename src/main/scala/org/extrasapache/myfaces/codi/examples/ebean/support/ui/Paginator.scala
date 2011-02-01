@@ -23,16 +23,12 @@ object Const extends Serializable {
 }
 
 @FacesComponent("at.irian.PaginatorComponent")
-class Paginator extends UINamingContainer {
+class Paginator extends UINamingContainer with AttributeHandler with Serializable {
 
   def beforeEncode(event: ComponentSystemEvent) = {
-    def putAttr(key: String, entry: String) {
-      getAttributes.put(key, entry)
-    }
-
-    def forTable = this.getParent().findComponent(getAttributes.get(Const.FOR_TABLE).asInstanceOf[String]).asInstanceOf[HtmlDataTable]
-    putAttr(Const.FOR_TABLE_CLIENTID,forTable.getClientId)
-    putAttr(Const.ENCLOSING_CONTAINER_CLIENT_ID, this.findComponent(Const.PAGING_CONTROLLER).getClientId);
+    val forTable = this.getParent().findComponent(getAttr[String](Const.FOR_TABLE,"")).asInstanceOf[HtmlDataTable]
+    setAttr[String](Const.FOR_TABLE_CLIENTID,forTable.getClientId)
+    setAttr[String](Const.ENCLOSING_CONTAINER_CLIENT_ID, this.findComponent(Const.PAGING_CONTROLLER).getClientId);
   }
 }
 
