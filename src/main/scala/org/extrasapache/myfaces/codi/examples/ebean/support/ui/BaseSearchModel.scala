@@ -3,10 +3,13 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 import java.io.Serializable
 
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OpType, FilterEntry}
-import collection.mutable._
 import collection.JavaConversions._
 import reflect.BeanProperty
 import reflect.BooleanBeanProperty
+
+/*explicit import to overwrite the scala defaults*/
+
+import java.util._
 
 /**
  *
@@ -23,16 +26,16 @@ class BaseSearchModel extends MapDelegate[String, java.lang.Object] with Seriali
   @BooleanBeanProperty
   var searchPerformed: Boolean = false
 
-  def toFilterList: java.util.List[FilterEntry] = {
-    val iter: collection.mutable.Set[String] = searchMap.keySet
-    val res: java.util.List[FilterEntry] = new java.util.LinkedList[FilterEntry]
-
-    iter.foreach {
-      (item) => res.add(transformStrToFilter(item))
-    }
+  def toFilterList: List[FilterEntry] = {
     searchPerformed = true
 
-    res
+    val iter: collection.mutable.Set[String] = searchMap.keySet
+    iter.foldLeft(new LinkedList[FilterEntry]) {
+      (coll, item) => {
+        coll.add(transformStrToFilter(item))
+        coll
+      }
+    }
   }
 
   protected def transformStrToFilter(strAttr: String): FilterEntry = {
