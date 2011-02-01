@@ -2,10 +2,11 @@ package org.extrasapache.myfaces.codi.examples.ebean.business.bo.person
 
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.common.FacadeBase
 import java.io.Serializable
-import javax.inject.Inject
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.{Address, Person}
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OrderEntry, FilterEntry}
+import javax.enterprise.context.Dependent
+import javax.inject.{Named, Inject}
 
 /**
  *
@@ -13,12 +14,13 @@ import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OrderEntry, F
  * @version $Revision$ $Date$
  */
 
+@Named
+@Dependent
 class PersonFacade extends FacadeBase[Person] with Serializable {
 
   clazz = classOf[Person]
 
   def create: Person = new Person
-
   def createAdr: Address = new Address
 
   def delete(person: Person) = {
