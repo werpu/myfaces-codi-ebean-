@@ -6,6 +6,8 @@ import java.io.Serializable
 import reflect.BeanProperty
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 
+import java.util._
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -31,16 +33,16 @@ class Person extends Serializable with StdEntity  {
 
   @OneToMany
   @BeanProperty
-  protected var infoEntries: java.util.Set[Entry] = _
+  protected var infoEntries: Set[Entry] = _
 
   @OneToMany(cascade = Array(CascadeType.ALL))
   @OrderBy(value = "addressType asc")
   @BeanProperty
-  protected var addresses: java.util.List[Address] = new java.util.LinkedList[Address]
+  protected var addresses: List[Address] = new LinkedList[Address]
 
   @OneToMany(fetch = FetchType.LAZY)
   @BeanProperty
-  protected var userData: java.util.List[User] = _
+  protected var userData: List[User] = _
 
 
 }

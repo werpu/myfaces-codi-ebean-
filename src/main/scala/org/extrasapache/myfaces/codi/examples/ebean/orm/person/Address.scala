@@ -3,7 +3,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.orm.person
 import javax.persistence._
 import java.io.Serializable
 import reflect.BeanProperty
-import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.{AddressType, StdEntity}
 
 /**
  *
