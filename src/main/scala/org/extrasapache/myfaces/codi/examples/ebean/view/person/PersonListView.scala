@@ -18,6 +18,17 @@ import scala.math._
  * @version $Revision$ $Date$
  */
 
+/**
+ * PersonListViewModel
+ * we split our page bean into two parts
+ * a model part containing all referenced
+ * model elements (and combined controller model elements)
+ *
+ * and a controller class part containing the core logic
+ * That way we get a cleaner structure  and can share models
+ * between various page beans with different logic
+ *
+ */
 trait PersonListViewModel extends Serializable {
    @Inject
    @BeanProperty
@@ -32,6 +43,10 @@ trait PersonListViewModel extends Serializable {
    var listModel: PaginationController[org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person] = null
 }
 
+/**
+ * The controller logic which itself is also a page bean,
+ * we use traits as decorators which decorate our model in
+ */
 @Named
 @ViewAccessScoped
 class PersonListView extends PersonListViewModel with Serializable {
