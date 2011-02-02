@@ -28,7 +28,8 @@ package paginator {
     import Const._
 
     def beforeEncode(event: ComponentSystemEvent) = {
-      val forTable = this.getParent().findComponent(getAttr[String](FOR_TABLE, "")).asInstanceOf[HtmlDataTable]
+      val forTable = getParent.findComponent( getAttr[String](FOR_TABLE, "") ).asInstanceOf[HtmlDataTable]
+
       setAttr[String](FOR_TABLE_CLIENTID, forTable.getClientId)
       setAttr[String](ENCLOSING_CONTAINER_CLIENT_ID, this.findComponent(PAGING_CONTROLLER).getClientId);
     }
