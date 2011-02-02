@@ -24,11 +24,13 @@ package paginator {
 
   @FacesComponent("at.irian.PaginatorComponent")
   class Paginator extends UINamingContainer with AttributeHandler with Serializable {
+    //note the import aliases our const into the root namespace
+    import Const._
 
     def beforeEncode(event: ComponentSystemEvent) = {
-      val forTable = this.getParent().findComponent(getAttr[String](Const.FOR_TABLE, "")).asInstanceOf[HtmlDataTable]
-      setAttr[String](Const.FOR_TABLE_CLIENTID, forTable.getClientId)
-      setAttr[String](Const.ENCLOSING_CONTAINER_CLIENT_ID, this.findComponent(Const.PAGING_CONTROLLER).getClientId);
+      val forTable = this.getParent().findComponent(getAttr[String](FOR_TABLE, "")).asInstanceOf[HtmlDataTable]
+      setAttr[String](FOR_TABLE_CLIENTID, forTable.getClientId)
+      setAttr[String](ENCLOSING_CONTAINER_CLIENT_ID, this.findComponent(PAGING_CONTROLLER).getClientId);
     }
   }
 

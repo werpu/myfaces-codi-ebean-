@@ -2,6 +2,11 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 
 import java.io.Serializable
 
+//we alias the object to make the code tighter
+//scala has its own object so we cannot rely on Object alone
+import java.lang.{Object => Obj}
+
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -18,9 +23,9 @@ trait AttributeHandler {
   }
 
   def setAttr[T](key: String, value: T) {
-    getAttributes.put(key, value.asInstanceOf[java.lang.Object])
+    getAttributes.put(key, value.asInstanceOf[Obj])
   }
 
-  def getAttributes(): java.util.Map[String, java.lang.Object]
+  def getAttributes(): java.util.Map[String, Obj]
 }
 
