@@ -1,7 +1,5 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 
-import java.io.Serializable
-
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OpType, FilterEntry}
 import collection.JavaConversions._
 import reflect.BeanProperty
@@ -16,8 +14,8 @@ import java.util._
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-
-class BaseSearchModel extends MapDelegate[String, java.lang.Object] with Serializable {
+@serializable
+class BaseSearchModel extends MapDelegate[String, java.lang.Object]  {
 
   @BeanProperty
   var from: Int = 0

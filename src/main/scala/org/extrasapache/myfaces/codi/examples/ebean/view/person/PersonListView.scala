@@ -1,6 +1,5 @@
 package org.extrasapache.myfaces.codi.examples.ebean.view.person
 
-import java.io.Serializable
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController
 import reflect.BeanProperty
@@ -29,7 +28,8 @@ import scala.math._
  * between various page beans with different logic
  *
  */
-trait PersonListViewModel extends Serializable {
+@serializable
+trait PersonListViewModel  {
    @Inject
    @BeanProperty
    var searchData: PersonListSearchModel = null
@@ -49,7 +49,8 @@ trait PersonListViewModel extends Serializable {
  */
 @Named
 @ViewAccessScoped
-class PersonListView extends PersonListViewModel with Serializable {
+@serializable
+class PersonListView extends PersonListViewModel {
 
   def preRenderView = {}
 

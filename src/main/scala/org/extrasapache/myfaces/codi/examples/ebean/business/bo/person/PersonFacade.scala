@@ -1,7 +1,7 @@
 package org.extrasapache.myfaces.codi.examples.ebean.business.bo.person
 
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.common.FacadeBase
-import java.io.Serializable
+import scala.serializable
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.{Address, Person}
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OrderEntry, FilterEntry}
@@ -18,7 +18,8 @@ import java.util._
 
 @Named
 @Dependent
-class PersonFacade extends FacadeBase[Person] with Serializable {
+@serializable
+class PersonFacade extends FacadeBase[Person] {
 
   clazz = classOf[Person]
 

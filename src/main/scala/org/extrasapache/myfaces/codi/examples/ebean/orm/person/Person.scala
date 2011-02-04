@@ -2,7 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.orm.person
 
 import javax.persistence._
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.User
-import java.io.Serializable
 import reflect.BeanProperty
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 
@@ -19,8 +18,8 @@ import java.util._
 
 @Entity
 @Table(name = "o_person")
-class Person extends Serializable with StdEntity  {
-
+@serializable
+class Person extends StdEntity  {
 
   @BeanProperty
   protected var firstName: String = _

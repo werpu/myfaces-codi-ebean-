@@ -1,7 +1,6 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 
 import javax.faces.model.SelectItem
-import java.io.Serializable
 import reflect.BeanProperty
 import collection.mutable.{ArrayBuffer, Buffer, LinkedHashMap}
 import collection.JavaConversions._
@@ -13,7 +12,8 @@ import scala.math._
  * @version $Revision$ $Date$
  */
 
-class SortableListController extends Serializable {
+@serializable
+class SortableListController {
 
   var _model: LinkedHashMap[String, SelectItem] = LinkedHashMap[String, SelectItem]()
 

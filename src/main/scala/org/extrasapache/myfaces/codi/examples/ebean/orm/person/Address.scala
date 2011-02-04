@@ -1,9 +1,8 @@
 package org.extrasapache.myfaces.codi.examples.ebean.orm.person
 
 import javax.persistence._
-import java.io.Serializable
 import reflect.BeanProperty
-import org.extrasapache.myfaces.codi.examples.ebean.support.data.{AddressType, StdEntity}
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 
 /**
  *
@@ -13,7 +12,8 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.{AddressType, S
 
 @Entity
 @Table(name = "o_address")
-class Address extends Serializable with StdEntity {
+@serializable
+class Address  extends StdEntity {
 
   @BeanProperty
   protected var street: String = _

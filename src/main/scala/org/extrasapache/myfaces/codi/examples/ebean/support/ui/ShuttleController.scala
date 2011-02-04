@@ -2,7 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 
 import javax.enterprise.context.Dependent
 import javax.faces.model.SelectItem
-import java.io.Serializable
 /*see http://www.scala-lang.org/docu/files/collections-api/collections.html
 */
 
@@ -17,7 +16,8 @@ import java.io.Serializable
  */
 
 @Dependent
-class ShuttleController extends Serializable {
+@serializable
+class ShuttleController  {
 
   private var _leftCtrl: SortableListController = new SortableListController
   private var _rightCtrl: SortableListController = new SortableListController

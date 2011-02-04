@@ -3,7 +3,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.view.person
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped
 import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig
 import reflect.BeanProperty
-import java.io.Serializable
 import javax.inject.{Inject, Named}
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address
@@ -51,7 +50,8 @@ trait PersonDetailViewModel  {
  */
 @Named
 @ViewAccessScoped
-class PersonDetailView extends PersonDetailViewModel with Serializable {
+@serializable
+class PersonDetailView extends PersonDetailViewModel {
 
   def goCreate: java.lang.Class[_ <: ViewConfig] = {
     viewMode = PersConst.MODE_CREATE

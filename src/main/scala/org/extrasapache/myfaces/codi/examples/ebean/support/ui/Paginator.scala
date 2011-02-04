@@ -3,7 +3,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 import javax.faces.component.{FacesComponent, UINamingContainer}
 import javax.faces.event.ComponentSystemEvent
 import javax.faces.component.html.HtmlDataTable
-import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController
 import java.io.Serializable
 
 /**
@@ -23,7 +22,8 @@ package paginator {
   }
 
   @FacesComponent("at.irian.PaginatorComponent")
-  class Paginator extends UINamingContainer with AttributeHandler with Serializable {
+  @serializable
+  class Paginator extends UINamingContainer with AttributeHandler  {
     //note the import aliases our const into the root namespace
     import Const._
 

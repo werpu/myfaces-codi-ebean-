@@ -1,6 +1,5 @@
 package org.extrasapache.myfaces.codi.examples.ebean.orm.security
 
-import java.io.Serializable
 import javax.persistence._
 
 import reflect.BeanProperty
@@ -13,7 +12,8 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
  * @version $Revision$ $Date$
  */
 @Entity
-class User extends Serializable with StdEntity {
+@serializable
+class User extends StdEntity {
 
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = Array(CascadeType.MERGE, CascadeType.REFRESH))
