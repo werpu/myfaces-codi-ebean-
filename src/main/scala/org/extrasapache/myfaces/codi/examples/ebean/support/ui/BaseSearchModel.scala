@@ -9,13 +9,17 @@ import reflect.BooleanBeanProperty
 
 import java.util._
 
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 @serializable
-class BaseSearchModel extends MapDelegate[String, java.lang.Object]  {
+class BaseSearchModel extends MapDelegate[String, AnyRef]  {
+  //note the scala compiler compiles anyref to java.lang.Object
+  //in scala itself anyref is one level above Any which is the base
+  //of everything scalawise
 
   @BeanProperty
   var from: Int = 0

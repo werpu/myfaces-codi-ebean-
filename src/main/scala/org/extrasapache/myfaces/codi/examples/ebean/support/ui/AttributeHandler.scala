@@ -4,8 +4,6 @@ import java.io.Serializable
 
 //we alias the object to make the code tighter
 //scala has its own object so we cannot rely on Object alone
-import java.lang.{Object => Obj}
-
 
 /**
  *
@@ -23,9 +21,12 @@ trait AttributeHandler {
   }
 
   def setAttr[T](key: String, value: T) {
-    getAttributes.put(key, value.asInstanceOf[Obj])
+    //note the scala compiler compiles anyref to java.lang.Object
+    //in scala itself anyref is one level above Any which is the base
+    //of everything scalawise
+    getAttributes.put(key, value.asInstanceOf[AnyRef])
   }
 
-  def getAttributes(): java.util.Map[String, Obj]
+  def getAttributes(): java.util.Map[String, AnyRef]
 }
 

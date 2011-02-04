@@ -34,8 +34,8 @@ class SortableListController {
   }
 
   def getModel: java.util.Collection[SelectItem] = {
-    val ret: java.util.Map[String, SelectItem] = _model
-    ret.values
+    //call the implicit conversion explicitely
+    asMap[String, SelectItem](_model).values
   }
 
   def shuttleTop: String = {
@@ -92,7 +92,7 @@ class SortableListController {
   //and rely on immutable input output states
   //(so that we can switch easily between impls)
 
-  def _membersUp(idx: Buffer[String], selections: Buffer[String]): Buffer[String] = {
+  protected def _membersUp(idx: Buffer[String], selections: Buffer[String]): Buffer[String] = {
     selections.foldLeft(idx.clone) {
       (idxClone, key) => {
         val pos = idxClone.indexOf(key)
@@ -103,7 +103,7 @@ class SortableListController {
     }
   }
 
-  def _membersDown(idx: Buffer[String], selections: Buffer[String]): Buffer[String] = {
+  protected def _membersDown(idx: Buffer[String], selections: Buffer[String]): Buffer[String] = {
     selections.foldLeft(idx.clone) {
       (idxClone, key) => {
         val pos = idxClone.indexOf(key)
@@ -114,15 +114,15 @@ class SortableListController {
     }
   }
 
-  def _shuttleTop(list1: Buffer[String], list2: Buffer[String]): Buffer[String] = {
+  protected def _shuttleTop(list1: Buffer[String], list2: Buffer[String]): Buffer[String] = {
     list1 ++ list2
   }
 
-  def _shuttleBottom(list1: Buffer[String], list2: Buffer[String]): Buffer[String] = {
+  protected def _shuttleBottom(list1: Buffer[String], list2: Buffer[String]): Buffer[String] = {
     list2 ++ list1
   }
 
-  def _reorder(applyClosure: (Buffer[String], Buffer[String]) => Buffer[String],
+  protected def _reorder(applyClosure: (Buffer[String], Buffer[String]) => Buffer[String],
                 idx: Buffer[String],
                 selections: Buffer[String],
                 dataMap: LinkedHashMap[String, SelectItem]
@@ -136,7 +136,7 @@ class SortableListController {
     (resMap, newIdx)
   }
 
-  def _sortMap(idx: Buffer[String], dataMap: LinkedHashMap[String, SelectItem]): LinkedHashMap[String, SelectItem] = {
+  protected def _sortMap(idx: Buffer[String], dataMap: LinkedHashMap[String, SelectItem]): LinkedHashMap[String, SelectItem] = {
     val resMap = LinkedHashMap[String, SelectItem]()
     idx.foreach(key =>
       resMap.put(key, dataMap.get(key).get)

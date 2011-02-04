@@ -9,7 +9,7 @@ import reflect.BeanProperty
 @serializable
 class FilterEntry  (
   @BeanProperty var name: String,
-  @BeanProperty var value: java.lang.Object,
+  @BeanProperty var value: AnyRef,
   @BeanProperty var entryType: java.lang.Class[_],
   @BeanProperty var opType: OpType
 )
