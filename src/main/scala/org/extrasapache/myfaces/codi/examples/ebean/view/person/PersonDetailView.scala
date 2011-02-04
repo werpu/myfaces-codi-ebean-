@@ -52,7 +52,8 @@ trait PersonDetailViewModel  {
 @ViewAccessScoped
 @serializable
 class PersonDetailView extends PersonDetailViewModel {
-
+  
+  
   def goCreate: java.lang.Class[_ <: ViewConfig] = {
     viewMode = PersConst.MODE_CREATE
     person = personFacade.create
