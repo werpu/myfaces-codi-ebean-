@@ -8,6 +8,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OrderEntry, F
 import java.util._
 import com.avaje.ebean.annotation.Transactional
 import collection.JavaConversions._
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -17,10 +18,10 @@ import collection.JavaConversions._
 class FacadeBase[T <: StdEntity] {
 
   /**
-  * for convenience reasons we use the scala
-  * accessors here, namely clazz() for reading
-  * and clazz_eq$ for writing
-  */
+   * for convenience reasons we use the scala
+   * accessors here, namely clazz() for reading
+   * and clazz_eq$ for writing
+   */
   var clazz: java.lang.Class[T] = _
 
   @Inject
@@ -65,6 +66,10 @@ class FacadeBase[T <: StdEntity] {
     em.delete(newPers)
   }
 
+  def cancel(entry: T) {
+    if (entry.getId != null) em.refresh(entry)
+  }
+
   protected def applyFilters(query: Query[T], filterList: List[FilterEntry], orderBy: List[OrderEntry]) {
     var queryBuilder = query.where();
 
@@ -99,7 +104,7 @@ class FacadeBase[T <: StdEntity] {
         case LTE =>
           queryBuilder = queryBuilder.le(entry.getName, entry.getValue)
       }
-    if(orderBy != null) {
+    if (orderBy != null) {
       for (entry <- asBuffer[OrderEntry](orderBy) if entry != null) {
         queryBuilder.orderBy(entry.getName())
       }

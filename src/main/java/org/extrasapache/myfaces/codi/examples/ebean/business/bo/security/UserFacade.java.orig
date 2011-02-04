@@ -65,8 +65,6 @@ public class UserFacade extends FacadeBase<User> implements Serializable {
         }
     }
 
-    //TODO add search criteria for the list search
-
     /**
      * @param from
      * @param pageSize

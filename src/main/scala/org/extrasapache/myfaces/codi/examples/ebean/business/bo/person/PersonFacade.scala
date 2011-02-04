@@ -7,7 +7,9 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationContr
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OrderEntry, FilterEntry}
 import javax.enterprise.context.Dependent
 import javax.inject.Named
+
 /*we make the overrides for list etc... because we do not need the scala collections here*/
+
 import java.util._
 
 /**
@@ -21,11 +23,11 @@ import java.util._
 @serializable
 class PersonFacade extends FacadeBase[Person] {
 
+  clazz = classOf[Person]
 
   def create: Person = new Person
-  def createAdr: Address = new Address
 
-  clazz = classOf[Person]
+  def createAdr: Address = new Address
 
   override def loadFromTo(from: Int, pageSize: Int, filter: List[FilterEntry], orderBy: List[OrderEntry]): PaginationController[Person] = {
     val query = em.createQuery(clazz).fetch("addresses")
@@ -34,7 +36,7 @@ class PersonFacade extends FacadeBase[Person] {
     getPage(from, pageSize, query)
   }
 
-  def cancel(person: Person) = {
+  override def cancel(person: Person) = {
     if (person.getId != null) {
       em.refresh(person)
       em.refreshMany(person, "addresses")
