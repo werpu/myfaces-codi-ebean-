@@ -20,6 +20,7 @@ import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.Query;
 import com.avaje.ebean.annotation.Transactional;
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -28,7 +29,7 @@ import java.util.List;
 /**
  * @author werpu2
  */
-public abstract class FacadeBase<T> {
+public abstract class FacadeBase<T>   {
 
     /**
      * note we have added
@@ -42,7 +43,6 @@ public abstract class FacadeBase<T> {
     @Inject
     protected EbeanServer em;
     protected Class clazz = null;
-
 
 
     public T loadById(Object identifier) {

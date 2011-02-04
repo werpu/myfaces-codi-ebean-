@@ -21,19 +21,11 @@ import java.util._
 @serializable
 class PersonFacade extends FacadeBase[Person] {
 
-  clazz = classOf[Person]
 
   def create: Person = new Person
   def createAdr: Address = new Address
 
-  def delete(person: Person) = {
-    val newPers = if (person.getId != null) {
-      em.find(clazz, person.getId)
-    } else {
-      person
-    }
-    em.delete(newPers)
-  }
+  clazz = classOf[Person]
 
   override def loadFromTo(from: Int, pageSize: Int, filter: List[FilterEntry], orderBy: List[OrderEntry]): PaginationController[Person] = {
     val query = em.createQuery(clazz).fetch("addresses")

@@ -49,7 +49,7 @@ public class UserFacade extends FacadeBase<User> implements Serializable {
 
     public UserFacade() {
         super();
-        clazz = User.class;
+        super.clazz_$eq(User.class);
     }
 
     public User createUser() {
@@ -61,7 +61,7 @@ public class UserFacade extends FacadeBase<User> implements Serializable {
     @Transactional
     public void deleteUser(User user) {
         if (user.getId() != null) {
-            em.delete(user);
+            em().delete(user);
         }
     }
 
@@ -75,7 +75,7 @@ public class UserFacade extends FacadeBase<User> implements Serializable {
      * @return
      */
     public PaginationController<User> loadFromTo(int from, int pageSize, List<FilterEntry> filter, List<OrderEntry> orderBy) {
-        Query query = em.createQuery(User.class);
+        Query query = em().createQuery(User.class);
         query.fetch("person");
         query.fetch("groups");
         applyFilters(query, filter, orderBy);
@@ -84,8 +84,8 @@ public class UserFacade extends FacadeBase<User> implements Serializable {
 
     public void cancel(User t) {
         if (t.getId() != null) {
-            em.refresh(t);
-            em.refreshMany(t, "groups");
+            em().refresh(t);
+            em().refreshMany(t, "groups");
         }
     }
 

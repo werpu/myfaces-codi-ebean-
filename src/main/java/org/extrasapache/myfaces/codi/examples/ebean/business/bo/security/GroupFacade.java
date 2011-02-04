@@ -49,7 +49,7 @@ public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
     Logger log;
 
     public GroupFacade() {
-        this.clazz = SecGroup.class;
+        super.clazz_$eq(SecGroup.class);
     }
 
     public SecGroup createGroup() {
@@ -65,7 +65,7 @@ public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
     }
 
     public List<SecGroup> loadByIds(Collection<Long> ids) {
-        Query query = em.createQuery(clazz);
+        Query query = em().createQuery(clazz());
         query.where().in("id", ids);
         return query.findList();
     }
@@ -73,20 +73,20 @@ public class GroupFacade extends FacadeBase<SecGroup> implements Serializable {
     @Transactional
     public void saveAll(Collection<SecGroup> groups) {
         for (SecGroup group : groups) {
-            em.save(group);
+            em().save(group);
         }
     }
 
     @Transactional
     public void deleteGroup(SecGroup group) {
         if (group.getId() != null) {
-            em.delete(group);
+            em().delete(group);
         }
     }
 
     public void cancel(SecGroup t) {
         if (t.getId() != null) {
-            em.refresh(t);
+            em().refresh(t);
         }
     }
 
