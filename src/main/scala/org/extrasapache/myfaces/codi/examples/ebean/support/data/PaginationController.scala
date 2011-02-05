@@ -66,17 +66,16 @@ class PaginationController[T](var _delegate: PagingList[T]) {
     ret
   }
 
-
-
-  def getNextWindowIdx: java.lang.Integer = {
+  def getNextWindowIdx: Int = {
     if (isInLastWindow)
-      null
+      (floor(lastPageAccessed.doubleValue / pagingWindowSize.doubleValue).intValue) * pagingWindowSize
     else
       (floor(lastPageAccessed.doubleValue / pagingWindowSize.doubleValue).intValue + 1) * pagingWindowSize
   }
 
-  def getPreviousWindowIdx: java.lang.Integer = {
-    if (isInFirstWindow) null
+  def getPreviousWindowIdx: Int = {
+    if (isInFirstWindow)
+      0
     else {
       (floor(lastPageAccessed.doubleValue / pagingWindowSize.doubleValue).intValue - 1) * pagingWindowSize
     }
