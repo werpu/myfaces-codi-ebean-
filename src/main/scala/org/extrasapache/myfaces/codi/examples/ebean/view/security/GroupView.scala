@@ -55,7 +55,8 @@ class GroupView extends GroupViewModel {
     val oldPaginatorPosition: java.lang.Integer = if (listModel != null) listModel.getLastPageAccessed else 0
 
     listModel = groupFacade.loadFromTo(max(searchData.getFrom, 0), searchData.getPageSize, filters, null);
-    listModel.setLastPageAccessed(oldPaginatorPosition);
+
+    listModel.setLastPageAccessed(oldPaginatorPosition.intValue);
   }
 
   def doSearchList: String = {
