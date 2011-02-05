@@ -155,8 +155,8 @@ public class PaginationController<T> {
         return ret;
     }
 
-    public List getPageAsList() {
-        return fetchPage().getList();
+    public List<T> getPageAsList() {
+        return (List<T>) fetchPage().getList();
     }
 
     public int getPagingWindowSize() {

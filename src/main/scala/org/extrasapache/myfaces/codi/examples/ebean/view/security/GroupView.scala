@@ -104,11 +104,11 @@ class GroupView extends GroupViewModel {
     //We iterate over all entries with enabled edits
     //now this is ugly, we have to add a type def to our
     //spreadsheet controller
-    val buf: Buffer[_] = asBuffer(listModel.getPageAsList)
+    val buf: Buffer[SecGroup] = asBuffer(listModel.getPageAsList)
     val groups: List[SecGroup] = buf.foldLeft(new ArrayBuffer[SecGroup]) {
       (coll, group) => {
-        if (spreadSheetController.isEditable(group.asInstanceOf[SecGroup]).booleanValue) {
-          coll += group.asInstanceOf[SecGroup]
+        if (spreadSheetController.isEditable(group).booleanValue) {
+          coll += group
         }
         coll
       }
