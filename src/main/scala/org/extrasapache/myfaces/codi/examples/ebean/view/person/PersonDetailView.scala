@@ -13,7 +13,6 @@ object PersConst {
   val MODE_DELETE = "delete"
 }
 
-
 /**
  * PersonListViewModel
  * we split our page bean into two parts
@@ -25,7 +24,7 @@ object PersConst {
  * between various page beans with different logic
  *
  */
-trait PersonDetailViewModel  {
+trait PersonDetailViewModel {
 
   @Inject
   @BeanProperty
@@ -52,46 +51,49 @@ trait PersonDetailViewModel  {
 @ViewAccessScoped
 @serializable
 class PersonDetailView extends PersonDetailViewModel {
-  
-  
-  def goCreate: java.lang.Class[_ <: ViewConfig] = {
+
+  //an import of Person enables GO_DETA and GO_LIST
+  import Person._
+
+  def goCreate: java.lang.Class[_] = {
     viewMode = PersConst.MODE_CREATE
     person = personFacade.create
 
-    classOf[Person.PersonDetail]
+    GO_DETA
   }
 
-  def goDeta: java.lang.Class[_ <: ViewConfig] = {
+  def goDeta: java.lang.Class[_] = {
     viewMode = PersConst.MODE_EDIT
-    classOf[Person.PersonDetail]
+
+    GO_DETA
   }
 
-  def doDelete: java.lang.Class[_ <: ViewConfig] = {
+  def doDelete: java.lang.Class[_] = {
     personFacade.delete(person)
-    classOf[Person.PersonList]
+    GO_LIST
   }
 
-  def doSave: java.lang.Class[_ <: ViewConfig] = {
+  def doSave: java.lang.Class[_] = {
     personFacade.save(person)
-    classOf[Person.PersonList]
+    GO_LIST
   }
 
-  def doCancel: java.lang.Class[_ <: ViewConfig] = {
+  def doCancel: java.lang.Class[_] = {
     personFacade.cancel(person)
-    classOf[Person.PersonList]
+    GO_LIST
   }
 
-  def addAddress: java.lang.Class[_ <: ViewConfig] = {
+  def addAddress: java.lang.Class[_] = {
     address = personFacade.createAdr
     person.getAddresses.add(address)
 
-    classOf[Person.PersonDetail]
+    GO_DETA
   }
 
-  def removeAddress: java.lang.Class[_ <: ViewConfig] = {
+  def removeAddress: java.lang.Class[_] = {
     person.getAddresses.remove(address)
 
-    classOf[Person.PersonDetail]
+    GO_DETA
   }
 
 }

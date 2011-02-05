@@ -13,10 +13,15 @@ import org.apache.myfaces.extensions.cdi.jsf.api.config.view.Page
 
 object Person extends ViewConfig {
     @Page
-    class PersonList extends ViewConfig
+    object PersonList extends ViewConfig
 
     @Page
-    class PersonDetail extends ViewConfig
+    object PersonDetail extends ViewConfig
+
+  /*remapping of the function call hierarchy to make the code leaner*/
+  def GO_DETA: Class[_] = Person.PersonDetail.getClass
+  def GO_LIST: Class[_] = Person.PersonList.getClass
+
 }
 
 

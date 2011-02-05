@@ -72,6 +72,9 @@ trait UserDetailFacades {
 @serializable
 class UserDetailView extends UserDetailViewModel with UserDetailFacades with UserDetailControllers {
 
+  /*static navigational imports*/
+  import Security._
+  
   @PostConstruct
   def postInit = {}
 
@@ -95,7 +98,7 @@ class UserDetailView extends UserDetailViewModel with UserDetailFacades with Use
     shuttleController.setRight(asJavaList[SelectItem](selectItemsRight))
   }
 
-  def doSave: Class[_ <: ViewConfig] = {
+  def doSave: Class[_] = {
     model.getGroups.clear
     model.getGroups.addAll(groupBo.loadByIdsStr(shuttleController.getSelectionsLeft))
     bo.save(model);
@@ -103,46 +106,46 @@ class UserDetailView extends UserDetailViewModel with UserDetailFacades with Use
     null;
   }
 
-  def goNewPerson: Class[_ <: ViewConfig] = {
+  def goNewPerson: Class[_] = {
     personHistory = model.getPerson
     model.setPerson(personBo.create)
 
     null
   }
 
-  def goExistingPerson: Class[_ <: ViewConfig] = {
+  def goExistingPerson: Class[_] = {
     model.setPerson(personHistory)
     personHistory = null
 
     null
   }
 
-  def goDeta: Class[_ <: ViewConfig] = {
+  def goDeta: Class[_] = {
     initShuttle
-    classOf[Security.UserDetail]
+    GO_USER_DETA
   }
 
-  def goCreate: Class[_ <: ViewConfig] = {
+  def goCreate: Class[_] = {
     model = bo.createUser
     initShuttle
-    classOf[Security.UserDetail]
+    GO_USER_DETA
   }
 
-  def selectPerson: Class[_ <: ViewConfig] = {
+  def selectPerson: Class[_] = {
     null
   }
 
-  def addAddress: Class[_ <: ViewConfig] = {
+  def addAddress: Class[_] = {
     address = personBo.createAdr
     model.getPerson.getAddresses.add(address)
 
-    classOf[Security.UserDetail]
+    GO_USER_DETA
   }
 
-  def removeAddress: Class[_ <: ViewConfig] = {
+  def removeAddress: Class[_] = {
     model.getPerson.getAddresses.remove(address)
 
-    classOf[Security.UserDetail]
+    GO_USER_DETA
   }
 
 }

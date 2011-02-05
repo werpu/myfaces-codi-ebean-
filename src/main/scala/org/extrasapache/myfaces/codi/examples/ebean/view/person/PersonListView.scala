@@ -29,18 +29,18 @@ import scala.math._
  *
  */
 @serializable
-trait PersonListViewModel  {
-   @Inject
-   @BeanProperty
-   var searchData: PersonListSearchModel = null
-   /**
-    * we inject our person facade to handle the raw details
-    */
-   @Inject
-   var personFacade: PersonFacade = null
+trait PersonListViewModel {
+  @Inject
+  @BeanProperty
+  var searchData: PersonListSearchModel = null
+  /**
+   * we inject our person facade to handle the raw details
+   */
+  @Inject
+  var personFacade: PersonFacade = null
 
-   @BeanProperty
-   var listModel: PaginationController[org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person] = null
+  @BeanProperty
+  var listModel: PaginationController[org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person] = null
 }
 
 /**
@@ -52,24 +52,26 @@ trait PersonListViewModel  {
 @serializable
 class PersonListView extends PersonListViewModel {
 
+  import Person._
+
   def preRenderView = {}
 
   @PostConstruct
   def postConstruct = {
-    if(listModel == null && searchData.isSearchPerformed) {
+    if (listModel == null && searchData.isSearchPerformed) {
       refresh
     }
   }
 
   protected def refresh = {
     var filters: java.util.List[FilterEntry] = null
-    if (searchData != null)  filters = searchData.toFilterList
+    if (searchData != null) filters = searchData.toFilterList
     listModel = personFacade.loadFromTo(max(searchData.getFrom, 0), searchData.getPageSize, filters, null)
   }
 
-  def doSearchList: java.lang.Class[_ <: ViewConfig] = {
+  def doSearchList: java.lang.Class[_] = {
     refresh
 
-     classOf [Person.PersonList]
+    GO_LIST
   }
 }

@@ -12,12 +12,17 @@ import org.apache.myfaces.extensions.cdi.jsf.api.config.view.Page
 object Security extends ViewConfig {
 
   @Page
-  class GroupList extends ViewConfig
+  object GroupList extends ViewConfig
 
   @Page
-  class UserList extends ViewConfig
+  object UserList extends ViewConfig
 
   @Page
-  class UserDetail extends ViewConfig
+  object UserDetail extends ViewConfig
+
+  def GO_GROUP_LIST: Class[_] = GroupList.getClass
+  def GO_USER_LIST: Class[_]  = UserList.getClass
+  def GO_USER_DETA: Class[_]  = UserDetail.getClass
+
 
 }

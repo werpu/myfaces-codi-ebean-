@@ -66,16 +66,16 @@ class GroupView extends GroupViewModel {
     null
   }
 
-  def goDeta: Class[_ <: ViewConfig] = {
+  def goDeta: Class[_] = {
     spreadSheetController.enableEdit(deta);
     null
   }
 
-  def goDelete: Class[_ <: ViewConfig] = {
+  def goDelete: Class[_] = {
     null
   }
 
-  def doSave: Class[_ <: ViewConfig] = {
+  def doSave: Class[_] = {
     log.info("saving group")
     groupFacade.save(deta)
     spreadSheetController.disableEdit(deta)
@@ -93,14 +93,14 @@ class GroupView extends GroupViewModel {
     deta = null;
   }
 
-  def doCancel: Class[_ <: ViewConfig] = {
+  def doCancel: Class[_] = {
     spreadSheetController.disableEdit(deta)
     resetPageModeData
 
     null
   }
 
-  def doSaveAll: Class[_ <: ViewConfig] = {
+  def doSaveAll: Class[_] = {
     //We iterate over all entries with enabled edits
     val groups: List[SecGroup] = asScalaBuffer(listModel.getPageAsList).filter(spreadSheetController.isEditable(_).booleanValue)
     groupFacade.saveAll(groups)
@@ -108,7 +108,7 @@ class GroupView extends GroupViewModel {
     null
   }
 
-  def doCancelAll: Class[_ <: ViewConfig] = {
+  def doCancelAll: Class[_] = {
     spreadSheetController.clear
     resetPageModeData
     refresh
@@ -116,19 +116,19 @@ class GroupView extends GroupViewModel {
     null
   }
 
-  def doChangePageSize: Class[_ <: ViewConfig] = {
+  def doChangePageSize: Class[_] = {
     refresh
     null
   }
 
-  def goCreate: Class[_ <: ViewConfig] = {
+  def goCreate: Class[_] = {
     log.info("creating group")
     deta = groupFacade.createGroup
 
     null
   }
 
-  def doDelete: Class[_ <: ViewConfig] = {
+  def doDelete: Class[_] = {
     log.info("deleting group")
     spreadSheetController.disableEdit(deta)
     groupFacade.deleteGroup(deta)
