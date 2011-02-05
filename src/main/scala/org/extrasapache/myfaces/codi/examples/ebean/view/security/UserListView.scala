@@ -10,9 +10,8 @@ import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry
 import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig
 import reflect.BeanProperty
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.User
-import java.io.Serializable
-
 import scala.math._
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -36,12 +35,12 @@ trait UserListViewData {
 @serializable
 class UserListView extends UserListViewData {
 
-  def refreshIt:PaginationController[User] =  {
-    val filters:List[FilterEntry] = if (searchData != null) searchData.toFilterList else null
-    bo.loadFromTo(max(searchData.getFrom(), 0), searchData.getPageSize, filters, null);
+  def refreshIt: PaginationController[User] = {
+    val filters: List[FilterEntry] = if (searchData != null) searchData.toFilterList else null
+    bo.loadFromTo(max(searchData.getFrom, 0), searchData.getPageSize, filters, null);
   }
 
-  def doSearch(): Class[ _ <: ViewConfig] = {
+  def doSearch(): Class[_ <: ViewConfig] = {
     listModel = refreshIt
     null
   }
