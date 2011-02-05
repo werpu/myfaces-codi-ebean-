@@ -101,7 +101,7 @@ class GroupView extends GroupViewModel {
 
   def doSaveAll: Class[_ <: ViewConfig] = {
     //We iterate over all entries with enabled edits
-    val groups: List[SecGroup] = asBuffer(listModel.getPageAsList).filter(spreadSheetController.isEditable(_).booleanValue)
+    val groups: List[SecGroup] = asScalaBuffer(listModel.getPageAsList).filter(spreadSheetController.isEditable(_).booleanValue)
     groupFacade.saveAll(groups)
     spreadSheetController.clear
     null

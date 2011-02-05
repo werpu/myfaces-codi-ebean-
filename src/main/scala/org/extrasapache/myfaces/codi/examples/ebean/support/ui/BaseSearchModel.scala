@@ -1,14 +1,14 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OpType, FilterEntry}
-import collection.JavaConversions._
+
 import reflect.BeanProperty
 import reflect.BooleanBeanProperty
 
 /*explicit import to overwrite the scala defaults*/
 
 import java.util._
-
+import collection.JavaConversions._
 
 /**
  *
@@ -32,6 +32,8 @@ class BaseSearchModel extends MapDelegate[String, AnyRef]  {
     searchPerformed = true
 
     val iter: collection.mutable.Set[String] = searchMap.keySet
+    //val res: List[FilterEntry] = for(item <- iter) yield { transformStrToFilter(_) }
+    //res
     iter.foldLeft(new LinkedList[FilterEntry]) {
       (coll, item) => {
         coll.add(transformStrToFilter(item))
