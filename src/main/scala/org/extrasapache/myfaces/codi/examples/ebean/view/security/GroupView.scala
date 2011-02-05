@@ -10,7 +10,6 @@ import reflect.BeanProperty
 import java.util._
 import scala.math._
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry
-import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.{PaginationController, SpreadSheetController}
 import collection.JavaConversions._
 

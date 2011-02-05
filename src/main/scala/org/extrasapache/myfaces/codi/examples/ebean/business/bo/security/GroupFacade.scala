@@ -5,7 +5,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup
 
 import java.util._
 
-import collection.mutable.{ArrayBuffer, Buffer}
+import collection.mutable.ArrayBuffer
 import com.avaje.ebean.annotation.Transactional
 import collection.JavaConversions._
 import javax.enterprise.context.Dependent

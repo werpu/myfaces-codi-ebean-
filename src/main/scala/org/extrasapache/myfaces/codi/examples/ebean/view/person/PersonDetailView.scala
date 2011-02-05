@@ -1,7 +1,6 @@
 package org.extrasapache.myfaces.codi.examples.ebean.view.person
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped
-import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig
 import reflect.BeanProperty
 import javax.inject.{Inject, Named}
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade

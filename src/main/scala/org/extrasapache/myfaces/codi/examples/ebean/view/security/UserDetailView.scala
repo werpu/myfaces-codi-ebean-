@@ -14,8 +14,6 @@ import javax.annotation.PostConstruct
 import collection.JavaConversions._
 import collection.mutable.{ArrayBuffer, Buffer, Set}
 import javax.faces.model.SelectItem
-import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)

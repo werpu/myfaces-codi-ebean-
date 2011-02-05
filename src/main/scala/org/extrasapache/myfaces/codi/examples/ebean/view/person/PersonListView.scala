@@ -7,8 +7,6 @@ import javax.annotation.PostConstruct
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped
 import javax.inject.{Named, Inject}
-import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig
-
 import scala.math._
 
 /**
