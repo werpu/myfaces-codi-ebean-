@@ -2,7 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.data
 
 import reflect.BeanProperty
 import javax.persistence.{Version, GenerationType, GeneratedValue, Id}
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -18,6 +17,13 @@ trait StdEntity {
   @BeanProperty
   protected var id: java.lang.Long = _
 
+
+ /* def getId() : java.lang.Long = {
+      id
+  }
+
+  def setId(theId: java.lang.Long) = id = theId
+   */
   @Version
   @BeanProperty
   protected var version: java.lang.Long = _
