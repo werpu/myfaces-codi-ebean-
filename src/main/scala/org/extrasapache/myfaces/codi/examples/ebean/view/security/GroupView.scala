@@ -11,8 +11,7 @@ import java.util._
 import scala.math._
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry
 import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig
-import org.extrasapache.myfaces.codi.examples.ebean.support.data.{StdEntity, PaginationController, SpreadSheetController}
-import collection.mutable.{Buffer, ArrayBuffer}
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.{PaginationController, SpreadSheetController}
 import collection.JavaConversions._
 
 /**
@@ -102,20 +101,8 @@ class GroupView extends GroupViewModel {
 
   def doSaveAll: Class[_ <: ViewConfig] = {
     //We iterate over all entries with enabled edits
-    //now this is ugly, we have to add a type def to our
-    //spreadsheet controller
-    val buf: Buffer[SecGroup] = asBuffer(listModel.getPageAsList)
-    val groups: List[SecGroup] = buf.foldLeft(new ArrayBuffer[SecGroup]) {
-      (coll, group) => {
-        if (spreadSheetController.isEditable(group).booleanValue) {
-          coll += group
-        }
-        coll
-      }
-    }
-
+    val groups: List[SecGroup] = asBuffer(listModel.getPageAsList).filter(spreadSheetController.isEditable(_).booleanValue)
     groupFacade.saveAll(groups)
-
     spreadSheetController.clear
     null
   }
