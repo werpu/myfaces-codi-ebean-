@@ -84,7 +84,7 @@ class FacadeBase[T <: StdEntity] {
     //either way this is way superior to what jpa is doing
     //which is too low level
 
-    for (entry <- asScalaBuffer[FilterEntry](filterList) if entry != null)
+    for (entry <- filterList if entry != null) {
       entry.getOpType match {
 
         case GTE =>
@@ -104,6 +104,7 @@ class FacadeBase[T <: StdEntity] {
         case LTE =>
           queryBuilder = queryBuilder.le(entry.getName, entry.getValue)
       }
+    }
     if (orderBy != null) {
       for (entry <- asScalaBuffer[OrderEntry](orderBy) if entry != null) {
         queryBuilder.orderBy(entry.getName())

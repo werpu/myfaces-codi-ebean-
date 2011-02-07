@@ -17,13 +17,6 @@ trait StdEntity {
   @BeanProperty
   protected var id: java.lang.Long = _
 
-
- /* def getId() : java.lang.Long = {
-      id
-  }
-
-  def setId(theId: java.lang.Long) = id = theId
-   */
   @Version
   @BeanProperty
   protected var version: java.lang.Long = _
