@@ -33,28 +33,31 @@ class ScalaELResolver extends ELResolver {
   def getFeatureDescriptors(elContext: ELContext, base: AnyRef): java.util.Iterator[FeatureDescriptor] = {
 
     //TODO find the proper condition statement
-    if (!base.isInstanceOf[scala.ScalaObject]) {
+
+    if (base.isInstanceOf[scala.ScalaObject] ) {
       //no scala object we forward it to another el
       //resolver
       null
     } else {
-
+      val ret = new HashSet[FeatureDescriptor]
       //TODO we need a lean way to identify a scala class upfront
       //and it it is none we have to delegate further on
 
       //We have to iterate over all properties of the base and return it
       //as feature descriptor instance
-      val methods: Array[Method] = base.getClass.getMethods
-      var props = HashSet[String]
-      for (prop <- props) {
-        //if prop.name == *._eq then setter remove name
-        //fetch additonal type info
-        //and store it, also store its name for the getter
-
-        //else if prop returns something worthwhile and has no params
-        //then it is a getter store its name and type info and also in the props list
-
+      val methods: Array[Method] = base.getClass().getMethods
+      val alreadyProcessed = new HashSet[String]
+      for (method <- methods if(!alreadyProcessed.contains(method.getName.replaceAll("\\_eq\\$","")))) {
+        //note every attribute of a scala object
+        //is set as protected or private
+        //with two encapsulating functions
+        var methodName: String = method.getName.replaceAll("\\_eq\\$","")
+        alreadyProcessed += methodName
+        //TODO we probably have to work the return values in
+        ret += makeDescriptor(methodName, methodName, base.getClass)
       }
+
+      asJavaSet[FeatureDescriptor](ret).iterator
     }
 
   }
@@ -63,24 +66,38 @@ class ScalaELResolver extends ELResolver {
    * backported from myfaces
    */
   private def makeDescriptor(name: String, description: String,
-                             elResolverType: Class[_]): FeatureDescriptor = {
-    val fd = new FeatureDescriptor();
-    fd.setValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME, true);
-    fd.setValue(ELResolver.TYPE, elResolverType);
-    fd.setName(name);
-    fd.setDisplayName(name);
-    fd.setShortDescription(description);
-    fd.setExpert(false);
-    fd.setHidden(false);
-    fd.setPreferred(true);
-    fd;
+                             objectType: Class[_]): FeatureDescriptor = {
+    val fd = new FeatureDescriptor()
+    fd.setValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME, true)
+    fd.setValue(ELResolver.TYPE, objectType)
+    fd.setName(name)
+    fd.setDisplayName(name)
+    fd.setShortDescription(description)
+    fd.setExpert(false)
+    fd.setHidden(false)
+    fd.setPreferred(true)
+    fd
   }
 
   def getType(elContext: ELContext, base: AnyRef, prop: AnyRef): Class[_] = {
+    if(base != null && !base.isInstanceOf[scala.ScalaObject]) null
+    else if(prop != null && !prop.isInstanceOf[scala.ScalaObject]) null
+    else if(base == null && prop != null) prop.getClass //TODO this should not terminate
+    else if (base != null && prop == null) base.getClass
+
+
     null
   }
 
   def getValue(elContext: ELContext, base: AnyRef, prop: AnyRef): AnyRef = {
+    if(!(base != null && base.isInstanceOf[scala.ScalaObject])) {
+      null
+    } else {
+      val m: Method = base.getClass.getMethod(prop.asInstanceOf[String])
+      if(m != null) {
+        m.invoke(base, null)
+      }
+    }
     null
   }
 
@@ -92,8 +109,8 @@ class ScalaELResolver extends ELResolver {
 
   }
 
-  def invoke(context: ELContext, base: AnyRef, method: AnyRef, paramTypes: Array[Class[_]], params: Array[AnyRef]): AnyRef = {
-    null
-  }
+  //override def invoke(context: ELContext, base: AnyRef, method: AnyRef, paramTypes: Array[Class[_]], params: Array[AnyRef]): AnyRef = {
+  //  null
+  //}
 
 }
