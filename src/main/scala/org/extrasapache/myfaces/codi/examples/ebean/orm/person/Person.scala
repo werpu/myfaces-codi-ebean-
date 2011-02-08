@@ -2,7 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.orm.person
 
 import javax.persistence._
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.User
-import reflect.BeanProperty
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 
 import java.util._
@@ -21,27 +20,20 @@ import java.util._
 @serializable
 class Person extends StdEntity  {
 
-  @BeanProperty
-  protected var firstName: String = _
+   var firstName: String = _
 
-  @BeanProperty
-  protected var lastName: String = _
+   var lastName: String = _
 
-  @BeanProperty
-  protected var nickName: String = _
+   var nickName: String = _
 
   @OneToMany
-  @BeanProperty
-  protected var infoEntries: Set[Entry] = _
+   var infoEntries: Set[Entry] = _
 
   @OneToMany(cascade = Array(CascadeType.ALL))
   @OrderBy(value = "addressType asc")
-  @BeanProperty
-  protected var addresses: List[Address] = new LinkedList[Address]
+   var addresses: List[Address] = new LinkedList[Address]
 
   @OneToMany(fetch = FetchType.LAZY)
-  @BeanProperty
-  protected var userData: List[User] = _
-
+   var userData: List[User] = _
 
 }

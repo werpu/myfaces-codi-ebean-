@@ -37,7 +37,7 @@ class PersonFacade extends FacadeBase[Person] {
   }
 
   override def cancel(person: Person) = {
-    if (person.getId != null) {
+    if (person.id != null) {
       em.refresh(person)
       em.refreshMany(person, "addresses")
     }

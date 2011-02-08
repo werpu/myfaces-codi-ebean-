@@ -4,7 +4,6 @@ import javax.faces.bean.ApplicationScoped
 import javax.inject.Named
 import java.util._
 import javax.faces.model.SelectItem
-import reflect.BeanProperty
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroupConst._
 import collection.mutable.ArrayBuffer
 
@@ -20,7 +19,7 @@ import collection.JavaConversions._
 @Named
 @serializable
 class GroupTypes {
-  @BeanProperty
+
   var allGroupTypes: List[SelectItem] =  ArrayBuffer[SelectItem](
     new SelectItem(GRP_TYPE_SYSTEM, "System"),
     new SelectItem(GRP_TYPE_USER, "User"),

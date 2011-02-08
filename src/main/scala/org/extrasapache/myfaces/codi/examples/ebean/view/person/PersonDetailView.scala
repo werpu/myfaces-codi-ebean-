@@ -1,7 +1,6 @@
 package org.extrasapache.myfaces.codi.examples.ebean.view.person
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped
-import reflect.BeanProperty
 import javax.inject.{Inject, Named}
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address
@@ -26,19 +25,15 @@ object PersConst {
 trait PersonDetailViewModel {
 
   @Inject
-  @BeanProperty
   var searchData: PersonListSearchModel = _
 
   @Inject
   var personFacade: PersonFacade = _
 
-  @BeanProperty
   var person: org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person = _
 
-  @BeanProperty
   var address: Address = _
 
-  @BeanProperty
   var viewMode: String = PersConst.MODE_CREATE
 }
 
@@ -84,13 +79,13 @@ class PersonDetailView extends PersonDetailViewModel {
 
   def addAddress: java.lang.Class[_] = {
     address = personFacade.createAdr
-    person.getAddresses.add(address)
+    person.addresses.add(address)
 
     GO_DETA
   }
 
   def removeAddress: java.lang.Class[_] = {
-    person.getAddresses.remove(address)
+    person.addresses.remove(address)
 
     GO_DETA
   }

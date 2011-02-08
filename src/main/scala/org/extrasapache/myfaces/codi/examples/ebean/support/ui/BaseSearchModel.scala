@@ -2,7 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OpType, FilterEntry}
 
-import reflect.BeanProperty
 import reflect.BooleanBeanProperty
 
 /*explicit import to overwrite the scala defaults*/
@@ -21,9 +20,7 @@ class BaseSearchModel extends MapDelegate[String, AnyRef]  {
   //in scala itself anyref is one level above Any which is the base
   //of everything scalawise
 
-  @BeanProperty
   var from: Int = 0
-  @BeanProperty
   var pageSize: Int = 10
   @BooleanBeanProperty
   var searchPerformed: Boolean = false

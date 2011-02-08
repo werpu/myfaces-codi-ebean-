@@ -31,10 +31,10 @@ class ShuttleController  {
   def shuttleUpRight: String = _rightCtrl.shuttleUp
   def shuttleDownLeft: String = _leftCtrl.shuttleDown
   def shuttleDownRight: String = _rightCtrl.shuttleDown
-  def getSelectionsLeft: List[String] = _leftCtrl.getSelections
-  def setSelectionsLeft(sel: List[String]) = _leftCtrl.setSelections(sel)
-  def getSelectionsRight: List[String] = _rightCtrl.getSelections
-  def setSelectionsRight(sel: List[String]) = _rightCtrl.setSelections(sel)
+  def getSelectionsLeft: List[String] = _leftCtrl.selections
+  def setSelectionsLeft(sel: List[String]) = _leftCtrl.selections = sel
+  def getSelectionsRight: List[String] = _rightCtrl.selections
+  def setSelectionsRight(sel: List[String]) = _rightCtrl.selections = sel
 
   def setLeft(sel: Collection[SelectItem]) = _leftCtrl.setModel(sel)
   def setRight(sel: Collection[SelectItem]) = _rightCtrl.setModel(sel)

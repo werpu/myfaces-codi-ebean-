@@ -1,7 +1,6 @@
 package org.extrasapache.myfaces.codi.examples.ebean.orm.person
 
 import javax.persistence._
-import reflect.BeanProperty
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 
 /**
@@ -15,31 +14,22 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 @serializable
 class Address  extends StdEntity {
 
-  @BeanProperty
-  protected var street: String = _
+   var street: String = _
 
-  @BeanProperty
-  protected var houseNumber: String = _
+   var houseNumber: String = _
 
-  @BeanProperty
-  protected var house: String = _
+   var house: String = _
 
-  @BeanProperty
-  protected var door: String = _
+   var door: String = _
 
-  @BeanProperty
-  protected var zipCode: String = _
+   var zipCode: String = _
 
-  @BeanProperty
-  protected var country: String = _
+   var country: String = _
 
-  @BeanProperty
-  protected var region: String = _
+   var region: String = _
 
-  @BeanProperty
-  protected var addressType: java.lang.Integer = _
+   var addressType: java.lang.Integer = _
 
   @ManyToOne
-  @BeanProperty
-  protected var person: Person = _
+   var person: Person = _
 }

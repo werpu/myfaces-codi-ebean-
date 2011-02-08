@@ -28,13 +28,13 @@ class UserFacade extends FacadeBase[User] {
 
   def createUser: User = {
     val ret = new User()
-    ret.setPerson(personBo.create)
+    ret.person = personBo.create
     ret
   }
 
   @Transactional
   def deleteUser(user: User) {
-    if (user.getId != null) {
+    if (user.id != null) {
       em.delete(user);
     }
   }
@@ -49,7 +49,7 @@ class UserFacade extends FacadeBase[User] {
   }
 
   override def cancel(t: User) {
-    if (t.getId != null) {
+    if (t.id != null) {
       em.refresh(t)
       em.refreshMany(t, "groups")
     }

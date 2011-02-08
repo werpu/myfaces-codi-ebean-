@@ -5,8 +5,6 @@ import org.extrasapache.myfaces.codi.examples.ebean.business.bo.security.GroupFa
 import javax.inject.{Inject, Named}
 import org.apache.myfaces.extensions.cdi.core.api.logging.Logger
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.SecGroup
-import reflect.BeanProperty
-
 import java.util._
 import scala.math._
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry
@@ -24,23 +22,21 @@ trait GroupViewModel {
   var groupFacade: GroupFacade = _
 
   @Inject
-  @BeanProperty
   var searchData: GroupListSearchModel = _
 
   @Inject
-  @BeanProperty
   var spreadSheetController: SpreadSheetController = _
 
   @Inject
   var log: Logger = _
 
-  @BeanProperty
+  
   var deta: SecGroup = null
 
-  @BeanProperty
+  
   var pageMode: String = _
 
-  @BeanProperty
+  
   var listModel: PaginationController[SecGroup] = _
 }
 
@@ -51,11 +47,11 @@ class GroupView extends GroupViewModel {
 
   def refresh() {
     val filters: List[FilterEntry] = if (searchData != null) searchData.toFilterList else null
-    val oldPaginatorPosition: java.lang.Integer = if (listModel != null) listModel.getLastPageAccessed else 0
+    val oldPaginatorPosition: java.lang.Integer = if (listModel != null) listModel.lastPageAccessed else 0
 
-    listModel = groupFacade.loadFromTo(max(searchData.getFrom, 0), searchData.getPageSize, filters, null);
+    listModel = groupFacade.loadFromTo(max(searchData.from, 0), searchData.pageSize, filters, null)
 
-    listModel.setLastPageAccessed(oldPaginatorPosition.intValue);
+    listModel.lastPageAccessed = oldPaginatorPosition.intValue
   }
 
   def doSearchList: String = {

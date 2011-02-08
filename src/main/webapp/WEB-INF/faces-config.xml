@@ -19,6 +19,9 @@
             </base-name>
             <var>msgs</var>
         </resource-bundle>
+        <el-resolver>
+            org.extrasapache.myfaces.codi.examples.ebean.view.jsf.ScalaELResolver
+        </el-resolver>
     </application>
 
 </faces-config>

@@ -2,7 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.view.person
 
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationController
-import reflect.BeanProperty
 import javax.annotation.PostConstruct
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped
@@ -29,7 +28,6 @@ import scala.math._
 @serializable
 trait PersonListViewModel {
   @Inject
-  @BeanProperty
   var searchData: PersonListSearchModel = null
   /**
    * we inject our person facade to handle the raw details
@@ -37,7 +35,6 @@ trait PersonListViewModel {
   @Inject
   var personFacade: PersonFacade = null
 
-  @BeanProperty
   var listModel: PaginationController[org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person] = null
 }
 
@@ -56,7 +53,7 @@ class PersonListView extends PersonListViewModel {
 
   @PostConstruct
   def postConstruct = {
-    if (listModel == null && searchData.isSearchPerformed) {
+    if (listModel == null && searchData.searchPerformed) {
       refresh
     }
   }
@@ -64,7 +61,7 @@ class PersonListView extends PersonListViewModel {
   protected def refresh = {
     var filters: java.util.List[FilterEntry] = null
     if (searchData != null) filters = searchData.toFilterList
-    listModel = personFacade.loadFromTo(max(searchData.getFrom, 0), searchData.getPageSize, filters, null)
+    listModel = personFacade.loadFromTo(max(searchData.from, 0), searchData.pageSize, filters, null)
   }
 
   def doSearchList: java.lang.Class[_] = {

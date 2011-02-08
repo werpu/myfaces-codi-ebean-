@@ -1,7 +1,6 @@
 package org.extrasapache.myfaces.codi.examples.ebean.orm.security
 
 import javax.persistence._
-import reflect.BeanProperty
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 
 import java.util._
@@ -22,17 +21,16 @@ object SecGroupConst {
 @serializable
 class SecGroup extends StdEntity {
 
-  @BeanProperty
-  protected var groupType: Int = SecGroupConst.GRP_TYPE_SYSTEM
 
-  @BeanProperty
-  protected var groupName: String = _
+  var groupType: Int = SecGroupConst.GRP_TYPE_SYSTEM
 
-  @BeanProperty
-  protected var description: String = _
+
+  var groupName: String = _
+
+
+  var description: String = _
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = Array(CascadeType.MERGE, CascadeType.REFRESH))
-  @BeanProperty
-  protected var credentialOwners: List[User] = _
+  var credentialOwners: List[User] = _
 }
 

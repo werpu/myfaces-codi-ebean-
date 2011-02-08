@@ -1,6 +1,5 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.data
 
-import reflect.BeanProperty
 import java.util.concurrent.Future
 import com.avaje.ebean.{Page, PagingList}
 
@@ -22,7 +21,6 @@ import java.util._
 
 class PaginationController[T](var _delegate: PagingList[T]) {
   //var _delegate: PagingList[T] = _
-  @BeanProperty
   var lastPageAccessed: Int = 0
   var pagingWindowSize: Int = 8
 

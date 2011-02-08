@@ -1,7 +1,6 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 
 import javax.faces.model.SelectItem
-import reflect.BeanProperty
 import collection.mutable.{ArrayBuffer, Buffer, LinkedHashMap}
 import collection.JavaConversions._
 import scala.math._
@@ -19,7 +18,6 @@ class SortableListController {
 
   var _idx: Buffer[String] = ArrayBuffer[String]()
 
-  @BeanProperty
   var selections: java.util.List[String] = ArrayBuffer[String]()
 
   def setModel(source: java.util.Collection[SelectItem]) {

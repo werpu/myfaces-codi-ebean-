@@ -16,38 +16,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-package debug;
-
-import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.faces.bean.ManagedBean;
+package org.extrasapache.myfaces.codi.examples.ebean.support.lang;
 
 /**
- * @author Werner Punz (latest modification by $Author$)
- * @version $Revision$ $Date$
+ * Simple casting representation for introspection
+ * calls
  */
+public class Cast {
 
-@ManagedBean
-public class TestBean {
-    List<Person> _personList = new LinkedList();
-    public TestBean() {
-        for(int cnt = 0; cnt < 10; cnt++) {
-            Person pers = new Person();
-            pers.firstName_$eq("First Name"+cnt);
-            pers.lastName_$eq("Last Name"+cnt);
-            _personList.add(pers);
-        }
+    Class clazz;
+    Object value;
+
+    public Cast(Class clazz, Object value) {
+        this.clazz = clazz;
+        this.value = value;
     }
 
-    public List<Person> getPersonList() {
-        return _personList;
+    public Class getClazz() {
+        return clazz;
     }
 
-    public void setPersonList(List<Person> personList) {
-        _personList = personList;
+    public Object getValue() {
+        return value;
     }
 }

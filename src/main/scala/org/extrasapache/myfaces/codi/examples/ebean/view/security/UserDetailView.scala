@@ -9,7 +9,6 @@ import org.extrasapache.myfaces.codi.examples.ebean.orm.security._
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.{Address, Person}
 import javax.inject.{Named, Inject}
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped
-import reflect.BeanProperty
 import javax.annotation.PostConstruct
 import collection.JavaConversions._
 import collection.mutable.{ArrayBuffer, Buffer, Set}
@@ -22,18 +21,11 @@ import javax.faces.model.SelectItem
 
 trait UserDetailViewModel {
 
-  @BeanProperty
   var pageMode: String = _
-  @BeanProperty
   var model: User = _
-  @BeanProperty
   var address: Address = _
-  @BeanProperty
   var person: Person.type = _
-
-  @BeanProperty
   var personHistory: Person = _
-  @BeanProperty
   var newPerson: Boolean = false
 
 }
@@ -41,14 +33,11 @@ trait UserDetailViewModel {
 trait UserDetailControllers {
   //form controllers
   @Inject
-  @BeanProperty
   var shuttleController: ShuttleController = _
 
   @Inject
-  @BeanProperty
   var personSearchData: PersonListSearchModel = _
 
-  @BeanProperty
   var personListModel: PaginationController[User] = _
 
 }
@@ -80,16 +69,16 @@ class UserDetailView extends UserDetailViewModel with UserDetailFacades with Use
     val groups: Buffer[SecGroup] = groupBo.loadAll
     //val selectItemsRight = new ArrayBuffer[SelectItem]
     val selectItemsRight, selectItemsLeft = new ArrayBuffer[SelectItem]
-    val userGroups: Set[SecGroup] = model.getGroups
+    val userGroups: Set[SecGroup] = model.groups
 
     val res = groups.span(group => userGroups.contains(group))
     //TODO replace this with a span
     groups.foreach(group => {
       //TODO we have to add an identifier remapping service but for now this suffices
       if (userGroups.contains(group)) {
-        selectItemsLeft.add(new SelectItem(group.getId.toString, group.getGroupName))
+        selectItemsLeft.add(new SelectItem(group.id.toString, group.groupName))
       } else {
-        selectItemsRight.add(new SelectItem(group.getId.toString, group.getGroupName))
+        selectItemsRight.add(new SelectItem(group.id.toString, group.groupName))
       }
     })
     shuttleController.setLeft(asJavaList[SelectItem](selectItemsLeft))
@@ -97,22 +86,22 @@ class UserDetailView extends UserDetailViewModel with UserDetailFacades with Use
   }
 
   def doSave: Class[_] = {
-    model.getGroups.clear
-    model.getGroups.addAll(groupBo.loadByIdsStr(shuttleController.getSelectionsLeft))
+    model.groups.clear
+    model.groups.addAll(groupBo.loadByIdsStr(shuttleController.getSelectionsLeft))
     bo.save(model);
 
     null;
   }
 
   def goNewPerson: Class[_] = {
-    personHistory = model.getPerson
-    model.setPerson(personBo.create)
+    personHistory = model.person
+    model.person = personBo.create
 
     null
   }
 
   def goExistingPerson: Class[_] = {
-    model.setPerson(personHistory)
+    model.person = personHistory
     personHistory = null
 
     null
@@ -135,13 +124,13 @@ class UserDetailView extends UserDetailViewModel with UserDetailFacades with Use
 
   def addAddress: Class[_] = {
     address = personBo.createAdr
-    model.getPerson.getAddresses.add(address)
+    model.person.addresses.add(address)
 
     GO_USER_DETA
   }
 
   def removeAddress: Class[_] = {
-    model.getPerson.getAddresses.remove(address)
+    model.person.addresses.remove(address)
 
     GO_USER_DETA
   }

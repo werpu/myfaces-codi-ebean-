@@ -1,7 +1,6 @@
 package org.extrasapache.myfaces.codi.examples.ebean.orm.person
 
 import javax.persistence._
-import reflect.BeanProperty
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 
 /**
@@ -13,18 +12,14 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 @Entity
 @Table(name = "o_entry")
 @serializable
-class Entry  extends StdEntity  {
+class Entry extends StdEntity {
 
-  @BeanProperty
-  protected var title: String = ""
+   var title: String = ""
 
-  @BeanProperty
-  protected var shortDesc: String = ""
+   var shortDesc: String = ""
 
-  @BeanProperty
-  protected var longDesc: String = ""
+   var longDesc: String = ""
 
   @ManyToOne
-  @BeanProperty
-  protected var poster: Person = _
+   var poster: Person = _
 }

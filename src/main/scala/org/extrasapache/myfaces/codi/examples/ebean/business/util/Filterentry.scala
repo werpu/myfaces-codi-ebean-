@@ -1,6 +1,5 @@
 package org.extrasapache.myfaces.codi.examples.ebean.business.util
 
-import reflect.BeanProperty
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -8,9 +7,9 @@ import reflect.BeanProperty
  */
 @serializable
 class FilterEntry  (
-  @BeanProperty var name: String,
-  @BeanProperty var value: AnyRef,
-  @BeanProperty var entryType: java.lang.Class[_],
-  @BeanProperty var opType: OpType
+  var name: String,
+  var value: AnyRef,
+  var entryType: java.lang.Class[_],
+  var opType: OpType
 )
 

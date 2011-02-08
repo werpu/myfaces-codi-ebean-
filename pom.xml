@@ -26,6 +26,7 @@
 
         <ebean.version>2.7.2</ebean.version>
         <slf4j.version>1.5.10</slf4j.version>
+        <juel.version>2.2.3</juel.version>
 
 
         <log4j.version>1.2.14</log4j.version>
@@ -160,16 +161,16 @@
             <version>${jstl.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>de.odysseus.juel</groupId>
-            <artifactId>juel-api</artifactId>
-            <version>2.2.2</version>
-        </dependency>
 
         <dependency>
             <groupId>de.odysseus.juel</groupId>
+            <artifactId>juel-api</artifactId>
+            <version>${juel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.odysseus.juel</groupId>
             <artifactId>juel-impl</artifactId>
-            <version>2.2.2</version>
+            <version>${juel.version}</version>
         </dependency>
 
 
@@ -466,10 +467,20 @@
                     </connectors>
 
                 </configuration>
+
                 <dependencies>
-
-
+                    <dependency>
+                        <groupId>de.odysseus.juel</groupId>
+                        <artifactId>juel-api</artifactId>
+                        <version>${juel.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>de.odysseus.juel</groupId>
+                        <artifactId>juel-impl</artifactId>
+                        <version>${juel.version}</version>
+                    </dependency>
                 </dependencies>
+
             </plugin>
             <!-- ebean org.extrasapache.myfaces.codi.examples.ebean.orm enhancer -->
             <plugin>

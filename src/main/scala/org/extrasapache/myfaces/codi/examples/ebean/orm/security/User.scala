@@ -2,7 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.orm.security
 
 import javax.persistence._
 
-import reflect.BeanProperty
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 
@@ -15,18 +14,13 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 @serializable
 class User extends StdEntity {
 
-
   @ManyToMany(fetch = FetchType.EAGER, cascade = Array(CascadeType.MERGE, CascadeType.REFRESH))
-  @BeanProperty
-  protected var groups: java.util.Set[SecGroup] = _
+   var groups: java.util.Set[SecGroup] = _
 
   @ManyToOne(cascade = Array(CascadeType.MERGE, CascadeType.REFRESH))
-  @BeanProperty
-  protected var person: Person = _
+   var person: Person = _
 
-  @BeanProperty
-  protected var userName: String = _
+   var userName: String = _
 
-  @BeanProperty
-  protected var password: String = _
+   var password: String = _
 }

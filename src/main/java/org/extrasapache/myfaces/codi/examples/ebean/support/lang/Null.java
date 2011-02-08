@@ -16,38 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-package debug;
-
-import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.faces.bean.ManagedBean;
+package org.extrasapache.myfaces.codi.examples.ebean.support.lang;
 
 /**
- * @author Werner Punz (latest modification by $Author$)
- * @version $Revision$ $Date$
+ * @Author Werner Punz
+ * Null representation for easier introspection calls
  */
+public class Null extends Cast {
 
-@ManagedBean
-public class TestBean {
-    List<Person> _personList = new LinkedList();
-    public TestBean() {
-        for(int cnt = 0; cnt < 10; cnt++) {
-            Person pers = new Person();
-            pers.firstName_$eq("First Name"+cnt);
-            pers.lastName_$eq("Last Name"+cnt);
-            _personList.add(pers);
-        }
+    public Null(Class clazz) {
+        super(clazz, null);
     }
 
-    public List<Person> getPersonList() {
-        return _personList;
-    }
-
-    public void setPersonList(List<Person> personList) {
-        _personList = personList;
-    }
 }

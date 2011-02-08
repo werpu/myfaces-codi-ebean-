@@ -20,7 +20,7 @@ class FacadeBase[T <: StdEntity] {
   /**
    * for convenience reasons we use the scala
    * accessors here, namely clazz() for reading
-   * and clazz_eq$ for writing
+   * and clazz_$eq for writing
    */
   var clazz: java.lang.Class[T] = _
 
@@ -58,8 +58,8 @@ class FacadeBase[T <: StdEntity] {
   }
 
   def delete(entry: T) = {
-    val newPers = if (entry.getId != null) {
-      em.find(clazz, entry.getId)
+    val newPers = if (entry.id != null) {
+      em.find(clazz, entry.id)
     } else {
       entry
     }
@@ -67,7 +67,7 @@ class FacadeBase[T <: StdEntity] {
   }
 
   def cancel(entry: T) {
-    if (entry.getId != null) em.refresh(entry)
+    if (entry.id != null) em.refresh(entry)
   }
 
   protected def applyFilters(query: Query[T], filterList: List[FilterEntry], orderBy: List[OrderEntry]) {
@@ -85,29 +85,29 @@ class FacadeBase[T <: StdEntity] {
     //which is too low level
 
     for (entry <- filterList if entry != null) {
-      entry.getOpType match {
+      entry.opType match {
 
         case GTE =>
-          queryBuilder = queryBuilder.ge(entry.getName, entry.getValue)
+          queryBuilder = queryBuilder.ge(entry.name, entry.value)
 
         case GT =>
-          queryBuilder = queryBuilder.gt(entry.getName, entry.getValue)
+          queryBuilder = queryBuilder.gt(entry.name, entry.value)
 
         case EQ =>
-          queryBuilder = queryBuilder.eq(entry.getName, entry.getValue)
+          queryBuilder = queryBuilder.eq(entry.name, entry.value)
 
         case LIKE =>
-          queryBuilder = queryBuilder.like(entry.getName, entry.getValue.asInstanceOf[String])
+          queryBuilder = queryBuilder.like(entry.name, entry.value.asInstanceOf[String])
 
         case LT =>
-          queryBuilder = queryBuilder.lt(entry.getName, entry.getValue)
+          queryBuilder = queryBuilder.lt(entry.name, entry.value)
         case LTE =>
-          queryBuilder = queryBuilder.le(entry.getName, entry.getValue)
+          queryBuilder = queryBuilder.le(entry.name, entry.value)
       }
     }
     if (orderBy != null) {
       for (entry <- asScalaBuffer[OrderEntry](orderBy) if entry != null) {
-        queryBuilder.orderBy(entry.getName())
+        queryBuilder.orderBy(entry.name)
       }
     }
 

@@ -1,6 +1,5 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.data
 
-import reflect.BeanProperty
 import javax.persistence.{Version, GenerationType, GeneratedValue, Id}
 /**
  *
@@ -14,10 +13,8 @@ trait StdEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @BeanProperty
-  protected var id: java.lang.Long = _
+  var id: java.lang.Long = _
 
   @Version
-  @BeanProperty
-  protected var version: java.lang.Long = _
+  var version: java.lang.Long = _
 }

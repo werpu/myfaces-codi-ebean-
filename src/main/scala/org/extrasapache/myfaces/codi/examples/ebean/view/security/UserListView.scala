@@ -8,7 +8,6 @@ import org.extrasapache.myfaces.codi.examples.ebean.business.bo.security.UserFac
 import java.util._
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry
 import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig
-import reflect.BeanProperty
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security.User
 import scala.math._
 
@@ -20,10 +19,8 @@ import scala.math._
 
 trait UserListViewData {
   @Inject
-  @BeanProperty
   var searchData: UserListSearchModel = _
 
-  @BeanProperty
   var listModel: PaginationController[User] = _
 
   @Inject
@@ -37,7 +34,7 @@ class UserListView extends UserListViewData {
 
   def refreshIt: PaginationController[User] = {
     val filters: List[FilterEntry] = if (searchData != null) searchData.toFilterList else null
-    bo.loadFromTo(max(searchData.getFrom, 0), searchData.getPageSize, filters, null);
+    bo.loadFromTo(max(searchData.from, 0), searchData.pageSize, filters, null);
   }
 
   def doSearch(): Class[_ <: ViewConfig] = {

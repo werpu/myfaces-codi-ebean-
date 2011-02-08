@@ -1,7 +1,5 @@
 package org.extrasapache.myfaces.codi.examples.ebean.business.util
 
-import reflect.{BooleanBeanProperty, BeanProperty}
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -9,8 +7,6 @@ import reflect.{BooleanBeanProperty, BeanProperty}
  */
 
 class OrderEntry {
-  @BeanProperty
   var name: String = null
-  @BooleanBeanProperty
   var asc: Boolean = false
 }
