@@ -154,7 +154,6 @@ class ScalaELResolver extends ELResolver {
     }
   }
 
-  //TODO value casting
   def getValueType(method: Method, theVal: AnyRef): AnyRef = {
     if (!theVal.isInstanceOf[String]) {
       theVal

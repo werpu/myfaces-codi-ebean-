@@ -27,13 +27,7 @@ class GroupFacade extends FacadeBase[SecGroup] {
 
   def loadByIdsStr(ids: Collection[String]): List[SecGroup] = {
     import java.lang.Long._
-    val ret: List[Long] = asCollection(ids).foldLeft(new ArrayBuffer[Long]) {
-      (coll, item) => {
-        coll += parseLong(item)
-        coll
-      }
-    }
-
+    val ret = asScalaIterable(ids).map{parseLong(_)}
     loadByIds(ret)
   }
 
@@ -45,7 +39,7 @@ class GroupFacade extends FacadeBase[SecGroup] {
 
   @Transactional
   def saveAll(groups: Collection[SecGroup]) {
-    for (group <- asCollection(groups)) em.save(group)
+    for (group <- asScalaIterable(groups)) em.save(group)
   }
 
   def deleteGroup(group: SecGroup) = delete(group)

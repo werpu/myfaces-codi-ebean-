@@ -81,13 +81,13 @@ class UserDetailView extends UserDetailViewModel with UserDetailFacades with Use
         selectItemsRight.add(new SelectItem(group.id.toString, group.groupName))
       }
     })
-    shuttleController.setLeft(asJavaList[SelectItem](selectItemsLeft))
-    shuttleController.setRight(asJavaList[SelectItem](selectItemsRight))
+    shuttleController.left_$eq(asJavaList[SelectItem](selectItemsLeft))
+    shuttleController.right_$eq(asJavaList[SelectItem](selectItemsRight))
   }
 
   def doSave: Class[_] = {
     model.groups.clear
-    model.groups.addAll(groupBo.loadByIdsStr(shuttleController.getSelectionsLeft))
+    model.groups.addAll(groupBo.loadByIdsStr(shuttleController.selectionsLeft))
     bo.save(model);
 
     null;

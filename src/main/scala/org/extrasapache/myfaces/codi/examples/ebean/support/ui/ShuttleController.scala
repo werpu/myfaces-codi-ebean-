@@ -19,8 +19,8 @@ import java.util._
 @serializable
 class ShuttleController  {
 
-  private var _leftCtrl: SortableListController = new SortableListController
-  private var _rightCtrl: SortableListController = new SortableListController
+  private[this] var _leftCtrl = new SortableListController
+  private[this] var _rightCtrl = new SortableListController
 
   /*delegation methods*/
   def shuttleTopLeft: String    = _leftCtrl.shuttleTop
@@ -31,16 +31,17 @@ class ShuttleController  {
   def shuttleUpRight: String = _rightCtrl.shuttleUp
   def shuttleDownLeft: String = _leftCtrl.shuttleDown
   def shuttleDownRight: String = _rightCtrl.shuttleDown
-  def getSelectionsLeft: List[String] = _leftCtrl.selections
-  def setSelectionsLeft(sel: List[String]) = _leftCtrl.selections = sel
-  def getSelectionsRight: List[String] = _rightCtrl.selections
-  def setSelectionsRight(sel: List[String]) = _rightCtrl.selections = sel
 
-  def setLeft(sel: Collection[SelectItem]) = _leftCtrl.setModel(sel)
-  def setRight(sel: Collection[SelectItem]) = _rightCtrl.setModel(sel)
+  def selectionsLeft: List[String] = _leftCtrl.selections
+  def selectionsLeft_$eq(sel: List[String]) = _leftCtrl.selections = sel
+  def selectionsRight: List[String] = _rightCtrl.selections
+  def selectionsRight_$eq(sel: List[String]) = _rightCtrl.selections = sel
 
-  def getLeft:Collection[SelectItem] = _leftCtrl.getModel
-  def getRight:Collection[SelectItem] = _rightCtrl.getModel
+  def left_$eq(sel: Collection[SelectItem]) = _leftCtrl.setModel(sel)
+  def right_$eq(sel: Collection[SelectItem]) = _rightCtrl.setModel(sel)
+
+  def left:Collection[SelectItem] = _leftCtrl.getModel
+  def right:Collection[SelectItem] = _rightCtrl.getModel
 
   /*additional functionality of the right left shutteling*/
   def fromRightToLeft: String = {

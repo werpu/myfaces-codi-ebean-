@@ -3,6 +3,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OpType, FilterEntry}
 
 import reflect.BooleanBeanProperty
+import collection.mutable.Buffer
 
 /*explicit import to overwrite the scala defaults*/
 
@@ -22,7 +23,6 @@ class BaseSearchModel extends MapDelegate[String, AnyRef]  {
 
   var from: Int = 0
   var pageSize: Int = 10
-  @BooleanBeanProperty
   var searchPerformed: Boolean = false
 
   def toFilterList: List[FilterEntry] = {
@@ -31,12 +31,8 @@ class BaseSearchModel extends MapDelegate[String, AnyRef]  {
     val iter: collection.mutable.Set[String] = searchMap.keySet
     //val res: List[FilterEntry] = for(item <- iter) yield { transformStrToFilter(_) }
     //res
-    iter.foldLeft(new LinkedList[FilterEntry]) {
-      (coll, item) => {
-        coll.add(transformStrToFilter(item))
-        coll
-      }
-    }
+    (iter.map { transformStrToFilter(_) }).toList
+
   }
 
   protected def transformStrToFilter(strAttr: String): FilterEntry = {
