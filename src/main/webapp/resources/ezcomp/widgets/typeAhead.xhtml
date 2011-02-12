@@ -1,0 +1,33 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <composite:interface componentType="at.irian.TypeAhead">
+        <composite:attribute name="id" required="true" default=""/>
+        <composite:attribute name="value" required="true"/>
+        <composite:attribute name="label" default=""/>
+        <composite:attribute name="model" default=""/>
+        <composite:attribute name="labelStyleClass" default=""/>
+        <composite:attribute name="inputStyleClass" default=""/>
+    </composite:interface>
+
+    <h:panelGroup id="#{cc.attrs.id}" layout="block">
+        <h:outputLabel styleClass="#{cc.attrs.labelStyleClass}"/>
+        <h:inputText id="#{cc.attrs.id}_input" styleClass="labelStyleClass" value="#{cc.attrs.value}"/>
+        <h:commandLink value="#{msgs.search}" action="">
+            <f:ajax execute="@this" render="@this #{cc.attrs.id}_placeholder"/>
+        </h:commandLink>
+        <h:panelGroup layout="block" id="#{cc.attrs.id}_placeholder">
+            placeholder for the result set will be filled by the facet accordingly
+        </h:panelGroup>
+    </h:panelGroup>
+
+    <script type="text/javascript">
+
+
+    </script>
+
+
+</ui:component>

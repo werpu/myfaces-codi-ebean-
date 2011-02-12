@@ -20,7 +20,7 @@ class SortableListController {
 
   var selections: java.util.List[String] = ArrayBuffer[String]()
 
-  def setModel(source: java.util.Collection[SelectItem]) {
+  def model_$eq(source: java.util.Collection[SelectItem]) {
     _model = new LinkedHashMap[String, SelectItem]
     _idx = new ArrayBuffer[String]
     val buf = source
@@ -31,7 +31,7 @@ class SortableListController {
     )
   }
 
-  def getModel: java.util.Collection[SelectItem] = {
+  def model: java.util.Collection[SelectItem] = {
     //call the implicit conversion explicitely
     asMap[String, SelectItem](_model).values
   }
@@ -81,9 +81,14 @@ class SortableListController {
     ret
   }
 
+
   def membersAdd(toAdd: LinkedHashMap[String, SelectItem]) = {
     _model.putAll(toAdd)
     _idx.addAll(toAdd.keySet)
+  }
+
+  def += (toAdd: LinkedHashMap[String, SelectItem]) = {
+    membersAdd(toAdd)
   }
 
   //the following helpers work in a pure functional manner

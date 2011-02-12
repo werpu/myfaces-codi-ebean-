@@ -37,20 +37,20 @@ class ShuttleController  {
   def selectionsRight: List[String] = _rightCtrl.selections
   def selectionsRight_$eq(sel: List[String]) = _rightCtrl.selections = sel
 
-  def left_$eq(sel: Collection[SelectItem]) = _leftCtrl.setModel(sel)
-  def right_$eq(sel: Collection[SelectItem]) = _rightCtrl.setModel(sel)
+  def left_$eq(sel: Collection[SelectItem]) = _leftCtrl.model = sel
+  def right_$eq(sel: Collection[SelectItem]) = _rightCtrl.model = sel
 
-  def left:Collection[SelectItem] = _leftCtrl.getModel
-  def right:Collection[SelectItem] = _rightCtrl.getModel
+  def left:Collection[SelectItem] = _leftCtrl.model
+  def right:Collection[SelectItem] = _rightCtrl.model
 
   /*additional functionality of the right left shutteling*/
   def fromRightToLeft: String = {
-    _leftCtrl.membersAdd(_rightCtrl.membersRemove)
+    _leftCtrl += _rightCtrl.membersRemove
     null
   }
 
   def fromLeftToRight: String = {
-    _rightCtrl.membersAdd(_leftCtrl.membersRemove)
+    _rightCtrl += _leftCtrl.membersRemove
     null
   }
 }

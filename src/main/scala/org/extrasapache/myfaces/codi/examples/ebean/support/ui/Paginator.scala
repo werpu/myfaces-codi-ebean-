@@ -13,7 +13,8 @@ import java.io.Serializable
  */
 package paginator {
 
-  object Const extends Serializable {
+  @serializable
+  object Paginator  {
     val FOR_TABLE = "forTable"
     val VALUE = "value"
     val FOR_TABLE_CLIENTID = "forTableClientId"
@@ -25,7 +26,7 @@ package paginator {
   @serializable
   class Paginator extends UINamingContainer with AttributeHandler  {
     //note the import aliases our const into the root namespace
-    import Const._
+    import Paginator._
 
     def beforeEncode(event: ComponentSystemEvent) = {
       val forTable = getParent.findComponent( getAttr[String](FOR_TABLE, "") ).asInstanceOf[HtmlDataTable]
