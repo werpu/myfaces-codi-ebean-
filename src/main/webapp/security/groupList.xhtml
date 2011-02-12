@@ -23,6 +23,7 @@
       xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security">
 
 <ui:composition template="../templates/template.xhtml">
+
     <ui:define name="header">
 
         <title>Person List view</title>
@@ -30,14 +31,20 @@
             <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
         </f:metadata>
 
-        <script type="text/javascript" src="#resource['/script/ComponentBase.js']"><!--
+        <!-- we have to force an import because we rely on single files in the impl -->
+        <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
         --></script>
-        <script type="text/javascript" src="#resource['/script/SelectionList.js']"><!--
+
+
+         <script type="text/javascript" src="#{resource['script/ComponentBase.js']}"><!--
+        --></script>
+        <script type="text/javascript" src="#{resource['script/SelectionList.js']}"><!--
         --></script>
 
     </ui:define>
 
     <ui:define name="search">
+
 
 
         <h3>${msgs.group_search}</h3>
@@ -61,6 +68,8 @@
 
 
     <ui:define name="content">
+
+
         <h:form id="mainForm" prependId="false">
             <h:commandLink id="create_group" action="#{groupView.goCreate}" value="#{msgs.group_create}"
                            onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog:ajaxTarget'});return false;">
@@ -70,8 +79,28 @@
                 <ezcomp:groupList value="#{groupView}"/>
             </h:panelGroup>
 
+
+
         </h:form>
         <ezcomp:groupEditDialogContent id="groupDetaDialog" value="#{groupView}"/>
+        <h:panelGroup  layout="block" id="selectionList">
+            <ul>
+                <li>First Line</li>
+                <li>Second Line</li>
+                <li>Third Line</li>
+            </ul>
+
+        </h:panelGroup>
+        <style type="text/css">
+            .selected {
+                background-color: #b9a2c3;
+            }
+        </style>
+        <script type="text/javascript">
+            var selectionList = new  extras.apache.SelectionList({
+                id:"selectionList"
+            });
+        </script>
     </ui:define>
 </ui:composition>
 

@@ -2,8 +2,12 @@ var _RT = myfaces._impl.core._Runtime;
 _RT.extendClass("extras.apache.SelectionList", extras.apache.ComponentBase, {
     _selectedLine: -1,
     _target: null,
+    _valueHolder: null,
     _selectorIdentifier: "table tr",
     _numberOfDatasets: 0,
+
+    _selectionSelected: "selected",
+    _selectionHover: "hover",
 
     /**
      * constants, since we only deal with html5+ we do not
@@ -16,11 +20,13 @@ _RT.extendClass("extras.apache.SelectionList", extras.apache.ComponentBase, {
 
 
     constructor_: function() {
-        this.callSuper("constructor", arguments);
+        this._callSuper("constructor", arguments);
     },
 
     _postInit: function() {
         this._target = this._rootNode.querySelectorAll("#" + this._id + "_placeholder")[0];
+        this._valueHolder = this._rootNode.querySelectorAll("#" + this._id + "_valueHolder")[0];
+
         this._target.addEventListener("onkeydown", _RT.hitch(this, this.onkeydown, false));
         this._refresh();
     },
@@ -30,8 +36,8 @@ _RT.extendClass("extras.apache.SelectionList", extras.apache.ComponentBase, {
         this._numberOfDatasets = lines.length;
         var _DOM = extras.apache.HTML5Dom;
         for (var cnt = lines.length - 1; cnt >= 0; cnt --) {
-            (cnt == this._selectedLine) ? _DOM.removeClass(lines[cnt], "selected") :
-                    _DOM.addClass(lines[cnt], "selected");
+            (cnt == this._selectedLine) ? this.removeClass(lines[cnt], this._selectionSelected) :
+                    this.addClass(lines[cnt], this._selectionSelected);
         }
     },
 

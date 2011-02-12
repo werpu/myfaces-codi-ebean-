@@ -17,11 +17,11 @@ _RT.extendClass("extras.apache.TypeAhead", extras.apache.ComponentBase, {
     _selectionList: null,
 
     constructor_: function() {
-        this.callSuper("constructor", arguments);
+        this._callSuper("constructor", arguments);
     },
 
     _postInit: function() {
-        this.callSuper("_postInit", arguments);
+        this._callSuper("_postInit", arguments);
         this._input = this._rootNode.querySelectorAll("#" + this._id + "_input")[0];
         this._target = this._rootNode.querySelectorAll("#" + this._id + "_placeholder")[0];
         this._selectionList = new extras.apache.SelectionList({id:this._id + "_placeholder", selectorIdentifier: "table tr"});
