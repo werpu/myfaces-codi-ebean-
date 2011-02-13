@@ -9,10 +9,10 @@ var _RT = myfaces._impl.core._Runtime;
 _RT.extendClass("extras.apache.TypeAhead", extras.apache.ComponentBase, {
     _evtBindings: [],
     _input: null,
-    _target: null,
+    placeHolder: null,
 
     /*the currently selected line which is altered with vk-up and vk-down*/
-    _selectedLine: -1,
+    selectedLine: -1,
 
     _selectionList: null,
 
@@ -22,8 +22,8 @@ _RT.extendClass("extras.apache.TypeAhead", extras.apache.ComponentBase, {
 
     _postInit: function() {
         this._callSuper("_postInit", arguments);
-        this._input = this._rootNode.querySelectorAll("#" + this._id + "_input")[0];
-        this._target = this._rootNode.querySelectorAll("#" + this._id + "_placeholder")[0];
-        this._selectionList = new extras.apache.SelectionList({id:this._id + "_placeholder", selectorIdentifier: "table tr"});
+        this._input = this.rootNode.querySelectorAll("#" + this.id + "_input")[0];
+        this.placeHolder = this.rootNode.querySelectorAll("#" + this.id + "_placeholder")[0];
+        this._selectionList = new extras.apache.SelectionList({id:this.id + "_placeholder", selectorIdentifier: "table tr"});
     }
 });

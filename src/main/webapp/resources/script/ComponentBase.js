@@ -13,9 +13,8 @@
      * what we have suffices.
      */
     _RT.extendClass("extras.apache.ComponentBase", Object, {
-        _rootNode: null,
-        _id: null,
-        _Lang: null,
+        rootNode: null,
+        id: null,
 
 
         constructor_: function(argsMap) {
@@ -25,11 +24,11 @@
 
         _postInit: function() {
 
-            this._rootNode = document.querySelectorAll("#" + this._id)[0];
+            this.rootNode = document.querySelectorAll("#" + this.id)[0];
         },
 
         querySelectorAll: function(queryStr) {
-            return this._rootNode.querySelectorAll(queryStr);
+            return this.rootNode.querySelectorAll(queryStr);
         },
 
         addClass: function(node, styleClass) {

@@ -9,7 +9,7 @@
         },
         _postInit: function() {
             this._callSuper("_postInit", arguments);
-            var fadeIn = this._rootNode.querySelectorAll(".dialog");
+            var fadeIn = this.rootNode.querySelectorAll(".dialog");
             for (var cnt = 0; cnt != dialog.length; cnt++) {
                 fadeIn[cnt].style.display = "block";
             }
@@ -19,7 +19,7 @@
 
         fadeIn: function() {
             setTimeout(_Lang.hitch(this, function() {
-                var fadeIn = this._rootNode.querySelectorAll(".fadeIn");
+                var fadeIn = this.rootNode.querySelectorAll(".fadeIn");
                 for (var cnt = 0; cnt != fadeIn.length; cnt++) {
                     fadeIn[cnt].style.opacity = 1;
                 }
@@ -27,7 +27,7 @@
         },
 
         fadeInFullForce: function() {
-            var fadeIn = this._rootNode.querySelectorAll(".fadeIn");
+            var fadeIn = this.rootNode.querySelectorAll(".fadeIn");
             for (var cnt = 0; cnt != fadeIn.length; cnt++) {
                 fadeIn[cnt].style.transitionDuration =
                         fadeIn[cnt].style.mozTransitionDuration =
