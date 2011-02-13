@@ -36,7 +36,7 @@
         --></script>
 
 
-         <script type="text/javascript" src="#{resource['script/ComponentBase.js']}"><!--
+        <script type="text/javascript" src="#{resource['script/ComponentBase.js']}"><!--
         --></script>
         <script type="text/javascript" src="#{resource['script/SelectionList.js']}"><!--
         --></script>
@@ -44,7 +44,6 @@
     </ui:define>
 
     <ui:define name="search">
-
 
 
         <h3>${msgs.group_search}</h3>
@@ -80,32 +79,38 @@
             </h:panelGroup>
 
 
-
         </h:form>
         <ezcomp:groupEditDialogContent id="groupDetaDialog" value="#{groupView}"/>
-        <h:panelGroup  layout="block" id="selectionList">
-            <ul id="selectionList_placeHolder">
-                <li>First Line</li>
-                <li>Second Line</li>
-                <li>Third Line</li>
-            </ul>
 
-            <h:inputHidden id="selectionList_valueHolder" />
+
+
+        <h:panelGroup type="block">
+            <h3>Item Select</h3>
+            <h:panelGroup layout="block" id="selectionList">
+                <ul id="selectionList_placeHolder">
+                    <li>First Line</li>
+                    <li>Second Line</li>
+                    <li>Third Line</li>
+                </ul>
+
+                <h:inputHidden id="selectionList_valueHolder"/>
+            </h:panelGroup>
+            <style type="text/css">
+                .selected {
+                    background-color: #b9a2c3;
+
+                }
+
+                .focus {
+                    border: 1px solid gray;
+                }
+            </style>
+            <script type="text/javascript">
+                var selectionList = new extras.apache.SelectionList({
+                    id:"selectionList", selectorIdentifier:"ul li"
+                });
+            </script>
         </h:panelGroup>
-        <style type="text/css">
-            .selected {
-                background-color: #b9a2c3;
-
-            }
-            .focus {
-                border: 1px solid gray;
-            }
-        </style>
-        <script type="text/javascript">
-            var selectionList = new  extras.apache.SelectionList({
-                id:"selectionList", selectorIdentifier:"ul li"
-            });
-        </script>
     </ui:define>
 </ui:composition>
 

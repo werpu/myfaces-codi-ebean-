@@ -56,21 +56,7 @@
         _onKeyDownHandler:  null,
         _numberOfItems:     0,
 
-        /**
-         * constants, since we only deal with html5+ we do not
-         * cover the entire huge quirksmode.org section
-         * but concentrate ourselves on the raw codes
-         * only supported by newer browsers
-         */
-        KEY_ARROW_UP:   38,
-        KEY_ARROW_DOWN: 40,
-        KEY_TAB:         9,
-        KEY_ESCAPE:     27,
 
-        EVT_FOCUS:      "focus",
-        EVT_BLUR:       "blur",
-        EVT_KEY_DOWN:   "keydown",
-        EVT_CLICK:      "click",
 
         constructor_: function(argsMap) {
             this._callSuper("constructor", argsMap);
