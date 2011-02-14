@@ -48,6 +48,9 @@
          */
         valueHolderAppendix: "_valueHolder",
 
+        valueHolderId: null,
+        placeHolderId: null,
+
         /**
          * tabindex for the outer component
          */
@@ -60,6 +63,14 @@
 
         constructor_: function(argsMap) {
             this._callSuper("constructor", argsMap);
+
+            this.onfocus = _Lang.hitch(this, this.onfocus);
+            this.onblur = _Lang.hitch(this, this.onblur);
+            this.onclick = _Lang.hitch(this, this.onclick);
+            this.onkeydown = _Lang.hitch(this, this.onkeydown);
+
+            this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
+            this.placeHolderId = this.placeHolderId || this.id + this.placeHolderAppendix;
         },
 
         /**
@@ -93,7 +104,7 @@
          * @param evt
          */
         onfocus: function(evt) {
-            this._onKeyDownHandler = this._onKeyDownHandler || _Lang.hitch(this, this.onkeydown);
+            this._onKeyDownHandler = this._onKeyDownHandler || this.onkeydown;
             this.rootNode.addEventListener(this.EVT_KEY_DOWN, this._onKeyDownHandler, true);
         },
         /**
@@ -185,15 +196,15 @@
             this._callSuper("_postInit", arguments);
             this.rootNode.tabIndex = this.tabIndex;
 
-            this.placeHolder = this.rootNode.querySelectorAll("#" + this.id + this.placeHolderAppendix)[0];
-            this.valueHolder = this.rootNode.querySelectorAll("#" + this.id + this.valueHolderAppendix)[0];
+            this.placeHolder = this.rootNode.querySelectorAll("#" + this.placeHolderId.replace(/:/g, "\\:"))[0];
+            this.valueHolder = this.rootNode.querySelectorAll("#" + this.valueHolderId.replace(/:/g, "\\:"))[0];
 
-            this.rootNode.addEventListener(this.EVT_FOCUS, _Lang.hitch(this, this.onfocus), true);
-            this.rootNode.addEventListener(this.EVT_BLUR, _Lang.hitch(this, this.onblur), true);
+            this.rootNode.addEventListener(this.EVT_FOCUS, this.onfocus, true);
+            this.rootNode.addEventListener(this.EVT_BLUR, this.onblur, true);
 
-            this._iterateElements(_Lang.hitch(this, _Lang.hitch(this, function(elem, cnt) {
-                elem.addEventListener(this.EVT_CLICK, _Lang.hitch(this, this.onclick), false);
-            })));
+            this._iterateElements(_Lang.hitch(this, function(elem, cnt) {
+                elem.addEventListener(this.EVT_CLICK, this.onclick, false);
+            }));
 
             this._refresh();
         },
@@ -201,14 +212,14 @@
         /**
          * element iterator
          *
-         * @param closure
+         * @param theClosure
          */
-        _iterateElements: function(/*function(elem, position){}*/closure) {
+        _iterateElements: function(/*function(elem, position){}*/theClosure) {
             var lines = this.rootNode.querySelectorAll(this.selectorIdentifier);
             this._numberOfItems = lines.length;
 
             for (var cnt = lines.length - 1; cnt >= 0; cnt --) {
-                var ret = closure(lines[cnt], cnt);
+                var ret = theClosure(lines[cnt], cnt);
                 if ('undefined' != typeof ret && ret === false) break;
             }
         },

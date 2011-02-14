@@ -10,6 +10,7 @@ import scala.math._
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.{PaginationController, SpreadSheetController}
 import collection.JavaConversions._
+import javax.faces.event.ValueChangeEvent
 
 /**
  *
@@ -133,5 +134,7 @@ class GroupView extends GroupViewModel {
 
     null
   }
+
+
 
 }

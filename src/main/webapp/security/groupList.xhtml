@@ -20,7 +20,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
 
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security">
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"  >
 
 <ui:composition template="../templates/template.xhtml">
 
@@ -39,6 +40,8 @@
         <script type="text/javascript" src="#{resource['script/ComponentBase.js']}"><!--
         --></script>
         <script type="text/javascript" src="#{resource['script/SelectionList.js']}"><!--
+        --></script>
+        <script type="text/javascript" src="#{resource['script/TypeAhead.js']}"><!--
         --></script>
 
     </ui:define>
@@ -79,6 +82,14 @@
             </h:panelGroup>
 
 
+            <ezw:inputSuggest id="mySuggest" value="booga"
+                              inputStyleClass="inputStyle"
+                              label="myInputLabel" >
+                <f:facet name="suggestArea">
+                    <h:outputFormat value="hello from suggest"/>
+                </f:facet>
+            </ezw:inputSuggest>
+
         </h:form>
         <ezcomp:groupEditDialogContent id="groupDetaDialog" value="#{groupView}"/>
 
@@ -98,7 +109,6 @@
             <style type="text/css">
                 .selected {
                     background-color: #b9a2c3;
-
                 }
 
                 .focus {

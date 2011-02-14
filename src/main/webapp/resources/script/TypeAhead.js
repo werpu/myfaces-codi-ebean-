@@ -23,29 +23,39 @@
          */
         maxTypeAhead: 3,
 
-        _postInit: function(arguments) {
+        constructor_:function(args) {
+          this._callSuper("constructor", args);
+          this.onKeypressInput = _Lang.hitch(this, this.onKeypressInput);
+        },
+
+        _postInit: function() {
             this._callSuper("_postInit", arguments);
-            this.valueHolder.addEventListener(this.EVT_KEY_PRESS, _Lang.hitch(this, this.onKeypressInput), false);
-            _AjaxQueue.addOnEvent(_Lang.hitch(this, this.onAjaxEvent));
+            this.valueHolder.addEventListener(this.EVT_KEY_PRESS, this.onKeypressInput, false);
         },
 
         onKeypressInput: function(evt) {
             jsf.ajax.request(evt.target, evt, {
                 execute:"@this",
                 render:(this.id + this.placeHolderAppendix),
-                typeAhead: this.id,
+
                 myfaces:{
                     queueSize: this.maxTypeAhead,
                     delay: this.typeDelay
                 }});
         },
 
+        onAjaxEvent: function(evt) {
+            this._callSuper("onAjaxEvent", evt);
+            if(evt.status == "success" && evt.source == (this.id + this.placeHolderAppendix)) {
+                //we have to retrigger our refresh area handling because our ajax preview area was
+                //updated
+                this._postInit();
+            }
+        },
+
         onSelectionChange:function(evt) {
 
         }
-
-
-
     });
 
 })();

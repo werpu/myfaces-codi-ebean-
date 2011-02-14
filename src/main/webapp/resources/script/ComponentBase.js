@@ -1,11 +1,58 @@
+/**
+ * base class of the EZComponent framework.
+ *
+ * WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
+ *
+ * Note since we do not rely on legacy technology
+ * here anymore a W3C Dom Level3 compliant browser is a must
+ * which has node.querySelectorAll and the dom level3 events implemented
+ *
+ *
+ * Before you start crying, I want to have all this working in IE(name whatever
+ * version you like), I wont be doing it for you if you want to use non
+ * standard compliant browsers supported
+ * roll it yourself I will be happy to merge the code in as long
+ * as you dont stain the core code with fallbacks within the same class.
+ *
+ * Same goes for shoddy mobile browsers, roll it yourself I will only
+ * support W3C compliant browsers in this code to keep the code
+ * as lean as possible, for learning purposes. Support for non compliant
+ * browsers is not part of this project and would taint the code.
+ * I had to do it for jsf.js in myfaces which now is a pointles 40% more code
+ * than needed bloat, but this is a sideproject which does not need it!
+ */
+
+(function() {
+
+    var _RT = myfaces._impl.core._Runtime;
+
+    _RT.reserveNamespace("extras.apache.ExtendedEventQueue");
+    _RT.reserveNamespace("extras.apache.ExtendedErrorQueue");
+
+    var _extras = extras.apache;
+    var _util = myfaces._impl._util;
+
+    _extras.ExtendedEventQueue = new _util._ListenerQueue();
+    _extras.ExtendedErrorQueue = new _util._ListenerQueue();
+
+    jsf.ajax.addOnEvent(function(eventData) {
+        _extras.ExtendedEventQueue.broadcastEvent(eventData);
+    });
+
+    jsf.ajax.addOnError(function(eventData) {
+        _extras.ExtendedErrorQueue.broadcastEvent(eventData);
+    });
+
+})();
+
+
 ( function() {
     /**
      * Base class for all widgets
      */
     var _RT = myfaces._impl.core._Runtime;
     var _Lang = myfaces._impl._util._Lang;
-
-
+    var _AjaxQueue = extras.apache.ExtendedEventQueue;
     /**
      * Base class for all components which adds certain behavior
      * to our widgets, we dont use a dojo like templating system
@@ -42,11 +89,15 @@
         constructor_: function(argsMap) {
             _Lang.applyArgs(this, argsMap);
             _RT.addOnLoad(window, _Lang.hitch(this, this._postInit));
+
+            //we enforce the scope for the onAjaxEvent
+            this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
         },
 
         _postInit: function() {
 
-            this.rootNode = document.querySelectorAll("#" + this.id)[0];
+            this.rootNode = document.querySelectorAll("#" + this.id.replace(/:/g,"\\:"))[0];
+            _AjaxQueue.enqueue(this.onAjaxEvent);
         },
 
         querySelectorAll: function(queryStr) {
@@ -84,7 +135,8 @@
         //TODO we need a replacement handler which notifies the control that it is about to be replaced
         //so that the control can unload eventual event hooks or ajax listeners
         onAjaxEvent: function(evt) {
-            if (evt.status == "success") {
+            if (evt.status == "complete") {
+
                 var responseXML = evt.responseXML;
                 //we now parse the response xml for ids which
                 //are root of alterations and then
@@ -96,24 +148,46 @@
                 var deletes = responseXML.querySelectorAll("changes delete");
 
                 //inserts are not needed because we can deal with
-                for (var cnt = updates.length - 1; cnt >= 0; cnt++) {
-                    var udateId = updates[cnt].getAttribute("id");
-                    if (udateId == this.P_VIEWBODY || udateId == "java.faces.ViewRoot" || this.id == udateId || document.querySelectorAll("#" + udateId + " #" + this.id).length > 0) {
-                        this.onDomUnload(evt);
+                for (var cnt = updates.length - 1; cnt >= 0; cnt--) {
+                    var updateId = updates[cnt].getAttribute("id");
+                    if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || document.querySelectorAll("#" +  updateId.replace(/:/g,"\\:") + " #" + this.id.replace(/:/g,"\\:")).length > 0)) {
+                        this._onDomUnload(evt);
                     }
                 }
-                for (var cnt = deletes.length - 1; cnt >= 0; cnt++) {
-                    var updateId = updates[cnt].getAttribute("id");
-                    if (updateId == this.P_VIEWBODY || updateId == this.P_VIEWROOT || this.id == updateId || document.querySelectorAll("#" + updateId + " #" + this.id).length > 0) {
-                        this.onDomUnload(evt);
+                for (var cnt = deletes.length - 1; cnt >= 0; cnt--) {
+                    var deleteId = deletes[cnt].getAttribute("id");
+                    if (deleteId && (deleteId == this.P_VIEWBODY || deleteId == this.P_VIEWROOT || this.id == deleteId || document.querySelectorAll("#" + deleteId.replace(/:/g,"\\:") + " #" + this.id.replace(/:/g,"\\:")).length > 0)) {
+                        this._onDomUnload(evt);
                     }
                 }
             }
         },
+        //TODO we might move our jsf event triggered handler
+        //To the Dom Level 3 event DOMNodeRemoved
+        _onDomUnload: function(evt) {
+            _AjaxQueue.dequeue(this.onAjaxEvent);
+            this.onDomUnload(evt);
+        },
 
-        onDomUnload: function(evtt) {
-            //callback which is triggered upon a dom change
-            //we can use this callback for further cleanup operations
+        /**
+         * note this is the most important callback handler
+         * it is triggered whenever the current component is unloaded
+         * from the dom via an ajax update or replace of itself
+         * or one of its parent components
+         *
+         * this callback should or better must be used to deregister
+         * event listeners or other data which might leak into memory
+         *
+         * sidenote we currently do this event over the ajax api
+         * which should suffice but we may add another event hook
+         * which is triggered in manual cases, because from
+         * time to time we trigger node deletes in non ajax cases
+         * (going over the official api is way too slow, because
+         * it literally triggers on any node)
+         *
+         * @param evt
+         */
+        onDomUnload: function(evt) {
         }
 
     });
