@@ -76,7 +76,7 @@ class ScalaELResolver extends ELResolver {
   }
 
   def getType(elContext: ELContext, base: AnyRef, prop: AnyRef): Class[_] = {
-    if (prop == "groupName") {
+    if (prop == "model") {
       println("debugpoint found")
     }
     if (base == null || !base.isInstanceOf[scala.ScalaObject]) null
@@ -94,7 +94,7 @@ class ScalaELResolver extends ELResolver {
   }
 
   def getValue(elContext: ELContext, base: AnyRef, prop: AnyRef): AnyRef = {
-     if (prop == "groupName") {
+    if (prop == "model") {
       println("debugpoint found")
     }
     if (!(base != null && base.isInstanceOf[scala.ScalaObject])) {

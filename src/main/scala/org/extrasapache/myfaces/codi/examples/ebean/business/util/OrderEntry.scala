@@ -6,7 +6,8 @@ package org.extrasapache.myfaces.codi.examples.ebean.business.util
  * @version $Revision$ $Date$
  */
 
-class OrderEntry {
-  var name: String = null
-  var asc: Boolean = false
+class OrderEntry(var name: String,var asc: Boolean) {
+  def this() {
+    this (null, false)
+  }
 }

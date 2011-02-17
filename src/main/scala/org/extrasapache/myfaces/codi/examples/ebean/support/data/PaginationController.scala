@@ -38,6 +38,8 @@ class PaginationController[T](var _delegate: PagingList[T]) {
 
   def getTotalPageCount: Int = _delegate.getTotalPageCount
 
+  def getCurrentPageRow: Int = _delegate.getPageSize * lastPageAccessed
+
   def getPage(i: Int): Page[T] = {
     lastPageAccessed = i
     _delegate.getPage(i)

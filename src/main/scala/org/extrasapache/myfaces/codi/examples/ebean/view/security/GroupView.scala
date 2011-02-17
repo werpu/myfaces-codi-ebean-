@@ -11,6 +11,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.{PaginationController, SpreadSheetController}
 import collection.JavaConversions._
 import javax.faces.event.ValueChangeEvent
+import reflect.BeanProperty
 
 /**
  *
@@ -41,10 +42,19 @@ trait GroupViewModel {
   var listModel: PaginationController[SecGroup] = _
 }
 
+trait ListDebug {
+
+}
+
+
 @Named
 @ViewAccessScoped
 @serializable
-class GroupView extends GroupViewModel {
+class GroupView extends GroupViewModel with ListDebug {
+
+    @Inject
+  @BeanProperty
+  var suggestModel:SimpleListSuggestModel = _
 
   def refresh() {
     val filters: List[FilterEntry] = if (searchData != null) searchData.toFilterList else null

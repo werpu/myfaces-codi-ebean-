@@ -26,7 +26,7 @@
         /**
          * value holder input hidden for the final receiving holder
          */
-        valueHolder: null,
+        lineHolder: null,
 
         /**
          * the selector identifier which can identify single lines
@@ -46,9 +46,9 @@
         /**
          * the idenitifer applendix for the value holder
          */
-        valueHolderAppendix: "_valueHolder",
+        lineHolderAppendix: "_lineHolder",
 
-        valueHolderId: null,
+        lineHolderId: null,
         placeHolderId: null,
 
         /**
@@ -69,7 +69,7 @@
             this.onclick = _Lang.hitch(this, this.onclick);
             this.onkeydown = _Lang.hitch(this, this.onkeydown);
 
-            this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
+            this.lineHolderId = this.lineHolderId || this.id + this.lineHolderAppendix;
             this.placeHolderId = this.placeHolderId || this.id + this.placeHolderAppendix;
         },
 
@@ -186,7 +186,7 @@
          * being set to the currently selected item
          */
         onSelectionChange: function(evt) {
-
+            this.lineHolder.value = this.selectedLine;
         },
 
         /**
@@ -197,7 +197,7 @@
             this.rootNode.tabIndex = this.tabIndex;
 
             this.placeHolder = this.rootNode.querySelectorAll("#" + this.placeHolderId.replace(/:/g, "\\:"))[0];
-            this.valueHolder = this.rootNode.querySelectorAll("#" + this.valueHolderId.replace(/:/g, "\\:"))[0];
+            this.lineHolder = this.rootNode.querySelectorAll("#" + this.lineHolderId.replace(/:/g, "\\:"))[0];
 
             this.rootNode.addEventListener(this.EVT_FOCUS, this.onfocus, true);
             this.rootNode.addEventListener(this.EVT_BLUR, this.onblur, true);

@@ -5,33 +5,25 @@
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:c="http://java.sun.com/jsp/jstl/core">
     <composite:interface componentType="at.irian.InputSuggest">
-        <!-- the id of the component -->
+        <composite:attribute name="model" type="org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestmodel"  required="true"/>
+
         <composite:attribute name="id" required="true" default=""/>
 
         <composite:editableValueHolder name="valueHolder"/>
 
         <composite:attribute name="value" required="true"/>
-        <!-- the id of the component -->
         <composite:attribute name="label" default=""/>
-        <!-- the model/controller part for the inputSuggest -->
-        <composite:attribute name="model" default=""/>
-        <!-- the label style class -->
         <composite:attribute name="labelStyleClass" default=""/>
-        <!-- the input style class -->
         <composite:attribute name="inputStyleClass" default=""/>
-        <!-- the message class -->
         <composite:attribute name="messageClass" default=""/>
-        <!-- the selector identifier which allows to identify the lines of the suggest part -->
         <composite:attribute name="selectorIdentifier" default="ul li"/>
-
-        <composite:facet name="suggestArea"/>
-
+        <composite:facet name="suggestArea" />
     </composite:interface>
     <composite:implementation>
+
         <div id="#{cc.clientId}">
             <!-- we wrap our cc into a div for easier ajaxing from outside -->
             <h:panelGroup layout="inputSuggest block" id="#{cc.attrs.id}">
-
 
                 <!--
                 Now to the input suggest part, the entire input suggest consists
@@ -41,23 +33,29 @@
                 the second part is the suggest area with a fillable container
                 which is dragged in by the user
                 -->
-
+                #{cc.attrs.model.toString()}
                 <h:panelGroup styleClass="inputArea" layout="block">
+
                     <h:outputLabel value="#{cc.attrs.label}" for="valueHolder"
                                    styleClass="label #{cc.attrs.labelStyleClass}"/>
                     <h:inputText id="valueHolder" styleClass="inputText #{cc.attrs.inputStyleClass}"
-                                 value="#{cc.attrs.value}"/>
+                                 value="#{cc.attrs.model.displayValue}"/>
                     <h:message for="valueHolder" styleClass="message #{cc.attrs.messageClass} "/>
+                    <h:inputHidden id="lineHolder" value="#{cc.attrs.model.selectedLine}"/>
+
                 </h:panelGroup>
 
                 <h:panelGroup layout="block" styleClass="suggestArea" id="placeHolder">
-                    <composite:renderFacet name="suggestArea"/>
+                    <f:event type="preRenderComponent" listener="#{cc.preRenderComponent}" />
+                     <composite:renderFacet name="suggestArea" />
                 </h:panelGroup>
 
                 <script type="text/javascript">
                     var inputSuggest_#{cc.attrs.id} = new extras.apache.TypeAhead({
                         id:"#{cc.clientId}:#{cc.attrs.id}",
                         valueHolderId:"#{cc.clientId}:valueHolder",
+                        lineHolderId:"#{cc.clientId}:lineHolder",
+
                         placeHolderId:"#{cc.clientId}:placeHolder",
                         selectorIdentifier:"#{cc.attrs.selectorIdentifier}"
                     });

@@ -15,6 +15,7 @@ import java.util._
  *
  */
 
+@NamedQuery(name="allNames", query = "find * where firstName like :name or lastName like :name")
 @Entity
 @Table(name = "o_person")
 @serializable

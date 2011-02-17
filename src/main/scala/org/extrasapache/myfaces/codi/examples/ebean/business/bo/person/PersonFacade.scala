@@ -36,6 +36,13 @@ class PersonFacade extends FacadeBase[Person] {
     getPage(from, pageSize, query)
   }
 
+  def loadFromToName(from: Int, pageSize: Int, anyName: String, orderBy: List[OrderEntry]): PaginationController[Person] = {
+    val query = em.createNamedQuery(clazz, "allNames")
+    query.setParameter("name", anyName)
+
+    getPage(from, pageSize, query)
+  }
+
   override def cancel(person: Person) = {
     if (person.id != null) {
       em.refresh(person)

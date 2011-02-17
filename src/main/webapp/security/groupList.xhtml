@@ -21,7 +21,7 @@
 
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
-      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"  >
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
 
 <ui:composition template="../templates/template.xhtml">
 
@@ -84,15 +84,21 @@
 
             <ezw:inputSuggest id="mySuggest" value="booga"
                               inputStyleClass="inputStyle"
-                              label="myInputLabel" >
+                              label="myInputLabel" model="#{groupView.suggestModel}" selectorIdentifier="ul li">
                 <f:facet name="suggestArea">
+                    <h:panelGroup id="suggestResult">
+                        <ul>
+                            <ui:repeat value="#{groupView.suggestModel.suggestData}" var="item">
+                                <li>#{item}</li>
+                            </ui:repeat>
+                        </ul>
+                    </h:panelGroup>
                     <h:outputFormat value="hello from suggest"/>
                 </f:facet>
             </ezw:inputSuggest>
 
         </h:form>
         <ezcomp:groupEditDialogContent id="groupDetaDialog" value="#{groupView}"/>
-
 
 
         <h:panelGroup type="block">
