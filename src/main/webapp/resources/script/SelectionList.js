@@ -11,6 +11,8 @@
      * this class adds the needed callback listeners
      * and mouse and keyboard event handlers to enable
      * it
+     *
+     * @namespace extras.apache.SelectionList
      */
 
     _RT.extendClass("extras.apache.SelectionList", extras.apache.ComponentBase, {
@@ -26,7 +28,7 @@
         /**
          * value holder input hidden for the final receiving holder
          */
-        lineHolder: null,
+        valueHolder: null,
 
         /**
          * the selector identifier which can identify single lines
@@ -46,9 +48,9 @@
         /**
          * the idenitifer applendix for the value holder
          */
-        lineHolderAppendix: "_lineHolder",
+        valueHolderAppendix: "_valueHolder",
 
-        lineHolderId: null,
+        valueHolderId: null,
         placeHolderId: null,
 
         /**
@@ -69,7 +71,7 @@
             this.onclick = _Lang.hitch(this, this.onclick);
             this.onkeydown = _Lang.hitch(this, this.onkeydown);
 
-            this.lineHolderId = this.lineHolderId || this.id + this.lineHolderAppendix;
+            this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
             this.placeHolderId = this.placeHolderId || this.id + this.placeHolderAppendix;
         },
 
@@ -109,14 +111,14 @@
          */
         onfocus: function(evt) {
             this._onKeyDownHandler = this._onKeyDownHandler || this.onkeydown;
-            this.rootNode.addEventListener(this.EVT_KEY_DOWN, this._onKeyDownHandler, true);
+            this.placeHolder.addEventListener(this.EVT_KEY_DOWN, this._onKeyDownHandler, true);
         },
         /**
          * callback for the onblur event
          * @param evt
          */
         onblur: function(evt) {
-            this.rootNode.removeEventListener(this.EVT_KEY_DOWN, this._onKeyDownHandler, true);
+            this.placeHolder.removeEventListener(this.EVT_KEY_DOWN, this._onKeyDownHandler, true);
         },
 
         /**
@@ -199,7 +201,7 @@
          * being set to the currently selected item
          */
         onSelectionChange: function(evt) {
-            this.lineHolder.value = this.selectedLine;
+            this.valueHolder.value = this.selectedLine;
         },
 
         onFinalSelection: function(evt) {
@@ -211,13 +213,14 @@
          */
         _postInit: function() {
             this._callSuper("_postInit", arguments);
-            this.rootNode.tabIndex = this.tabIndex;
 
             this.placeHolder = this.rootNode.querySelectorAll("#" + this.placeHolderId.replace(/:/g, "\\:"))[0];
-            this.lineHolder = this.rootNode.querySelectorAll("#" + this.lineHolderId.replace(/:/g, "\\:"))[0];
+            this.valueHolder = this.rootNode.querySelectorAll("#" + this.valueHolderId.replace(/:/g, "\\:"))[0];
 
-            this.rootNode.addEventListener(this.EVT_FOCUS, this.onfocus, true);
-            this.rootNode.addEventListener(this.EVT_BLUR, this.onblur, true);
+            this.placeHolder.tabIndex = this.tabIndex;
+
+            this.placeHolder.addEventListener(this.EVT_FOCUS, this.onfocus, true);
+            this.placeHolder.addEventListener(this.EVT_BLUR, this.onblur, true);
 
             this._iterateElements(_Lang.hitch(this, function(elem, cnt) {
                 elem.addEventListener(this.EVT_CLICK, this.onclick, false);

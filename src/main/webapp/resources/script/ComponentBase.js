@@ -45,7 +45,6 @@
 
 })();
 
-
 ( function() {
     /**
      * Base class for all widgets
@@ -100,7 +99,7 @@
 
         _postInit: function() {
 
-            this.rootNode = document.querySelectorAll("#" + this.id.replace(/:/g,"\\:"))[0];
+            this.rootNode = document.querySelectorAll("#" + this.id.replace(/:/g, "\\:"))[0];
             _AjaxQueue.enqueue(this.onAjaxEvent);
         },
 
@@ -154,23 +153,46 @@
                 //inserts are not needed because we can deal with
                 for (var cnt = updates.length - 1; cnt >= 0; cnt--) {
                     var updateId = updates[cnt].getAttribute("id");
-                    if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || document.querySelectorAll("#" +  updateId.replace(/:/g,"\\:") + " #" + this.id.replace(/:/g,"\\:")).length > 0)) {
+                    if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || document.querySelectorAll("#" + updateId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
                         this._onDomUnload(evt);
                     }
                 }
                 for (var cnt = deletes.length - 1; cnt >= 0; cnt--) {
                     var deleteId = deletes[cnt].getAttribute("id");
-                    if (deleteId && (deleteId == this.P_VIEWBODY || deleteId == this.P_VIEWROOT || this.id == deleteId || document.querySelectorAll("#" + deleteId.replace(/:/g,"\\:") + " #" + this.id.replace(/:/g,"\\:")).length > 0)) {
+                    if (deleteId && (deleteId == this.P_VIEWBODY || deleteId == this.P_VIEWROOT || this.id == deleteId || document.querySelectorAll("#" + deleteId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
                         this._onDomUnload(evt);
                     }
                 }
             }
+            /*if (evt.status == "success") {
+                var responseXML = evt.responseXML;
+                var updates = responseXML.querySelectorAll("changes update");
+                var inserts = responseXML.querySelectorAll("changes insert");
+                //inserts are not needed because we can deal with
+                for (var cnt = updates.length - 1; cnt >= 0; cnt--) {
+                    var updateId = updates[cnt].getAttribute("id");
+                    if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || document.querySelectorAll("#" + updateId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
+                        this._onDomLoad(evt);
+                    }
+                }
+                for (var cnt = inserts.length - 1; cnt >= 0; cnt--) {
+                    var insertId = inserts[cnt].getAttribute("id");
+                    if (insertId && (insertId == this.P_VIEWBODY || insertId == this.P_VIEWROOT || this.id == insertId || document.querySelectorAll("#" + insertId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
+                        this._onDomLoad(evt);
+                    }
+                }
+            }*/
         },
         //TODO we might move our jsf event triggered handler
         //To the Dom Level 3 event DOMNodeRemoved
         _onDomUnload: function(evt) {
             _AjaxQueue.dequeue(this.onAjaxEvent);
             this.onDomUnload(evt);
+        },
+
+        _onDomInsert: function(evt) {
+            _AjaxQueue.dequeue(this.onAjaxEvent);
+            this.onDomLoad(evt);
         },
 
         /**
@@ -192,7 +214,10 @@
          * @param evt
          */
         onDomUnload: function(evt) {
+        },
+        onDomLoad: function(evt) {
         }
+
 
     });
 })();
