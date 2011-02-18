@@ -37,8 +37,8 @@ class InputSuggest extends UINamingContainer with AttributeHandler {
 
   import InputSuggest._
 
-  var placeHolder:UIComponent = _
-  var valueHolder:UIInput = _
+  var placeHolder: UIComponent = _
+  var valueHolder: UIInput = _
 
   /**
    * note we do not use
@@ -52,27 +52,34 @@ class InputSuggest extends UINamingContainer with AttributeHandler {
 
   def model_$eq(theModel: InputSuggestController[_, _]) = _model = theModel
 
-  def preRenderComponent(ev: ComponentSystemEvent) {
-    val model2 = getAttr[AnyRef](ATTR_MODEL, null)
-
+  def preRenderInput(ev: ComponentSystemEvent) {
     if (model != null) {
-      /**
-       * we can use the def functionality to remap
-       * our accessor namespace
-       * in a tight manner
-       **/
+
       def req_map: Map[String, String] = FacesContext.getCurrentInstance.getExternalContext.getRequestParameterMap
 
       val req_marker = req_map.get(REQ_MARKER)
       val line_no = req_map.get(LINE_MARKER)
       val theModel = model
       if (req_marker != None && line_no != None) {
-        //line handling triggered
         theModel.selectedLine = line_no.get.toInt
         theModel.fromLineToValue
-      } else if (req_marker != None) {
+      }
+    }
+  }
+
+  def preRenderComponentList(ev: ComponentSystemEvent) {
+    if (model != null) {
+
+      def req_map: Map[String, String] = FacesContext.getCurrentInstance.getExternalContext.getRequestParameterMap
+
+      val req_marker = req_map.get(REQ_MARKER)
+      val line_no = req_map.get(LINE_MARKER)
+      val theModel = model
+
+      if (req_marker != None) {
         theModel.refreshCurrentResults()
       }
     }
   }
+
 }

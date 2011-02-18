@@ -80,15 +80,15 @@
             if (evt.status == "success" ) {
                 var responseXML = evt.responseXML;
                 var updates = responseXML.querySelectorAll("changes update");
-                var found = false;
-                for (var cnt = updates.length - 1; cnt >= 0 && !found; cnt--) {
-                    found = updates[cnt].getAttribute("id") == this._suggestPart.placeHolderId;
+                var panelFound = false;
+                for (var cnt = updates.length - 1; cnt >= 0 && !panelFound; cnt--) {
+                    panelFound = updates[cnt].getAttribute("id") == this._suggestPart.placeHolderId;
                 }
-                if (! found) return;
+                if (! panelFound) return;
 
                 //we have to retrigger our refresh area handling because our ajax preview area was
                 //updated
-                //this._postInit();
+                this._postInit();
                 this._initSelectionList(this._args);
                 this._suggestPart._postInit();
             }
@@ -99,9 +99,9 @@
             this._suggestPart.placeHolder.setAttribute("style", "display", "none");
             jsf.ajax.request(evt.target, evt, {
                 execute:this.rootNode.id,
-                render:this._suggestPart.placeHolder.id + " " + this.valueHolder.id,
+                render:this.valueHolder.id+" "+this._suggestPart.placeHolder.id,
                 ez_typeahead: true,
-                ez_typeahead_line: this.selectedLine,
+                ez_typeahead_line: document.getElementById(this.lineHolderId).value,
                 ez_typahead_show: true,
                 myfaces:{
                     queueSize: this.maxTypeAhead,

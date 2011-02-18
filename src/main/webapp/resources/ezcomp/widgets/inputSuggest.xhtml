@@ -39,14 +39,16 @@
                     <h:outputLabel  value="#{cc.attrs.label}" for="valueHolder"
                                    styleClass="label #{cc.attrs.labelStyleClass}"/>
                     <h:inputText binding="#{cc.valueHolder}" id="valueHolder" styleClass="inputText #{cc.attrs.inputStyleClass}"
-                                 value="#{cc.attrs.model.displayValue}" autocomplete="off"/>
+                                 value="#{cc.attrs.model.displayValue}" autocomplete="off">
+                         <f:event type="preRenderComponent" listener="#{cc.preRenderInput}" />
+                    </h:inputText>
                     <h:message for="valueHolder" styleClass="message #{cc.attrs.messageClass} "/>
                     <h:inputHidden id="lineHolder" value="#{cc.attrs.model.selectedLine}"/>
 
                 </h:panelGroup>
 
                 <h:panelGroup binding="#{cc.placeHolder}" layout="block" styleClass="suggestArea" id="placeHolder">
-                    <f:event type="preRenderComponent" listener="#{cc.preRenderComponent}" />
+                    <f:event type="preRenderComponent" listener="#{cc.preRenderComponentList}" />
                     <composite:renderFacet name="suggestArea" />
                 </h:panelGroup>
 

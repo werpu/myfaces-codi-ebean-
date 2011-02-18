@@ -28,6 +28,7 @@ class SimpleListSuggestModel extends InputSuggestController[String /*data type f
 
   def fromLineToValue() {
     value = initialValues.apply(selectedLine)
+    displayValue = value
   }
 
 }
