@@ -33,21 +33,21 @@
                 the second part is the suggest area with a fillable container
                 which is dragged in by the user
                 -->
-                #{cc.attrs.model.toString()}
+
                 <h:panelGroup styleClass="inputArea" layout="block">
 
-                    <h:outputLabel value="#{cc.attrs.label}" for="valueHolder"
+                    <h:outputLabel  value="#{cc.attrs.label}" for="valueHolder"
                                    styleClass="label #{cc.attrs.labelStyleClass}"/>
-                    <h:inputText id="valueHolder" styleClass="inputText #{cc.attrs.inputStyleClass}"
-                                 value="#{cc.attrs.model.displayValue}"/>
+                    <h:inputText binding="#{cc.valueHolder}" id="valueHolder" styleClass="inputText #{cc.attrs.inputStyleClass}"
+                                 value="#{cc.attrs.model.displayValue}" autocomplete="off"/>
                     <h:message for="valueHolder" styleClass="message #{cc.attrs.messageClass} "/>
                     <h:inputHidden id="lineHolder" value="#{cc.attrs.model.selectedLine}"/>
 
                 </h:panelGroup>
 
-                <h:panelGroup layout="block" styleClass="suggestArea" id="placeHolder">
+                <h:panelGroup binding="#{cc.placeHolder}" layout="block" styleClass="suggestArea" id="placeHolder">
                     <f:event type="preRenderComponent" listener="#{cc.preRenderComponent}" />
-                     <composite:renderFacet name="suggestArea" />
+                    <composite:renderFacet name="suggestArea" />
                 </h:panelGroup>
 
                 <script type="text/javascript">

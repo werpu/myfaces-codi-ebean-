@@ -29,7 +29,7 @@
 
 
     <ui:define name="content">
-        aaa
+        #{testPage.hello}
         <h:form id="mainForm" prependId="false">
             #{testBean.personList.get(0).firstName}
             <ezw:outputInputFormat value="bbbb#{testBean.personList.get(0).firstName}" editable="false"  />

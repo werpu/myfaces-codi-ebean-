@@ -99,6 +99,10 @@
             this._refresh();
         },
 
+        keyEnter: function() {
+
+        },
+
         /**
          * callback for the onfocus event
          * @param evt
@@ -131,6 +135,7 @@
             }));
             this._refresh();
             this.onSelectionChange(evt);
+            this.onFinalSelection(evt);
         },
 
         /**
@@ -167,9 +172,17 @@
 
                         return false;
 
+                    case this.KEY_ENTER:
+                        this.keyEnter();
+                        evt.stopPropagation();
+                        var selectionChangeEvent = {};
+                        selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier)[this.selectedLine];
+                        this.onFinalSelection(selectionChangeEvent);
+
                     case this.KEY_ESCAPE:
                         this.onblur();
                         return false;
+
 
                     default: return true;
                 }
@@ -187,6 +200,10 @@
          */
         onSelectionChange: function(evt) {
             this.lineHolder.value = this.selectedLine;
+        },
+
+        onFinalSelection: function(evt) {
+            //enter or click
         },
 
         /**

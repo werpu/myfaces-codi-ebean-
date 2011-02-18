@@ -39,14 +39,50 @@
         },
 
         onKeypressInput: function(evt) {
-            jsf.ajax.request(evt.target, evt, {
-               execute:this.rootNode.id,
-                render:this.placeHolder.id,
+            if(evt.keyCode == this.EVT_KEY_DOWN) {
+                this.selectedLine = 0;
+                 this.placeHolder.focus();
+            } else {
+                this.placeHolder.setAttribute("style","display","");
+                jsf.ajax.request(evt.target, evt, {
+                   execute:this.rootNode.id,
+                    render:this.placeHolder.id,
+                    ez_typeahead: true,
+                    myfaces:{
+                        queueSize: this.maxTypeAhead,
+                        delay: this.typeDelay
+                    }});
+
+            }
+        },
+
+        /**
+         * override which is triggered against the preview List
+         * @param evt
+         */
+        onKeyDown: function(evt) {
+            this._callSuper("onKeyDown", evt);
+            this._onSuggestKeyDown(evt);
+        },
+
+
+        _onSuggestKeyDown: function(evt) {
+            if(evt.isPropagationStopped()) {
+                return;
+            }
+            if(evt.keyCode == this.KEY_ESCAPE) {
+                //hide the panel
+                this.placeHolder.setAttribute("style","display","");
+                jsf.ajax.request(evt.target, evt, {
+                execute:this.rootNode.id,
+                render:this.placeHolder.id+" "+this.valueHolder.id,
                 ez_typeahead: true,
+                ez_typahead_show: false,
                 myfaces:{
                     queueSize: this.maxTypeAhead,
                     delay: this.typeDelay
                 }});
+            }
         },
 
         onAjaxEvent: function(evt) {
@@ -58,19 +94,24 @@
             }
         },
 
-        onSelectionChange:function(evt) {
-            this._callSuper("onSelectionChange", evt);
+        onFinalSelection:function(evt) {
+            this._callSuper("onFinalSelection", evt);
             //TODO trigger ajax selection change event
+            this.placeHolder.setAttribute("style","display","none");
             jsf.ajax.request(evt.target, evt, {
                 execute:this.rootNode.id,
-                render:this.placeHolder.id,
+                render:this.placeHolder.id+" "+this.valueHolder.id,
                 ez_typeahead: true,
                 ez_typeahead_line: this.selectedLine,
+                ez_typahead_show: true,
                 myfaces:{
                     queueSize: this.maxTypeAhead,
                     delay: this.typeDelay
                 }});
         }
+
+        //TODO add hide code for the preview area
+        //TODO also set the focus back to the component
     });
 
 })();

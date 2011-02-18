@@ -73,12 +73,16 @@
         KEY_ARROW_DOWN: 40,
         KEY_TAB:         9,
         KEY_ESCAPE:     27,
+        KEY_ENTER:      13,
+
 
         EVT_FOCUS:      "focus",
         EVT_BLUR:       "blur",
         EVT_KEY_DOWN:   "keydown",
         EVT_KEY_PRESS:  "keypress",
         EVT_KEY_UP:     "keyup",
+        EVT_ENTER:      "keyenter",
+
 
         EVT_CLICK:      "click",
 

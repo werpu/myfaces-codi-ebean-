@@ -7,6 +7,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.business.util.FilterEntry
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped
 import javax.inject.{Named, Inject}
 import scala.math._
+import org.extrasapache.myfaces.codi.examples.ebean.view.debug.TestPage
 
 /**
  *
@@ -69,4 +70,10 @@ class PersonListView extends PersonListViewModel {
 
     GO_LIST
   }
+
+  def doTestPage: java.lang.Class[_] = {
+
+    classOf[TestPage]
+  }
+
 }
