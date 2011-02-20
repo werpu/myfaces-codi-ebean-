@@ -52,7 +52,9 @@ trait ListDebug {
 @serializable
 class GroupView extends GroupViewModel with ListDebug {
 
-    @Inject
+  println("init:"+this.toString)
+
+  @Inject
   @BeanProperty
   var suggestModel:SimpleListSuggestModel = _
 

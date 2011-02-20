@@ -165,23 +165,23 @@
                 }
             }
             /*if (evt.status == "success") {
-                var responseXML = evt.responseXML;
-                var updates = responseXML.querySelectorAll("changes update");
-                var inserts = responseXML.querySelectorAll("changes insert");
-                //inserts are not needed because we can deal with
-                for (var cnt = updates.length - 1; cnt >= 0; cnt--) {
-                    var updateId = updates[cnt].getAttribute("id");
-                    if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || document.querySelectorAll("#" + updateId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
-                        this._onDomLoad(evt);
-                    }
-                }
-                for (var cnt = inserts.length - 1; cnt >= 0; cnt--) {
-                    var insertId = inserts[cnt].getAttribute("id");
-                    if (insertId && (insertId == this.P_VIEWBODY || insertId == this.P_VIEWROOT || this.id == insertId || document.querySelectorAll("#" + insertId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
-                        this._onDomLoad(evt);
-                    }
-                }
-            }*/
+             var responseXML = evt.responseXML;
+             var updates = responseXML.querySelectorAll("changes update");
+             var inserts = responseXML.querySelectorAll("changes insert");
+             //inserts are not needed because we can deal with
+             for (var cnt = updates.length - 1; cnt >= 0; cnt--) {
+             var updateId = updates[cnt].getAttribute("id");
+             if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || document.querySelectorAll("#" + updateId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
+             this._onDomLoad(evt);
+             }
+             }
+             for (var cnt = inserts.length - 1; cnt >= 0; cnt--) {
+             var insertId = inserts[cnt].getAttribute("id");
+             if (insertId && (insertId == this.P_VIEWBODY || insertId == this.P_VIEWROOT || this.id == insertId || document.querySelectorAll("#" + insertId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
+             this._onDomLoad(evt);
+             }
+             }
+             }*/
         },
         //TODO we might move our jsf event triggered handler
         //To the Dom Level 3 event DOMNodeRemoved
@@ -216,6 +216,17 @@
         onDomUnload: function(evt) {
         },
         onDomLoad: function(evt) {
+        },
+
+        getWindowParam: function(name) {
+            var s = window.location.search.substring(1).split('&');
+            if (!s.length) return;
+            var c = {};
+            for (var i = 0; i < s.length; i++) {
+                var parts = s[i].split('=');
+                c[unescape(parts[0])] = unescape(parts[1]);
+            }
+            return name ? c[name] : c;
         }
 
 

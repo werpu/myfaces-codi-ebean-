@@ -229,6 +229,15 @@
             this._refresh();
         },
 
+        onDomUnload: function() {
+            this.placeHolder.removeEventListener(this.EVT_FOCUS, this.onfocus, true);
+            this.placeHolder.removeEventListener(this.EVT_BLUR, this.onblur, true);
+
+            this._iterateElements(_Lang.hitch(this, function(elem, cnt) {
+                elem.removeEventListener(this.EVT_CLICK, this.onclick, false);
+            }));
+        },
+
         /**
          * element iterator
          *

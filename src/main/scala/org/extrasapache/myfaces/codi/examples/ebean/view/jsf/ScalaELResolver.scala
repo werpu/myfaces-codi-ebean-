@@ -76,9 +76,6 @@ class ScalaELResolver extends ELResolver {
   }
 
   def getType(elContext: ELContext, base: AnyRef, prop: AnyRef): Class[_] = {
-    if (prop == "model") {
-      println("debugpoint found")
-    }
     if (base == null || !base.isInstanceOf[scala.ScalaObject]) null
     else if (base != null && prop == null) null
     else {
@@ -94,9 +91,6 @@ class ScalaELResolver extends ELResolver {
   }
 
   def getValue(elContext: ELContext, base: AnyRef, prop: AnyRef): AnyRef = {
-    if (prop == "model") {
-      println("debugpoint found")
-    }
     if (!(base != null && base.isInstanceOf[scala.ScalaObject])) {
       null
     } else {
@@ -131,9 +125,6 @@ class ScalaELResolver extends ELResolver {
   }
 
   def setValue(elContext: ELContext, base: AnyRef, prop: AnyRef, value: AnyRef) {
-    if (prop == "groupType") {
-      println("debugpoint found")
-    }
     if (base != null && base.isInstanceOf[scala.ScalaObject]) {
       def methodName: String = prop.asInstanceOf[String]
       def setterName = methodName + "_$eq"
