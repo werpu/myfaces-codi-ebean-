@@ -6,7 +6,7 @@
  */
 package org.extrasapache.myfaces.codi.examples.ebean.view
 
-//import org.apache.myfaces.extensions.cdi.jsf.api.config.view.InlineViewConfigRoot
+import org.apache.myfaces.extensions.cdi.jsf.api.config.view.InlineViewConfigRoot
 
-//@InlineViewConfigRoot(basePath = "/*")
+@InlineViewConfigRoot(basePath = "/*")
 class Pages { }
