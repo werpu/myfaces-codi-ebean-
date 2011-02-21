@@ -21,7 +21,7 @@
     </composite:interface>
     <composite:implementation>
 
-        <div id="#{cc.clientId}">
+        <div id="#{cc.clientId}" class="inputSuggest">
             <!-- we wrap our cc into a div for easier ajaxing from outside -->
             <h:panelGroup layout="inputSuggest block" id="#{cc.attrs.id}">
 
@@ -60,8 +60,21 @@
                         lineHolderId:"#{cc.clientId}:lineHolder",
 
                         placeHolderId:"#{cc.clientId}:placeHolder",
-                        selectorIdentifier:"#{cc.attrs.selectorIdentifier}"
+                        selectorIdentifier:"#{cc.attrs.selectorIdentifier}",
+
+                        display: function(on) {
+                            document.getElementById(this._suggestPart.placeHolderId).style.display = (on)? "":"none";
+                        },
+
+                        position: function() {
+                            //this._callSuper("postInit", arguments);
+                            var offsetInput = document.getElementById(this.valueHolderId).offsetLeft;
+                            document.getElementById(this._suggestPart.placeHolderId).style.left = parseInt(offsetInput)+"px";
+                        }
                     });
+
+                    //position fixup so that we get the correct order of elements
+
                 </script>
             </h:panelGroup>
         </div>

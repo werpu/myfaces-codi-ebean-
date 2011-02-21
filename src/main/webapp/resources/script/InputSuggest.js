@@ -45,11 +45,13 @@
          */
         sticky: false,
 
+        hideTimeout: 2000,
+
         _suggestPart: null,
 
         _args: null,
 
-
+        _hideTimer: null,
 
         constructor_:function(args) {
             this._callSuper("constructor", args);
@@ -61,28 +63,55 @@
 
         },
 
+        display: function(on) {
+            document.getElementById(this._suggestPart.placeHolderId).style.display = (on) ? "block" : "none";
+        },
 
+        position: function() {
+            var offsetInput = document.getElementById(this.valueHolderId).offsetLeft;
+            document.getElementById(this._suggestPart.placeHolderId).style.left = parseInt(offsetInput) + "px";
+        },
+
+        _startHideTimer: function() {
+            this._stopHideTimer();
+            this._hideTimer = setTimeout(_Lang.hitch(this, function() {
+                this.display(false);
+            }), this.hideTimeout);
+        },
+
+        _stopHideTimer: function() {
+            if (this._hideTimer) {
+                clearTimeout(this._hideTimer);
+            }
+        },
 
         onKeyDown: function(evt) {
 
             if (evt.keyCode == this.KEY_ARROW_DOWN) {
                 //this._suggestPart.selectedLine = 0;
                 //this._suggestPart.placeHolder.focus();
-                this._suggestPart.placeHolder.setAttribute("style", "display:");
+                this.display(true);
+                this.position();
                 this._suggestPart.onkeydown(evt);
                 this._onLineSelection(evt);
 
+                this._startHideTimer();
             } else if (evt.keyCode == this.KEY_ARROW_UP) {
-                this._suggestPart.placeHolder.setAttribute("style", "display:");
+                this.display(true);
+                this.position();
                 this._suggestPart.onkeydown(evt);
                 this._onLineSelection(evt);
 
+                this._startHideTimer();
             } else if (evt.keyCode == this.KEY_ESCAPE) {
                 //hide the panel
-                this._suggestPart.placeHolder.setAttribute("style", "display:none");
+                this.display(false);
 
+                this._stopHideTimer();
             } else {
-                this._suggestPart.placeHolder.setAttribute("style", "display:");
+                this._startHideTimer();
+                this.display(true);
+                this.position();
                 this._onCharType(evt);
 
             }
@@ -109,12 +138,15 @@
                 //we have to retrigger our refresh area handling because our ajax preview area was
                 //updated
                 if (panelFound || inputFound) {
-                    this._postInit();
+                    _Lang.byId(this.valueHolderId).addEventListener(this.EVT_KEY_DOWN, this.onKeyDown, false);
                     _Lang.byId(this.valueHolderId).focus();
+
                 }
                 if (panelFound) {
                     this._initSelectionList(this._args);
                     this._suggestPart._postInit();
+                    this.display(true);
+                    this.position();
                 }
             }
         },
@@ -134,7 +166,7 @@
 
         _onLineSelection:function(evt) {
             //TODO trigger ajax selection change event
-            this._suggestPart.placeHolder.setAttribute("style", "display", "none");
+
             //_Lang.byId(this.valueHolderId).removeEventListener(this.EVT_KEY_DOWN, this.onKeyDown, false);
             jsf.ajax.request(evt.target, evt, {
                 execute:this.rootNode.id,
@@ -154,6 +186,8 @@
 
         _initSelectionList: function(args) {
             var selectionArgs = _Lang.mixMaps({}, args);
+            delete selectionArgs.postInit;
+            delete selectionArgs.postInit_;
             selectionArgs.valueHolderId = this.lineHolderId;
             this._suggestPart = new extras.apache.SelectionList(selectionArgs);
         },
@@ -167,6 +201,8 @@
             this._callSuper("_postInit", arguments);
             //this.valueHolder = this.rootNode.querySelectorAll("#" + this.valueHolderId.replace(/:/g, "\\:"))[0];
             _Lang.byId(this.valueHolderId).addEventListener(this.EVT_KEY_DOWN, this.onKeyDown, false);
+            this.display(false);
+            this.position();
         }
     });
 

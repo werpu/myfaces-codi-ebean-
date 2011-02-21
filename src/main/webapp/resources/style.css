@@ -298,9 +298,8 @@ div.actions>a {
     margin-right: 0.2em;
 }
 
-
 table.resultList tr:hover {
-        background-color: #d0d2d6;
+    background-color: #d0d2d6;
 }
 
 /*shuttle control*/
@@ -353,5 +352,27 @@ table.resultList tr:hover {
 
 .shuttleController div.shuttle_right {
     left: 35em;
+}
+
+/* type ahead*/
+.inputSuggest {
+/*root marker of the entire input suggest control*/
+    display: block;
+    position: relative;
+    /*we have to add the position flag to enable position absolute
+as relative coordinate to the input*/
+}
+
+.inputSuggest .suggestArea {
+    border: 1px solid gray;
+    -moz-box-shadow: 0 0 2px #888;
+    -webkit-box-shadow: 0 0 2px #888;
+    -o-box-shadow: 0 0 2px #888;
+
+    box-shadow: 0 0 2px #888888;
+    position: absolute;
+    background-color: white;
+    padding: 0.3em;
+    display: block;
 }
 

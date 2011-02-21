@@ -92,6 +92,7 @@
         constructor_: function(argsMap) {
             _Lang.applyArgs(this, argsMap);
             this.addOnLoad(window, _Lang.hitch(this, this._postInit));
+            this.addOnLoad(window, _Lang.hitch(this, this.postInit_));
 
             //we enforce the scope for the onAjaxEvent
             this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
@@ -102,10 +103,13 @@
             target.onload = (!oldonload) ? func : function() {
                 try {
                     oldonload();
+                    console.debug(oldonload.toString());
                 } catch (e) {
+                    console.error(e);
                     throw e;
                 } finally {
                     func();
+                    console.debug(func.toString())
                 }
             };
         },
@@ -240,6 +244,10 @@
                 c[unescape(parts[0])] = unescape(parts[1]);
             }
             return name ? c[name] : c;
+        },
+
+        postInit_: function() {
+
         }
 
 
