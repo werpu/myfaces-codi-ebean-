@@ -91,10 +91,23 @@
 
         constructor_: function(argsMap) {
             _Lang.applyArgs(this, argsMap);
-            _RT.addOnLoad(window, _Lang.hitch(this, this._postInit));
+            this.addOnLoad(window, _Lang.hitch(this, this._postInit));
 
             //we enforce the scope for the onAjaxEvent
             this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
+        },
+
+        addOnLoad: function(target, func) {
+            var oldonload = (target)? target.onload: null;
+            target.onload = (!oldonload) ? func : function() {
+                try {
+                    oldonload();
+                } catch (e) {
+                    throw e;
+                } finally {
+                    func();
+                }
+            };
         },
 
         _postInit: function() {
