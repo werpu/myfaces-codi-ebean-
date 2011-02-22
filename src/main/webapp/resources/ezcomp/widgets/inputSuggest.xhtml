@@ -5,7 +5,9 @@
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:c="http://java.sun.com/jsp/jstl/core">
     <composite:interface componentType="at.irian.InputSuggest">
-        <composite:attribute name="model" type="org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestmodel"  required="true"/>
+        <composite:attribute name="model"
+                             type="org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestmodel"
+                             required="true"/>
 
         <composite:attribute name="id" required="true" default=""/>
 
@@ -17,9 +19,14 @@
         <composite:attribute name="inputStyleClass" default=""/>
         <composite:attribute name="messageClass" default=""/>
         <composite:attribute name="selectorIdentifier" default="ul li"/>
-        <composite:facet name="suggestArea" />
+        <composite:facet name="suggestArea"/>
     </composite:interface>
     <composite:implementation>
+
+        <h:outputScript library="script" name="ComponentBase.js"    />
+        <h:outputScript library="script" name="SelectionList.js"    />
+        <h:outputScript library="script" name="InputSuggest.js"     />
+
 
         <div id="#{cc.clientId}" class="inputSuggest">
             <!-- we wrap our cc into a div for easier ajaxing from outside -->
@@ -36,21 +43,22 @@
 
                 <h:panelGroup styleClass="inputArea" layout="block">
 
-                    <h:outputLabel  value="#{cc.attrs.label}" for="valueHolder"
+                    <h:outputLabel value="#{cc.attrs.label}" for="valueHolder"
                                    styleClass="label #{cc.attrs.labelStyleClass}"/>
-                    <h:inputText binding="#{cc.valueHolder}" id="valueHolder" styleClass="inputText #{cc.attrs.inputStyleClass}"
+                    <h:inputText binding="#{cc.valueHolder}" id="valueHolder"
+                                 styleClass="inputText #{cc.attrs.inputStyleClass}"
                                  value="#{cc.attrs.model.displayValue}" autocomplete="off">
-                         <f:event type="preRenderComponent" listener="#{cc.preRenderInput}" />
+                        <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
                     </h:inputText>
                     <h:message for="valueHolder" styleClass="message #{cc.attrs.messageClass} "/>
 
                 </h:panelGroup>
 
                 <h:panelGroup binding="#{cc.placeHolder}" layout="block" styleClass="suggestArea" id="placeHolder">
-                    <f:event type="preRenderComponent" listener="#{cc.preRenderComponentList}" />
+                    <f:event type="preRenderComponent" listener="#{cc.preRenderComponentList}"/>
                     <h:inputHidden id="lineHolder" value="#{cc.attrs.model.selectedLine}"/>
 
-                    <composite:renderFacet name="suggestArea" />
+                    <composite:renderFacet name="suggestArea"/>
                 </h:panelGroup>
 
                 <script type="text/javascript">
@@ -60,17 +68,8 @@
                         lineHolderId:"#{cc.clientId}:lineHolder",
 
                         placeHolderId:"#{cc.clientId}:placeHolder",
-                        selectorIdentifier:"#{cc.attrs.selectorIdentifier}",
+                        selectorIdentifier:"#{cc.attrs.selectorIdentifier}"
 
-                        display: function(on) {
-                            document.getElementById(this._suggestPart.placeHolderId).style.display = (on)? "":"none";
-                        },
-
-                        position: function() {
-                            //this._callSuper("postInit", arguments);
-                            var offsetInput = document.getElementById(this.valueHolderId).offsetLeft;
-                            document.getElementById(this._suggestPart.placeHolderId).style.left = parseInt(offsetInput)+"px";
-                        }
                     });
 
                     //position fixup so that we get the correct order of elements

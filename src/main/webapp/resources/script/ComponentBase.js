@@ -88,18 +88,24 @@
         P_VIEWBODY: "javax.faces.ViewBody",
         P_VIEWROOT: "javax.faces.ViewRoot",
 
+        valueHolderAppendix: "_valueHolder",
+        valueHolderId: null,
 
         constructor_: function(argsMap) {
             _Lang.applyArgs(this, argsMap);
+            /*internal postinit*/
             this.addOnLoad(window, _Lang.hitch(this, this._postInit));
+            /*external postinit*/
             this.addOnLoad(window, _Lang.hitch(this, this.postInit_));
 
             //we enforce the scope for the onAjaxEvent
             this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
+
+            this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
         },
 
         addOnLoad: function(target, func) {
-            var oldonload = (target)? target.onload: null;
+            var oldonload = (target) ? target.onload : null;
             target.onload = (!oldonload) ? func : function() {
                 try {
                     oldonload();
@@ -181,24 +187,6 @@
                     }
                 }
             }
-            /*if (evt.status == "success") {
-             var responseXML = evt.responseXML;
-             var updates = responseXML.querySelectorAll("changes update");
-             var inserts = responseXML.querySelectorAll("changes insert");
-             //inserts are not needed because we can deal with
-             for (var cnt = updates.length - 1; cnt >= 0; cnt--) {
-             var updateId = updates[cnt].getAttribute("id");
-             if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || document.querySelectorAll("#" + updateId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
-             this._onDomLoad(evt);
-             }
-             }
-             for (var cnt = inserts.length - 1; cnt >= 0; cnt--) {
-             var insertId = inserts[cnt].getAttribute("id");
-             if (insertId && (insertId == this.P_VIEWBODY || insertId == this.P_VIEWROOT || this.id == insertId || document.querySelectorAll("#" + insertId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
-             this._onDomLoad(evt);
-             }
-             }
-             }*/
         },
         //TODO we might move our jsf event triggered handler
         //To the Dom Level 3 event DOMNodeRemoved

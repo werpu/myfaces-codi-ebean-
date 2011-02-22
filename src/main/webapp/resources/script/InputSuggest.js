@@ -22,8 +22,7 @@
          *
          */
         maxTypeAhead: 3,
-        valueHolderAppendix: "_valueHolder",
-        valueHolderId: null,
+
 
         lineHolderId: null,
         lineHolderAppendix: "_lineHolder",
@@ -56,26 +55,29 @@
         constructor_:function(args) {
             this._callSuper("constructor", args);
             this.onKeyDown = _Lang.hitch(this, this.onKeyDown);
-            this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
+
 
             this._initSelectionList(args);
             this._args = args;
 
         },
 
-        display: function(on) {
+        showSuggest: function(on) {
             document.getElementById(this._suggestPart.placeHolderId).style.display = (on) ? "block" : "none";
         },
 
         position: function() {
-            var offsetInput = document.getElementById(this.valueHolderId).offsetLeft;
-            document.getElementById(this._suggestPart.placeHolderId).style.left = parseInt(offsetInput) + "px";
+            var valueHolder = document.getElementById(this.valueHolderId);
+            var offsetInput = valueHolder.offsetLeft;
+            var suggest = document.getElementById(this._suggestPart.placeHolderId);
+            suggest.style.left = parseInt(offsetInput) + "px";
+            suggest.style.minWidth = parseInt(valueHolder.style.width) || parseInt(valueHolder.offsetWidth) + "px";
         },
 
         _startHideTimer: function() {
             this._stopHideTimer();
             this._hideTimer = setTimeout(_Lang.hitch(this, function() {
-                this.display(false);
+                this.showSuggest(false);
             }), this.hideTimeout);
         },
 
@@ -90,36 +92,27 @@
             if (evt.keyCode == this.KEY_ARROW_DOWN) {
                 //this._suggestPart.selectedLine = 0;
                 //this._suggestPart.placeHolder.focus();
-                this.display(true);
-                this.position();
+                this._displayState();
                 this._suggestPart.onkeydown(evt);
                 this._onLineSelection(evt);
 
-                this._startHideTimer();
             } else if (evt.keyCode == this.KEY_ARROW_UP) {
-                this.display(true);
-                this.position();
+                this._displayState();
                 this._suggestPart.onkeydown(evt);
                 this._onLineSelection(evt);
 
-                this._startHideTimer();
+                ;
             } else if (evt.keyCode == this.KEY_ESCAPE) {
                 //hide the panel
-                this.display(false);
-
-                this._stopHideTimer();
+                this._hideState();
             } else {
-                this._startHideTimer();
-                this.display(true);
-                this.position();
+                this._displayState();
                 this._onCharType(evt);
 
             }
         },
 
-        onKeyPressSuggest: function(evt) {
 
-        },
 
         ajaxCallHandler: function(evt) {
             this._callSuper("onAjaxEvent", evt);
@@ -145,11 +138,22 @@
                 if (panelFound) {
                     this._initSelectionList(this._args);
                     this._suggestPart._postInit();
-                    this.display(true);
-                    this.position();
+                    this._displayState();
                 }
             }
         },
+
+        _displayState: function() {
+            this.showSuggest(true);
+            this.position();
+            this._startHideTimer();
+        },
+
+        _hideState: function() {
+            this._stopHideTimer();
+            this.showSuggest(false);
+        },
+
 
         _onCharType: function(evt) {
             jsf.ajax.request(evt.target, evt, {
@@ -201,7 +205,7 @@
             this._callSuper("_postInit", arguments);
             //this.valueHolder = this.rootNode.querySelectorAll("#" + this.valueHolderId.replace(/:/g, "\\:"))[0];
             _Lang.byId(this.valueHolderId).addEventListener(this.EVT_KEY_DOWN, this.onKeyDown, false);
-            this.display(false);
+            this.showSuggest(false);
             this.position();
         }
     });
