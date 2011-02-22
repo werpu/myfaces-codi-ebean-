@@ -15,19 +15,16 @@
 
         _refreshInterval: null,
 
-        /**
-         * dummy value holder
-         */
-        _valueHolderId: null,
+
 
         constructor_:function(args) {
             this._callSuper("constructor", args);
-            this.refresh = _Lang.hitch(this.refresh);
+            this.refresh = _Lang.hitch(this, this.refresh);
             this.refreshTargetId = this.refreshTargetId || this.id + ":" + this.refreshTargetAppendix;
         },
 
         refresh: function() {
-            jsf.ajax.request(this._valueHolderId, null, {execute:this._valueHolderId, render:this.refreshTargetId});
+            jsf.ajax.request(this.valueHolderId, null, {execute:this.valueHolderId, render:this.refreshTargetId});
         },
 
         onDomUnload: function(evt) {

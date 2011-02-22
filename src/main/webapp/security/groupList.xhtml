@@ -37,8 +37,6 @@
         --></script>
 
 
-
-
     </ui:define>
 
     <ui:define name="search">
@@ -76,11 +74,17 @@
                 <ezcomp:groupList value="#{groupView}"/>
             </h:panelGroup>
 
+            <ezw:pull id="pull">
+
+                    aaaa
+                    <h:outputFormat value="#{timeModel.timeDateAsString}"></h:outputFormat>
+
+            </ezw:pull>
 
             <ezw:inputSuggest id="mySuggest" value="booga"
                               inputStyleClass="inputStyle"
                               label="myInputLabel" model="#{groupView.suggestModel}" selectorIdentifier="ul li">
-                <f:facet name="suggestArea">
+
                     <h:panelGroup id="suggestResult">
                         <ul>
                             <ui:repeat value="#{groupView.suggestModel.suggestData}" var="item">
@@ -89,7 +93,7 @@
                         </ul>
                     </h:panelGroup>
                     <h:outputFormat value="hello from suggest"/>
-                </f:facet>
+
             </ezw:inputSuggest>
 
         </h:form>

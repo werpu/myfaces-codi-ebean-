@@ -9,6 +9,7 @@
         <composite:attribute name="refreshInterval" default="500"/>
         <composite:attribute name="form" type="java.lang.Boolean" default="false"/>
         <composite:attribute name="jsVar" type="java.lang.String" />
+
     </composite:interface>
     <composite:implementation>
         <h:outputScript library="script" name="ComponentBase.js"/>
@@ -19,7 +20,8 @@
         <div id="#{cc.clientId}" class="pull">
             <h:panelGroup id="#{cc.attrs.id}">
                 <h:panelGroup id="_refreshArea" layout="block">
-                    <composite:insertChildren></composite:insertChildren>
+                    <composite:insertChildren />
+                    
                     <c:if test="#{cc.attrs.form}">
                         <h:form id="dummyForm" prependId="false">
                             <h:inputHidden id="#{cc.attrs.id}_valueHolder"/>

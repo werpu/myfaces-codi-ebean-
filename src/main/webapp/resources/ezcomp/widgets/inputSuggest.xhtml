@@ -19,7 +19,7 @@
         <composite:attribute name="inputStyleClass" default=""/>
         <composite:attribute name="messageClass" default=""/>
         <composite:attribute name="selectorIdentifier" default="ul li"/>
-        <composite:facet name="suggestArea"/>
+
     </composite:interface>
     <composite:implementation>
 
@@ -58,7 +58,7 @@
                     <f:event type="preRenderComponent" listener="#{cc.preRenderComponentList}"/>
                     <h:inputHidden id="lineHolder" value="#{cc.attrs.model.selectedLine}"/>
 
-                    <composite:renderFacet name="suggestArea"/>
+                    <composite:insertChildren />
                 </h:panelGroup>
 
                 <script type="text/javascript">
