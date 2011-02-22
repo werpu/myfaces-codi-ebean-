@@ -376,3 +376,28 @@ as relative coordinate to the input*/
     display: block;
 }
 
+/**
+ajax progressor
+*/
+.ajaxProgress {
+
+
+
+}
+
+.ajaxProgress .progressArea {
+    opacity:0;
+
+     -webkit-transition: opacity 0.2s ease-in;
+    -moz-transition: opacity 0.2s ease-in;
+    -o-transition: opacity 0.2s ease-in;
+}
+
+.ajaxProgress .progressArea.ajaxProgressStopped {
+    opacity: 0;
+}
+
+.ajaxProgress .progressArea.ajaxInProgress {
+    opacity: 1;
+}
+

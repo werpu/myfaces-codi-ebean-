@@ -52,6 +52,8 @@
     var _RT = myfaces._impl.core._Runtime;
     var _Lang = myfaces._impl._util._Lang;
     var _AjaxQueue = extras.apache.ExtendedEventQueue;
+    var _ErrorQueue = extras.apache.ExtendedErrorQueue;
+
     /**
      * Base class for all components which adds certain behavior
      * to our widgets, we dont use a dojo like templating system
@@ -100,6 +102,7 @@
 
             //we enforce the scope for the onAjaxEvent
             this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
+            this.onErrorEvent = _Lang.hitch(this, this.onErrorEvent);
 
             this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
         },
@@ -124,6 +127,7 @@
 
             this.rootNode = document.querySelectorAll("#" + this.id.replace(/:/g, "\\:"))[0];
             _AjaxQueue.enqueue(this.onAjaxEvent);
+            _ErrorQueue.enqueue(this.onErrorEvent);
         },
 
         querySelectorAll: function(queryStr) {
@@ -156,6 +160,10 @@
                 if (classes[cnt] != styleClass) res.push(classes[cnt]);
             }
             node.setAttribute("class", res.join(" "));
+        },
+
+        onErrorEvent: function(evt) {
+
         },
 
         //TODO we need a replacement handler which notifies the control that it is about to be replaced
@@ -192,6 +200,7 @@
         //To the Dom Level 3 event DOMNodeRemoved
         _onDomUnload: function(evt) {
             _AjaxQueue.dequeue(this.onAjaxEvent);
+            _ErrorQueue.dequeue(this.onErrorEvent);
             this.onDomUnload(evt);
         },
 

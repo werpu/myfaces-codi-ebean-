@@ -74,25 +74,22 @@
                 <ezcomp:groupList value="#{groupView}"/>
             </h:panelGroup>
 
-            <ezw:pull id="pull">
-
-                    aaaa
-                    <h:outputFormat value="#{timeModel.timeDateAsString}"></h:outputFormat>
-
-            </ezw:pull>
+            <ezw:ajaxProgress id="pull">
+                Ajax in progress
+            </ezw:ajaxProgress>
 
             <ezw:inputSuggest id="mySuggest" value="booga"
                               inputStyleClass="inputStyle"
                               label="myInputLabel" model="#{groupView.suggestModel}" selectorIdentifier="ul li">
 
-                    <h:panelGroup id="suggestResult">
-                        <ul>
-                            <ui:repeat value="#{groupView.suggestModel.suggestData}" var="item">
-                                <li>#{item}</li>
-                            </ui:repeat>
-                        </ul>
-                    </h:panelGroup>
-                    <h:outputFormat value="hello from suggest"/>
+                <h:panelGroup id="suggestResult">
+                    <ul>
+                        <ui:repeat value="#{groupView.suggestModel.suggestData}" var="item">
+                            <li>#{item}</li>
+                        </ui:repeat>
+                    </ul>
+                </h:panelGroup>
+                <h:outputFormat value="hello from suggest"/>
 
             </ezw:inputSuggest>
 
