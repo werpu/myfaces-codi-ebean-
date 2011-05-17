@@ -24,11 +24,17 @@ class GroupFacade extends FacadeBase[SecGroup] {
   clazz = classOf[SecGroup]
 
   def createGroup: SecGroup = new SecGroup
+  import java.lang.Long._
+
+
 
   def loadByIdsStr(ids: Collection[String]): List[SecGroup] = {
-    import java.lang.Long._
-    val ret = asScalaIterable(ids).map{parseLong(_)}
-    loadByIds(ret)
+    /*we use our implicit conversion to map the lists*/
+    implicit def mapCollections(ids: Collection[String]): Collection[Long] = {
+      asScalaIterable(ids).map{parseLong(_)}
+    }
+
+    loadByIds(ids)
   }
 
   def loadByIds(ids: Collection[Long]): List[SecGroup] = {

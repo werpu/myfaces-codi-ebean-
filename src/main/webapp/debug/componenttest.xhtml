@@ -66,23 +66,57 @@
 
 
         <h:form id="mainForm" prependId="false">
-            <h:commandLink id="create_group" action="#{groupView.goCreate}" value="#{msgs.group_create}"
-                           onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog:ajaxTarget'});return false;">
-                <f:setPropertyActionListener target="#{groupView.pageMode}" value="create"/>
-            </h:commandLink>
-            <h:panelGroup id="resultArea">
-                <ezcomp:groupList value="#{groupView}"/>
-            </h:panelGroup>
 
             <ezw:ajaxStatus id="pull">
                 Ajax in progress
             </ezw:ajaxStatus>
 
+            <ezw:progressBar id="progressor" value="#{progressService.progressModel}" />
+
+            <ezw:inputSuggest id="mySuggest" value="booga"
+                              inputStyleClass="inputStyle"
+                              label="myInputLabel" model="#{groupView.suggestModel}" selectorIdentifier="ul li">
+
+                <h:panelGroup id="suggestResult">
+                    <ul>
+                        <ui:repeat value="#{groupView.suggestModel.suggestData}" var="item">
+                            <li>#{item}</li>
+                        </ui:repeat>
+                    </ul>
+                </h:panelGroup>
+                <h:outputFormat value="hello from suggest"/>
+
+            </ezw:inputSuggest>
+
         </h:form>
 
-        <ezcomp:groupEditDialogContent id="groupDetaDialog" value="#{groupView}"/>
 
+        <h:panelGroup type="block">
+            <h3>Item Select</h3>
+            <h:panelGroup layout="block" id="selectionList">
+                <ul id="selectionList_placeHolder">
+                    <li>First Line</li>
+                    <li>Second Line</li>
+                    <li>Third Line</li>
+                </ul>
 
+                <h:inputHidden id="selectionList_valueHolder"/>
+            </h:panelGroup>
+            <style type="text/css">
+                .selected {
+                    background-color: #b9a2c3;
+                }
+
+                .focus {
+                    border: 1px solid gray;
+                }
+            </style>
+            <script type="text/javascript">
+                var selectionList = new extras.apache.SelectionList({
+                    id:"selectionList",  selectorIdentifier:"ul li"
+                });
+            </script>
+        </h:panelGroup>
     </ui:define>
 </ui:composition>
 

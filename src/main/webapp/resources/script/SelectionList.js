@@ -129,12 +129,16 @@
             var target = evt.target;
 
             //find out which element in the row of elements was clicked
-            this._iterateElements(_Lang.hitch(this, function(elem, pos) {
+            var pos = 0;
+            this.rootNode.querySelectorAll(this.selectorIdentifier).forEach(_Lang.hitch(this, function(elem) {
                 if (elem == evt.target) {
                     this.selectedLine = pos;
                     return false;
                 }
+                pos++;
             }));
+
+
             this._refresh();
             this.onSelectionChange(evt);
             this.onFinalSelection(evt);
@@ -214,17 +218,15 @@
         _postInit: function() {
             this._callSuper("_postInit", arguments);
 
-            this.placeHolder = this.rootNode.querySelectorAll("#" + this.placeHolderId.replace(/:/g, "\\:"))[0];
-            this.valueHolder = this.rootNode.querySelectorAll("#" + this.valueHolderId.replace(/:/g, "\\:"))[0];
+            this.placeHolder = this.rootNode.querySelector("#" + this.placeHolderId.replace(/:/g, "\\:"));
+            this.valueHolder = this.rootNode.querySelector("#" + this.valueHolderId.replace(/:/g, "\\:"));
 
             this.placeHolder.tabIndex = this.tabIndex;
 
             this.placeHolder.addEventListener(this.EVT_FOCUS, this.onfocus, true);
             this.placeHolder.addEventListener(this.EVT_BLUR, this.onblur, true);
 
-            this._iterateElements(_Lang.hitch(this, function(elem, cnt) {
-                elem.addEventListener(this.EVT_CLICK, this.onclick, false);
-            }));
+            this.rootNode.querySelectorAll(this.selectorIdentifier).addEventListener(this.EVT_CLICK, this.onclick, false);
 
             this._refresh();
         },
@@ -233,31 +235,35 @@
             this.placeHolder.removeEventListener(this.EVT_FOCUS, this.onfocus, true);
             this.placeHolder.removeEventListener(this.EVT_BLUR, this.onblur, true);
 
-            this._iterateElements(_Lang.hitch(this, function(elem, cnt) {
-                elem.removeEventListener(this.EVT_CLICK, this.onclick, false);
-            }));
+            //we unload all event listeners
+            this.rootNode.querySelectorAll(this.selectorIdentifier).removeEventListener(this.EVT_CLICK, this.onclick, false);
         },
 
         /**
          * element iterator
          *
+         * TODO rework this code
+         *
          * @param theClosure
          */
-        _iterateElements: function(/*function(elem, position){}*/theClosure) {
+        /*_iterateElements: function(theClosure) {
             var lines = this.rootNode.querySelectorAll(this.selectorIdentifier);
             this._numberOfItems = lines.length;
 
             for (var cnt = lines.length - 1; cnt >= 0; cnt --) {
-                var ret = theClosure(lines[cnt], cnt);
+                var ret = theClosure(lines.get(cnt), cnt);
                 if ('undefined' != typeof ret && ret === false) break;
             }
-        },
+        },*/
 
         _refresh: function() {
-            this._iterateElements(_Lang.hitch(this, function(elem, cnt) {
-                (cnt != this.selectedLine) ? this.removeClass(elem, this.selectionSelected) :
+            var cnt = 0;
+            var selectors = this.rootNode.querySelectorAll(this.selectorIdentifier);
+            this._numberOfItems = selectors.length;
+            selectors.forEach(_Lang.hitch(this, function (elem) {
+                 (cnt != this.selectedLine) ? this.removeClass(elem, this.selectionSelected) :
                         this.addClass(elem, this.selectionSelected);
-
+                 cnt ++;
             }));
         }
 

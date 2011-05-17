@@ -1,9 +1,6 @@
-package org.extrasapache.myfaces.codi.examples.ebean.support.ui
+package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common
 
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OpType, FilterEntry}
-
-import reflect.BooleanBeanProperty
-import collection.mutable.Buffer
 
 /*explicit import to overwrite the scala defaults*/
 

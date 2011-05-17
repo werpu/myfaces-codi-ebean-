@@ -4,7 +4,6 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationContr
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.security.{GroupFacade, UserFacade}
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade
 import org.extrasapache.myfaces.codi.examples.ebean.view.person.{Person, PersonListSearchModel}
-import org.extrasapache.myfaces.codi.examples.ebean.support.ui.ShuttleController
 import org.extrasapache.myfaces.codi.examples.ebean.orm.security._
 import org.extrasapache.myfaces.codi.examples.ebean.orm.person.{Address, Person}
 import javax.inject.{Named, Inject}
@@ -13,6 +12,8 @@ import javax.annotation.PostConstruct
 import collection.JavaConversions._
 import collection.mutable.{ArrayBuffer, Buffer, Set}
 import javax.faces.model.SelectItem
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.shuttle.ShuttleController
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)

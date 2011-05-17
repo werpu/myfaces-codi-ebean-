@@ -379,25 +379,53 @@ as relative coordinate to the input*/
 /**
 ajax progressor
 */
-.ajaxProgress {
+.ajaxStatus .statusArea {
+    opacity: 0;
 
-
-
-}
-
-.ajaxProgress .progressArea {
-    opacity:0;
-
-     -webkit-transition: opacity 0.2s ease-in;
+    -webkit-transition: opacity 0.2s ease-in;
     -moz-transition: opacity 0.2s ease-in;
     -o-transition: opacity 0.2s ease-in;
 }
 
-.ajaxProgress .progressArea.ajaxProgressStopped {
+.ajaxStatus .progressArea.ajaxStatusStopped {
     opacity: 0;
 }
 
-.ajaxProgress .progressArea.ajaxInProgress {
+.ajaxStatus .progressArea.ajaxInProgress {
     opacity: 1;
 }
 
+/**
+* progress bar
+*/
+.progressBar .progressHolder {
+    width: 100px;
+    height: 20px;
+    border: 1px solid gray;
+}
+
+.progressBar  .progressGauge {
+    height: 18px;
+    border: 1px #add8e6 groove;
+    width: 0px; /*we add transitions to animate the flow*/
+    -webkit-transition: width 0.2s ease-in;
+    -moz-transition: width 0.2s ease-in;
+    -o-transition: width 0.2s ease-in;
+}
+
+.progressBar  .progressGauge.progressFirstThird {
+    background-color: red;
+}
+.progressBar  .progressGauge.progressSecondThird {
+    background-color: orange;
+}
+.progressBar  .progressGauge.progressThirdThird {
+    background-color: yellow;
+}
+.progressBar  .progressGauge.progressFinished {
+    background-color: green;
+}
+
+.progressBar .progressText {
+    text-shadow: 0 1px 0 #fff;
+}

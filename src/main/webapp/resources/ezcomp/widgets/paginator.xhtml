@@ -59,14 +59,14 @@
 
                         <h:commandLink id="page_select" styleClass="fader page paginatorEntry" action="groupList"
                                        value="${curVal}"
-                                       rendered="#{curVal != cc.attrs.value.getLastPageAccessed()}"
+                                       rendered="#{curVal != cc.attrs.value.lastPageAccessed}"
                                        onclick="jsf.ajax.request(this, event, {execute:'@this', render:'#{cc.attrs.forTableClientId} #{cc.attrs.enclosingContainerClientId}'});return false;"
                                 >
                             <f:setPropertyActionListener value="${curVal}" target="#{cc.attrs.value.lastPageAccessed}"/>
 
                         </h:commandLink>
                         <h:outputFormat value="${curVal}" styleClass="fader page paginatorEntry"
-                                        rendered="#{curVal eq cc.attrs.value.getLastPageAccessed()}"/>
+                                        rendered="#{curVal eq cc.attrs.value.lastPageAccessed}"/>
                     </ui:repeat>
                 </h:panelGroup>
 
