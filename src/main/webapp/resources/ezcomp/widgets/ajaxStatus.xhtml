@@ -1,0 +1,38 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <composite:interface>
+        <composite:attribute name="id" required="true"></composite:attribute>
+    </composite:interface>
+    <composite:implementation>
+        <h:outputScript library="script" name="dom/_DomEngine.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
+
+        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
+        <h:outputScript library="script" name="dom/Sizzle.js"/>
+        <h:outputScript library="script" name="dom/Node.js"/>
+        <h:outputScript library="script" name="dom/NodeList.js"/>
+
+        <h:outputScript library="script" name="ComponentBase.js"/>
+        <h:outputScript library="script" name="AjaxStatus.js"/>
+
+
+        <div id="#{cc.clientId}" class="ajaxStatus">
+            <h:panelGroup id="#{cc.attrs.id}" styleClass="statusArea ajaxStatusStopped">
+                <composite:insertChildren></composite:insertChildren>
+
+                <script type="text/javascript">
+                    var ajaxStatus_#{cc.attrs.id} = new extras.apache.AjaxStatus({
+                        clientId:"#{cc.clientId}",
+                        id:"#{cc.clientId}:#{cc.attrs.id}"
+                    });
+                </script>
+            </h:panelGroup>
+        </div>
+
+    </composite:implementation>
+</ui:component>

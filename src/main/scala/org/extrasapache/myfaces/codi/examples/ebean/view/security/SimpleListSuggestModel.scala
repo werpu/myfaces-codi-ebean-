@@ -18,6 +18,7 @@ import javax.enterprise.context.Dependent
 @Named
 @Dependent
 class SimpleListSuggestModel extends InputSuggestController[String /*data type for the value*/ , Array[String] /*the list holder*/ ] {
+
   val initialValues = List[String]("A", "AA", "AAA", "AAAA", "AAAAA")
 
   def refreshCurrentResults() {

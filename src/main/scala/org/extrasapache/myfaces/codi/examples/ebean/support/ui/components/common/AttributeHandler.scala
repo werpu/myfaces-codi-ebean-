@@ -1,4 +1,4 @@
-package org.extrasapache.myfaces.codi.examples.ebean.support.ui
+package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common
 
 import java.io.Serializable
 

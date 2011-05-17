@@ -6,8 +6,9 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestCon
 
 import scala.collection.mutable._
 import scala.collection.JavaConversions._
-import reflect.BeanProperty
 import javax.faces.component.{UIInput, UIComponent, UINamingContainer, FacesComponent}
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.AttributeHandler
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui._
 
 /**
  *

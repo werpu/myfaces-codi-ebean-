@@ -12,7 +12,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.StdEntity
 @Entity
 @Table(name = "o_address")
 @serializable
-class Address  extends StdEntity {
+class Address extends StdEntity {
 
    var street: String = _
 

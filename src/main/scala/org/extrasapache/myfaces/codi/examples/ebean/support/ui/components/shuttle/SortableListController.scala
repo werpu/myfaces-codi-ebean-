@@ -1,4 +1,4 @@
-package org.extrasapache.myfaces.codi.examples.ebean.support.ui
+package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.shuttle
 
 import javax.faces.model.SelectItem
 import collection.mutable.{ArrayBuffer, Buffer, LinkedHashMap}

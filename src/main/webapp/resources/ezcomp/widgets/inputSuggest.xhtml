@@ -23,9 +23,18 @@
     </composite:interface>
     <composite:implementation>
 
-        <h:outputScript library="script" name="ComponentBase.js"    />
-        <h:outputScript library="script" name="SelectionList.js"    />
-        <h:outputScript library="script" name="InputSuggest.js"     />
+        <h:outputScript library="script" name="dom/_DomEngine.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
+
+        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
+        <h:outputScript library="script" name="dom/Sizzle.js"/>
+        <h:outputScript library="script" name="dom/Node.js"/>
+        <h:outputScript library="script" name="dom/NodeList.js"/>
+
+        <h:outputScript library="script" name="ComponentBase.js"/>
+        <h:outputScript library="script" name="SelectionList.js"/>
+        <h:outputScript library="script" name="InputSuggest.js"/>
 
 
         <div id="#{cc.clientId}" class="inputSuggest">
@@ -46,7 +55,7 @@
                     <h:outputLabel value="#{cc.attrs.label}" for="valueHolder"
                                    styleClass="label #{cc.attrs.labelStyleClass}"/>
                     <h:inputText binding="#{cc.valueHolder}" id="valueHolder"
-                                 styleClass="inputText #{cc.attrs.inputStyleClass}"
+                                 styleClass="valueHolder inputText #{cc.attrs.inputStyleClass}"
                                  value="#{cc.attrs.model.displayValue}" autocomplete="off">
                         <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
                     </h:inputText>
@@ -56,13 +65,14 @@
 
                 <h:panelGroup binding="#{cc.placeHolder}" layout="block" styleClass="suggestArea" id="placeHolder">
                     <f:event type="preRenderComponent" listener="#{cc.preRenderComponentList}"/>
-                    <h:inputHidden id="lineHolder" value="#{cc.attrs.model.selectedLine}"/>
+                    <h:inputHidden id="lineHolder" styleClass="lineHolder" value="#{cc.attrs.model.selectedLine}"/>
 
-                    <composite:insertChildren />
+                    <composite:insertChildren/>
                 </h:panelGroup>
 
                 <script type="text/javascript">
                     var inputSuggest_#{cc.attrs.id} = new extras.apache.InputSuggest({
+                        clientId:"#{cc.clientId}",
                         id:"#{cc.clientId}:#{cc.attrs.id}",
                         valueHolderId:"#{cc.clientId}:valueHolder",
                         lineHolderId:"#{cc.clientId}:lineHolder",

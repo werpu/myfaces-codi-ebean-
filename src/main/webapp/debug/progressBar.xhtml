@@ -66,22 +66,14 @@
 
 
         <h:form id="mainForm" prependId="false">
-            <h:commandLink id="create_group" action="#{groupView.goCreate}" value="#{msgs.group_create}"
-                           onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog:ajaxTarget'});return false;">
-                <f:setPropertyActionListener target="#{groupView.pageMode}" value="create"/>
-            </h:commandLink>
-            <h:panelGroup id="resultArea">
-                <ezcomp:groupList value="#{groupView}"/>
-            </h:panelGroup>
 
             <ezw:ajaxStatus id="pull">
                 Ajax in progress
             </ezw:ajaxStatus>
+            #{progressService.progressModel.value}
+            <ezw:progressBar id="progressor" value="#{progressService.progressModel}" />
 
         </h:form>
-
-        <ezcomp:groupEditDialogContent id="groupDetaDialog" value="#{groupView}"/>
-
 
     </ui:define>
 </ui:composition>

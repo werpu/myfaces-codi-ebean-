@@ -4,7 +4,7 @@
     var _AjaxQueue = extras.apache.ExtendedEventQueue;
     var _ErrorQueue = extras.apache.ExtendedErrorQueue;
 
-    _RT.extendClass("extras.apache.AjaxProgress", extras.apache.ComponentBase, {
+    _RT.extendClass("extras.apache.AjaxStatus", extras.apache.ComponentBase, {
         constructor_: function(args) {
             this._callSuper("constructor", args);
         },
@@ -27,13 +27,13 @@
         },
 
         start: function() {
-            this.removeClass(this.rootNode, "progressStopped");
-            this.addClass(this.rootNode, "ajaxInProgress");
+            this.rootNode.removeClass("progressStopped");
+            this.rootNode.addClass("ajaxInProgress");
         },
 
         end: function() {
-            this.removeClass(this.rootNode, "ajaxInProgress");
-            this.addClass(this.rootNode, "progressStopped");
+            this.rootNode.removeClass("ajaxInProgress");
+            this.rootNode.addClass("progressStopped");
         }
 
 

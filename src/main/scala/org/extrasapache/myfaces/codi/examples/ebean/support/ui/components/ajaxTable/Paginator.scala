@@ -3,8 +3,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 import javax.faces.component.{FacesComponent, UINamingContainer}
 import javax.faces.event.ComponentSystemEvent
 import javax.faces.component.html.HtmlDataTable
-import java.io.Serializable
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -13,7 +11,9 @@ import java.io.Serializable
  */
 package paginator {
 
-  @serializable
+import components.common.AttributeHandler
+
+@serializable
   object Paginator  {
     val FOR_TABLE = "forTable"
     val VALUE = "value"

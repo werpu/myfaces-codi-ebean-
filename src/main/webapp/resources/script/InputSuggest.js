@@ -63,15 +63,16 @@
         },
 
         showSuggest: function(on) {
-            document.getElementById(this._suggestPart.placeHolderId).style.display = (on) ? "block" : "none";
+            this.NODE.querySelector("#"+this._suggestPart.placeHolderId).setStyle("display", (on) ? "block" : "none");
         },
 
         position: function() {
-            var valueHolder = document.getElementById(this.valueHolderId);
-            var offsetInput = valueHolder.offsetLeft;
-            var suggest = document.getElementById(this._suggestPart.placeHolderId);
-            suggest.style.left = parseInt(offsetInput) + "px";
-            suggest.style.minWidth = parseInt(valueHolder.style.width) || parseInt(valueHolder.offsetWidth) + "px";
+            var valueHolder = this.NODE.querySelector("#"+this.valueHolderId);
+            var offsetInput = valueHolder.getAttribute(offsetLeft);
+            var suggest = this.NODE.querySelector("#"+this._suggestPart.placeHolderId);
+
+            suggest.setStyle("left", parseInt(offsetInput) + "px");
+            suggest.setStyle("minWidth",parseInt(valueHolder.style.width) || parseInt(valueHolder.offsetWidth) + "px");
         },
 
         _startHideTimer: function() {

@@ -63,7 +63,10 @@
      */
     _RT.extendClass("extras.apache.ComponentBase", Object, {
         rootNode: null,
+        clientId: null,
         id: null,
+
+        NODE: myfaces._impl._dom.Node,
         /**
          * constants, since we only deal with html5+ we do not
          * cover the entire huge quirksmode.org section
@@ -104,6 +107,8 @@
             this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
             this.onErrorEvent = _Lang.hitch(this, this.onErrorEvent);
 
+            this.id = this.id || this.clientId +":"+ this.clientId;
+
             this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
         },
 
@@ -125,7 +130,7 @@
 
         _postInit: function() {
 
-            this.rootNode = document.querySelectorAll("#" + this.id.replace(/:/g, "\\:"))[0];
+            this.rootNode = this.NODE.querySelector("#" + this.id.replace(/:/g, "\\:"));
             _AjaxQueue.enqueue(this.onAjaxEvent);
             _ErrorQueue.enqueue(this.onErrorEvent);
         },
@@ -134,6 +139,12 @@
             return this.rootNode.querySelectorAll(queryStr);
         },
 
+        /**
+         * add class helper which adds
+         * a style class to a given node
+         * @param node
+         * @param styleClass
+         */
         addClass: function(node, styleClass) {
             var classes = node.getAttribute("class");
             if (!classes) {
@@ -151,6 +162,12 @@
             node.setAttribute("class", classes.join(" "));
         },
 
+        /**
+         * remove class helper which removes a styleclass from a given node
+         *
+         * @param node
+         * @param styleClass
+         */
         removeClass: function(node, styleClass) {
             var res = [];
             var classes = node.getAttribute("class");
@@ -184,7 +201,7 @@
                 //inserts are not needed because we can deal with
                 for (var cnt = updates.length - 1; cnt >= 0; cnt--) {
                     var updateId = updates[cnt].getAttribute("id");
-                    if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || document.querySelectorAll("#" + updateId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
+                    if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || this.clientId == updateId || document.querySelectorAll("#" + updateId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
                         this._onDomUnload(evt);
                     }
                 }

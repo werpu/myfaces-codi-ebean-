@@ -16,17 +16,18 @@
     </composite:interface>
 
     <composite:implementation>
-
-
-
-        <h:panelGroup id="#{cc.attrs.id}input_view" styleClass="#{cc.attrs.styleClass}_view"
-                      rendered="#{!cc.attrs.editable}">
-            <h:outputFormat value="#{cc.attrs.value}" escape="#{cc.attrs.escape}"/>
-        </h:panelGroup>
-        <h:panelGroup id="#{cc.attrs.id}input_edit" styleClass="#{cc.attrs.styleClass}_edit"
-                      rendered="#{cc.attrs.editable}">
-            <h:inputText value="#{cc.attrs.value}" required="#{cc.attrs.required}"/>
-        </h:panelGroup>
+        <div id="#{cc.clientId}">
+            <h:panelGroup layout="block" id="#{cc.attrs.id}">
+                <h:panelGroup id="#{cc.attrs.id}input_view" styleClass="#{cc.attrs.styleClass}_view"
+                              rendered="#{!cc.attrs.editable}">
+                    <h:outputFormat value="#{cc.attrs.value}" escape="#{cc.attrs.escape}"/>
+                </h:panelGroup>
+                <h:panelGroup id="#{cc.attrs.id}input_edit" styleClass="#{cc.attrs.styleClass}_edit"
+                              rendered="#{cc.attrs.editable}">
+                    <h:inputText value="#{cc.attrs.value}" required="#{cc.attrs.required}"/>
+                </h:panelGroup>
+            </h:panelGroup>
+        </div>
     </composite:implementation>
 
 </ui:component>
