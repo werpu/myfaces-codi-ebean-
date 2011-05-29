@@ -12,7 +12,6 @@
                     this.rootNode.querySelectorAll(".dialog").setStyle("display", "block");
                 },
 
-
                 fadeIn: function() {
                     this.rootNode.querySelectorAll(".fadeIn").delay(0).setStyle("opacity", "1");
                 },
