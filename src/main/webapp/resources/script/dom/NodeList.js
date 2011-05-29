@@ -18,6 +18,8 @@
  * NodeList implementation which implements
  * the same methods if possible as Node
  * but for an entire nodelist
+ *
+ * @namespace myfaces._impl._dom.NodeList
  */
 myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
     _Lang: myfaces._impl._util._Lang,
@@ -25,6 +27,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
 
     _nodes: null, /*array of nodes to process*/
     length: null,
+
     constructor_: function(nodes) {
         this._nodes = [];
         if (nodes.length) {
@@ -43,7 +46,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
             throw Error("Node of wrong type");
         }
         if (node instanceof  myfaces._impl._dom.NodeList) {
-            for (var cnt = 0; cnt < node.getLength(); cnt++) {
+            for (var cnt = 0; cnt < node.length; cnt++) {
                 this._nodes.push(node.get(cnt));
             }
             this.length = this._nodes.length;
@@ -75,207 +78,90 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
     },
 
     getId: function() {
-        var ret = [];
-        var closure = function(node) {
-            ret.push(node.getId());
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
-        return ret;
+        return this._stdOp2("getId");
     },
 
     getName: function() {
-        var ret = [];
-        var closure = function(node) {
-            ret.push(node.getName());
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
-        return ret;
+        return this._stdOp2("getName");
     },
 
     nodeIdOrName: function() {
-        var ret = [];
-        var closure = function(node) {
-            ret.push(node.nodeIdOrName());
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
-        return ret;
+        return this._stdOp2("nodeIdOrName");
     },
 
     /*purges the given node and all its subelements from the dom tree*/
     purge: function() {
-        var ret = [];
-        var closure = function(node) {
-            node.purge();
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
+        return this._stdOp("purge");
     },
 
-    detach: function(items) {
-        var ret = [];
-        var closure = function(node) {
-            node.detach();
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
+    detach: function() {
+        return this._stdOp("detach");
     },
 
     innerHTML: function(markup) {
-        var ret = [];
-        var closure = function(node) {
-            node.innerHTML(markup);
+        return this._stdOp("innerHTML", markup);
+    },
+
+    isForm: function() {
+        var res = this._stdOp2("isForm");
+        for(var cnt = 0; cnt < res.length; cnt++) {
+            if(res[cnt]) return true;
         }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
+        return false;
     },
 
     getInnerHTML: function() {
-        var ret = [];
-        var closure = function(node) {
-            ret.push(node.getInnerHTML());
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
+        var ret = this._stdOp2("getInnerHTML");
         return ret.join("");
     },
 
     setAttribute: function(attr, val) {
-        var closure = function(node) {
-            node.setAttribute(attr, val);
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
-        return this;
+        return this._stdOp("setAttribute" ,attr , val);
     },
 
     setStyle: function(attr, val) {
-        var closure = function(node) {
-            node.setStyle(attr, val);
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
-        return this;
+        return this._stdOp("setStyle" ,attr , val);
     },
 
     addEventListener: function(type, val, useCapture) {
-        var closure = function(node) {
-            node.addEventListener(type, val, useCapture);
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
-        return this;
+        return this._stdOp("addEventListener" ,type , val, useCapture);
     },
 
     removeEventListener: function(type, val, useCapture) {
-        var closure = function(node) {
-            node.removeEventListener(type, val, useCapture);
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
-        return this;
+        return this._stdOp("removeEventListener" ,type , val, useCapture);
     },
 
     //now the replacement to all functions we have
     //we simply hook a selector engine in and be done with it
     querySelectorAll: function(query) {
-        var ret = new NodeList();
-        var closure = function(elem) {
-            var res = elem.querySelectorAll(elem);
-            if (res) {
-                ret.concat(res);
-            }
+        var res = this._stdOp2("querySelectorAll");
+        if(res.length == 0) return null;
+        var ret = new myfaces._impl._dom.NodeList();
+        for(var cnt = 0; cnt < res.length; cnt++) {
+            ret.append(res[cnt]);
         }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
-        return (ret.length) ? ret : null;
+        return ret;
     },
 
     querySelector: function(query) {
-        var ret = new NodeList();
-        var closure = function(elem) {
-            var res = elem.querySelector(elem);
-            if (res) {
-                ret.concat(res);
-            }
-        }
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
-        return (ret.length) ? ret : null;
+        var res = this._stdOp2("querySelector");
+        return (res.length) ? new myfaces._impl._dom.NodeList(res) : null;
     },
 
     runScripts: function() {
-        this.forEach(function(node) {
-            node.runScripts();
-        });
+        this._stdOp("runScripts");
     },
 
     addClass: function(clazz) {
-        this.forEach(function(node) {
-            node.addClass(clazz);
-        });
+        return this._stdOp("addClass", clazz);
     },
 
     removeClass: function(clazz) {
-        this.forEach(function(node) {
-            node.removeClass(clazz);
-        });
+        return this._stdOp("removeClass", clazz);
     },
 
     toDomNode: function() {
-        var ret = [];
-
-        function closure(elem) {
-            ret.push(elem.toDomNode());
-        }
-
-        try {
-            this.forEach(closure);
-        } finally {
-            delete closure;
-        }
-        return ret;
+        return this._stdOp2("toDomNode");
     },
 
     delay: function(timeout) {
@@ -283,8 +169,33 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
     },
 
     alert: function(msg) {
-        alert(msg);
-        return this;
-    }
+        return this._stdOp("alert", msg);
+    },
 
+    /*
+     * helpers to reduce the locs, by defining the
+     * functionality of most operations as generic methods
+     *
+     * @param functionCall
+     */
+    _stdOp: function(functionCall /*vararg arguments*/) {
+
+        var args = (arguments.length > 1) ? this._Lang.objToArray(arguments).slice(1) : [];
+        var closure = function(node) {
+            node[functionCall].apply(node, args);
+        };
+        this.forEach(closure);
+        return this;
+    },
+
+
+     _stdOp2: function(functionCall /*vararg arguments*/) {
+        var ret = [];
+        var args = (arguments.length > 1) ?  this._Lang.objToArray(arguments).slice(1) : [];
+        var closure = function(node) {
+            ret.push(node[functionCall].apply(node, args));
+        };
+            this.forEach(closure);
+        return ret;
+    }
 });

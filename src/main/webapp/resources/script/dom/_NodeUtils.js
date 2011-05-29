@@ -1,5 +1,7 @@
 /**
  * core class for
+ *
+ * @namespace myfaces._impl._dom._NodeUtils
  */
 
 myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils", myfaces._impl._dom._DomEngine, {
