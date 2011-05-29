@@ -70,9 +70,16 @@
                var Node = myfaces._impl._dom.Node;
                var res = Node.querySelectorAll("#helloworld");
                alert(res.getInnerHTML());
-               Node.querySelectorAll("#helloworld").innerHTML("hello world2 <script type='text/javascript'>hello from embedded inserted script</script>");
+               Node.querySelectorAll("#helloworld").innerHTML("hello world2 <script type='text/javascript'>alert('hello from embedded');</script>");
             //-->
             </script>
+
+
+            <script type="text/javascript">
+                var ret = Node.querySelector("#helloworld").delay(1000).alert("hello world").alert("hello world2");
+
+            </script>
+
 
         </h:form>
 

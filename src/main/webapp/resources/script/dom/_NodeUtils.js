@@ -173,4 +173,5 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils"
         node.setAttribute("class", res.join(" "));
     }
 
+
 });
