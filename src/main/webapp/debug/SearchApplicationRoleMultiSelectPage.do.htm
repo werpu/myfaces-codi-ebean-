@@ -1,0 +1,1124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<title>
+AURA - Application-based User Rights and Administration
+</title>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/Business.css">
+
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/buttons.css">
+
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/status.css">
+
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/wizard.css">
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/PrintStyle.css" media="print">
+
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/modal.css">
+
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/styleNavi.css">
+
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/calendar.css">
+
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/popup.css">
+
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/framework.css">
+<link rel="stylesheet" type="text/css" href="SearchApplicationRoleMultiSelectPage.do-Dateien/auratable.css">
+<link rel="SHORTCUT ICON" href="https://localhost:7004/aura-as/framework/favicon.ico">
+
+
+ 
+
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/altura.js"></script>
+
+
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/alturacore.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/alturawidgets.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/alturawebwidgets.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/alturawebgridpanel.js"></script>  
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/alturawebpage.js"></script>
+
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/YAHOO.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/event.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/calendar.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/datechecker.js"></script>
+
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/popup.js"></script>
+
+
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/functions.js"></script>
+
+<script>
+    /*
+	 * Below code was originally from functions.js and altura.js, but since the rest
+	 * had undesirable side effects, only this part is being used.
+	 */
+	var pageInitialisation = function() {
+		try {
+			initPage();
+			Page.adjustShadowLayout();
+		} catch(ex) {
+			// no initPage function defined. We don't have to do anything
+		}
+	};
+	window.attachEvent("onload", pageInitialisation);
+</script>
+
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/navigations.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/js_elements.js"></script>
+
+	
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/cs-core.js"></script>
+
+
+
+
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/date-en-GB.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/dateparser.js"></script>
+
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/jquery.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/jquery_003.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/jquery-aop.js"></script>
+
+
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/jquery_002.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/jquery_004.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/date.htm"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/auratable_lang_DE.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/auratable_pagination.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/auratable_sorting.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/auratable_filtering.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/auratable_registry.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/auratable_constants.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/auratable_input.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/auratable.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/auratable_monitoring.js"></script>
+
+
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/defaultbehaviour.js"></script>
+<script src="SearchApplicationRoleMultiSelectPage.do-Dateien/boxover.js"></script>
+
+
+
+
+
+
+ 
+
+
+</head><body><form>
+<input id="contextlanguage" value="DE" type="hidden">
+</form>
+
+<script type="text/javascript">
+// aura constants
+var version='CVS Tag Name:  ';
+var langEN="EN";
+var langDE="DE";
+
+var language = "DE";
+// platform: possible values= NON-JAP (OptimalJ), ET, IT, PTA, PROD
+var platform = "ET";
+
+// build date from CVS
+var date = "Manifest Implementation Version: " + "1.0.0"
+
+// cs framework variables
+var ApplicationVersion = version + " / " + date; 
+var AvailableLang = "en.de";
+var ApplicationName = "AURA Client ";
+var ApplicationOwnerLabel = "GG AURA Client Support";
+var ApplicationOwnerUrl = "mailto:support.auraclient@credit-suisse.com";
+
+// for non-production, show platform in title
+if(!(platform=="PROD"))
+	ApplicationName+=platform;
+
+// german
+var Username = "Peter ZZ-Klarer-01";
+	
+var host = document.location.pathname;
+var lastIndex = host.lastIndexOf("/");
+var LogoffLabel = " Abmelden";	
+	
+var LogoffUrl =  "/aura-base/bw/LogOffAction.do";
+var LinksLabels = ["www.credit-suisse.com", "Hilfe und Support"];
+var LinksUrls = ["http://www.credit-suisse.com/country_selection/de/index.html", "http://csintra.net/support/de/index.html"];
+ 
+// english modifications
+if(language=="EN"){
+	LinksLabels = ["www.credit-suisse.com", "Help and Support"];
+	LogoffLabel = " Log Off";
+	LinksUrls = ["http://www.credit-suisse.com/country_selection/en/index.html", "http://csintra.net/support/en/index.html"];
+}
+ 
+// german
+var SpecialDisclaimer = "Copyright &copy; CREDIT SUISSE GROUP AG und/oder mit ihr verbundene Unternehmen. Alle Rechte vorbehalten. NUR F&Uuml;R INTERNEN GEBRAUCH";
+// english modifications
+if (language=="EN")
+	SpecialDisclaimer = "Copyright &copy; CREDIT SUISSE GROUP AG and/or its affiliates. All rights reserved. FOR INTERNAL USE ONLY";
+</script>
+
+<script type="text/javascript">
+	function initAuraTemplate() {
+		hideLoading();
+	}  
+	history.forward();
+</script>
+
+
+
+<script type="text/javascript" src="SearchApplicationRoleMultiSelectPage.do-Dateien/status_tooltip_text.js"></script>
+<script type="text/javascript" src="SearchApplicationRoleMultiSelectPage.do-Dateien/wz_tooltip.js"></script><div style="visibility: hidden; position: absolute; overflow: hidden; padding: 0px; width: 0px; left: 0px; top: 0px;" id="WzTtDiV"></div>
+<script type="text/javascript" src="SearchApplicationRoleMultiSelectPage.do-Dateien/tip_balloon.js"></script>
+
+
+<div style="height: 957px;" id="shadowLeft" class="shadowLeft"> <img id="picInvisible" src="SearchApplicationRoleMultiSelectPage.do-Dateien/pic_text_size.gif" title="" alt=""> </div>
+<div style="height: 957px;" id="shadowRight" class="shadowRight"></div>
+
+<div id="content">
+  <div id="div_modal" class="cs_modal"> </div>
+  
+  <div id="cs_overlay" class="cs_overlay">
+    <div id="cs_Loading" class="cs_Loading"> <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/loader.gif" id="pbar" border="0"> </div>
+  </div>
+  
+  <div id="head">
+  <div id="logo"> <a href="http://csintra.net/" accesskey="0"> <img id="picMainLogo" src="SearchApplicationRoleMultiSelectPage.do-Dateien/logo_cs.gif" title="To the Credit Suisse intranet portal" alt="To the Credit Suisse intranet portal"></a>
+    <h1>
+      <script type="text/javascript">
+			Page.writeElement(ApplicationName);// AURA CLIENT
+		</script>AURA Client ET
+    </h1>
+  </div>
+  <div id="metanav">
+    <ul>
+      <li id="languageSelector" class="languageSelector">
+        <script type="text/javascript">
+				Page.writeLanguageSelector(AvailableLang);
+	    	</script>Sprache:<a class="lang" href="javascript:Page.changeLanguage('en');" title="English">EN</a> <span class="active" title="Deutsch">DE</span> 
+      </li>
+      <li class="empty">
+        <script type="text/javascript">
+			Page.writeElement(LinksLabels, LinksUrls, "<li>{$}</li>");
+			</script></li><li><a href="http://www.credit-suisse.com/country_selection/de/index.html">www.credit-suisse.com</a></li><li><a href="http://csintra.net/support/de/index.html">Hilfe und Support</a></li>
+      
+      <li>
+        <script type="text/javascript">
+					 
+				Page.writeElement(Username);
+						//Page.writeElement(Indication, "/ {$} ");
+				Page.writeElement(LogoffLabel, LogoffUrl);
+					 
+			</script>Peter ZZ-Klarer-01<a href="https://localhost:7004/aura-base/bw/LogOffAction.do"> Abmelden</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div id="tabNavRoot" style="display:none;"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody><tr>
+    <td><div id="containerNavi">
+        <div id="contentNavi">
+          <div id="kwick">
+            <ul style="width: 984px; height: 40px;" class="kwicks">
+              <li style="left: 0px; margin: 0px; position: absolute;"> <a class="home" onclick="showLoading();" href="https://localhost:7004/aura-base/index.jsp"> <span>Home</span> </a> </li>
+              <li style="left: 123px; margin: 0px; position: absolute;" id="accessshop-li"> <a class="accesshop" onclick="showLoading();" href="https://localhost:7004/aura-as/as/OrderWorklistMainFlowRefreshSessionStart.do"> <span>Access Shop</span> </a> </li>
+              <li style="left: 246px; margin: 0px; position: absolute;"> <a class="reporting" onclick="showLoading();" href="https://localhost:7004/aura-rc/rc/AccountSearchEmployeeFlowStart.do"> <span>Reporting</span> </a> </li>
+              <li style="left: 369px; margin: 0px; position: absolute;"> <a class="care" onclick="showLoading();" href="https://localhost:7004/aura-base/index.jsp"> <span>Care</span> </a> </li>
+              <li style="left: 492px; margin: 0px; position: absolute;"> <a class="componentordering" onclick="showLoading();" href="https://localhost:7004/aura-base/index.jsp"> <span>Comp. Ordering</span> </a> </li>
+              <li style="left: 615px; margin: 0px; position: absolute;"> <a class="migration" onclick="showLoading();" href="https://localhost:7004/aura-ff/pages/index.jsf"> <span>Migration</span> </a> </li>
+              <li style="left: 738px; margin: 0px; position: absolute;" id="deputy-li"> <a class="deputy" onclick="showLoading();" href="https://localhost:7004/aura-dy/dy/ViewPendingRequestsMainFlowStart.do"> <span>Deputy</span> </a> </li>
+              <li style="right: 0px; margin: 0px; position: absolute;"> <a class="administration" onclick="showLoading();" href="https://localhost:7004/aura-base/bw/Administration.jsp"> <span>Administration</span> </a> </li>
+            </ul>
+          </div>
+        </div>
+      </div></td>
+  </tr>
+</tbody></table>
+
+  
+  
+  
+
+<div id="line2"><div id="path-way">&nbsp;<span class="pathway">Home&nbsp;<img src="SearchApplicationRoleMultiSelectPage.do-Dateien/doppelpfeil.gif" height="5" width="6" border="0">&nbsp;<span class="pathway">Access Shop&nbsp;<img src="SearchApplicationRoleMultiSelectPage.do-Dateien/doppelpfeil.gif" height="5" width="6" border="0">&nbsp;</span><span class="pathway">Anträge erstellen&nbsp;<img src="SearchApplicationRoleMultiSelectPage.do-Dateien/doppelpfeil.gif" height="5" width="6" border="0">&nbsp;</span><span class="pathway">Rolle(n)/Recht(e) für einen Mitarbeiter bestellen &nbsp;<img src="SearchApplicationRoleMultiSelectPage.do-Dateien/doppelpfeil.gif" height="5" width="6" border="0">&nbsp;</span><span class="pathway">Suche nach Rollen/Rechte</span></span></div></div>
+  
+  
+  
+
+
+
+
+
+ 
+
+
+
+<div id="sidebar">
+	<table height="100%" border="0" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+			<td valign="top">
+				<table border="0" cellpadding="0" cellspacing="0">
+		        	<tbody><tr>
+		          		<td>
+							<ul id="sidebar-list">
+								<br><li><h3 title="" class="caption">Access Shop</h3></li><li><a href="https://localhost:7004/aura-as/as/OrderWorklistMainFlowStart.do" onclick="showLoading();">Meine Arbeitsliste</a></li><li><a href="https://localhost:7004/aura-as/as/MyApplicationsMainFlowStart.do" onclick="showLoading();">Meine Anträge</a></li><li><a href="https://localhost:7004/aura-as/as/AccessRequestStartMainFlowStart.do" onclick="showLoading();">Anträge erstellen</a></li><br><li><h3 title="" class="caption">Prozuka</h3></li><li><a href="https://localhost:7004/aura-as/as/ProzukaAssignFunctionsInitAction.do" onclick="showLoading();">Funktion zuordnen</a></li><li><a href="https://localhost:7004/aura-as/as/ProzukaDisplayFunctionsMainFlowStart.do" onclick="showLoading();">Funktion suchen</a></li><br><li><h3 title="" class="caption">Flip Flop</h3></li><li><a href="https://localhost:7004/aura-as/as/LookUpRightInitAction.do" onclick="showLoading();">Look-up Recht</a></li><li><a href="https://localhost:7004/aura-as/as/LookUpCMLookUpCMFlowStart.do" onclick="showLoading();">Look-up CM</a></li>
+							</ul>
+						</td>
+		          	</tr>
+		        </tbody></table>
+			</td>
+    	</tr>
+	    <tr>
+	    	<td valign="bottom">
+				<table border="0" cellpadding="0" cellspacing="0">
+		        	<tbody><tr>
+		        		<td valign="bottom">
+							<img src="SearchApplicationRoleMultiSelectPage.do-Dateien/aura_logo.gif" height="61" width="170">
+						</td>
+		       		</tr>
+		        </tbody></table>
+			</td>
+	    </tr>
+	</tbody></table>
+</div>
+
+  
+  
+  <div id="mainArea" class="content2Col"> <a title="Start of Content" name="beg_content" accesskey="8"></a>
+    
+    <div id="mainContent">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+function initPage() {
+
+
+
+
+
+
+
+
+
+initAuraTemplate()
+
+
+
+
+
+
+}
+</script>
+
+
+
+  <form name="searchApplicationRoleRoleSvcQueriesForm" id="searchApplicationRoleRoleSvcQueriesForm" method="post" action="/aura-as/as/SearchApplicationRoleMultiSelectPage.do" style="display:inline">
+  <!-- WebPage specific JavaScript includes -->
+  <script type="text/javascript" src="SearchApplicationRoleMultiSelectPage.do-Dateien/SearchApplicationRoleMultiSelectPage.js"></script>
+  <input name="inCreateMode" value="true" type="hidden">
+  <input name="selectedQueryResult.inCreateMode" value="false" type="hidden">
+  
+  <table id="p_headerContent" class="pageheaderpanel " style="width: 100%;" cellspacing="0">
+    <tbody><tr>
+      <td class="csLogo_fluegel" valign="bottom" align="left">
+        <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/blueLineLeft.gif" id="webImage1111">
+      </td>
+      <td class="horizontalLine" valign="bottom" align="left">
+        
+        <table id="p_header" class="headercontentpanel " cellspacing="0">
+          <tbody><tr>
+            <td valign="top" align="left">
+              <span id="h_headerDescription" class="detailsHeader">Suche nach Rollen/Rechte</span>
+            </td>
+          </tr>
+        </tbody></table>
+        
+      </td>
+    </tr>
+  </tbody></table>
+  
+  
+  
+  
+  
+  <div id="p_spacer3" class="webpanel " style="width:100%;">
+    &nbsp;
+  </div>
+  
+  
+  <table id="p_searchContentMain" class="webpanel " style="width: 100%;" cellspacing="0">
+    <tbody><tr>
+      <td valign="top" align="right">
+        
+        <table id="p_headerSearchCriteriaContent" class="tableHeaderBackground " style="width: 100%;" cellspacing="0">
+          <tbody><tr>
+            <td class="tableHeader" valign="top" align="left">
+              <span id="h_searchCriteria1" class="tableHeaderLabel">Suchkriterien</span>
+            </td>
+            <td class="tableHeaderRight" valign="top" align="right">
+              
+              <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[Durchsuchen Sie den AURA Rechtekatalog nach den gewünschten Rechten. Durch das Aktivieren einzelner Optionen können Sie Ihre Suche eingrenzen. Klicken Sie auf die einzelnen „Hilfe“ Symbole für weiterführende Informationen.] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer"><img src="SearchApplicationRoleMultiSelectPage.do-Dateien/getInfo_0.gif" class="webimage"></span>
+              
+            </td>
+          </tr>
+        </tbody></table>
+        
+        
+        <div id="p_searchCriteria" class="tableBorder ">
+          
+          <table id="p_generalData" class="webpanel " cellspacing="0">
+            <tbody><tr>
+              <td class="webgridcolumn" style="width: 220px;" valign="middle" width="220" align="left">
+                <span id="hl_searchKey" class="csLabelBlue">Suchbegriff</span>
+              </td>
+              <td class="webgridcolumn" valign="middle" align="left">
+                
+                <table id="p_searchIn1" class="webpanel " cellspacing="0">
+                  <tbody><tr>
+                    <td style="width: 246px;" valign="middle" width="246" align="left">
+                      <input name="retrieveBySearchAndEmployeeTypeSearchValue" size="40" value="testr" id="sf_name" style="width: 100%;" class="webtextfield sffocus" type="text">
+                    </td>
+                    <td valign="middle" width="20" align="left">
+                      
+                        <input name="retrieveBySearchAndEmployeeTypeIsSearchForRoles" value="on" checked="checked" onclick="onClickCheckBox(event)" id="webCheckBox" class="webcheckbox" type="checkbox">
+                        
+                        <input name="retrieveBySearchAndEmployeeTypeIsSearchForRoles" value="on" type="hidden">
+                      
+                    </td>
+                    <td valign="middle" width="100" align="left">
+                      
+                        <span id="l_role" class="weblabel">Rolle*</span>
+                      
+                    </td>
+                    <td valign="middle" width="20" align="left">
+                      <input name="retrieveBySearchAndEmployeeTypeIsSearchForRights" tabindex="3" value="on" checked="checked" onclick="onClickCheckBox(event)" id="cb_isId1" class="webcheckbox" type="checkbox">
+                      
+                      <input name="retrieveBySearchAndEmployeeTypeIsSearchForRights" value="on" type="hidden">
+                    </td>
+                    <td valign="middle" align="left">
+                      <span id="l_right" class="weblabel">Recht*</span>
+                    </td>
+                  </tr>
+                </tbody></table>
+                
+              </td>
+              <td class="webgridcolumn" style="padding-right: 5px;" valign="middle" width="30" align="right">
+                
+                <span title="header=[&lt;img src='../images/icons/ico_info_question_16_cli.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Hilfe] body=[Suche mittels beliebigem Suchbegriff (z.B. Kredit). Sie können mit einem * als Platzhalter suchen (z.B. Kre*).] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer"><img src="SearchApplicationRoleMultiSelectPage.do-Dateien/ico_info_question_16_cli.gif" class="webimage"></span>
+                
+              </td>
+            </tr>
+            <tr>
+              <td class="webgridcolumn" style="width: 220px;" valign="middle" width="220" align="left">
+                <span id="hl_searchIn" class="csLabelBlue">Suche in</span>
+              </td>
+              <td class="webgridcolumn" valign="middle" align="left">
+                
+                <table id="p_searchIn" class="webpanel " cellspacing="0">
+                  <tbody><tr>
+                    <td valign="middle" width="20" align="left">
+                      <input name="retrieveBySearchAndEmployeeTypeIsNameSearch" tabindex="1" value="on" checked="checked" onclick="onClickCheckBox(event)" id="cb_isNameSearch" class="webcheckbox" type="checkbox">
+                      
+                      <input name="retrieveBySearchAndEmployeeTypeIsNameSearch" value="on" type="hidden">
+                    </td>
+                    <td valign="middle" width="100" align="left">
+                      <span id="l_name" class="weblabel">Name</span>
+                    </td>
+                    <td valign="middle" width="20" align="left">
+                      <input name="retrieveBySearchAndEmployeeTypeIsDescriptionSearch" tabindex="2" value="on" onclick="onClickCheckBox(event)" id="cb_isDescriptionSearch" class="webcheckbox" type="checkbox">
+                      
+                      <input name="retrieveBySearchAndEmployeeTypeIsDescriptionSearch" value="" type="hidden">
+                    </td>
+                    <td valign="middle" width="100" align="left">
+                      <span id="l_description" class="weblabel">Beschreibung</span>
+                    </td>
+                    <td valign="middle" width="20" align="left">
+                      <input name="retrieveBySearchAndEmployeeTypeIsIdSearch" tabindex="3" value="on" onclick="onClickCheckBox(event)" id="cb_isId" class="webcheckbox" type="checkbox">
+                      
+                      <input name="retrieveBySearchAndEmployeeTypeIsIdSearch" value="" type="hidden">
+                    </td>
+                    <td valign="middle" align="left">
+                      <span id="l_roleId" class="weblabel">ID</span>
+                    </td>
+                  </tr>
+                </tbody></table>
+                
+              </td>
+              <td class="webgridcolumn" style="padding-right: 5px;" valign="middle" width="30" align="right">
+                
+                <span title="header=[&lt;img src='../images/icons/ico_info_question_16_cli.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Hilfe] body=[Name: Suchen des Suchbegriffs im Namen der Rechte. Beschreibung: Suchen des Suchbegriffs in der Beschreibung der Rechte. Rollen-ID: Suchen des Suchbegriffs in der Rollen-ID.] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer"><img src="SearchApplicationRoleMultiSelectPage.do-Dateien/ico_info_question_16_cli.gif" class="webimage"></span>
+                
+              </td>
+            </tr>
+            <tr>
+              <td class="webgridcolumn" style="width: 220px;" valign="middle" width="220" align="left">
+                <span id="hl_searchFor" class="csLabelBlue">Suche nach</span>
+              </td>
+              <td class="webgridcolumn" valign="middle" align="left">
+                
+                <table id="p_searchFor" class="webpanel " cellspacing="0">
+                  <tbody><tr>
+                    <td valign="middle" width="20" align="left">
+                      <input name="retrieveBySearchAndEmployeeTypeIsApplicationSearch" tabindex="4" value="on" onclick="onClickCheckBox(event)" id="cb_isApplicationSearch" class="webcheckbox" type="checkbox">
+                      
+                      <input name="retrieveBySearchAndEmployeeTypeIsApplicationSearch" value="" type="hidden">
+                    </td>
+                    <td valign="middle" width="100" align="left">
+                      <span id="l_application" class="weblabel">Applikation</span>
+                    </td>
+                    <td valign="middle" width="20" align="left">
+                      <input name="retrieveBySearchAndEmployeeTypeIsArqSearch" tabindex="5" value="on" onclick="onClickCheckBox(event)" id="cb_isARQSearch" class="webcheckbox" type="checkbox">
+                      
+                      <input name="retrieveBySearchAndEmployeeTypeIsArqSearch" value="" type="hidden">
+                    </td>
+                    <td valign="middle" width="100" align="left">
+                      <span id="l_arq" class="weblabel">ARQ</span>
+                    </td>
+                    <td valign="middle" width="20" align="left">
+                      &nbsp;
+                    </td>
+                    <td valign="middle" align="left">
+                      &nbsp;
+                    </td>
+                  </tr>
+                </tbody></table>
+                
+              </td>
+              <td class="webgridcolumn" style="padding-right: 5px;" valign="middle" width="30" align="right">
+                
+                <span title="header=[&lt;img src='../images/icons/ico_info_question_16_cli.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Hilfe] body=[Applikation: Suchen des Suchbegriffs im Namen der Applikation mit welcher ein Recht verknüpft ist. ARQ: Suchen eines Suchbegriffs in der Liste aller ARQ Namen. Diese Suche zeigt alle Rechte an, welche mit den gefundenen ARQ,s verknüpft sind.] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer"><img src="SearchApplicationRoleMultiSelectPage.do-Dateien/ico_info_question_16_cli.gif" class="webimage"></span>
+                
+              </td>
+            </tr>
+            <tr>
+              <td class="webgridcolumn" style="width: 220px;" valign="middle" width="220" align="left">
+                <span id="l_referenceSearch" class="csLabelBlue">Referenzsuche</span>
+              </td>
+              <td class="webgridcolumn" valign="middle" align="left">
+                
+                <table id="p_referenceSearch" class="webpanel " cellspacing="0">
+                  <tbody><tr>
+                    <td valign="middle" width="20" align="left">
+                      <input name="retrieveBySearchAndEmployeeTypeIsPidSearch" tabindex="6" value="on" onclick="onClickCheckBox(event)" id="cb_isPidSearch" class="webcheckbox" type="checkbox">
+                      
+                      <input name="retrieveBySearchAndEmployeeTypeIsPidSearch" value="" type="hidden">
+                    </td>
+                    <td valign="middle" align="left">
+                      <span id="l_pid" class="weblabel">PID</span>
+                    </td>
+                  </tr>
+                </tbody></table>
+                
+              </td>
+              <td class="webgridcolumn" style="padding-right: 5px;" valign="middle" width="30" align="right">
+                
+                <span title="header=[&lt;img src='../images/icons/ico_info_question_16_cli.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Hilfe] body=[PID: Suchen eines Referenzbenutzers mittels PID. Die Rechte des Referenzbenutzers können zusammen mit dessen Wertepaketen übernommen werden. ] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer"><img src="SearchApplicationRoleMultiSelectPage.do-Dateien/ico_info_question_16_cli.gif" class="webimage"></span>
+                
+              </td>
+            </tr>
+          </tbody></table>
+          
+          
+          <div id="WebPanel" class="webpanel ">
+            &nbsp;
+          </div>
+          
+          
+          <table id="p_mandatoryFields" class="webpanel " cellspacing="0">
+            <tbody><tr>
+              <td valign="middle" align="left">
+                <span id="l_mandatorFields" class="weblabel">* Bitte wählen Sie mindestens eine Auswahlbox aus.</span>
+              </td>
+            </tr>
+          </tbody></table>
+          
+        </div>
+        
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="right">
+        &nbsp;
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="right">
+        <input name="altura.action.Retrieve" tabindex="7" value="Suchen" onclick="return onSubmit(event, false);" id="btn_search" class="searchbutton" type="submit">
+        
+        <a href="https://localhost:7004/aura-as/as/SearchApplicationRoleMultiSelectPage.do?altura.finder=retrieveForSearch" style="display: none;"></a>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="right">
+        &nbsp;
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="right">
+        
+        <table id="p_message1" class="messagepanelFortext " cellspacing="0">
+          <tbody><tr>
+            <td valign="middle" width="20" align="left">
+              <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/ico_info_confirm_16_cli.gif" class="webimage" id="img_pin">
+            </td>
+            <td valign="middle" align="left">
+              <span id="l_message" class="messagelabel">Zugeteilte Rollen/Rechte können nicht selektiert werden.</span>
+            </td>
+          </tr>
+        </tbody></table>
+        
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="right">
+        
+        <div id="p_spacer1" class="">
+          &nbsp;
+        </div>
+        
+        
+        <table id="p_headerResultListContent" class="tableHeaderBackground " cellspacing="0">
+          <tbody><tr>
+            <td class="tableHeader" valign="top" align="left">
+              <span id="h_resultList" class="tableHeaderLabel">Suchergebnisse</span>
+            </td>
+            <td class="tableHeaderRight" valign="top" align="right">
+              
+              <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[No Message] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer"><img src="SearchApplicationRoleMultiSelectPage.do-Dateien/getInfo_0.gif" class="webimage"></span>
+              
+            </td>
+          </tr>
+        </tbody></table>
+        
+        
+         
+        
+        
+        
+        
+        
+        
+          <div id="p_searchDefault" class="webpanel ">
+            
+            <div id="DefaultSearchPanel" class="tableBorder ">
+              
+              <input name="selectedQueryResultIdx" value="0" type="hidden">
+              <div id="grid-table-p_resultList_wrapper" class="dataTables_wrapper"><div><div id="grid-table-p_resultList_info" class="dataTables_info"><b>Einträge</b>: 1 bis 10 von 46 Einträgen</div></div><table class="sortable, highlightRow " style="width: 100%;" id="grid-table-p_resultList">
+                <thead>
+                  <tr class="webgridheaderpanel ">
+                    <th style="width: 29px;" class="gc_selection sorting_disabled" width="30" align="left">
+                        <span>&nbsp;</span>
+                    </th>
+                    <th style="width: 29px;" class="gc_info sorting_disabled" width="30" align="center">
+                        <span>&nbsp;</span>
+                    </th>
+                    <th class="sorting" style="width: 346px;" width="250" align="left">
+                      <span class="webgridheaderlabel">Name</span>
+                    </th>
+                    <th class="sorting" style="width: 232px;" width="250" align="left">
+                      <span class="webgridheaderlabel">Rollentyp</span>
+                    </th>
+                    <th class="sorting" style="width: 149px;" width="150" align="left">
+                      <span class="webgridheaderlabel">Klassifizierungscode</span>
+                    </th>
+                  </tr>
+                </thead>
+                
+              <tbody><tr class="row-even odd">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <td class="gc_selection" align="left">
+                    
+                      <input name="queryResultAt[0].isSelected" value="on" onclick="onClickCheckBox(event)" id="isSelected_0" class="rowSelectionControl" type="checkbox">
+                      
+                      <input name="queryResultAt[0].isSelected" value="" type="hidden">
+                    
+                    
+                    <input name="queryResultAt[0].uniqueId" value="Denorm Testrolle" id="webHidden_0" type="hidden">
+                  </td>
+                  <td class="gc_info" align="center">
+                    
+                    <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">
+                    
+                    <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/info.gif" class="webimage" id="img_info_0">
+                    
+                    </span>
+                    
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="gf_name1_0" name="name" class="csLabelTableDesc">Denorm Testrolle</span>
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="l_roleType1_0" name="displayRoleType" class="descLabel"></span>
+                  </td>
+                  <td style="width: 150px;" align="left">
+                    <span id="gf_classification1_0" name="code" class="weblabel">.-.-.-.-.-</span>
+                  </td>
+                  <input name="queryResultAt[0].inCreateMode" value="false" type="hidden">
+                  </tr><tr class="row-odd even">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <td class="gc_selection" align="left">
+                    
+                      <input name="queryResultAt[1].isSelected" value="on" onclick="onClickCheckBox(event)" id="isSelected_1" class="rowSelectionControl" type="checkbox">
+                      
+                      <input name="queryResultAt[1].isSelected" value="" type="hidden">
+                    
+                    
+                    <input name="queryResultAt[1].uniqueId" value="Test CLSAP Ubergangsrolle CSM" id="webHidden_1" type="hidden">
+                  </td>
+                  <td class="gc_info" align="center">
+                    
+                    <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">
+                    
+                    <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/info.gif" class="webimage" id="img_info_1">
+                    
+                    </span>
+                    
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="gf_name1_1" name="name" class="csLabelTableDesc">Testrolle</span>
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="l_roleType1_1" name="displayRoleType" class="descLabel"></span>
+                  </td>
+                  <td style="width: 150px;" align="left">
+                    <span id="gf_classification1_1" name="code" class="weblabel">.-.-.-.-.-</span>
+                  </td>
+                  <input name="queryResultAt[1].inCreateMode" value="false" type="hidden">
+                  </tr><tr class="row-even odd">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <td class="gc_selection" align="left">
+                    
+                      <input name="queryResultAt[2].isSelected" value="on" onclick="onClickCheckBox(event)" id="isSelected_2" class="rowSelectionControl" type="checkbox">
+                      
+                      <input name="queryResultAt[2].isSelected" value="" type="hidden">
+                    
+                    
+                    <input name="queryResultAt[2].uniqueId" value="Testrolle zu ARQ-MQ-Message" id="webHidden_2" type="hidden">
+                  </td>
+                  <td class="gc_info" align="center">
+                    
+                    <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">
+                    
+                    <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/info.gif" class="webimage" id="img_info_2">
+                    
+                    </span>
+                    
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="gf_name1_2" name="name" class="csLabelTableDesc">Testrolle zu ARQ-MQ-Message</span>
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="l_roleType1_2" name="displayRoleType" class="descLabel"></span>
+                  </td>
+                  <td style="width: 150px;" align="left">
+                    <span id="gf_classification1_2" name="code" class="weblabel">.-.-.-.-.-</span>
+                  </td>
+                  <input name="queryResultAt[2].inCreateMode" value="false" type="hidden">
+                  </tr><tr class="row-odd even">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <td class="gc_selection" align="left">
+                    
+                      <input name="queryResultAt[3].isSelected" value="on" onclick="onClickCheckBox(event)" id="isSelected_3" class="rowSelectionControl" type="checkbox">
+                      
+                      <input name="queryResultAt[3].isSelected" value="" type="hidden">
+                    
+                    
+                    <input name="queryResultAt[3].uniqueId" value="Testrolle XBS-Dokumente 3Saeule" id="webHidden_3" type="hidden">
+                  </td>
+                  <td class="gc_info" align="center">
+                    
+                    <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[Diese Rolle dient lediglich demProduktions-Test für den Zugriff auf die 3.Säule-Konti, welche neu nicht mehr aufgrund des Stiftungscifs, sondern neu aufgrund des verbundenen Cifs geprüft werden.] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">
+                    
+                    <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/info.gif" class="webimage" id="img_info_3">
+                    
+                    </span>
+                    
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="gf_name1_3" name="name" class="csLabelTableDesc">Testrolle XBS-Dokumente 3Saeule</span>
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="l_roleType1_3" name="displayRoleType" class="descLabel"></span>
+                  </td>
+                  <td style="width: 150px;" align="left">
+                    <span id="gf_classification1_3" name="code" class="weblabel">.-.-.-.-.-</span>
+                  </td>
+                  <input name="queryResultAt[3].inCreateMode" value="false" type="hidden">
+                  </tr><tr class="row-even odd">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <td class="gc_selection" align="left">
+                    
+                      <input name="queryResultAt[4].isSelected" value="on" onclick="onClickCheckBox(event)" id="isSelected_4" class="rowSelectionControl" type="checkbox">
+                      
+                      <input name="queryResultAt[4].isSelected" value="" type="hidden">
+                    
+                    
+                    <input name="queryResultAt[4].uniqueId" value="Testrolle_2707" id="webHidden_4" type="hidden">
+                  </td>
+                  <td class="gc_info" align="center">
+                    
+                    <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">
+                    
+                    <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/info.gif" class="webimage" id="img_info_4">
+                    
+                    </span>
+                    
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="gf_name1_4" name="name" class="csLabelTableDesc">Testrolle_2707</span>
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="l_roleType1_4" name="displayRoleType" class="descLabel"></span>
+                  </td>
+                  <td style="width: 150px;" align="left">
+                    <span id="gf_classification1_4" name="code" class="weblabel">P.-.-.-.-.-</span>
+                  </td>
+                  <input name="queryResultAt[4].inCreateMode" value="false" type="hidden">
+                  </tr><tr class="row-odd even">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <td class="gc_selection" align="left">
+                    
+                      <input name="queryResultAt[5].isSelected" value="on" onclick="onClickCheckBox(event)" id="isSelected_5" class="rowSelectionControl" type="checkbox">
+                      
+                      <input name="queryResultAt[5].isSelected" value="" type="hidden">
+                    
+                    
+                    <input name="queryResultAt[5].uniqueId" value="Thomas Testrolle RM Intl" id="webHidden_5" type="hidden">
+                  </td>
+                  <td class="gc_info" align="center">
+                    
+                    <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[n/a] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">
+                    
+                    <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/info.gif" class="webimage" id="img_info_5">
+                    
+                    </span>
+                    
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="gf_name1_5" name="name" class="csLabelTableDesc">Thomas Testrolle für Import RM International AuthorizationCD</span>
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="l_roleType1_5" name="displayRoleType" class="descLabel"></span>
+                  </td>
+                  <td style="width: 150px;" align="left">
+                    <span id="gf_classification1_5" name="code" class="weblabel">.-.-.-.-.-</span>
+                  </td>
+                  <input name="queryResultAt[5].inCreateMode" value="false" type="hidden">
+                  </tr><tr class="row-even odd">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <td class="gc_selection" align="left">
+                    
+                      <input name="queryResultAt[6].isSelected" value="on" onclick="onClickCheckBox(event)" id="isSelected_6" class="rowSelectionControl" type="checkbox">
+                      
+                      <input name="queryResultAt[6].isSelected" value="" type="hidden">
+                    
+                    
+                    <input name="queryResultAt[6].uniqueId" value="TESTR_CARAT CRM ManagerCRM PB CL" id="webHidden_6" type="hidden">
+                  </td>
+                  <td class="gc_info" align="center">
+                    
+                    <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">
+                    
+                    <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/info.gif" class="webimage" id="img_info_6">
+                    
+                    </span>
+                    
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="gf_name1_6" name="name" class="csLabelTableDesc">TESTR_CARAT CRM ManagerCRM PB CL</span>
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="l_roleType1_6" name="displayRoleType" class="descLabel"></span>
+                  </td>
+                  <td style="width: 150px;" align="left">
+                    <span id="gf_classification1_6" name="code" class="weblabel">.-.-.-.-.-</span>
+                  </td>
+                  <input name="queryResultAt[6].inCreateMode" value="false" type="hidden">
+                  </tr><tr class="row-odd even">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <td class="gc_selection" align="left">
+                    
+                      <input name="queryResultAt[7].isSelected" value="on" onclick="onClickCheckBox(event)" id="isSelected_7" class="rowSelectionControl" type="checkbox">
+                      
+                      <input name="queryResultAt[7].isSelected" value="" type="hidden">
+                    
+                    
+                    <input name="queryResultAt[7].uniqueId" value="TESTR_CLSAP RM" id="webHidden_7" type="hidden">
+                  </td>
+                  <td class="gc_info" align="center">
+                    
+                    <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">
+                    
+                    <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/info.gif" class="webimage" id="img_info_7">
+                    
+                    </span>
+                    
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="gf_name1_7" name="name" class="csLabelTableDesc">TESTR CLSAP RM</span>
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="l_roleType1_7" name="displayRoleType" class="descLabel"></span>
+                  </td>
+                  <td style="width: 150px;" align="left">
+                    <span id="gf_classification1_7" name="code" class="weblabel">.-.-.-.-.-</span>
+                  </td>
+                  <input name="queryResultAt[7].inCreateMode" value="false" type="hidden">
+                  </tr><tr class="row-even odd">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <td class="gc_selection" align="left">
+                    
+                      <input name="queryResultAt[8].isSelected" value="on" onclick="onClickCheckBox(event)" id="isSelected_8" class="rowSelectionControl" type="checkbox">
+                      
+                      <input name="queryResultAt[8].isSelected" value="" type="hidden">
+                    
+                    
+                    <input name="queryResultAt[8].uniqueId" value="TESTR_COWO BACKOFFICE" id="webHidden_8" type="hidden">
+                  </td>
+                  <td class="gc_info" align="center">
+                    
+                    <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">
+                    
+                    <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/info.gif" class="webimage" id="img_info_8">
+                    
+                    </span>
+                    
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="gf_name1_8" name="name" class="csLabelTableDesc">TESTR COWO BACKOFFICE</span>
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="l_roleType1_8" name="displayRoleType" class="descLabel"></span>
+                  </td>
+                  <td style="width: 150px;" align="left">
+                    <span id="gf_classification1_8" name="code" class="weblabel">.-.-.-.-.-</span>
+                  </td>
+                  <input name="queryResultAt[8].inCreateMode" value="false" type="hidden">
+                  </tr><tr class="row-odd even">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <td class="gc_selection" align="left">
+                    
+                      <input name="queryResultAt[9].isSelected" value="on" onclick="onClickCheckBox(event)" id="isSelected_9" class="rowSelectionControl" type="checkbox">
+                      
+                      <input name="queryResultAt[9].isSelected" value="" type="hidden">
+                    
+                    
+                    <input name="queryResultAt[9].uniqueId" value="TESTR_CUS KUHAT Mutieren" id="webHidden_9" type="hidden">
+                  </td>
+                  <td class="gc_info" align="center">
+                    
+                    <span title="header=[&lt;img src='../images/icons/info.gif' style='vertical-align:middle'&gt;&nbsp;&nbsp;Information] body=[] " style="vertical-align:middle;font-family:arial;font-size:20px;font-weight:bold;color:#ABABAB;cursor:pointer">
+                    
+                    <img src="SearchApplicationRoleMultiSelectPage.do-Dateien/info.gif" class="webimage" id="img_info_9">
+                    
+                    </span>
+                    
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="gf_name1_9" name="name" class="csLabelTableDesc">TESTR CUS KUHAT Mutieren</span>
+                  </td>
+                  <td style="width: 250px;" align="left">
+                    <span id="l_roleType1_9" name="displayRoleType" class="descLabel"></span>
+                  </td>
+                  <td style="width: 150px;" align="left">
+                    <span id="gf_classification1_9" name="code" class="weblabel">.-.-.-.-.-</span>
+                  </td>
+                  <input name="queryResultAt[9].inCreateMode" value="false" type="hidden">
+                  </tr></tbody></table><div><div id="grid-table-p_resultList_paginate" class="dataTables_paginate paging_aura"><span id="grid-table-p_resultList_first" class="first paginate_button" title="Erster">&nbsp;</span><span id="grid-table-p_resultList_previous" class="previous paginate_button" title="Zurueck">&nbsp;</span><span><span class="paginate_active">1</span><span class="paginate_button">2</span><span class="paginate_button">3</span><span class="paginate_button">4</span><span class="paginate_button">5</span></span><span id="grid-table-p_resultList_next" class="next paginate_button" title="Vor">&nbsp;</span><span id="grid-table-p_resultList_last" class="last paginate_button" title="Letzter">&nbsp;</span></div></div></div>
+              
+            </div>
+            
+            
+            <div id="p_paging" class="">
+              
+              <script language="javascript" type="text/javascript">
+              new AuraTable('grid-table-p_resultList',10,false,[0,0,0,0,0], [0,0,1,1,1], [0,0,1,1,1]);
+              </script>
+              
+            </div>
+            
+          </div>
+        
+        
+        
+        
+        
+      </td>
+    </tr>
+  </tbody></table>
+  
+  
+  <div id="p_spacer" class="" style="width:100%;">
+    &nbsp;
+  </div>
+  
+  
+  <table id="p_buttons1" class="webpanel " style="width: 100%;" cellspacing="0">
+    <tbody><tr>
+      <td valign="top" align="left">
+        &nbsp;
+      </td>
+      <td style="text-align: right;" valign="top" align="right">
+        &nbsp;
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" align="left">
+        &nbsp;
+      </td>
+      <td style="text-align: right;" valign="top" align="right">
+        <input name="altura.action.SaveSelect" tabindex="3" value="Übernehmen" onclick="return onSubmit(event, false);" id="btn_accept" class="acceptbutton" type="submit">
+        
+        <a href="https://localhost:7004/aura-as/as/SearchApplicationRoleMultiSelectPage.do" style="display: none;"></a>
+        <input name="org.apache.struts.taglib.html.CANCEL" tabindex="4" value="Zurück" onclick="bCancel=true;" id="btn_cancel" class="backgeneralbutton" type="submit">
+      </td>
+    </tr>
+  </tbody></table>
+  
+  </form>
+
+    </div>
+    
+    <br class="clear">
+  </div>
+  
+  
+  <div id="footer">
+    <ul class="navigation">
+       <li><a href="#">
+			<script type="text/javascript">
+				Page.writeElement(LinksLabels, LinksUrls, "<li>{$}</li>");
+			</script></a></li><li><a href="http://www.credit-suisse.com/country_selection/de/index.html">www.credit-suisse.com</a></li><li><a href="http://csintra.net/support/de/index.html">Hilfe und Support</a></li>
+				
+		
+       <li class="end"></li>
+     </ul>
+     <script type="text/javascript">
+		Page.writeFooterInfo(ApplicationVersion, "<table><tr><td class=\"label\">Version</td><td>{$}</td></tr>", ApplicationOwnerLabel, ApplicationOwnerUrl, "<tr><td class=\"label\">Application owner</td><td>{$}</td></tr><table>");
+	</script><table><tbody><tr><td class="label">Version</td><td>CVS Tag Name:   / Manifest Implementation Version: 1.0.0</td></tr><tr><td class="label">Application owner</td><td>GG AURA Client Support</td></tr></tbody></table><div id="special_disclaimer">Copyright © CREDIT SUISSE GROUP AG und/oder mit ihr verbundene Unternehmen. Alle Rechte vorbehalten. NUR FÜR INTERNEN GEBRAUCH</div><table>
+    <script type="text/javascript">
+		Page.writeElement(SpecialDisclaimer, "<div id=\"special_disclaimer\">{$}</div>");
+	</script>
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+</table></div></div><div style="position: absolute; visibility: hidden;"><div></div><div></div></div></body></html>
