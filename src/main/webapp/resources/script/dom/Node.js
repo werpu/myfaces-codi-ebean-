@@ -22,6 +22,7 @@
  *
  *
  * Note the query ops will return the node
+ * @namespace myfaces._impl._dom.Node
  */
 myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
@@ -77,14 +78,14 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
         this._referencedNode = null;
         this._id = null;
         this._name = null;
-
     },
 
     purgeChilds: function() {
         this.childNodes().purge();
+        return this;
     },
 
-    detach: function(items) {
+    detach: function() {
         if (!this._referencedNode.parentNode) {
             return this;
         }
@@ -194,6 +195,13 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
     alert: function(msg) {
         alert(msg);
+        return this;
+    },
+
+    setTransitionDuration: function(time) {
+        this.setStyle("transitionDuration", time)
+                    .setStyle("mozTransitionDuration", time)
+                    .setStyle("webkitTransitionDuration", time);
         return this;
     }
 },
