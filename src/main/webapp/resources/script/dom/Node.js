@@ -16,7 +16,10 @@
 
 /**
  * a basic node wrapper which capsules all needed
- * operations for our node handling.
+ * operations for our node handling. Due to the functional
+ * builder approach we get a leaner code density than we would
+ * have with a purely imperative one.
+ *
  *
  * Note the query ops will return the node
  */
@@ -30,14 +33,15 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
     _RT:    myfaces._impl.core._Runtime,
     _NodeUtils: myfaces._impl._dom._NodeUtils,
 
+    /** @namespace this._dummyPlaceHolder */
     _dummyPlaceHolder:null,
 
 
     _id:  null,
     _name: null,
-
+     /** @namespace this._referencedNode */
     _referencedNode: null,
-
+      /** @namespace this._tagName */
     _tagName: null,
 
     constructor_: function(elem) {
@@ -67,6 +71,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
     /*purges the given node and all its subelements from the dom tree*/
     purge: function() {
+
         this._NodeUtils.deleteItem(this._referencedNode);
 
         this._referencedNode = null;
@@ -178,9 +183,19 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
     toDomNode: function() {
         return this._referencedNode;
+    },
+
+    //causes an asynchronous delay for a certain period of time
+    //until we can perform the subsequent operation,
+    //this is a one time op after which we work again on another function
+    delay: function(timeout) {
+       return this._NODE_UTILS.getEngine().decorateDelay(this, timeout);
+    },
+
+    alert: function(msg) {
+        alert(msg);
+        return this;
     }
-
-
 },
 //static methods
 {
@@ -214,7 +229,8 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
     },
 
     byIdOrName: function(elem) {
-        myfaces._impl._dom._NodeUtils.byIdOrName(elem);
+        var ret = myfaces._impl._dom._NodeUtils.byIdOrName(elem);
+       return (ret) ? new myfaces._impl._dom.Node(ret): null ;
     }
 });
 
