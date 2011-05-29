@@ -275,5 +275,15 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
             delete closure;
         }
         return ret;
+    },
+
+    delay: function(delayTime) {
+         return this._NODE_UTILS.getEngine().decorateDelay(this, timeout);
+    },
+
+    alert: function(msg) {
+        alert(msg);
+        return this;
     }
+
 });
