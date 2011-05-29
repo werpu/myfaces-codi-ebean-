@@ -172,6 +172,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
         return this._stdOp("alert", msg);
     },
 
+    setTransitionDuration: function(duration) {
+        return this._stdOp("setTransitionDuration", duration);
+    },
+
     /*
      * helpers to reduce the locs, by defining the
      * functionality of most operations as generic methods
