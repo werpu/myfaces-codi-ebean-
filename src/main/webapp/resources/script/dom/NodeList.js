@@ -21,6 +21,7 @@
  */
 myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
     _Lang: myfaces._impl._util._Lang,
+    _NODE_UTILS: myfaces._impl._dom._NodeUtils,
 
     _nodes: null, /*array of nodes to process*/
     length: null,
@@ -277,7 +278,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
         return ret;
     },
 
-    delay: function(delayTime) {
+    delay: function(timeout) {
          return this._NODE_UTILS.getEngine().decorateDelay(this, timeout);
     },
 
