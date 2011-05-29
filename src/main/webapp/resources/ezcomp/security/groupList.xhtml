@@ -89,12 +89,6 @@
         <h:commandLink action="#{cc.attrs.value.doSaveAll}" value="[#{msgs.group_saveAll}]"
                        rendered="#{!cc.attrs.value.spreadSheetController.isEmpty()}"/>
 
-
-        <!-- todo make a paginator ala
-          first currentPos currentPos+1 .... 8 last
-          attributes needed referencingTable
-          value ... value to the pageListModel delivered by ebeans
-        -->
         <ezw:paginator forTable="groupResult" value="#{cc.attrs.value.listModel}"/>
 
 
