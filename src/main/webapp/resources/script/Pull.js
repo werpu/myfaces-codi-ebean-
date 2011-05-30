@@ -59,7 +59,7 @@
          *
          * @param evt
          */
-        onDomUnload: function(evt) {
+        onAjaxDomUnload: function(evt) {
             this.stop();
         },
 

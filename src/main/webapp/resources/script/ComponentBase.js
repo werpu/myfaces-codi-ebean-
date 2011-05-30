@@ -98,6 +98,9 @@
         valueHolderAppendix: "_valueHolder",
         valueHolderId: null,
 
+        ajaxAware: true,
+        unloadAware: true,
+
         constructor_: function(argsMap) {
             _Lang.applyArgs(this, argsMap);
             /*internal postinit*/
@@ -133,8 +136,10 @@
         _postInit: function() {
 
             this.rootNode = this.NODE.querySelector("#" + this.id.replace(/:/g, "\\:"));
-            _AjaxQueue.enqueue(this.onAjaxEvent);
-            _ErrorQueue.enqueue(this.onAjaxError);
+            if(this.ajaxAware) {
+                _AjaxQueue.enqueue(this.onAjaxEvent);
+                _ErrorQueue.enqueue(this.onAjaxError);
+            }
         },
 
         querySelectorAll: function(queryStr) {
@@ -214,7 +219,7 @@
         //TODO we need a replacement handler which notifies the control that it is about to be replaced
         //so that the control can unload eventual event hooks or ajax listeners
         _onAjaxEvent: function(evt) {
-            if (evt.status == "complete") {
+            if (evt.status == "complete" && this.unloadAware) {
 
                 var responseXML = evt.responseXML;
                 //we now parse the response xml for ids which
@@ -230,28 +235,28 @@
                 for (var cnt = updates.length - 1; cnt >= 0; cnt--) {
                     var updateId = updates[cnt].getAttribute("id");
                     if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || this.clientId == updateId || document.querySelectorAll("#" + updateId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
-                        this._onDomUnload(evt);
+                        this._onAjaxDomUnload(evt);
                     }
                 }
                 for (var cnt = deletes.length - 1; cnt >= 0; cnt--) {
                     var deleteId = deletes[cnt].getAttribute("id");
                     if (deleteId && (deleteId == this.P_VIEWBODY || deleteId == this.P_VIEWROOT || this.id == deleteId || document.querySelectorAll("#" + deleteId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
-                        this._onDomUnload(evt);
+                        this._onAjaxDomUnload(evt);
                     }
                 }
             }
         },
         //TODO we might move our jsf event triggered handler
         //To the Dom Level 3 event DOMNodeRemoved
-        _onDomUnload: function(evt) {
+        _onAjaxDomUnload: function(evt) {
             _AjaxQueue.dequeue(this.onAjaxEvent);
             _ErrorQueue.dequeue(this.onAjaxError);
-            this.onDomUnload(evt);
+            this.onAjaxDomUnload(evt);
         },
 
-        _onDomInsert: function(evt) {
+        _onAjaxDomInsert: function(evt) {
             _AjaxQueue.dequeue(this.onAjaxEvent);
-            this.onDomLoad(evt);
+            this.onAjaxDomLoad(evt);
         },
 
         /**
@@ -272,9 +277,10 @@
          *
          * @param evt
          */
-        onDomUnload: function(evt) {
+        onAjaxDomUnload: function(evt) {
         },
-        onDomLoad: function(evt) {
+
+        onAjaxDomLoad: function(evt) {
         },
 
         getWindowParam: function(name) {
