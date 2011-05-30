@@ -12,6 +12,8 @@
      * and mouse and keyboard event handlers to enable
      * it
      *
+     * TODO onclick element selection handler and multi selection
+     *
      * @namespace extras.apache.SelectionList
      */
 
@@ -20,6 +22,9 @@
          * currently selected line
          */
         selectedLine: 0,
+
+        selectedLines: [],
+
         /**
          * placeholder for the ajax enabled replacement area
          * aka list holder
@@ -57,6 +62,8 @@
          * tabindex for the outer component
          */
         tabIndex: 1,
+
+        multiSelect: false,
 
         _onKeyDownHandler:  null,
         _numberOfItems:     0,
@@ -132,7 +139,7 @@
             //find out which element in the row of elements was clicked
             var pos = 0;
             this.rootNode.querySelectorAll(this.selectorIdentifier).forEach(_Lang.hitch(this, function(elem) {
-                if (elem == evt.target) {
+                if (elem.toDomNode() == evt.target) {
                     this.selectedLine = pos;
                     return false;
                 }
@@ -239,23 +246,6 @@
             //we unload all event listeners
             this.rootNode.querySelectorAll(this.selectorIdentifier).removeEventListener(this.EVT_CLICK, this.onclick, false);
         },
-
-        /**
-         * element iterator
-         *
-         * TODO rework this code
-         *
-         * @param theClosure
-         */
-        /*_iterateElements: function(theClosure) {
-            var lines = this.rootNode.querySelectorAll(this.selectorIdentifier);
-            this._numberOfItems = lines.length;
-
-            for (var cnt = lines.length - 1; cnt >= 0; cnt --) {
-                var ret = theClosure(lines.get(cnt), cnt);
-                if ('undefined' != typeof ret && ret === false) break;
-            }
-        },*/
 
         _refresh: function() {
             var cnt = 0;
