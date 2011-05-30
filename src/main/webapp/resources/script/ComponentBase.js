@@ -80,7 +80,7 @@
         KEY_TAB:         9,
         KEY_ESCAPE:     27,
         KEY_ENTER:      13,
-
+        KEY_CTRL:       17,
 
         EVT_FOCUS:      "focus",
         EVT_BLUR:       "blur",

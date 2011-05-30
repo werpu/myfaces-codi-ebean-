@@ -21,9 +21,9 @@
         /**
          * currently selected line
          */
-        selectedLine: 0,
+        focusLine: 0,
 
-        selectedLines: [],
+        selectedLines: {},
 
         /**
          * placeholder for the ajax enabled replacement area
@@ -55,7 +55,13 @@
          */
         valueHolderAppendix: "_valueHolder",
 
+        /**
+         * override for the value holder
+         */
         valueHolderId: null,
+        /**
+         * override for the place holder
+         */
         placeHolderId: null,
 
         /**
@@ -63,20 +69,29 @@
          */
         tabIndex: 1,
 
+        /**
+         * if set to true we have a multi select
+         */
         multiSelect: false,
 
+        /*custom data-* html5 attibute for keeping the key for instance data-key */
+        keyAttribute: null,
+
         _onKeyDownHandler:  null,
+        _onKeyUpHandler: null,
         _numberOfItems:     0,
+        _metaDown: false,
 
 
 
         constructor_: function(argsMap) {
             this._callSuper("constructor", argsMap);
 
-            this.onfocus = _Lang.hitch(this, this.onfocus);
-            this.onblur = _Lang.hitch(this, this.onblur);
-            this.onclick = _Lang.hitch(this, this.onclick);
-            this.onkeydown = _Lang.hitch(this, this.onkeydown);
+            this.onfocus    = _Lang.hitch(this, this.onfocus);
+            this.onblur     = _Lang.hitch(this, this.onblur);
+            this.onclick    = _Lang.hitch(this, this.onclick);
+            this.onkeydown  = _Lang.hitch(this, this.onkeydown);
+            this.onkeyup    = _Lang.hitch(this, this.onkeyup);
 
             this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
             this.placeHolderId = this.placeHolderId || this.id + this.placeHolderAppendix;
@@ -86,7 +101,7 @@
          * resets the selector to its original state
          */
         reset: function() {
-            this.selectedLine = -1;
+            this.focusLine   = -1;
             this._numberOfItems = 0;
             this._refresh();
         },
@@ -95,7 +110,9 @@
          * keyUp action
          */
         keyUp: function() {
-            this.selectedLine = Math.max(0, this.selectedLine - 1);
+            this.focusLine = Math.max(0, this.focusLine - 1);
+            this.selectedLines = {};
+            this.selectedLines[this.focusLine] = true;
             this._refresh();
         },
 
@@ -104,7 +121,10 @@
          */
         keyDown: function() {
 
-            this.selectedLine = Math.min(this._numberOfItems - 1, this.selectedLine + 1);
+            this.focusLine = Math.min(this._numberOfItems - 1, this.focusLine + 1);
+            this.selectedLines = {};
+            this.selectedLines[this.focusLine] = true;
+
             this._refresh();
         },
 
@@ -117,9 +137,9 @@
          * @param evt
          */
         onfocus: function(evt) {
-            this._onKeyDownHandler = this._onKeyDownHandler || this.onkeydown;
+            this._onKeyDownHandler  = this._onKeyDownHandler || this.onkeydown;
+            this._onKeyUpHandler    = this._onKeyUpHandler || this.onkeyup;
             this.placeHolder.addEventListener(this.EVT_KEY_DOWN, this._onKeyDownHandler, true);
-
         },
         /**
          * callback for the onblur event
@@ -127,6 +147,7 @@
          */
         onblur: function(evt) {
             this.placeHolder.removeEventListener(this.EVT_KEY_DOWN, this._onKeyDownHandler, true);
+
         },
 
         /**
@@ -135,22 +156,34 @@
          */
         onclick: function(evt) {
             var target = evt.target;
-
+            var meta = evt.metaKey;
             //find out which element in the row of elements was clicked
             var pos = 0;
             this.rootNode.querySelectorAll(this.selectorIdentifier).forEach(_Lang.hitch(this, function(elem) {
                 if (elem.toDomNode() == evt.target) {
-                    this.selectedLine = pos;
+                    this.focusLine = pos;
+                    if(this.multiSelect && meta) {
+                        this.selectedLines[pos] =  !this.selectedLines[pos];
+                    } else {
+                        this.selectedLines = {};
+                        this.selectedLines[pos] = true;
+                    }
+                    var selectionChangeEvent = {};
+                    selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier)[this.focusLine];
+                    this.onSelectionChange(selectionChangeEvent);
+
                     return false;
+
                 }
                 pos++;
             }));
-
 
             this._refresh();
             this.onSelectionChange(evt);
             this.onFinalSelection(evt);
         },
+
+
 
         /**
          * onKeyDown which triggers
@@ -166,6 +199,8 @@
             var keyCode = evt.keyCode;
             var oldScroll = window.scrollY;
             try {
+
+
                 switch (keyCode) {
                     case this.KEY_ARROW_UP:
 
@@ -173,7 +208,7 @@
 
                         evt.stopPropagation();
                         var selectionChangeEvent = {};
-                        selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier)[this.selectedLine];
+                        selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier).get(this.focusLine);
                         this.onSelectionChange(selectionChangeEvent);
                         return false;
                     case this.KEY_ARROW_DOWN:
@@ -181,7 +216,7 @@
                         this.keyDown();
                         evt.stopPropagation();
                         var selectionChangeEvent = {};
-                        selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier)[this.selectedLine];
+                        selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier).get(this.focusLine);
                         this.onSelectionChange(selectionChangeEvent);
 
                         return false;
@@ -190,12 +225,14 @@
                         this.keyEnter();
                         evt.stopPropagation();
                         var selectionChangeEvent = {};
-                        selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier)[this.selectedLine];
+                        selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier).get(this.focusLine);
                         this.onFinalSelection(selectionChangeEvent);
 
                     case this.KEY_ESCAPE:
                         this.onblur();
                         return false;
+
+
 
 
                     default: return true;
@@ -213,7 +250,21 @@
          * being set to the currently selected item
          */
         onSelectionChange: function(evt) {
-            this.valueHolder.value = this.selectedLine;
+            if(this.multiSelect) {
+                var res = [];
+                var nodes = this.rootNode.querySelectorAll(this.selectorIdentifier);
+                for(var key in this.selectedLines) {
+                    if(this.selectedLines[key]) {
+                        //if we have a custom data attribute set we now can use the html5 mechanisms of custom
+                        //data attributes to achieve the final result
+                        var finalKey = (this.keyAttribute) ? nodes.get(key).getAttribute(this.keyAttribute): key;
+                        res.push(finalKey)
+                    }
+                }
+                this.valueHolder.value = res.join(",");
+            } else {
+                this.valueHolder.value =  this.focusLine;
+            }
         },
 
         onFinalSelection: function(evt) {
@@ -252,7 +303,7 @@
             var selectors = this.rootNode.querySelectorAll(this.selectorIdentifier);
             this._numberOfItems = selectors.length;
             selectors.forEach(_Lang.hitch(this, function (elem) {
-                 (cnt != this.selectedLine) ? elem.removeClass(this.selectionSelected) :
+                 (!this.selectedLines[cnt]) ? elem.removeClass(this.selectionSelected) :
                         elem.addClass(this.selectionSelected);
                  cnt ++;
             }));
