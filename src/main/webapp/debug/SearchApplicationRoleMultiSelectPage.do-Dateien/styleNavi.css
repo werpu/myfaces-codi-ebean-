@@ -1,0 +1,203 @@
+/* ================================================================================ 
+Stylesheet: styleNavi.css for menus in AURA Clients
+© Credit Suisse 
+Date: 30.09.2010 
+Version 0.2 
+created by: F322021
+=================================================================================== */
+
+::-moz-selection {
+background:#111;
+color:#eee;
+}
+
+/*Left navigation side bar*/
+#sidebar {
+position:absolute;
+z-index:2;
+width:135px;
+left:1px;
+top:150px;
+font-family:Arial, Helvetica, sans-serif;
+font-size:11px;
+background-color:#fff;
+height:80%;
+}
+
+#sidebar ul {
+list-style:none;
+}
+
+#sidebar a,#sidebar h3.caption {
+width:135px;
+display:block;
+background:url(../images/menu/tab_small.gif) center right no-repeat;
+text-decoration:none;
+margin:0;
+padding:3px 5px 3px 10px;
+}
+
+#sidebar a.big,#sidebar h3.caption {
+background:url(../images/menu/tab_big.gif) center right no-repeat;
+margin:0;
+padding:4px 5px 4px 10px;
+}
+
+#sidebar h3 {
+font-size:11px;
+}
+
+/*big menu*/
+#containerNavi {
+position:relative;
+width:100%;
+}
+
+#contentNavi {
+	position:relative;
+	width: 993px;
+	z-index:10000;
+	/* Position image representing the remaining gap on the right */
+	background-image: url(../images/menu/bg_1.gif);
+	background-position: 4px 0px;
+}
+
+#kwick {
+	position:relative;
+	width: 984px; /* 125px x 8 */
+	margin: 0;
+	padding: 0;
+}
+
+#kwick a, #kwick li {
+	color: #fff;
+	background-color: #fff;
+	display: block;
+	height: 40px;
+	
+}
+
+#kwick a {
+	background-image: url(../images/menu/bg_1.gif) no-repeat;
+	border: 0;
+	padding: 12px 0 5 10px;
+	white-space:nowrap;
+}
+
+#kwick li {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: 700;
+	float: left;
+	cursor: pointer;
+	overflow: hidden;
+	width: 123px;
+	border-right: 0;
+}
+
+#kwick a.accesshop {
+	background:#fff url(../images/menu/bg_1.gif);
+	white-space:nowrap;	
+}
+
+#kwick a.home {
+	background:#fff url(../images/menu/bg_1.gif);
+	white-space:nowrap;
+}
+
+#kwick a.care {
+	background:#fff url(../images/menu/bg_1.gif);
+	white-space:nowrap;
+}
+
+#kwick a.reporting {
+	background:#fff url(../images/menu/bg_1.gif);
+	white-space:nowrap;
+}
+
+#kwick a.componentordering {
+	background:#fff url(../images/menu/bg_1.gif);
+	white-space:nowrap;
+	
+}
+
+#kwick a.administration {
+	background:#fff url(../images/menu/bg_1.gif);
+	white-space:nowrap;
+}
+
+#kwick a.migration {
+	background:#fff url(../images/menu/bg_1.gif);
+	white-space:nowrap;
+}
+
+#kwick a.deputy {
+	background:#fff url(../images/menu/bg_1.gif);
+	white-space:nowrap;
+}
+
+#kwick li .deactivated span {
+	color:#ccc;
+}
+
+#line2 {
+background:url(../images/bgs/bgtopbar.gif) repeat-x #2B2E3D;
+width:100%;
+border-left:1px solid #fff;
+border-right:1px solid #fff;
+border-bottom:1px solid #fff;
+border-top:0 solid #FFF;
+height:17px;
+z-index:1;
+
+position:relative;
+}
+
+*html div#line2 {
+margin-top:0;
+}
+
+#path-way {
+float:left;
+color:#fff;
+width:auto;
+font-size:11px;
+margin:0;
+padding:10px 5px 3px;
+}
+
+#path-way a:hover {
+color:#fff;
+font-size:11px;
+text-decoration:underline;
+}
+
+#path-way a:active {
+color:#fff;
+font-size:11px;
+font-weight:700;
+}
+
+#welcomeArea {
+position:absolute;
+width:700px;
+height:70px;
+z-index:5;
+left:140px;
+top:663px;
+}
+
+#descriptions {
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:small;
+color:#000;
+}
+
+#sidebar a,#sidebar h3.caption,#sidebar a.big {
+color:#fff;
+}
+
+#path-way a:link,#path-way a:visited {
+color:#fff;
+font-size:11px;
+}

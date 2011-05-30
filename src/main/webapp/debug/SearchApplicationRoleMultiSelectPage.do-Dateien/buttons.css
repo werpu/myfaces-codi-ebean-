@@ -1,0 +1,162 @@
+/* ================================================================================== 
+Stylesheet: buttons.css for AURA Clients 
+© Credit Suisse 
+Date: 08.02.2010
+Version 0.1 
+created by: F322021
+===================================================================================== */
+
+/************** General Buttons **********************************/
+.webbutton {background-image:url(../images/buttons/new/generalbutton.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;text-align:center;vertical-align:middle;width:150px;}
+/* Accept Button */
+.acceptbutton {background-image:url(../images/buttons/new/accept.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+.acceptNextbutton {background-image:url(../images/buttons/general/acceptAndNext.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:210px;}
+/* Accept Button 160px */
+.acceptbutton160 {background-image:url(../images/buttons/new/accept160.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:160px;}
+.acceptbutton200 {background-image:url(../images/buttons/general/acceptbutton200.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
+/* Confirm Button */
+.confirmbutton {background-image:url(../images/buttons/new/confirm.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+.selectbutton {background-image:url(../images/buttons/general/select.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:170px;}
+/* Home Button */
+.homebutton {background-image:url(../images/buttons/general/home.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:120px;}
+/* Update Button */
+.updatebutton {background-image:url(../images/buttons/general/update_0.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:120px;}
+.updatebutton170 {background-image:url(../images/buttons/general/update_170.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:170px;}
+/* Add value package Button */
+.addvaluepackagebutton {background-image:url(../images/buttons/accessShop/addValuePackage.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
+/* Insert Button in Admin page */
+.insertbutton {background-image:url(../images/buttons/new/insert.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+/* Next Button in Wizards */
+.nextbutton {background-image:url(../images/buttons/new/next.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:100px;}
+/* Next Button in Wizards */
+.nextbutton_270 {background-image:url(../images/buttons/general/nextWizard_270.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:270px;}
+/* Back Button in Wizards */
+.backbutton {background-image:url(../images/buttons/new/back.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:100px;}
+/* General Back Button mostly at end of page*/
+.backgeneralbutton {background-image:url(../images/buttons/general/back_general.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+/* Reject Button */
+.rejectbutton {background-image:url(../images/buttons/new/reject.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+/* Remove Button */
+.removebutton {background-image:url(../images/buttons/new/remove.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+/* Reset/Rollback Button */
+.rollbackbutton {background-image:url(../images/buttons/new/rollback.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:135px;}
+/* Save Button */
+.savebutton {background-image:url(../images/buttons/new/save.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+/* Question/Wizard next Button */
+.questionsbutton {background-image:url(../images/buttons/new/questions.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:100px;}
+.nextWizardbutton {background-image:url(../images/buttons/general/nextWizard.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:150px;}
+/* Finish wizard Button */
+.wizardfinishbutton {background-image:url(../images/buttons/new/finishWizard.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:170px;}
+/* Start wizard Button */
+.startwizardbutton {background-image:url(../images/buttons/new/startWizard.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:180px;}
+/* Blank Button without icon */
+.generalbutton {background-image:url(../images/buttons/new/generalbutton.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;text-align:center;vertical-align:middle;width:150px;}
+/* Remove Button width 170px */
+.removebutton170 {background-image:url(../images/buttons/new/remove.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:170px;}
+/* Remove Button width 120px */
+.removebutton120 {background-image:url(../images/buttons/new/remove.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:120px;}
+/* Abort or Cancel Button */
+.cancelbutton {background-image:url(../images/buttons/new/cancel.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+/* OK Button */
+.okbutton {background-image:url(../images/buttons/new/ok.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+/* Search Button */
+.searchbutton {background-image:url(../images/buttons/new/search.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+/* Remove data Button width 120px */
+.removeData120 {background-image:url(../images/buttons/general/removeData120.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:120px;}
+/* Remove data Button width 170px */
+.removeData170 {background-image:url(../images/buttons/general/removeData170.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:170px;}
+/* Delete Description Button */
+.deleteDescription {background-image:url(../images/buttons/general/deleteDescription.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:165px;}
+/* Add data Button width 170px */
+.addData170 {background-image:url(../images/buttons/general/addData170.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:170px;}
+/* Add data Button width 220px */
+.addData220 {background-image:url(../images/buttons/general/addData220.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:220px;}
+/* Upload Document Button */
+.uploadDocument {background-image:url(../images/buttons/general/uploadDocument.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:170px;}
+/* Editdata Button width 170px */
+.editData170 {background-image:url(../images/buttons/general/editData170.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:170px;}
+/* Start Process Button */
+.startProcess {background-image:url(../images/buttons/general/startProcess.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:165px;}
+/* Delete Process Button */
+.deleteProcess {background-image:url(../images/buttons/general/deleteProcess.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:165px;}
+/* End Process Button */
+.endProcess {background-image:url(../images/buttons/general/endProcess.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:165px;}
+/* Create New Button */
+.createNew {background-image:url(../images/buttons/general/create.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:180px;}
+.new {background-image:url(../images/buttons/general/new.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:120px;}
+.createNew {background-image:url(../images/buttons/general/create.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:180px;}
+/* Deploy Button */
+.deploy {background-image:url(../images/buttons/general/deploy.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:135px;}
+/* General Button without icon 230px width */
+.generalbutton230 {background-image:url(../images/buttons/general/blank_230.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;text-align:center;vertical-align:middle;width:230px;}
+/* Web Button default */
+.webbuttondefault {border:0;cursor:pointer;padding:0;vertical-align:middle;}
+/* Access Shop Buttons Add privilege Button */
+.addPrivilege {background-image:url(../images/buttons/accessShop/addPrivilege.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:165px;}
+/* Submit request draft Button */
+.submitRequestDraft {background-image:url(../images/buttons/accessShop/submitRequestDraft.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
+/* Order privilege Button */
+.orderPrivilege {background-image:url(../images/buttons/accessShop/orderPrivilege.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:165px;}
+/* Add Enterprise role Button*/
+.addEnterpriseRole {background-image:url(../images/buttons/accessShop/addEnterpriseRole.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
+/* Add Application role Button */
+.addApplicationRole {background-image:url(../images/buttons/accessShop/addApplicationRole.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
+/* Copy draft Button */
+.draftCopy {background-image:url(../images/buttons/accessShop/draftCopy.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:150px;}
+/* Edit draft Button */
+.draftEdit {background-image:url(../images/buttons/accessShop/draftEdit.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:150px;}
+/* Delete draft Button */
+.draftDelete {background-image:url(../images/buttons/accessShop/draftDelete.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:150px;}
+/* Create/Show pdf Button */
+.pdfbutton {background-image:url(../images/buttons/accessShop/pdf.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:130px;}
+/* Select Employee Button */
+.selectEmployee {background-image:url(../images/buttons/accessShop/selectEmployee.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:180px;}
+/* Delete Selection Button */
+.deleteSelection {background-image:url(../images/buttons/accessShop/deleteSelection.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:165px;}
+.deleteSelection200 {background-image:url(../images/buttons/general/deleteSelection200.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
+.deleteSelection170 {background-image:url(../images/buttons/general/deleteSelection170.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:170px;}
+.clearAll {background-image:url(../images/buttons/general/clearAll.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:165px;}
+.deleteAll {background-image:url(../images/buttons/general/delAll.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:165px;}
+.deletecommonbutton {background-image:url(../images/buttons/general/deleteCommon.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:110px;}
+/* Add employee Button */
+.addEmployee {background-image:url(../images/buttons/accessShop/addEmployee.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
+.importValueRange {background-image:url(../images/buttons/accessShop/importValueRange.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:170px;}
+.searchSm {background-image:url(../images/buttons/general/search_sm.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:110px;}
+.orderRight {background-image:url(../images/buttons/accessShop/orderRight.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:180px;}
+
+/*************Component Ordering Buttons *************************************/
+.editSafetyFunction {background-image:url(../images/buttons/co/editSafety.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:250px;}
+
+/*************Prozuka Buttons *************************************/
+.addTemporaryActivation {background-image:url(../images/buttons/prozuka/addTemporaryActivation.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:240px;}
+.activate {background-image:url(../images/buttons/prozuka/activate.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:160px;}
+.checkFunctionAssignment {background-image:url(../images/buttons/prozuka/checkFunctionAssignment.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
+.assignFunction {background-image:url(../images/buttons/prozuka/checkFunctionAssignment.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:220px;}
+.activateAndNext{background-image:url(../images/buttons/prozuka/activateAndNext.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:210px;}
+.assignFunctionAndNext{background-image:url(../images/buttons/prozuka/assignAndNext.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:220px;}
+.btn_deactivate{background-image:url(../images/buttons/prozuka/btn_deactivate.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:25px;}
+.btn_prolong5days{background-image:url(../images/buttons/prozuka/btn_prolong5days.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:25px;}
+.btn_prolong10days{background-image:url(../images/buttons/prozuka/btn_prolong10days.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:25px;}
+.btn_prolong48hours{background-image:url(../images/buttons/prozuka/btn_prolong48hours.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:25px;}
+
+/*************Deputy Buttons *************************************/
+.activateDep {background-image:url(../images/buttons/deputy/activate.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:100px;}
+.deactivate {background-image:url(../images/buttons/deputy/deactivate.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:100px;}
+.terminate {background-image:url(../images/buttons/deputy/terminate.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:100px;}
+.toBeAccepted {background-image:url(../images/buttons/deputy/toBeAccepted.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:100px;}
+.activateDep {background-image:url(../images/buttons/deputy/activate.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:100px;}
+.declinedDep {background-image:url(../images/buttons/deputy/declined.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:100px;}
+/* Modify Button */
+.modifybutton {background-image:url(../images/buttons/deputy/modify2.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:100px;}
+.recallbutton {background-image:url(../images/buttons/deputy/recall.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:100px;}
+.rejectbuttonDep {background-image:url(../images/buttons/deputy/reject.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:100px;}
+.approvebutton {background-image:url(../images/buttons/deputy/approve.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:25px;padding-left:22px;vertical-align:middle;width:100px;}
+.confirmRejection {background-image:url(../images/buttons/deputy/confirmRejection.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
+.approve {background-image:url(../images/buttons/deputy/approve1.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:150px;}
+.rejectbuttonBig {background-image:url(../images/buttons/deputy/rejectBig.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:190px;}
+.addDeputy {background-image:url(../images/buttons/deputy/addDeputy.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:180px;}
+.searchAddDeputy {background-image:url(../images/buttons/deputy/searchAddDeputy.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:180px;}
+.excelExport {background-image:url(../images/buttons/deputy/excelExport.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:140px;}
+.revokeSelected {background-image:url(../images/buttons/deputy/revokeSelected.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:250px;}
+.approveAccept {background-image:url(../images/buttons/deputy/approveAccept.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
+.declineReject {background-image:url(../images/buttons/deputy/declineReject.gif);background-repeat:no-repeat;border:0;cursor:pointer;font-size:11px;height:33px;padding-left:22px;vertical-align:middle;width:200px;}
