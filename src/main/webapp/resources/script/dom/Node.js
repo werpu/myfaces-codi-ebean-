@@ -103,7 +103,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
     },
 
     setAttribute: function(attr, val) {
-        this._NodeUtils.setAttribute(attr, val);
+        this._NodeUtils.setAttribute(this._referencedNode, attr, val);
         return this;
     },
 
