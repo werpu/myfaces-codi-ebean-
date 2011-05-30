@@ -7,6 +7,7 @@
     <composite:interface componentType="at.irian.SelectionList">
         <composite:attribute name="id" required="true"></composite:attribute>
         <composite:attribute name="label" default=""></composite:attribute>
+        <composite:attribute name="multiselect" type="java.lang.Boolean" default="false" required="false"></composite:attribute>
         <composite:attribute name="value" required="true"></composite:attribute>
         <composite:attribute name="model" required="true"></composite:attribute>
         <composite:attribute name="style" required="false"></composite:attribute>
@@ -28,15 +29,26 @@
         <h:outputScript library="script" name="SelectionList.js.js"/>
 
         <div id="#{cc.clientId}" class="selectionList">
-            <h:panelGroup id="#{cc.attrs.id}" layout="blocl">
-                <ul id="#{cc.attrs.id}t_placeHolder">
-                    <ui:repeat value="#{cc.attrs.model}" var="item">
-                        <li data-key="#{item.value}">#{item.label}</li>
-                    </ui:repeat>
-                </ul>
-                <h:inputHidden id="selectionList_valueHolder"/>
+            <h:panelGroup id="#{cc.attrs.id}" layout="block">
+                <h:panelGroup id="#{cc.attrs.id}_placeHolder" layout="block">
+                    <ul>
+                        <ui:repeat value="#{cc.attrs.model}" var="item">
+                            <li data-key="#{item.value}">#{item.label}</li>
+                        </ui:repeat>
+                    </ul>
+                </h:panelGroup>
+                <h:inputHidden id="#{cc.attrs.id}_valueHolder"/>
             </h:panelGroup>
         </div>
+
+        <script type="text/javascript">
+            var selectionList_#{cc.attrs.id} = new extras.apache.SelectionList({
+                        clientId:"#{cc.clientId}",
+                        id:"#{cc.clientId}:#{cc.attrs.id}",
+                        multiSelect:true,
+                        selectorIdentifier:"#{cc.attrs.selectorIdentifier}"
+                    });
+        </script>
     </composite:implementation>
 
 
