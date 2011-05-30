@@ -26,7 +26,7 @@
         <h:outputScript library="script" name="ProgressBar.js"/>
 
         <div id="#{cc.clientId}" class="progressBar">
-            <h:panelGroup id="#{cc.attrs.id}" layout="bloc" styleClass="progressContent">
+            <h:panelGroup id="#{cc.attrs.id}" layout="block" styleClass="progressContent">
                 <h:outputFormat styleClass="label" value="#{cc.attrs.label}"></h:outputFormat>
                 <h:panelGroup layout="block" id="#{cc.attrs.id}_holder" styleClass="progressHolder">
                     <h:panelGroup layout="block" id="#{cc.attrs.id}_gauge" styleClass="progressGauge">
