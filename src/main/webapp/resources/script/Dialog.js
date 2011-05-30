@@ -24,7 +24,7 @@
                             .setTransitionDuration("");
                 }
             });
-
+    //legacy methods to fix the existing code
     function dialog() {
         this.NODE.querySelectorAll(".dialog").setStyle("display", "block");
     }
