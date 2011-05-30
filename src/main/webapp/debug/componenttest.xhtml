@@ -40,6 +40,17 @@
     </ui:define>
 
     <ui:define name="search">
+        <h:outputScript library="script" name="dom/_DomEngine.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
+
+        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
+        <h:outputScript library="script" name="dom/Sizzle.js"/>
+        <h:outputScript library="script" name="dom/Node.js"/>
+        <h:outputScript library="script" name="dom/NodeList.js"/>
+
+        <h:outputScript library="script" name="ComponentBase.js"/>
+        <h:outputScript library="script" name="SelectionList.js"/>
 
 
         <h3>${msgs.group_search}</h3>
@@ -71,8 +82,7 @@
                 Ajax in progress
             </ezw:ajaxStatus>
 
-            <ezw:progressBar id="progressor" value="#{progressService.progressModel}" />
-
+           <!--
             <ezw:inputSuggest id="mySuggest" value="booga"
                               inputStyleClass="inputStyle"
                               label="myInputLabel" model="#{groupView.suggestModel}" selectorIdentifier="ul li">
@@ -87,36 +97,39 @@
                 <h:outputFormat value="hello from suggest"/>
 
             </ezw:inputSuggest>
+            -->
+
+            <h:panelGroup type="block">
+                <h3>Item Select</h3>
+                <h:panelGroup layout="block" id="selectionList">
+                    <ul id="selectionList_placeHolder">
+                        <li>First Line</li>
+                        <li>Second Line</li>
+                        <li>Third Line</li>
+                    </ul>
+
+                 <h:inputHidden id="selectionList_valueHolder"/>
+                </h:panelGroup>
+                <style type="text/css">
+                    .selected {
+                        background-color: #b9a2c3;
+                    }
+
+                    .focus {
+                        border: 1px solid gray;
+                    }
+                </style>
+                <script type="text/javascript">
+                    var selectionList = new extras.apache.SelectionList({
+                        id:"selectionList",  selectorIdentifier:"ul li"
+                    });
+                </script>
+            </h:panelGroup>
 
         </h:form>
 
 
-        <h:panelGroup type="block">
-            <h3>Item Select</h3>
-            <h:panelGroup layout="block" id="selectionList">
-                <ul id="selectionList_placeHolder">
-                    <li>First Line</li>
-                    <li>Second Line</li>
-                    <li>Third Line</li>
-                </ul>
 
-                <h:inputHidden id="selectionList_valueHolder"/>
-            </h:panelGroup>
-            <style type="text/css">
-                .selected {
-                    background-color: #b9a2c3;
-                }
-
-                .focus {
-                    border: 1px solid gray;
-                }
-            </style>
-            <script type="text/javascript">
-                var selectionList = new extras.apache.SelectionList({
-                    id:"selectionList",  selectorIdentifier:"ul li"
-                });
-            </script>
-        </h:panelGroup>
     </ui:define>
 </ui:composition>
 
