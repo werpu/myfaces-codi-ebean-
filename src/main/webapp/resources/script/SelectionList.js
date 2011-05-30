@@ -23,7 +23,7 @@
          */
         focusLine: 0,
 
-        selectedLines: {},
+        selectedLines: null,
 
         /**
          * placeholder for the ajax enabled replacement area
@@ -86,6 +86,8 @@
 
         constructor_: function(argsMap) {
             this._callSuper("constructor", argsMap);
+
+            this.selectedLines = {};
 
             this.onfocus    = _Lang.hitch(this, this.onfocus);
             this.onblur     = _Lang.hitch(this, this.onblur);
@@ -261,9 +263,9 @@
                         res.push(finalKey)
                     }
                 }
-                this.valueHolder.value = res.join(",");
+                this.valueHolder.setAttribute("value", res.join(","));
             } else {
-                this.valueHolder.value =  this.focusLine;
+                this.valueHolder.setAttribute("value", this.focusLine);
             }
         },
 

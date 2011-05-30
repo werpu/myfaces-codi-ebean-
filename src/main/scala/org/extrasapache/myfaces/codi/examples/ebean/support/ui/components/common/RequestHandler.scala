@@ -11,11 +11,11 @@ import scala.AnyRef
  */
 
 trait RequestHandler {
-  def attrMap: java.util.Map[AnyRef, AnyRef] = {
-    FacesContext.getCurrentInstance.getAttributes
+  def attrMap: java.util.Map[String, String] = {
+    FacesContext.getCurrentInstance.getExternalContext.getRequestParameterMap
   }
 
   def getReqAttr(key:String): String = {
-    attrMap.get(key).asInstanceOf[String]
+    attrMap.get(key)
   }
 }

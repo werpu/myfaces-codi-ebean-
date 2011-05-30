@@ -40,26 +40,28 @@ class SelectionList extends UINamingContainer with AttributeHandler with Request
     import java.util.Map
 
     super.decode(context)
-    val attr: String = getAttr[String](VALUE_HOLDER, this.getClientId(context) + "_valueHolder")
-    if (attr == null) {
-      //no attribute found we return early
-      return
-    }
+    val attr: String = getAttr[String](VALUE_HOLDER, this.getClientId(context)+":"+this.getId + "_valueHolder")
+
 
     //attribute found we transform our request params into select items and then set the
     //the component values accordingly
     val requestValue = getReqAttr(attr)
+    if (requestValue == null) {
+      //no attribute found we return early
+      return
+    }
 
     val modelIdx = new HashMap[String, SelectItem]()
-
-    getAttr[Buffer[SelectItem]]("model", null).foreach(item => {
-      modelIdx.put(item.getLabel, item)
+    val theModel: Buffer[SelectItem] = getAttr[java.util.ArrayList[SelectItem]]("model", null)
+    theModel.foreach(item => {
+      modelIdx.put(item.getValue.toString, item)
     })
 
     val resBuffer = requestValue.split(",").map(item => {
-       modelIdx.get(item).get
-    }).toBuffer[SelectItem]
+      modelIdx.get(item).get
+    }).toBuffer
 
+    //TODO get the value and push the resBuffer in instead of replacing it
     setAttr[java.util.List[SelectItem]](VALUE, resBuffer)
   }
 
