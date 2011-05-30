@@ -123,6 +123,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
     innerHTML: function(markup) {
         myfaces._impl._dom._NodeUtils.innerHTML(this._referencedNode, markup);
+        return this;
     },
 
     getInnerHTML: function() {
@@ -151,14 +152,25 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
     runScripts: function() {
         this._NODE_UTILS.runScripts(this._referencedNode);
+        return this;
     },
 
     addClass: function(clazz) {
-        this._NODE_UTILS.addClass(this._referencedNode, clazz);
+        clazz = (this._Lang.isString(clazz))? [clazz]:this._Lang.objToArray(clazz);
+        this._Lang.arrForEach(clazz,this._Lang.hitch(this, function(item) {
+            this._NODE_UTILS.addClass(this._referencedNode, item);
+        }));
+
+        return this;
     },
 
     removeClass: function(clazz) {
-        this._NODE_UTILS.removeClass(this._referencedNode, clazz);
+        clazz = (this._Lang.isString(clazz))? [clazz]:this._Lang.objToArray(clazz);
+        this._Lang.arrForEach(clazz,this._Lang.hitch(this, function(item) {
+            this._NODE_UTILS.removeClass(this._referencedNode, item);
+        }));
+
+        return this;
     },
 
     addEventListener: function(evt, listener, useCapture) {

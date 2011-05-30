@@ -44,6 +44,7 @@
 
         <h3>${msgs.group_search}</h3>
         <h:form id="searchform" prependId="false">
+
             <div id="search">
                 <h:panelGrid columns="5" id="searchArea">
                     <h:outputFormat value="#{msgs.group_name}"/>
@@ -75,7 +76,10 @@
             </h:panelGroup>
 
             <ezw:ajaxStatus id="pull">
-                Ajax in progress
+                <div class="ajaxBegin">Ajax started</div>
+                <div class="ajaxComplete">Ajax completed</div>
+                <div class="ajaxError">Ajax Error</div>
+                <div class="ajaxSuccess">Ajax Success</div>
             </ezw:ajaxStatus>
 
         </h:form>

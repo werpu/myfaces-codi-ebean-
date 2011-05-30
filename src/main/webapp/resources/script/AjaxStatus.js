@@ -1,42 +1,43 @@
 (function() {
     var _RT = myfaces._impl.core._Runtime;
-    var _Lang = myfaces._impl._util._Lang;
-    var _AjaxQueue = extras.apache.ExtendedEventQueue;
-    var _ErrorQueue = extras.apache.ExtendedErrorQueue;
-
     _RT.extendClass("extras.apache.AjaxStatus", extras.apache.ComponentBase, {
-        constructor_: function(args) {
-            this._callSuper("constructor", args);
-        },
+                _displayMatrix: [
+                    "ajaxBegin",
+                    "ajaxComplete",
+                    "ajaxSuccess",
+                    "ajaxError"
+                ],
 
-        onAjaxEvent: function(evt) {
-            try {
-                if (evt.status == "begin") {
-                    this.start();
+
+                constructor_: function(args) {
+                    this._callSuper("constructor", args);
+                },
+
+                onAjaxBegin: function(evt) {
+
+                    this.rootNode.removeClass(this._getToRemove("ajaxBegin")).addClass("ajaxBegin");
+                },
+                onAjaxError: function(evt) {
+                    this.rootNode.removeClass(this._getToRemove("ajaxError")).addClass("ajaxError");
+                },
+
+                onAjaxSuccess: function(evt) {
+                    this.rootNode.removeClass(this._getToRemove("ajaxSuccess")).addClass("ajaxSuccess");
+                },
+                onAjaxComplete: function(evt) {
+                    this.rootNode.removeClass(this._getToRemove("ajaxComplete")).addClass("ajaxComplete");
+                },
+
+
+                _getToRemove: function(toShow) {
+                    var res = [];
+                    for (var cnt = this._displayMatrix.length - 1; cnt >= 0; cnt--) {
+                        if (this._displayMatrix[cnt] != toShow) {
+                            res.push(this._displayMatrix[cnt]);
+                        }
+                    }
+                    return res;
                 }
-                if (evt.status == "success") {
-                    this.end();
-                }
-            } finally {
-                this._callSuper("onAjaxEvent", evt);
-            }
-        },
 
-        onErrorEvent: function(evt) {
-            this.end();
-        },
-
-        start: function() {
-            this.rootNode.removeClass("progressStopped");
-            this.rootNode.addClass("ajaxInProgress");
-        },
-
-        end: function() {
-            this.rootNode.removeClass("ajaxInProgress");
-            this.rootNode.addClass("progressStopped");
-        }
-
-
-    });
-
-})()
+            });
+})();
