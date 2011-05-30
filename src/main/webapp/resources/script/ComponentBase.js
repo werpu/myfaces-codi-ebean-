@@ -60,6 +60,8 @@
      * because our jsf facelet templates are enough,
      * for subtemplating we can move over but for now
      * what we have suffices.
+     *
+     * @namespace extras.apache.ComponentBase
      */
     _RT.extendClass("extras.apache.ComponentBase", Object, {
         rootNode: null,
@@ -105,7 +107,7 @@
 
             //we enforce the scope for the onAjaxEvent
             this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
-            this.onErrorEvent = _Lang.hitch(this, this.onErrorEvent);
+            this.onAjaxError = _Lang.hitch(this, this.onAjaxError);
 
             this.id = this.id || this.clientId +":"+ this.clientId;
 
@@ -132,7 +134,7 @@
 
             this.rootNode = this.NODE.querySelector("#" + this.id.replace(/:/g, "\\:"));
             _AjaxQueue.enqueue(this.onAjaxEvent);
-            _ErrorQueue.enqueue(this.onErrorEvent);
+            _ErrorQueue.enqueue(this.onAjaxError);
         },
 
         querySelectorAll: function(queryStr) {
@@ -179,13 +181,39 @@
             node.setAttribute("class", res.join(" "));
         },
 
-        onErrorEvent: function(evt) {
+        onAjaxError: function(evt) {
 
+        },
+
+        onAjaxBegin: function(evt) {
+
+        },
+        onAjaxComplete: function(evt) {
+
+        },
+        onAjaxSuccess: function(evt) {
+
+        },
+
+        onAjaxEvent: function(evt) {
+            try {
+                if (evt.status == "begin") {
+                    this.onAjaxBegin(evt);
+                }
+                else if (evt.status == "success") {
+                    this.onAjaxSuccess(evt);
+                }
+                else if (evt.status == "complete") {
+                    this.onAjaxComplete(evt);
+                }
+            } finally {
+                this._onAjaxEvent(evt);
+            }
         },
 
         //TODO we need a replacement handler which notifies the control that it is about to be replaced
         //so that the control can unload eventual event hooks or ajax listeners
-        onAjaxEvent: function(evt) {
+        _onAjaxEvent: function(evt) {
             if (evt.status == "complete") {
 
                 var responseXML = evt.responseXML;
@@ -217,7 +245,7 @@
         //To the Dom Level 3 event DOMNodeRemoved
         _onDomUnload: function(evt) {
             _AjaxQueue.dequeue(this.onAjaxEvent);
-            _ErrorQueue.dequeue(this.onErrorEvent);
+            _ErrorQueue.dequeue(this.onAjaxError);
             this.onDomUnload(evt);
         },
 

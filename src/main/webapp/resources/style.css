@@ -356,7 +356,7 @@ table.resultList tr:hover {
 
 /* type ahead*/
 .inputSuggest {
-/*root marker of the entire input suggest control*/
+    /*root marker of the entire input suggest control*/
     display: block;
     position: relative;
     /*we have to add the position flag to enable position absolute
@@ -379,20 +379,66 @@ as relative coordinate to the input*/
 /**
 ajax progressor
 */
+.ajaxStatus {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+
 .ajaxStatus .statusArea {
     opacity: 0;
-
-    -webkit-transition: opacity 0.2s ease-in;
-    -moz-transition: opacity 0.2s ease-in;
-    -o-transition: opacity 0.2s ease-in;
 }
 
-.ajaxStatus .progressArea.ajaxStatusStopped {
+.ajaxStatus .statusArea .ajaxComplete,
+.ajaxStatus .statusArea .ajaxSuccess,
+.ajaxStatus .statusArea .ajaxError,
+.ajaxStatus .statusArea .ajaxBegin {
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+}
+
+.ajaxStatus .statusArea.ajaxComplete .ajaxComplete {
+    background-color: yellow;
+    opacity: 1;
+}
+
+.ajaxStatus .statusArea.ajaxSuccess .ajaxSuccess {
+    background-color: green;
     opacity: 0;
 }
 
-.ajaxStatus .progressArea.ajaxInProgress {
+.ajaxStatus .statusArea.ajaxError .ajaxError {
+    background-color: red;
     opacity: 1;
+}
+
+.ajaxStatus .statusArea.ajaxBegin .ajaxBegin {
+    opacity: 1;
+    background-color: #99ff99;
+}
+
+/*we hide subelements if they are not from the same type as our parent type*/
+.ajaxStatus .statusArea.ajaxComplete .ajaxSuccess,
+.ajaxStatus .statusArea.ajaxComplete .ajaxBegin,
+.ajaxStatus .statusArea.ajaxComplete .ajaxError,
+.ajaxStatus .statusArea.ajaxBegin .ajaxSuccess,
+.ajaxStatus .statusArea.ajaxBegin .ajaxComplete,
+.ajaxStatus .statusArea.ajaxBegin .ajaxError,
+.ajaxStatus .statusArea.ajaxSuccess .ajaxBegin,
+.ajaxStatus .statusArea.ajaxSuccess .ajaxComplete,
+.ajaxStatus .statusArea.ajaxSuccess .ajaxError,
+.ajaxStatus .statusArea.ajaxError .ajaxComplete,
+.ajaxStatus .statusArea.ajaxError .ajaxComplete,
+.ajaxStatus .statusArea.ajaxError .ajaxSuccess {
+    opacity: 0;
+}
+
+/**
+initial state success success no display
+*/
+.ajaxStatus .statusArea.ajaxSuccess .ajaxSuccess {
+    opacity: 0;
 }
 
 /**
@@ -408,20 +454,23 @@ ajax progressor
     height: 18px;
     border: 1px #add8e6 groove;
     width: 0px; /*we add transitions to animate the flow*/
-    -webkit-transition: width 0.2s ease-in;
-    -moz-transition: width 0.2s ease-in;
-    -o-transition: width 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
 }
 
 .progressBar  .progressGauge.progressFirstThird {
     background-color: red;
 }
+
 .progressBar  .progressGauge.progressSecondThird {
     background-color: orange;
 }
+
 .progressBar  .progressGauge.progressThirdThird {
     background-color: yellow;
 }
+
 .progressBar  .progressGauge.progressFinished {
     background-color: green;
 }
