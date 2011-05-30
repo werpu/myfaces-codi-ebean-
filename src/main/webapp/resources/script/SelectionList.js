@@ -112,6 +112,7 @@
         onfocus: function(evt) {
             this._onKeyDownHandler = this._onKeyDownHandler || this.onkeydown;
             this.placeHolder.addEventListener(this.EVT_KEY_DOWN, this._onKeyDownHandler, true);
+
         },
         /**
          * callback for the onblur event
@@ -221,7 +222,7 @@
             this.placeHolder = this.rootNode.querySelector("#" + this.placeHolderId.replace(/:/g, "\\:"));
             this.valueHolder = this.rootNode.querySelector("#" + this.valueHolderId.replace(/:/g, "\\:"));
 
-            this.placeHolder.tabIndex = this.tabIndex;
+            this.placeHolder.setAttribute("tabindex", this.tabIndex);
 
             this.placeHolder.addEventListener(this.EVT_FOCUS, this.onfocus, true);
             this.placeHolder.addEventListener(this.EVT_BLUR, this.onblur, true);
