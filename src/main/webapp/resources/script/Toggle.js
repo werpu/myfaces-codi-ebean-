@@ -45,11 +45,24 @@
                     this.open = this.open;
                     if (this.open) {
                         this.rootNode.querySelector("#" + this.toggleAreaId).removeClass("toggleOff").addClass("toggleOn");
+                        this.onToggleOn(evt);
                     } else {
                         this.rootNode.querySelector("#" + this.toggleAreaId).removeClass("toggleOn").addClass("toggleOff");
+                        this.onToggleOff(evt);
                     }
                     //todo notify the server as well
+                },
+
+                //callbacks for event handlers which can be set from outside, so that we can intercept toggle calls
+                //with ajax replacements if needed
+                onToggleOn: function(evt) {
+
+                },
+
+                onToggleOff: function(evt) {
+
                 }
+
 
             });
 
