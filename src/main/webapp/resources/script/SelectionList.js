@@ -231,7 +231,7 @@
             this._refresh();
         },
 
-        onDomUnload: function() {
+        onAjaxDomUnload: function() {
             this.placeHolder.removeEventListener(this.EVT_FOCUS, this.onfocus, true);
             this.placeHolder.removeEventListener(this.EVT_BLUR, this.onblur, true);
 

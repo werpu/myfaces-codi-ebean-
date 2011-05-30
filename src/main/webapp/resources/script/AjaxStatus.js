@@ -11,6 +11,8 @@
 
                 constructor_: function(args) {
                     this._callSuper("constructor", args);
+                    /*we dont need any unload hooks*/
+                    this.unloadAware = false;
                 },
 
                 onAjaxBegin: function(evt) {

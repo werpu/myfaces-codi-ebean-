@@ -24,6 +24,8 @@
         constructor_: function(args) {
             this._callSuper("constructor", args);
             this._onAjaxEvent = _Lang.hitch(this, this._onAjaxEvent);
+            /*we dont need any unload hooks*/
+            this.unloadAware = false;
         },
 
         /**
