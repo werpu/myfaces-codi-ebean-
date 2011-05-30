@@ -1,0 +1,460 @@
+/* Defaults for all elements. */
+* {
+ font-family: "Arial", "Helvetica", sans-serif;
+ font-size:12px;
+}
+
+
+/* Default page settings. */
+body {
+ color:rgb(0,0,0);
+ background-color:white;
+}
+
+/* .maint-rel-table is the style for tables of related
+ *    information (compositions or associations).
+ * .selectlist-table is the style for tables from which Web users
+ *    can choose a value  (for example, a table of countries).
+ * .browse-table is the style for tables which shows the results
+ *    of a query.
+ */
+table.browse-table, table.maint-rel-table, table.selectlist-table {
+/*	width: 100%; */
+	border:0px;
+	border-collapse: collapse;
+    margin: 20px 0 20px 0;
+    background: inherit;
+ 	cursor: default;
+	filter: none;
+}
+
+
+/* Make sure that the forms in the table (for edit and select buttons) don't cause
+ * row distortion
+ */
+.browse-table form, .maint-rel-table form, .selectlist-table form {
+	display: inline;
+}
+
+
+
+/* The following rules apply to browse-table, maint-rel-table and selectlist-table:
+ * tr.row-odd
+ * tr.row-even
+ * tr.row-empty
+ * tr.row-selected
+ * .column-selected
+ * .header.dragover
+ */
+
+/* Style for odd rows */
+tr.row-odd {
+    background-color: #def;
+}
+
+/* Style for even rows */
+tr.row-even {
+    background-color: white; 
+}
+
+/* Style for empty row displaying "No records found" */
+tr.row-empty {
+	background-color: white; 
+}
+
+/* Style when row is selected */
+tr.row-selected {
+	background-color: #bef;
+}
+
+/* Style when column is selected */
+.column-selected {
+	background-color: #bef;
+}
+
+/* Style when a header is dragged over another header (for reordering the table) */
+.header-dragover {
+	background-color: blue;
+}
+
+/* Style for the header row of the tables */
+table.browse-table thead tr,table.maint-rel-table thead tr,table.selectlist-table thead tr {
+    background-color: #38A3DB;    
+}
+
+/* Style for the individual headers of the table */
+table.browse-table thead th,table.maint-rel-table thead th,table.selectlist-table thead th {
+	cursor: pointer;
+	border-left: 2px solid white;
+	border-bottom: 2px solid white;
+}
+
+/* Style for the individual cells of the table */
+table.browse-table td, table.maint-rel-table td, table.selectlist-table td {
+	white-space: nowrap;
+	padding-right: 8px;
+}
+
+/* The following styles are used to create the tabbed interface.
+ * This tabbed interface is created using the following tables:
+ * 
+ * <table class="tab" cellspacing="0">
+ *   <tr>
+ *     <td class="active-tab">Label</td>
+ *     <td class="clear-tab" width="100%">&nbsp;</td>
+ *   </tr>
+ * </table>
+ * <table class="content-tab" WIDTH="100%">
+ * 
+ * <!-- Content of the tab over here -->
+ * 
+ * </table>
+ * 
+ */
+table.tab, table.tab-main {
+	border:none;
+}
+
+td.inactive-tab {
+	display: none;
+}
+
+
+td.active-tab {
+	font-weight: bold;
+	font-size: 18px;
+	border: none;
+}
+
+td.clear-tab {
+	display: none;
+}
+
+table.content-tab {
+	border: none;
+	filter: none;
+}
+
+table.content-tab td {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+/* Style for the table where you can specify a query */
+table.query-table {
+	border: none;
+	background-color: #def;
+    margin: 20px 0 20px 0;
+}
+
+/* Style for labels before editable fields */
+th.maint-label {
+	text-align: right;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+/* Style for all buttons. Buttons will probably be replaced so that everyone can design their own buttons */
+button, input.button {
+	display: none;
+}
+
+/* h1 is used to provide a banner area. */
+h1 {
+	display: none;
+}
+
+h2, h3, h4 {
+ font-weight:normal;
+ margin:0.5em,0em,0.2em,0em; 
+ font-family: "Verdana", "Arial", "Helvetica", sans-serif;
+}
+
+h2 {
+ font-size:16px;
+}
+
+h3 {
+ font-size:12px;
+}
+
+h4 {
+ font-size:12px;
+}
+
+/* Style for the navigation bar. */
+.navigation {
+	display: none;
+}
+
+/* Hyperlink style for the navigation bar. */
+.navigation a {
+ background:inherit;
+ color:white;
+ padding: 0em 2em 0em 0.2em;
+ text-decoration: none;
+}
+
+/* Hyperlink style for inactive link (in the the navigation bar). */
+.inactive {
+ background:inherit;
+ color:lightgray;
+ padding: 0em 2em 0em 0.2em;
+ text-decoration: none;
+}
+
+/* Hyperlink style for 'browse' tables. */
+.browse-body a {
+ text-decoration: none;
+ color:rgb(12,115,254);
+ font-weight: bold;
+}
+
+/* Mouse-over color hyperlinks in navigation bar and browse tables */
+.navigation a:hover, .browse-body a:hover {
+ color:black;
+}
+
+.navigation a:visited, .navigation a:active {
+ color:inherit;
+}
+
+.errormessage {
+ color:red;
+ background:inherit;
+}
+
+.infomessage {
+ color:rgb(153,153,153);
+ background:inherit;
+}
+
+.error {
+ background:inherit;
+ color:red;
+}
+
+/* OptimalJ JSPs use a table to define basic page layout.
+ * Every page has the following set of tables (differencing in number or tr and td elements):
+ * 
+ * <table class="layout-table">
+ *    <tr class="layout-row">
+ *      <td class="layout-cell">
+ * 
+ *        <!-- content over here -->
+ * 
+ *      </td>
+ *    </tr>
+ *    <tr class="layout-row">
+ *      <td class="layout-cell">
+ * 
+ *        <!-- content over here -->
+ * 
+ *      </td>
+ *    </tr>
+ * </table>
+ * 
+ */
+.layout-table {
+ background-color:rgb(236,243,255);
+ border:none;
+ width:100%;
+}
+
+tr.layout-row, td.layout-cell {
+ background:inherit;
+ font-weight: bold;
+ color:inherit;
+ padding:0px;
+ margin:0px;
+}
+
+.layout-line {
+ width:100%;
+ height:5px;
+ color:#000000;
+}
+
+/* The style for the page footer. */
+.footer {
+ width:100%;
+ color:white;
+ background-image:url(../images/BottomBanner.gif);
+ font-size:11px;
+}
+
+/* The first part of the page footer. */
+.footer-start {
+ text-align:left;
+ width:33%;
+}
+
+/* The middle part of the page footer. */
+.footer-middle {
+ text-align:center;
+ width:33%;
+}
+
+/* The last part of the page footer. */
+.footer-end {
+ width:33%;
+ text-align:right;
+}
+
+/* .query-desc is the descriptive part of a query form. */
+.query-desc {
+ width:60%;
+}
+
+/* Menu stuff */
+.table-menu {
+ border:none;
+ border-collapse:collapse;
+ font-weight: bold;
+ color: black;
+}
+
+.table-menu td {
+ color:black; 
+ border:none;
+}
+
+.table-menu th {
+ padding-right:1em;
+}
+
+.menu-table {
+ border:none;
+ width:100%;
+ background:inherit;
+}
+
+.mainmenu a {
+ background:inherit;
+ color:rgb(12,115,254);
+ text-decoration: none;
+}
+
+.mainmenu a:hover {
+ color:black;
+}
+
+
+
+.maint-label, .query-label {
+/* 
+ text-align: left;
+ font-weight:400;
+ padding-right:1em;
+*/
+}
+
+/* Styles for related data (data from compositions and associations). */
+/* .maint-relations is the area containing related data. */
+/* .maint-compositions is the area containing all composite data. */
+/* .maint-associations is the area containing all associated data. */
+/* .maint-rel-instance wraps each related/composite object. */
+/* .maint-rel-header is the style for the th tags in related/composite tables. */
+.maint-relations, .maint-compositions, .maint-associations, .maint-rel-instance {
+}
+
+ /* .maint-controls wraps the OK and Delete buttons on a data entry form. */
+.maint-controls {
+ padding: 1em 0em 1em 0em;
+ width:100%;
+}
+
+.maint-controls input {
+ padding: 0em;
+ width:5em;
+ background-color: #def;
+ border: 1px solid rgb(56,163,217);
+}
+
+/* Defaults for input tags. */
+input {
+	border: none;
+}
+
+.header {
+	display: none;
+}
+
+/* This style rule can apply borders to the navigation and footer sections. */
+.navigation, .footer {
+	display: none;
+}
+
+/* Creates a horizontal rule and white space before each composite or associated table. */
+.maint-rel-instance {
+}
+
+/* -------------------------------------------------------------- */
+/* Grid border                                                    */
+/* -------------------------------------------------------------- */
+
+table#grid-table {
+	border:0px;
+}
+
+/* -------------------------------------------------------------- */
+/* Widgets and panels (general use)                               */
+/* -------------------------------------------------------------- */
+
+.webtextfield {
+	border:0px;
+}
+
+.webtextarea {
+	border:0px
+}
+
+.weblink {
+}
+
+.webbutton {
+	display: none;
+}
+
+.webpasswordfield {
+	border:0px;
+}
+
+.webradiogroup {
+	border:0px;
+}
+
+.webdropdownlist {
+}
+
+.weblistbox {
+	border:0px
+}
+
+.webcheckbox {
+}
+
+.weberrorlabel {
+}
+
+.weblabel {
+}
+
+.weberrorpanel {
+}
+
+.webpanel {
+}
+
+.webuploadfield {
+}
+
+.webimage {
+}
+
+.webgridcolumn {
+}
+
+.webtablelayoutcolumn {
+}
+.webcalendarcontainer {position:absolute;display:none;z-index:1;}

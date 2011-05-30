@@ -1,0 +1,158 @@
+/**
+ * General
+ */
+div.dataTables_info {
+	text-align: left;
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9em;
+    padding: 2px 6px;
+}
+
+/**
+ * Table row hover - note that IE6 only supports hover for anchor elements
+ */
+table.highlightRow tbody tr, table.highlightRow tbody tr.hover {
+	height: 20px;
+	cursor: default;
+}
+
+/* Note that this selector cannot be made too specific or there will be no highlighting on hover */
+tr.odd {
+	background-color: #ddd;
+}
+
+tr.clickable {
+	cursor: hand !important;
+}
+
+/**
+ * Filtering
+ */
+div table thead tr th input {
+	width: 100%;
+}
+
+div.line {
+	float: left;
+	width: 100%;
+	display: block;
+	position: relative;
+}
+
+div.item {
+	position: relative;
+	float: left;
+	left: 100%;
+}
+
+/* Help icon */
+div.dataTables_wrapper div span.helpicon {
+	background: url('../images/icons/ico_info_question_16_cli.gif') no-repeat;
+	color: #ABABAB;
+	cursor: pointer;
+	padding-right: 16px; /* 16x16 icon */
+	padding-bottom: 2px;
+	padding-left: 4px;
+	height: 20px;
+	vertical-align: bottom;
+}
+
+/**
+ * Sorting
+ */
+
+.sorting, .sorting_asc, .sorting_desc {
+	background-repeat: no-repeat;
+	background-position: 97% center;
+	background-color: #ccc;
+	cursor: pointer;
+}
+
+.sorting {
+	background-image: url('../images/arrow-none.gif');
+}
+
+.sorting_asc {
+	background-image: url('../images/arrow-up.gif');
+}
+
+.sorting_desc {
+	background-image: url('../images/arrow-down.gif');
+}
+
+/* Header */
+tr.webgridheaderpanel th span.webgridheaderlabel {
+	cursor: pointer;
+	margin-right:15px;
+}
+tr.webgridheaderpanel th span {
+	cursor: auto;
+}
+
+/**
+ * Pagination
+ */
+div.paging_aura {
+	background-color: #0a4668;
+	padding: 4px;
+	text-align: left;
+	width: 100%;
+}
+
+div.paging_aura span.paginate_button, div.paging_aura span.paginate_active {
+	cursor: pointer;
+	*cursor: hand;
+}
+
+div.paging_aura span.ellipsis {
+	cursor: default; 
+}
+
+div.paging_aura span.paginate_button, div.paging_aura span.paginate_active, div.paging_aura span.ellipsis {
+	color: white;
+	/*background: 0E6190;*/
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding: 2px 8px;
+	margin: 0px 2px;
+}
+
+div.paging_aura span.paginate_active {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+div.paging_aura span.paginate_button {
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+/* TODO: correct these URLs */
+div.paging_aura span.paginate_button.first {
+	background-image: url('../images/ico_paging_begin_16_cli.gif');
+}
+
+div.paging_aura span.paginate_button.previous {
+	background-image: url('../images/ico_arrow_left_16_cli.gif');
+}
+
+div.paging_aura span.paginate_button.next {
+	background-image: url('../images/ico_arrow_right_16_cli.gif');
+}
+
+div.paging_aura span.paginate_button.last {
+	background-image: url('../images/ico_paging_end_16_cli.gif');
+}
+
+/**
+ * Fixed-size table with text overflow allowed
+ */
+div.dataTables_wrapper table.fixed_layout {
+	table-layout: fixed;	
+}
+
+div.dataTables_wrapper table.fixed_layout td {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
