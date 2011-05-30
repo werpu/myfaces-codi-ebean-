@@ -262,8 +262,8 @@
             var selectors = this.rootNode.querySelectorAll(this.selectorIdentifier);
             this._numberOfItems = selectors.length;
             selectors.forEach(_Lang.hitch(this, function (elem) {
-                 (cnt != this.selectedLine) ? this.removeClass(elem, this.selectionSelected) :
-                        this.addClass(elem, this.selectionSelected);
+                 (cnt != this.selectedLine) ? elem.removeClass(this.selectionSelected) :
+                        elem.addClass(this.selectionSelected);
                  cnt ++;
             }));
         }
