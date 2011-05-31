@@ -3,6 +3,7 @@ package debug
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped
 import javax.faces.model.SelectItem
 import javax.inject.Named
+import javax.enterprise.context.RequestScoped
 
 /**
  *
@@ -10,7 +11,7 @@ import javax.inject.Named
  * @version $Revision$ $Date$
  */
 
-@ViewAccessScoped
+@RequestScoped
 @Named
 @serializable
 class SelectionHolder {
@@ -22,7 +23,7 @@ class SelectionHolder {
 
   //constructor initializer
   (0 until 10).foreach(item => {
-    selectionModel.add(new SelectItem(item.toString, "item label" + item.toStr))
+    selectionModel.add(new SelectItem(item.toString, "item label" + item.toString))
   })
 
   def doSelection: String = {

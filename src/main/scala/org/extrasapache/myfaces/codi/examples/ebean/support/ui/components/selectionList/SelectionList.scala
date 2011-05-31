@@ -6,6 +6,7 @@ import javax.faces.model.SelectItem
 import javax.faces.context.FacesContext
 import collection.JavaConversions._
 import collection.mutable.{ArrayBuffer, HashMap, Buffer}
+import com.sun.org.apache.xpath.internal.operations.Variable
 
 /**
  *
@@ -57,12 +58,13 @@ class SelectionList extends UINamingContainer with AttributeHandler with Request
       modelIdx.put(item.getValue.toString, item)
     })
 
-    val resBuffer = requestValue.split(",").map(item => {
-      modelIdx.get(item).get
-    }).toBuffer
+    val value = getAttr[java.util.List[SelectItem]](VALUE, null)
+    value.clear()
 
-    //TODO get the value and push the resBuffer in instead of replacing it
-    setAttr[java.util.List[SelectItem]](VALUE, resBuffer)
+    for(item <- requestValue.split(",")) {
+       value.add(modelIdx.get(item).get)
+    }
+
   }
 
 }
