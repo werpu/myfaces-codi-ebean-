@@ -51,6 +51,7 @@
 
         <h:outputScript library="script" name="ComponentBase.js"/>
         <h:outputScript library="script" name="SelectionList.js"/>
+        <h:outputScript library="script" name="Toggle.js"/>
 
 
         <h3>${msgs.group_search}</h3>
@@ -69,6 +70,25 @@
                 </h:panelGrid>
 
             </div>
+
+            <h:panelGroup class="toggle" id="toggle" layout="block">
+                <h:panelGroup class="toggleHead" id="toggleHead" layout="block">
+                      Press toggle area for toggling <h:panelGroup class="toggleControl toggleOn" id="toggleControl"><span class="toggleOn">[-]</span><span class="toggleOff">[+]</span></h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup class="toggleArea toggleOn" layout="block" id="toggleArea">
+                    Toggle Area <br />
+                    Toggle Area <br />
+                    Toggle Area <br />
+                    Toggle Area <br />
+                    Toggle Area <br />
+                    Toggle Area <br />
+                </h:panelGroup>
+            </h:panelGroup>
+            <script type="text/javascript">
+                var toggle = new extras.apache.Toggle({
+                            id:"toggle"
+                        });
+            </script>
         </h:form>
     </ui:define>
 

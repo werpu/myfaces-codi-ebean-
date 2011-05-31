@@ -82,7 +82,7 @@
         _numberOfItems:     0,
         _metaDown: false,
 
-
+        _shiftDown: false,
 
         constructor_: function(argsMap) {
             this._callSuper("constructor", argsMap);
@@ -97,37 +97,35 @@
 
             this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
             this.placeHolderId = this.placeHolderId || this.id + this.placeHolderAppendix;
+
+            this._shiftDownStack = {};
+            this._shiftUpStack = {};
+
+            this.unloadAware = false;
         },
 
-        /**
-         * resets the selector to its original state
-         */
-        reset: function() {
-            this.focusLine   = -1;
-            this._numberOfItems = 0;
-            this._refresh();
-        },
+
 
         /**
          * keyUp action
          */
-        keyUp: function() {
+        keyUp: function(evt) {
             this.focusLine = Math.max(0, this.focusLine - 1);
             this.selectedLines = {};
             this.selectedLines[this.focusLine] = true;
-            this._refresh();
+            this._refresh(evt);
         },
 
         /**
          * keyDown action
          */
-        keyDown: function() {
+        keyDown: function(evt) {
 
             this.focusLine = Math.min(this._numberOfItems - 1, this.focusLine + 1);
             this.selectedLines = {};
             this.selectedLines[this.focusLine] = true;
 
-            this._refresh();
+            this._refresh(evt);
         },
 
         keyEnter: function() {
@@ -159,6 +157,7 @@
         onclick: function(evt) {
             var target = evt.target;
             var meta = evt.metaKey;
+
             //find out which element in the row of elements was clicked
             var pos = 0;
             var targetNode = new myfaces._impl._dom.Node(target);
@@ -178,6 +177,7 @@
                 if (elem.toDomNode() == evt.target) {
                     this.focusLine = cnt;
                 }
+                cnt++;
             }));
 
             this.onSelectionChange(selectionChangeEvent);
@@ -205,7 +205,7 @@
                 switch (keyCode) {
                     case this.KEY_ARROW_UP:
 
-                        this.keyUp();
+                        this.keyUp(evt);
 
                         evt.stopPropagation();
                         var selectionChangeEvent = {};
@@ -214,7 +214,7 @@
                         return false;
                     case this.KEY_ARROW_DOWN:
 
-                        this.keyDown();
+                        this.keyDown(evt);
                         evt.stopPropagation();
                         var selectionChangeEvent = {};
                         selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier).get(this.focusLine);
@@ -230,7 +230,7 @@
                         this.onFinalSelection(selectionChangeEvent);
 
                     case this.KEY_ESCAPE:
-                        this.onblur();
+                        this.clear();
                         return false;
 
 
@@ -278,6 +278,9 @@
             this.rootNode.querySelectorAll(this.selectorIdentifier).addEventListener(this.EVT_CLICK, this.onclick, false);
 
             this._refresh();
+            if(this.resizable) {
+                this.rootNode.setAttribute("resizable", this.resizable);
+            }
         },
 
         onAjaxDomUnload: function() {
@@ -288,16 +291,23 @@
             this.rootNode.querySelectorAll(this.selectorIdentifier).removeEventListener(this.EVT_CLICK, this.onclick, false);
         },
 
-        _refresh: function() {
+        _refresh: function(evt) {
             var cnt = 0;
             var selectors = this.rootNode.querySelectorAll(this.selectorIdentifier);
             this._numberOfItems = selectors.length;
 
             selectors.forEach(_Lang.hitch(this, function (elem) {
-                 (!this.selectedLines[cnt]) ? elem.removeClass(this.selectionSelected) :
+                 (!this.selectedLines[cnt]) ? ((!evt || !evt.shiftKey)? elem.removeClass(this.selectionSelected) : null) :
                         elem.addClass(this.selectionSelected);
                  cnt ++;
             }));
+        },
+
+        clear: function() {
+            this.rootNode.querySelectorAll(this.selectorIdentifier).removeClass(this.selectionSelected);
+            this.valueHolder.setAttribute("value", "");
+            this.focusLine = -1;
+
         },
 
         moveSelectionUp: function() {
@@ -308,7 +318,6 @@
         moveSelectionDown: function() {
             this.rootNode.querySelectorAll(this.selectorIdentifier + "." + this.selectionSelected).moveDown();
         }
-
 
     });
 })();

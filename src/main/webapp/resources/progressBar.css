@@ -1,0 +1,37 @@
+/**
+* progress bar
+*/
+.progressBar .progressHolder {
+    width: 100px;
+    height: 20px;
+    border: 1px solid gray;
+}
+
+.progressBar  .progressGauge {
+    height: 18px;
+    border: 1px #add8e6 groove;
+    width: 0px; /*we add transitions to animate the flow*/
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+}
+
+.progressBar  .progressGauge.progressFirstThird {
+    background-color: red;
+}
+
+.progressBar  .progressGauge.progressSecondThird {
+    background-color: orange;
+}
+
+.progressBar  .progressGauge.progressThirdThird {
+    background-color: yellow;
+}
+
+.progressBar  .progressGauge.progressFinished {
+    background-color: green;
+}
+
+.progressBar .progressText {
+    text-shadow: 0 1px 0 #fff;
+}
