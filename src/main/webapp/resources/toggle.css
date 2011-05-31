@@ -1,0 +1,30 @@
+
+.toggle .toggleHead, .toggle .toggleArea.toggleOn {
+    border:  1px solid black;
+    background-color: #c9cdf1;
+    -moz-box-shadow: #7899b5;
+    -moz-box-shadow: 10px 10px 5px #7899b5;
+    -webkit-box-shadow: 10px 10px 5px #7899b5;
+    box-shadow: 10px 10px 5px #7899b5;
+}
+
+.toggle .toggleArea, .toggle .toggleArea {
+    -webkit-transition: all 0.5s ease-in;
+    -moz-transition: all 0.5s ease-in;
+    -o-transition: all 0.5s ease-in;
+}
+
+.toggle .toggleArea.toggleOn {
+    height: 200px;
+    overflow: auto;;
+}
+
+.toggle .toggleArea.toggleOff {
+    height: 0px;
+    overflow:  hidden;
+}
+
+.toggle .toggleOff .toggleOn,
+.toggle .toggleOn .toggleOff {
+    display: none;
+}

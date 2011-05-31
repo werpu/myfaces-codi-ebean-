@@ -1,0 +1,49 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="javascriptVar" />
+        <composite:attribute name="open" default="true" />
+        <composite:attribute name="javascriptClass" default="extras.apache.Toggle"/>
+
+        <composite:facet name="head" required="true" />
+        <composite:facet name="content" required="true" />
+    </composite:interface>
+    <composite:implementation>
+        <h:outputScript library="script" name="dom/_DomEngine.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
+
+        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
+        <h:outputScript library="script" name="dom/Sizzle.js"/>
+        <h:outputScript library="script" name="dom/Node.js"/>
+        <h:outputScript library="script" name="dom/NodeList.js"/>
+
+
+        <h:outputScript library="script" name="ComponentBase.js"/>
+        <h:outputScript library="script" name="Toggle.js"/>
+
+
+        <div id="#{cc.clientId}" class="toggle">
+                <h:panelGroup class="toggleHead toggleControl #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" id="toggleHead" layout="block">
+                    <composite:renderFacet name="head"></composite:renderFacet>
+                </h:panelGroup>
+                <h:panelGroup class="toggleArea #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" layout="block" id="toggleArea">
+                   <composite:renderFacet name="content"></composite:renderFacet>
+                </h:panelGroup>
+                <input type="hidden" name="#{cc.attrs.id}_valueHolder" class="valueHolder" value="#{cc.attrs.open}" />
+
+                <script type="text/javascript">
+                    var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
+                        id:"#{cc.clientId}",
+                        open:#{cc.attrs.open}
+                    });
+                </script>
+        </div>
+
+    </composite:implementation>
+</ui:component>
