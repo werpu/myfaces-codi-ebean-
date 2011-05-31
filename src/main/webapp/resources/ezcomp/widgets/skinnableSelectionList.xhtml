@@ -7,11 +7,13 @@
     <composite:interface componentType="at.irian.SelectionList">
         <composite:attribute name="id" required="true"></composite:attribute>
         <composite:attribute name="label" default=""></composite:attribute>
-        <composite:attribute name="multiselect" type="java.lang.Boolean" default="false" required="false"></composite:attribute>
+        <composite:attribute name="multiselect" type="java.lang.Boolean" default="false"></composite:attribute>
         <composite:attribute name="value" required="true"></composite:attribute>
         <composite:attribute name="model" required="true"></composite:attribute>
         <composite:attribute name="style" required="false"></composite:attribute>
         <composite:attribute name="styleClass" required="false"></composite:attribute>
+        <composite:attribute name="javascriptVar" required="false"></composite:attribute>
+
         <composite:attribute name="selectorIdentifier" default="ul li"/>
     </composite:interface>
     <composite:implementation>
@@ -31,18 +33,16 @@
         <div id="#{cc.clientId}" class="selectionList">
             <h:panelGroup id="#{cc.attrs.id}" layout="block">
                 <h:panelGroup id="#{cc.attrs.id}_placeHolder" layout="block">
-                    <ul>
-                        <ui:repeat value="#{cc.attrs.model}" var="item">
-                            <li data-key="#{item.value}">#{item.label}</li>
-                        </ui:repeat>
-                    </ul>
+
+                        <composite:insertChildren></composite:insertChildren>
+
                 </h:panelGroup>
                 <h:inputHidden id="#{cc.attrs.id}_valueHolder"/>
             </h:panelGroup>
         </div>
 
         <script type="text/javascript">
-            var selectionList_#{cc.attrs.id} = new extras.apache.SelectionList({
+            var sl_#{cc.javascriptVar} = new extras.apache.SelectionList({
                         clientId:"#{cc.clientId}",
                         id:"#{cc.clientId}:#{cc.attrs.id}",
                         multiSelect:true,

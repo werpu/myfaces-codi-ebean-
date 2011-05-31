@@ -62,6 +62,16 @@
              />
              <h:commandLink action="#{selectionHolder.doSelection}" value="Press me" />
         </h:form>
+        <ezw:selectionList
+                     value="#{selectionHolder.selectionValue2}"
+                     id="theselection2"
+                     model="#{selectionHolder.selectionModel}"
+        >
+                <ui:repeat value="#{cc.attrs.model}" var="item">
+                    <li data-key="#{item.value}">#{item.label}</li>
+                </ui:repeat>
+        </ezw:selectionList>
+
     </ui:define>
 
 

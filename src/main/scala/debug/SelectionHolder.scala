@@ -20,11 +20,12 @@ class SelectionHolder {
 
   var selectionModel = new ArrayList[SelectItem]
   var selectionValue = new ArrayList[SelectItem]
+  var selectionValue2 = new ArrayList[SelectItem]
 
   //constructor initializer
-  (0 until 10).foreach(item => {
+  for (item <- (0 until 10)) {
     selectionModel.add(new SelectItem(item.toString, "item label" + item.toString))
-  })
+  }
 
   def doSelection: String = {
     print(selectionValue.size())
