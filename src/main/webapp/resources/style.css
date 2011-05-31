@@ -324,26 +324,5 @@ as relative coordinate to the input*/
     display: block;
 }
 
-.toggle .toggleArea.toggleOn, .toggle .toggleArea.toggleOff {
-    -webkit-transition: all 2s ease-in;
-    -moz-transition: all 2s ease-in;
-    -o-transition: all 2s ease-in;
-}
-
-.toggle .toggleArea.toggleOn {
-    height:;
-    overflow:;
-}
-
-.toggle .toggleArea.toggleOff {
-    height: 0px;
-    overflow:  hidden;
-}
-
-.toggle .toggleOff .toggleOn,
-.toggle .toggleOn .toggleOff {
-    display: none;
-}
-
 
 
