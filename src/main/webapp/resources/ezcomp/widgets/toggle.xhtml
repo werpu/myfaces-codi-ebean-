@@ -10,6 +10,8 @@
         <composite:attribute name="open" default="true" />
         <composite:attribute name="javascriptClass" default="extras.apache.Toggle"/>
 
+        <composite:valueHolder name="valueHolder" />
+
         <composite:facet name="head" required="true" />
         <composite:facet name="content" required="true" />
     </composite:interface>
@@ -35,8 +37,12 @@
                 <h:panelGroup class="toggleArea #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" layout="block" id="toggleArea">
                    <composite:renderFacet name="content"></composite:renderFacet>
                 </h:panelGroup>
-                <input type="hidden" name="#{cc.attrs.id}_valueHolder" class="valueHolder" value="#{cc.attrs.open}" />
 
+                <h:panelGroup styleClass="valueHolder">
+                    <h:inputHidden  id="valueHolder" styleClass="valueHolder" value="#{cc.attrs.open}" >
+
+                    </h:inputHidden>
+                </h:panelGroup>
                 <script type="text/javascript">
                     var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
                         id:"#{cc.clientId}",
