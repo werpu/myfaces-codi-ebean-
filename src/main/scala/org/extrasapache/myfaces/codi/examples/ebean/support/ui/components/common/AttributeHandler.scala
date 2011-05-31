@@ -1,6 +1,7 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common
 
 import java.io.Serializable
+import javax.faces.context.FacesContext
 
 //we alias the object to make the code tighter
 //scala has its own object so we cannot rely on Object alone
@@ -28,5 +29,13 @@ trait AttributeHandler {
   }
 
   def getAttributes(): java.util.Map[String, AnyRef]
+
+  def reqAttrMap: java.util.Map[String, String] = {
+    FacesContext.getCurrentInstance.getExternalContext.getRequestParameterMap
+  }
+
+  def getReqAttr(key:String): String = {
+    reqAttrMap.get(key)
+  }
 }
 

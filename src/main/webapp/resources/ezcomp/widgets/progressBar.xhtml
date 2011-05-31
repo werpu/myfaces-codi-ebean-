@@ -4,11 +4,11 @@
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <composite:interface>
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
         <composite:attribute name="id" required="true"></composite:attribute>
         <composite:attribute name="label" default=""></composite:attribute>
         <composite:attribute name="value" required="true"></composite:attribute>
-
+        <composite:attribute name="javascriptVar" ></composite:attribute>
     </composite:interface>
     <composite:implementation>
 
@@ -39,7 +39,7 @@
                                value="#{cc.attrs.value.value}"></h:inputHidden>
 
                 <script type="text/javascript">
-                    var ajaxProgress_#{cc.attrs.id} = new extras.apache.ProgressBar({
+                    var #{cc.javascriptVar} = new extras.apache.ProgressBar({
                         clientId:"#{cc.clientId}",
                         id:"#{cc.clientId}:#{cc.attrs.id}"
                     });

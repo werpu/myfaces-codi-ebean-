@@ -4,11 +4,11 @@
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <composite:interface>
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="refreshInterval" default="500"/>
         <composite:attribute name="form" type="java.lang.Boolean" default="false"/>
-        <composite:attribute name="jsVar" type="java.lang.String" />
+        <composite:attribute name="javascriptVar" />
 
     </composite:interface>
     <composite:implementation>
@@ -43,7 +43,7 @@
                 </h:panelGroup>
 
                 <script type="text/javascript">
-                    var pull_#{cc.attrs.id} = new extras.apache.Pull({
+                    var #{cc.javascriptVar} = new extras.apache.Pull({
                         clientId:"#{cc.clientId}",
                         id:"#{cc.clientId}:#{cc.attrs.id}",
                         refreshTargetId:"#{cc.clientId}:_refreshArea"
