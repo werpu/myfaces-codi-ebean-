@@ -135,6 +135,17 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils"
         return this.getEngine().getAttribute(node, attr);
     },
 
+    hasClass: function(node, styleClass) {
+        var classes = node.getAttribute("class");
+        if(!classes) return false;
+         classes = classes.split(/\s+/g);
+        var alreadyIn = false;
+        for (var cnt = classes.length - 1; cnt >= 0 && !alreadyIn; cnt--) {
+            alreadyIn = alreadyIn || (classes[cnt] == styleClass)
+        }
+        return alreadyIn;
+    },
+
     /**
      * add class helper which adds
      * a style class to a given node
@@ -142,20 +153,11 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils"
      * @param styleClass
      */
     addClass: function(node, styleClass) {
-        var classes = node.getAttribute("class");
-        if (!classes) {
-            node.setAttribute("class", styleClass);
-            return;
-        }
-        classes = classes.split(/\s+/g);
-        var alreadyIn = false;
-        for (var cnt = classes.length - 1; cnt >= 0; cnt--) {
-            alreadyIn = alreadyIn || (classes[cnt] == styleClass)
-        }
-        if (alreadyIn) return;
-        classes.push(styleClass);
 
-        node.setAttribute("class", classes.join(" "));
+        if(this.hasClass(node, styleClass)) return;
+        var classes = node.getAttribute("class");
+
+        node.setAttribute("class", classes + " " + styleClass);
     },
 
     /**

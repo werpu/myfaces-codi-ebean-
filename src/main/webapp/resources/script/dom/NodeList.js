@@ -152,6 +152,17 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
         this._stdOp("runScripts");
     },
 
+    hasClass: function(clazz) {
+      for(var cnt = 0; cnt < this.length; cnt++) {
+        if(this._nodes[cnt].hasClass(clazz)) return true;
+      }
+      return false;
+    },
+
+    toggleClazz: function(clazz) {
+        return this._stdOp("toggleClazz", clazz);
+    },
+
     addClass: function(clazz) {
         return this._stdOp("addClass", clazz);
     },
@@ -176,6 +187,18 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
         return this._stdOp("setTransitionDuration", duration);
     },
 
+    insertBefore: function(node) {
+        return this._stdOp("insertBefore", node);
+    },
+    insertAfter: function(node) {
+        return this._stdOp("insertAfter", node);
+    },
+    moveUp: function(node) {
+        return this._stdOp("moveUp", node);
+    },
+    moveDown: function(node) {
+        return this._stdOp("moveDown", node);
+    },
     /*
      * helpers to reduce the locs, by defining the
      * functionality of most operations as generic methods
@@ -199,7 +222,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
         var closure = function(node) {
             ret.push(node[functionCall].apply(node, args));
         };
-            this.forEach(closure);
+        this.forEach(closure);
         return ret;
     }
 });

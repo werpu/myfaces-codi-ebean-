@@ -155,6 +155,19 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
         return this;
     },
 
+    hasClass: function(clazz) {
+        return this._NODE_UTILS.hasClass(this._referencedNode, clazz);
+    },
+
+    toggleClass: function(clazz) {
+        if(this.hasClass(clazz)) {
+            this.removeClass(clazz);
+        } else {
+            this.addClass(clazz);
+        }
+        return this;
+    },
+
     addClass: function(clazz) {
         clazz = (this._Lang.isString(clazz))? [clazz]:this._Lang.objToArray(clazz);
         this._Lang.arrForEach(clazz,this._Lang.hitch(this, function(item) {
@@ -172,6 +185,8 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
         return this;
     },
+
+
 
     addEventListener: function(evt, listener, useCapture) {
         this._referencedNode.addEventListener(evt, listener, useCapture);
@@ -215,6 +230,35 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                     .setStyle("mozTransitionDuration", time)
                     .setStyle("webkitTransitionDuration", time);
         return this;
+    },
+
+    insertBefore: function(node) {
+        this.detach();
+        if(node._referencedNode) {
+            node._referencedNode.insertBefore(this._referencedNode)
+        } else {
+            node.insertBefore(this._referencedNode)
+        }
+        return this;
+    },
+    insertAfter: function(node) {
+        this.detach();
+        if(node._referencedNode) {
+            node._referencedNode.insertAfter(this._referencedNode)
+        } else {
+            node.insertAfter(this._referencedNode)
+        }
+        return this;
+    },
+    moveUp: function() {
+        var previousSibling = this._referencedNode.previousSibling;
+        if(!previousSibling) return this;
+        return this.insertBefore(previousSibling);
+    },
+    moveDown: function() {
+        var nextSibling = this._referencedNode.nextSibling;
+        if(!nextSibling) return this;
+        return this.insertAfter(nextSibling);
     }
 },
 //static methods
