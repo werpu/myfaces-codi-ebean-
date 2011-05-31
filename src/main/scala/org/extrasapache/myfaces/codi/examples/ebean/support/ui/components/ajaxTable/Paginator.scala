@@ -11,7 +11,7 @@ import javax.faces.component.html.HtmlDataTable
  */
 package paginator {
 
-import components.common.AttributeHandler
+import components.common.{JavascriptComponent, AttributeHandler}
 
 @serializable
   object Paginator  {
@@ -24,7 +24,7 @@ import components.common.AttributeHandler
 
   @FacesComponent("at.irian.PaginatorComponent")
   @serializable
-  class Paginator extends UINamingContainer with AttributeHandler  {
+  class Paginator extends UINamingContainer with AttributeHandler with JavascriptComponent {
     //note the import aliases our const into the root namespace
     import Paginator._
 

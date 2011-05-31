@@ -1,12 +1,11 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.selectionList
 
 import javax.faces.component.{UINamingContainer, FacesComponent}
-import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.{AttributeHandler, RequestHandler}
 import javax.faces.model.SelectItem
 import javax.faces.context.FacesContext
 import collection.JavaConversions._
-import collection.mutable.{ArrayBuffer, HashMap, Buffer}
-import com.sun.org.apache.xpath.internal.operations.Variable
+import collection.mutable.{HashMap, Buffer}
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.{StandardJavascriptComponent, JavascriptComponent, AttributeHandler}
 
 /**
  *
@@ -27,7 +26,7 @@ object SelectionList {
 
 @FacesComponent("at.irian.SelectionList")
 @serializable
-class SelectionList extends UINamingContainer with AttributeHandler with RequestHandler {
+class SelectionList extends StandardJavascriptComponent {
 
   import SelectionList._
 
@@ -38,8 +37,6 @@ class SelectionList extends UINamingContainer with AttributeHandler with Request
    */
 
   override def decode(context: FacesContext) {
-    import java.util.Map
-
     super.decode(context)
     val attr: String = getAttr[String](VALUE_HOLDER, this.getClientId(context)+":"+this.getId + "_valueHolder")
 

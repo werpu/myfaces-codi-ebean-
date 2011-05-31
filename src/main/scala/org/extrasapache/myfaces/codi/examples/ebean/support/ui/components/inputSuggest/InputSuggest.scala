@@ -1,5 +1,6 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 
+import components.common.{StandardJavascriptComponent, JavascriptComponent, AttributeHandler}
 import javax.faces.event.ComponentSystemEvent
 import javax.faces.context.FacesContext
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestController
@@ -7,7 +8,6 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestCon
 import scala.collection.mutable._
 import scala.collection.JavaConversions._
 import javax.faces.component.{UIInput, UIComponent, UINamingContainer, FacesComponent}
-import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.AttributeHandler
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui._
 
 /**
@@ -34,7 +34,7 @@ object InputSuggest {
 
 @FacesComponent("at.irian.InputSuggest")
 @serializable
-class InputSuggest extends UINamingContainer with AttributeHandler {
+class InputSuggest extends StandardJavascriptComponent {
 
   import InputSuggest._
 
