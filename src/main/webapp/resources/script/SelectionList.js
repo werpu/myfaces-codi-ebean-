@@ -161,27 +161,26 @@
             var meta = evt.metaKey;
             //find out which element in the row of elements was clicked
             var pos = 0;
+            var targetNode = new myfaces._impl._dom.Node(target);
+            if(!meta || !this.multiSelect) {
+                this.rootNode.querySelectorAll(this.selectorIdentifier).removeClass(this.selectionSelected);
+                targetNode.addClass(this.selectionSelected);
+            } else {
+                targetNode.toggleClass(this.selectionSelected);
+            }
+
+            var selectionChangeEvent = {};
+            selectionChangeEvent.target = targetNode;
+
+
+            var cnt = 0;
             this.rootNode.querySelectorAll(this.selectorIdentifier).forEach(_Lang.hitch(this, function(elem) {
                 if (elem.toDomNode() == evt.target) {
-                    this.focusLine = pos;
-                    if(this.multiSelect && meta) {
-                        this.selectedLines[pos] =  !this.selectedLines[pos];
-                    } else {
-                        this.selectedLines = {};
-                        this.selectedLines[pos] = true;
-                    }
-                    var selectionChangeEvent = {};
-                    selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier)[this.focusLine];
-                    this.onSelectionChange(selectionChangeEvent);
-
-                    return false;
-
+                    this.focusLine = cnt;
                 }
-                pos++;
             }));
 
-            this._refresh();
-            this.onSelectionChange(evt);
+            this.onSelectionChange(selectionChangeEvent);
             this.onFinalSelection(evt);
         },
 
@@ -235,8 +234,6 @@
                         return false;
 
 
-
-
                     default: return true;
                 }
             } finally {
@@ -251,22 +248,13 @@
          * @param evt a javascript event object with target
          * being set to the currently selected item
          */
+
         onSelectionChange: function(evt) {
-            if(this.multiSelect) {
-                var res = [];
-                var nodes = this.rootNode.querySelectorAll(this.selectorIdentifier);
-                for(var key in this.selectedLines) {
-                    if(this.selectedLines[key]) {
-                        //if we have a custom data attribute set we now can use the html5 mechanisms of custom
-                        //data attributes to achieve the final result
-                        var finalKey = (this.keyAttribute) ? nodes.get(key).getAttribute(this.keyAttribute): key;
-                        res.push(finalKey)
-                    }
-                }
-                this.valueHolder.setAttribute("value", res.join(","));
-            } else {
-                this.valueHolder.setAttribute("value", this.focusLine);
-            }
+           var res = [];
+           var nodes = this.rootNode.querySelectorAll(this.selectorIdentifier+"."+this.selectionSelected).forEach(function item(elem){
+              res.push(elem.getAttribute(this.keyAttribute))
+           });
+           this.valueHolder.setAttribute("value", res.join(","));
         },
 
         onFinalSelection: function(evt) {
@@ -304,12 +292,23 @@
             var cnt = 0;
             var selectors = this.rootNode.querySelectorAll(this.selectorIdentifier);
             this._numberOfItems = selectors.length;
+
             selectors.forEach(_Lang.hitch(this, function (elem) {
                  (!this.selectedLines[cnt]) ? elem.removeClass(this.selectionSelected) :
                         elem.addClass(this.selectionSelected);
                  cnt ++;
             }));
+        },
+
+        moveSelectionUp: function() {
+            this.rootNode.querySelectorAll(this.selectorIdentifier + "." + this.selectionSelected).moveUp();
+        },
+
+
+        moveSelectionDown: function() {
+            this.rootNode.querySelectorAll(this.selectorIdentifier + "." + this.selectionSelected).moveDown();
         }
+
 
     });
 })();
