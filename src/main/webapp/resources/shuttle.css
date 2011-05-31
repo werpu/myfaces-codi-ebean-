@@ -1,0 +1,51 @@
+/*shuttle control*/
+.shuttleController {
+    display: block;
+    width: 39em;
+    position: relative;
+    height: 12em;
+}
+
+.shuttleController div.left, .shuttleController div.right {
+    position: absolute;
+    top: 0px;
+    width: 14em;
+    height: 10.5em;
+}
+
+.shuttleController div.left {
+    left: 3em;
+}
+
+.shuttleController div.right {
+    left: 20em;
+}
+
+.shuttleController div.title_left, .shuttleController div.title_right {
+    display: block;
+    width: 14em;
+}
+
+.shuttleController select {
+    width: 100%;
+    height: 9.5em;
+}
+
+.shuttleController div.shuttle {
+    width: 2.5em;
+    position: absolute;
+    top: 2.5em;
+}
+
+.shuttleController div.shuttle_center {
+    top: 4.5em;
+}
+
+.shuttleController div.shuttle_center {
+    left: 17.3em;
+    text-align: center;
+}
+
+.shuttleController div.shuttle_right {
+    left: 35em;
+}

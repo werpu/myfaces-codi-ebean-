@@ -13,7 +13,7 @@
         <composite:attribute name="style" required="false"></composite:attribute>
         <composite:attribute name="styleClass" required="false"></composite:attribute>
         <composite:attribute name="javascriptVar" required="false"></composite:attribute>
-
+        <composite:attribute name="resizable" required="false" default="false"></composite:attribute>
         <composite:attribute name="selectorIdentifier" default="ul li"/>
     </composite:interface>
     <composite:implementation>
@@ -47,7 +47,8 @@
             var #{cc.javascriptVar} = new extras.apache.SelectionList({
                         clientId:"#{cc.clientId}",
                         id:"#{cc.clientId}:#{cc.attrs.id}",
-                        multiSelect:true,
+                        multiSelect:#{cc.attrs.multiselect},
+                        resizable:#{cc.attrs.resizable},
                         selectorIdentifier:"#{cc.attrs.selectorIdentifier}"
                     });
         </script>
