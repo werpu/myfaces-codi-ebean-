@@ -25,7 +25,7 @@
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
                     this.rootNode.querySelectorAll(".toggleControl").addEventListener("click", this.ontoggleClick, true);
-                    this.valueHolder = this.rootNode.querySelector(".valueHolder");
+                    this.valueHolder = this.rootNode.querySelector(".valueHolder input");
 
                 },
 
