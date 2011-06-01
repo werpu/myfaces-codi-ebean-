@@ -10,6 +10,14 @@
         <composite:attribute name="open" default="true" />
         <composite:attribute name="javascriptClass" default="extras.apache.Toggle"/>
 
+        <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
+        <composite:attribute name="headStyleClass" />
+        <composite:attribute name="headStyle" />
+        <composite:attribute name="contentStyleClass" />
+        <composite:attribute name="contentStyle" />
+
+
         <composite:valueHolder name="valueHolder" />
 
         <composite:facet name="head" required="true" />
@@ -27,14 +35,14 @@
 
 
         <h:outputScript library="script" name="ComponentBase.js"/>
-        <h:outputScript library="script" name="Toggle.js"/>
+        <h:outputScript library="script" name="layout/Toggle.js"/>
 
 
-        <div id="#{cc.clientId}" class="toggle">
-                <h:panelGroup class="toggleHead toggleControl #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" id="toggleHead" layout="block">
+        <div id="#{cc.clientId}" class="toggle #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
+                <h:panelGroup style="#{cc.attrs.headStyle}" styleClass="toggleHead #{cc.attrs.headStyleClass}  toggleControl #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" id="toggleHead" layout="block">
                     <composite:renderFacet name="head"></composite:renderFacet>
                 </h:panelGroup>
-                <h:panelGroup class="toggleArea #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" layout="block" id="toggleArea">
+                <h:panelGroup tyle="#{cc.attrs.contentStyle}" styleClass="toggleContent #{cc.attrs.contentStyleClass}  #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" layout="block" id="toggleContent">
                    <composite:renderFacet name="content"></composite:renderFacet>
                 </h:panelGroup>
 
