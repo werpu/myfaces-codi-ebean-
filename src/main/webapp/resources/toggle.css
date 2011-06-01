@@ -1,19 +1,57 @@
+.toggle {
 
-.toggle .toggleHead, .toggle .toggleContent.toggleOn {
+}
+
+/**
+* head definition
+*/
+.toggle .toggleHead {
     border:  1px solid black;
     background-color: #c9cdf1;
-    -moz-box-shadow: #7899b5;
-    -moz-box-shadow: 10px 10px 5px #7899b5;
-    -webkit-box-shadow: 10px 10px 5px #7899b5;
-    box-shadow: 10px 10px 5px #7899b5;
+    -moz-box-shadow:3px 3px 3px #888;
+    -webkit-box-shadow: 3px 3px 3px #888;
+    -o-box-shadow: 3px 3px 3px #888;
+
+    box-shadow:3px 3px 3px #888;
+
+    padding:  3px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
-.toggle .toggleContent, .toggle .toggleContent {
+/**
+* toggle on styles
+*/
+.toggle .toggleContent.toggleOn {
+    -moz-box-shadow:inset 0px 6px 3px -3px #888888;
+    -webkit-box-shadow:inset 0px 6px 3px -3px #888888;
+    -o-box-shadow:inset 0px 6px 3px -3px #888888;
+
+    -ms-box-shadow:inset 0px 6px 3px -3px #888888;
+
+    box-shadow:inset 0px 6px 3px -3px #888888;
+
+    background-color: white;
+    border:  1px solid black;
+}
+
+/**
+* general content styles
+*/
+.toggle .toggleContent {
     -webkit-transition: all 0.5s ease-in;
     -moz-transition: all 0.5s ease-in;
+    -ms-transition: all 0.5s ease-in;
+
     -o-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+
+    padding: 5px;
 }
 
+/**
+* toggle on and toggle off height
+*/
 .toggle .toggleContent.toggleOn {
     height: 200px;
     overflow: auto;;
@@ -22,8 +60,13 @@
 .toggle .toggleContent.toggleOff {
     height: 0px;
     overflow:  hidden;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
+/**
+* display switches for on and off
+*/
 .toggle .toggleOff .toggleOn,
 .toggle .toggleOn .toggleOff {
     display: none;
