@@ -44,14 +44,14 @@
 
                 open: function() {
                     this.toggleOpen = true;
-                    this.rootNode.querySelectorAll(".toggleArea").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
+                    this.rootNode.querySelectorAll(".toggleContent").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
                     this.rootNode.querySelectorAll(".toggleControl").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
                     this.onOpen({});
                 },
 
                 close: function() {
                     this.toggleOpen = false;
-                    this.rootNode.querySelectorAll(".toggleArea").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
+                    this.rootNode.querySelectorAll(".toggleContent").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
                     this.rootNode.querySelectorAll(".toggleControl").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
                     this.onClose({});
                 },
