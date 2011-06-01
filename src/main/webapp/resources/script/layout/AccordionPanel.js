@@ -8,26 +8,43 @@
      * a certain area periodically
      */
     var _RT = myfaces._impl.core._Runtime;
-    var _Lang = myfaces._impl._util._Lang;
-    var _AjaxQueue = extras.apache.ExtendedEventQueue;
 
-    _RT.extendClass("extras.apache.Toggle", extras.apache.ComponentBase, {
+    _RT.extendClass("extras.apache.AccordionPanel", extras.apache.ComponentBase, {
+                _LANG: myfaces._impl._util._Lang,
+                _RT: myfaces._impl.core._Runtime,
                 toggles: null,
                 multiOpen: false,
                 constructor_:function(args) {
                     this._callSuper("constructor", args);
-                    /**
-                     * the idea is that the event is only dispatched locally
-                     * so we simply can close subtoggle panels
-                     * and then let the toggle control itself do the rest
-                     */
-                    this.rootNode.addEventListener("ezw_onToggleOpen", _Lang.hitch(this, this._onToggle));
                 },
 
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
 
+                    if (!this.toggles) {
+                        var _Lang = this._LANG;
+                        /*we have to prepare our toggles
+                         * and pass them as references to our toggle classes down*/
+                        var toggles = this.rootNode.querySelectorAll(".accordionContent > [data-ezw_componentType = 'at.irian.Toggle']").getAttribute("data-ezw_javascriptVar");
+                        this.toggles = [];
+                        _Lang.arrForEach(toggles, _Lang.hitch(this, function(toggle) {
+                            if (window[toggle]) {
+                                toggle = window[toggle];
+                                this.toggles.push(toggle);
+                                toggle.groupRootNode = this.rootNode;
+                            }
+                        }));
+                    }
                     this._resetOpenState();
+                    /**
+                     * the idea is that the event is only dispatched locally
+                     * so we simply can close subtoggle panels
+                     * and then let the toggle control itself do the rest
+                     */
+                    this.rootNode.addEventListener("ezw_onToggleOpen", this._LANG.hitch(this, this._onToggle), false);
+                    //document.documentElement.addEventListener("ezw_onToggleOpen", function() {alert("toggle");}, false);
+                    //this.rootNode.addEventListener("ezw_onToggleClose", this._LANG.hitch(this, this._onToggle));
+
                 },
 
                 _resetOpenState: function() {
@@ -36,7 +53,7 @@
                     /**/
                     var openFound = false;
                     /*if we have multiple toggles open */
-                    _Lang.forEach(this.toggles, _Lang.hitch(this, function(toggle) {
+                    this._LANG.arrForEach(this.toggles, this._LANG.hitch(this, function(toggle) {
                         if (toggle.toggleOpen && !openFound) {
                             openFound = true;
                         } else {
@@ -47,7 +64,7 @@
 
                 _onToggle: function(evt) {
                     if (this.multiOpen) return;
-                    _Lang.forEach(this.toggles, _Lang.hitch(this, function(toggle) {
+                    this._LANG.arrForEach(this.toggles, this._LANG.hitch(this, function(toggle) {
                         toggle.close();
                     }));
                 }

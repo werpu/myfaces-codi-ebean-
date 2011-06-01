@@ -30,6 +30,7 @@
                     this.valueHolder = this.rootNode.querySelector(".valueHolder input");
                     this.groupRootNode = this.groupRootNode || this.rootNode;
 
+
                 },
 
                 _toggle: function(evt) {
