@@ -2,6 +2,7 @@
               xmlns:ui="http://java.sun.com/jsf/facelets"
               xmlns:cc="http://java.sun.com/jsf/composite"
               xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
         >
 
     <!-- INTERFACE -->
@@ -29,7 +30,20 @@
                         <h:inputTextarea value="#{cc.attrs.value.deta.description}"></h:inputTextarea>
 
                     </h:panelGrid>
+                    <script type="text/javascript">
+                        function saveHandler() {
+                            jsf.ajax.request(this ,event, {execute:document.querySelectorAll('.groupDetaDialog form')[0].id, render:document.querySelectorAll('.groupDetaDialog')[0].id+' resultArea'});
+                            return false;
+                        }
+                    </script>
                     <h:panelGroup layout="block" styleClass="actions">
+                         <ezw:imageButton id="myImageButton"
+                             action="#{cc.attrs.value.doSave}"
+                             library="images"
+                             onClick="saveHandler"
+                             imageNormal="icons/famfam/accept.png"
+                             value="#{msgs.save}"  />
+
                         <h:commandLink id="edit_save" action="#{cc.attrs.value.doSave}" onclick="jsf.ajax.request(this ,event, {execute:document.querySelectorAll('.groupDetaDialog form')[0].id, render:document.querySelectorAll('.groupDetaDialog')[0].id+' resultArea'}); return false;" value="[#{msgs.save}]"/>
                         <h:commandLink id="edit_cancel" action="#{cc.attrs.value.doCancel}"
                                        onclick="jsf.ajax.request(this ,event, {execute:'@this', render:document.querySelectorAll('.groupDetaDialog')[0].id}); return false;"
