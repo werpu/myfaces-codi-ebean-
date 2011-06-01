@@ -25,6 +25,8 @@
                     this._callSuper("constructor", args);
                     this._onMouseDown = this._LANG.hitch(this, this._onMouseDown);
                     this._onMouseUp = this._LANG.hitch(this, this._onMouseUp);
+                    this._onClickCallback = this._LANG.hitch(this, this._onClickCallback);
+
                 },
 
                 _postInit:function() {
@@ -34,32 +36,40 @@
                     this._imageFocus = this.rootNode.querySelector(".imageFocus");
 
                     this._label =   this.rootNode.querySelector(".label");
-                    this._imageCommand = this.rootNode.querySelector("imageCommand");
+                    this._imageCommand = this.rootNode.querySelector(".imageCommand");
 
                     //now we fix the values
                     if(!this._imagePressed.getAttribute("src") || this._imagePressed.getAttribute("src") == "") {
                         this._imagePressed.setAttribute("src", this._imageNormal.getAttribute("src"));
                     }
                     if(!this._imageFocus.getAttribute("src") || this._imageFocus.getAttribute("src") == "") {
-                        this._imageFocus.setAttribute("src", this._imageFocus.getAttribute("src"));
+                        this._imageFocus.setAttribute("src", this._imageNormal.getAttribute("src"));
                     }
 
                     //now we apply the event handlers
                     //click should make a short animation between the image changes
                     //mousedown should apply the click styleclass
                     //mouseup on a global scale should remove the image styleclass
-                    this.rootNode.addEventListener("mousedown", this._onMouseDown, false);
-                    this.rootNode.addEventListener("mouseup", this._onMouseUp, false);
+                    //this.rootNode.addEventListener("mousedown", this._onMouseDown, false);
+                    //this.rootNode.addEventListener("mouseup", this._onMouseUp, false);
 
-                    this.rootNode.addEventListener("click", this._onclick, false);
+                    //this.rootNode.addEventListener("click", this._onClick, false);
+                    this.rootNode.toDomNode().addEventListener('click', this._onClickCallback, false)
+                    var _t = this;
+                    this.rootNode.querySelectorAll("*").forEach(function(elem) {
+                        if(!elem.hasClass("imageCommand"))   {
+                            elem.toDomNode().addEventListener('click', _t._onClickCallback, false);
+                        }
+                    });
 
                 },
 
-                _onClick: function(evt) {
+                _onClickCallback: function(evt) {
                     var ret = (this.onClick) ? this.onClick(evt): true;
                     if(!ret) return;
 
                     this._imageCommand.toDomNode().click();
+                    evt.consumeEvent();
                 },
 
                 _onMouseDown: function(evt) {
@@ -70,6 +80,7 @@
                 _onMouseUp: function(evt) {
                       this.rootNode.removeClass("clicked");
                       window.removeEventListener("mouseup", this._onMouseUp, false);
+
                 }
             });
 })

@@ -18,8 +18,7 @@
 
         <composite:attribute name="value" />
 
-        <composite:attribute name="action"  method-signature="java.lang.String f()"/>
-        <composite:attribute name="actionListener"  method-signature="void f(javax.faces.event.ActionEvent)"/>
+        <composite:attribute name="action" targets="imageCommand"  method-signature="java.lang.String f()"/>
 
         <composite:actionSource name="imageCommand" />
 
@@ -48,10 +47,12 @@
             <h:graphicImage library="#{cc.attrs.library}" name="#{cc.attrs.imageNormal}" class="imageNormal" id="imageNormal"  />
             <h:graphicImage library="#{cc.attrs.library}" name="#{cc.attrs.imagePressed}" class="imagePressed" id="imagePressed"  />
             <h:graphicImage library="#{cc.attrs.library}" name="#{cc.attrs.imageFocus}" class="imageFocus" id="imageFocus"  />
-            <h:outputFormat class="label" value="#{cc.attrs.valueHolder}" />
-            <h:commandLink id="imageCommand" class="imageCommand" action="#{cc.attrs.action}" actionListener="#{cc.attrs.actionListener}">
+            <h:outputFormat class="label" value="#{cc.attrs.value}" />
+
+            <h:commandButton id="imageCommand" class="imageCommand" action="#{cc.attrs.action}"
+                       >
                 <composite:insertChildren></composite:insertChildren>
-            </h:commandLink>
+            </h:commandButton>
         </div>
         <script type="text/javascript">
             var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({

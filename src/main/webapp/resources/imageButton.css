@@ -15,10 +15,12 @@
 }
 
 .imageButton .imageFocus,
-.imageButton:focus .imageNormal,
 .imageButton .imagePressed,
 .imageButton.clicked .imageFocus,
-.imageButton.clicked .imageNormal
+.imageButton.clicked .imageNormal,
+.imageButton .imageCommand,
+.imageButton:focus .imageNormal
+
 {
     display:none;
 }
