@@ -14,6 +14,9 @@
                 _RT: myfaces._impl.core._Runtime,
                 toggles: null,
                 multiOpen: false,
+
+                ajaxPostback: true,
+
                 constructor_:function(args) {
                     this._callSuper("constructor", args);
                 },
@@ -35,6 +38,7 @@
                                 toggle.groupRootNode = this.rootNode;
                                 /*the toggle cannot be minized by user input when open*/
                                 toggle.mouseCloseable = false;
+                                toggle.ajaxPostback = this.ajaxPostback;
                             }
                         }));
                     }

@@ -21,6 +21,8 @@
                 mouseOpenable: true,
                 mouseCloseable: true,
 
+                ajaxPostback: true,
+
                 constructor_:function(args) {
                     this._callSuper("constructor", args);
                     this.ontoggleClick = _Lang.hitch(this, this.ontoggleClick);
@@ -79,10 +81,18 @@
                 //with ajax replacements if needed
                 onOpen: function(evt) {
                     this.valueHolder.setAttribute("value", "true");
+                    //we ajax the value in case of a non submit page navigation
+                    if(this.ajaxPostback) {
+                        jsf.ajax.request(this.valueHolder.toDomNode(), null, {execute:"@this", render:"@none", myfaces:{delay: 500}});
+                    }
                 },
 
                 onClose: function(evt) {
                     this.valueHolder.setAttribute("value", "false");
-                }
+                    //we ajax the value in case of a non submit page navigation
+                    if(this.ajaxPostback) {
+                        jsf.ajax.request(this.valueHolder.toDomNode(), null, {execute:"@this", render:"@none", myfaces:{delay: 500}});
+                    }
+                 }
             });
 })();
