@@ -44,6 +44,7 @@
             this._callSuper("constructor", args);
             this.refresh = _Lang.hitch(this, this.refresh);
             this.refreshTargetId = this.refreshTargetId || this.id + ":" + this.refreshTargetAppendix;
+            this._componentType = "at.irian.Pull";
         },
 
         /**

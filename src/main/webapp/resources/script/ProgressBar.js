@@ -32,6 +32,7 @@
                     this._onAjaxEvent = _Lang.hitch(this, this._onAjaxEvent);
                     /*we dont need any unload hooks*/
                     this.unloadAware = false;
+                    this._componentType = "at.irian.ProgressBar";
                 },
 
                 /**
