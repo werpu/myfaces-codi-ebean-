@@ -157,7 +157,7 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils"
         if(this.hasClass(node, styleClass)) return;
         var classes = node.getAttribute("class");
 
-        node.setAttribute("class", classes + " " + styleClass);
+        this.getEngine().setAttribute(node, "class", classes + " " + styleClass);
     },
 
     /**
@@ -174,7 +174,13 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils"
         for (var cnt = classes.length - 1; cnt >= 0; cnt--) {
             if (classes[cnt] != styleClass) res.push(classes[cnt]);
         }
-        node.setAttribute("class", res.join(" "));
+        this.getEngine().setAttribute(node, "class", res.join(" "));
+    },
+
+    //TODO this code is html5 centric we probable have to shift it over
+    //To the dom engine
+    createEvent: function(event,/*optional*/ additionalData) {
+        return this.getEngine().createEvent(event, additionalData);
     }
 
 

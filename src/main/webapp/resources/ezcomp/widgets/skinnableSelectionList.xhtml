@@ -14,6 +14,7 @@
         <composite:attribute name="styleClass" required="false"></composite:attribute>
         <composite:attribute name="javascriptVar" required="false"></composite:attribute>
         <composite:attribute name="resizable" required="false" default="false"></composite:attribute>
+        <composite:attribute name="javascriptClass" default="extras.apache.SelectionList" />
 
         <composite:attribute name="selectorIdentifier" default="ul li"/>
     </composite:interface>
@@ -29,26 +30,25 @@
         <h:outputScript library="script" name="dom/NodeList.js"/>
 
         <h:outputScript library="script" name="ComponentBase.js"/>
-        <h:outputScript library="script" name="SelectionList.js.js"/>
+        <h:outputScript library="script" name="SelectionList.js"/>
 
         <div id="#{cc.clientId}" class="selectionList">
             <h:panelGroup id="#{cc.attrs.id}" layout="block">
                 <h:panelGroup id="#{cc.attrs.id}_placeHolder" layout="block">
-
                         <composite:insertChildren></composite:insertChildren>
-
                 </h:panelGroup>
                 <h:inputHidden id="#{cc.attrs.id}_valueHolder"/>
             </h:panelGroup>
         </div>
 
         <script type="text/javascript">
-            var #{cc.javascriptVar} = new extras.apache.SelectionList({
+            var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}}({
                         clientId:"#{cc.clientId}",
                         id:"#{cc.clientId}:#{cc.attrs.id}",
                         multiSelect:#{cc.attrs.multiselect},
 
-                        selectorIdentifier:"#{cc.attrs.selectorIdentifier}"
+                        selectorIdentifier:"#{cc.attrs.selectorIdentifier}",
+                        javascriptVar:"#{cc.javascriptVar}"
                     });
         </script>
     </composite:implementation>

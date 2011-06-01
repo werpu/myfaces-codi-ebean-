@@ -12,14 +12,15 @@
                 /**
                  * the refresh interval
                  */
-                open: true,
+                toggleOpen: true,
 
                 constructor_:function(args) {
                     this._callSuper("constructor", args);
                     this.ontoggleClick = _Lang.hitch(this, this.ontoggleClick);
                     this.unloadAware = false;
-                    this.onToggleOn = _Lang.hitch(this, this.onToggleOn);
-                    this.onToggleOff = _Lang.hitch(this, this.onToggleOff);
+                    this.onOpen = _Lang.hitch(this, this.onOpen);
+                    this.onClose = _Lang.hitch(this, this.onClose);
+                    this.groupRootNode = this.groupRootNode || this.rootNode;
                 },
 
                 _postInit: function() {
@@ -30,19 +31,29 @@
                 },
 
                 _toggle: function(evt) {
-                    this.open = !this.open;
-
-                    if (this.open) {
-                        this.rootNode.querySelectorAll(".toggleArea").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
-                        this.rootNode.querySelectorAll(".toggleControl").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
-
-                        this.onToggleOn(evt);
+                    if (!this.toggleOpen) {
+                        this.groupRootNode.dispatchEvent("ezw_onToggleOpen", {src: this});
+                        this.open();
+                        this.onOpen(evt);
                     } else {
-                        this.rootNode.querySelectorAll(".toggleArea").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
-                        this.rootNode.querySelectorAll(".toggleControl").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
-
-                        this.onToggleOff(evt);
+                        this.groupRootNode.dispatchEvent("ezw_onToggleClose", {src: this});
+                        this.close();
+                        this.onClose(evt);
                     }
+                },
+
+                open: function() {
+                    this.toggleOpen = true;
+                    this.rootNode.querySelectorAll(".toggleArea").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
+                    this.rootNode.querySelectorAll(".toggleControl").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
+                    this.onOpen({});
+                },
+
+                close: function() {
+                    this.toggleOpen = false;
+                    this.rootNode.querySelectorAll(".toggleArea").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
+                    this.rootNode.querySelectorAll(".toggleControl").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
+                    this.onClose({});
                 },
 
                 ontoggleClick: function(evt) {
@@ -51,15 +62,12 @@
 
                 //callbacks for event handlers which can be set from outside, so that we can intercept toggle calls
                 //with ajax replacements if needed
-                onToggleOn: function(evt) {
-                    this.valueHolder.setAttribute("value","true");
+                onOpen: function(evt) {
+                    this.valueHolder.setAttribute("value", "true");
                 },
 
-                onToggleOff: function(evt) {
-                    this.valueHolder.setAttribute("value","false");
+                onClose: function(evt) {
+                    this.valueHolder.setAttribute("value", "false");
                 }
-
-
             });
-
 })();

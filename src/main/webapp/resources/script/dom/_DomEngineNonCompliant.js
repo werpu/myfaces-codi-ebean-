@@ -324,6 +324,10 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineN
         if (!node) return;
         this._removeChildNodes(node);
         node.innerHTML = markup;
+    },
+
+    createEvent: function(event,/*optional*/ additionalData) {
+        throw Exception("not supported yet");
     }
 
 });
