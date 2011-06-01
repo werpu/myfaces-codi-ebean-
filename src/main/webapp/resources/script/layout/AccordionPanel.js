@@ -27,11 +27,14 @@
                          * and pass them as references to our toggle classes down*/
                         var toggles = this.rootNode.querySelectorAll(".accordionContent > [data-ezw_componentType = 'at.irian.Toggle']").getAttribute("data-ezw_javascriptVar");
                         this.toggles = [];
+                        var cnt = 0;
                         _Lang.arrForEach(toggles, _Lang.hitch(this, function(toggle) {
                             if (window[toggle]) {
                                 toggle = window[toggle];
                                 this.toggles.push(toggle);
                                 toggle.groupRootNode = this.rootNode;
+                                /*the toggle cannot be minized by user input when open*/
+                                toggle.mouseCloseable = false;
                             }
                         }));
                     }

@@ -14,6 +14,13 @@
                  */
                 toggleOpen: true,
 
+                /**
+                 * special behavior for controls which stack
+                 * the toggle
+                 */
+                mouseOpenable: true,
+                mouseCloseable: true,
+
                 constructor_:function(args) {
                     this._callSuper("constructor", args);
                     this.ontoggleClick = _Lang.hitch(this, this.ontoggleClick);
@@ -35,10 +42,12 @@
 
                 _toggle: function(evt) {
                     if (!this.toggleOpen) {
+                        if(!this.mouseOpenable) return;
                         this.groupRootNode.dispatchEvent("ezw_onToggleOpen", {src: this});
                         this.open();
                         this.onOpen(evt);
                     } else {
+                         if(!this.mouseCloseable) return;
                         this.groupRootNode.dispatchEvent("ezw_onToggleClose", {src: this});
                         this.close();
                         this.onClose(evt);
@@ -46,6 +55,7 @@
                 },
 
                 open: function() {
+
                     this.toggleOpen = true;
                     this.rootNode.querySelectorAll(".toggleContent").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
                     this.rootNode.querySelectorAll(".toggleControl").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
@@ -53,11 +63,13 @@
                 },
 
                 close: function() {
+
                     this.toggleOpen = false;
                     this.rootNode.querySelectorAll(".toggleContent").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
                     this.rootNode.querySelectorAll(".toggleControl").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
                     this.onClose({});
                 },
+
 
                 ontoggleClick: function(evt) {
                     this._toggle(evt);
