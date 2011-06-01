@@ -46,7 +46,8 @@
                 <script type="text/javascript">
                     var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
                         id:"#{cc.clientId}",
-                        open:#{cc.attrs.open}
+                        toggleOpen:#{cc.attrs.open},
+                        javascriptVar:"#{cc.javascriptVar}"
                     });
                 </script>
         </div>

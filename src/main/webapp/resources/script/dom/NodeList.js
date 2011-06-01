@@ -199,6 +199,23 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
     moveDown: function(node) {
         return this._stdOp("moveDown", node);
     },
+
+    /**
+     * additionalData = {
+     *     _evt_type: String
+     *     _evt_channel: String
+     *     _evt_bubbles: boolean
+     *     _evt_cancellable: boolean
+     * }
+      * @param event
+     * @param additionalData
+     */
+    dispatchEvent: function(event,/*optional*/ additionalData) {
+        additionalData.src = additionalData.src || this;
+        event = this._NODE_UTILS.createEvent(event, additionalData);
+        return this._stdOp("dispatchEvent", event);
+    },
+
     /*
      * helpers to reduce the locs, by defining the
      * functionality of most operations as generic methods

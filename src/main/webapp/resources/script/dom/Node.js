@@ -259,6 +259,22 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
         var nextSibling = this._referencedNode.nextSibling;
         if(!nextSibling) return this;
         return this.insertAfter(nextSibling);
+    },
+    /**
+     * additionalData = {
+     *     _evt_type: String
+     *     _evt_channel: String
+     *     _evt_bubbles: boolean
+     *     _evt_cancellable: boolean
+     * }
+      * @param event
+     * @param additionalData
+     */
+    dispatchEvent: function(event,/*optional*/ additionalData) {
+        additionalData.src = additionalData.src || this;
+        event = this._NODE_UTILS.createEvent(event, additionalData);
+        this._referencedNode.dispatchEvent(event);
+        return this;
     }
 },
 //static methods
