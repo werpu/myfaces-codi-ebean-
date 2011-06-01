@@ -9,6 +9,7 @@
         <composite:attribute name="javascriptVar" required="false"></composite:attribute>
         <composite:attribute name="javascriptClass" default="extras.apache.ImageButton" />
 
+        <composite:attribute name="library" required="true" />
 
         <composite:attribute name="imageNormal" required="true" />
         <composite:attribute name="imagePressed" />
@@ -44,18 +45,19 @@
         <h:outputScript library="script" name="ImageButton.js"/>
 
         <div id="#{cc.clientId}" class="imageButton #{cc.attrs.styleClass}" style="#{cc.attrs.style}" tabindex="#{cc.attrs.tabIndex}">
-            <h:graphicImage value="#{cc.attrs.imageNormal}" class="imageNormal" id="imageNormal"  />
-            <h:graphicImage value="#{cc.attrs.imagePressed}" class="imagePressed" id="imagePressed"  />
-            <h:graphicImage value="#{cc.attrs.imageFocus}" class="imageFocus" id="imageFocus"  />
+            <h:graphicImage library="#{cc.attrs.library}" name="#{cc.attrs.imageNormal}" class="imageNormal" id="imageNormal"  />
+            <h:graphicImage library="#{cc.attrs.library}" name="#{cc.attrs.imagePressed}" class="imagePressed" id="imagePressed"  />
+            <h:graphicImage library="#{cc.attrs.library}" name="#{cc.attrs.imageFocus}" class="imageFocus" id="imageFocus"  />
             <h:outputFormat class="label" value="#{cc.attrs.valueHolder}" />
             <h:commandLink id="imageCommand" class="imageCommand" action="#{cc.attrs.action}" actionListener="#{cc.attrs.actionListener}">
                 <composite:insertChildren></composite:insertChildren>
             </h:commandLink>
         </div>
         <script type="text/javascript">
-            var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}}({
-                                 clientId:"#{cc.clientId}",
-                                 onClick:#{(cc.attrs.onClick != "")?cc.attrs.onClick : null}
+            var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
+                                 id:"#{cc.clientId}",
+
+                                 onClick:#{(cc.attrs.onClick) ? cc.attrs.onClick: false}
             });
         </script>
     </composite:implementation>
