@@ -219,6 +219,21 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
         event = this._NODE_UTILS.createEvent(event, additionalData);
         return this._stdOp("dispatchEvent", event);
     },
+    offsetLeft: function() {
+        return this._stdOp2("offsetLeft");
+    },
+    offsetTop: function() {
+        return this._stdOp2("offsetTop");
+    },
+    offsetWidth: function() {
+        return this._stdOp2("offsetWidth");
+    },
+    offsetHeight: function() {
+        return this._stdOp2("offsetHeight");
+    },
+     offsetParent: function() {
+        return this._stdOp2("offsetParent");
+    },
 
     /*
      * helpers to reduce the locs, by defining the

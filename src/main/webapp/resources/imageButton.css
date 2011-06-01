@@ -1,16 +1,41 @@
 .imageButton {
 
+    background-color: #97adbf;
+    border-width: 2px;
+    border-style: groove;
+    border-color: gray;
+
+    display: block;
+    width: 80px;
+    height: 22px;
+
+    position: relative;
 }
 
 .imageButton:focus {
 
 }
 
+.imageButton .imageNormal, .imageButton .imageFocus,
+.imageButton .imagePressed {
+    position: absolute;
+    left: 3px;
+    top: 2px;
+}
+
+.imageButton .label {
+    position: absolute;
+    left: 22px;
+    top: 3px;
+    color: black;
+    text-shadow: 0px 1px 1px #fff;
+}
+
 /**
 * focus non focus display behavior
 */
 .imageButton .imageNormal,
-.imageButton:focus .imageFocus{
+.imageButton:focus .imageFocus {
     display: block;
 }
 
@@ -19,10 +44,13 @@
 .imageButton.clicked .imageFocus,
 .imageButton.clicked .imageNormal,
 .imageButton .imageCommand,
-.imageButton:focus .imageNormal
+.imageButton:focus .imageNormal {
+    display: none;
+}
 
-{
-    display:none;
+.imageButton.clicked {
+    box-shadow: 2px 2px 3px 0 #777777 inset;
+    border: 1px solid black;
 }
 
 /**
@@ -30,7 +58,7 @@
 * if the button goes down
 */
 .imageButton.clicked .imagePressed {
-    display:block;
+    display: block;
 }
 
 

@@ -17,6 +17,7 @@
         <composite:attribute name="onClick" />
 
         <composite:attribute name="value" />
+        <composite:attribute name="autoWidth" default="true" />
 
         <composite:attribute name="action" targets="imageCommand"  method-signature="java.lang.String f()"/>
 
@@ -49,15 +50,14 @@
             <h:graphicImage library="#{cc.attrs.library}" name="#{cc.attrs.imageFocus}" class="imageFocus" id="imageFocus"  />
             <h:outputFormat class="label" value="#{cc.attrs.value}" />
 
-            <h:commandButton id="imageCommand" class="imageCommand" action="#{cc.attrs.action}"
-                       >
+            <h:commandButton id="imageCommand" class="imageCommand" action="#{cc.attrs.action}">
                 <composite:insertChildren></composite:insertChildren>
             </h:commandButton>
         </div>
         <script type="text/javascript">
             var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
                                  id:"#{cc.clientId}",
-
+                                 autoWidth: #{cc.attrs.autoWidth},
                                  onClick:#{(cc.attrs.onClick) ? cc.attrs.onClick: false}
             });
         </script>
