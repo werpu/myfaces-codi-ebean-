@@ -1,0 +1,73 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="javascriptVar" />
+        <composite:attribute name="open" default="true" />
+        <composite:attribute name="javascriptClass" default="extras.apache.AccordionPanel"/>
+
+        <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
+        <composite:attribute name="headStyleClass" />
+        <composite:attribute name="headStyle" />
+        <composite:attribute name="contentStyleClass" />
+        <composite:attribute name="contentStyle" />
+
+
+        <composite:valueHolder name="valueHolder" />
+
+        <composite:facet name="head" required="true" />
+        <composite:facet name="content" required="true" />
+    </composite:interface>
+    <composite:implementation>
+        <h:outputScript library="script" name="dom/_DomEngine.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
+
+        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
+        <h:outputScript library="script" name="dom/Sizzle.js"/>
+        <h:outputScript library="script" name="dom/Node.js"/>
+        <h:outputScript library="script" name="dom/NodeList.js"/>
+
+
+        <h:outputScript library="script" name="ComponentBase.js"/>
+        <h:outputScript library="script" name="layout/Toggle.js"/>
+        <h:outputScript library="script" name="layout/AccordionPanel.js"/>
+
+
+        <div id="#{cc.clientId}" class="toggle #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
+                <h:panelGroup style="#{cc.attrs.headStyle}" styleClass="accordionHead #{cc.attrs.headStyleClass}" id="accordionHead" layout="block">
+                    <composite:renderFacet name="head"></composite:renderFacet>
+                </h:panelGroup>
+                <h:panelGroup tyle="#{cc.attrs.contentStyle}" styleClass="accordionContent #{cc.attrs.contentStyleClass}" layout="block" id="accordionContent">
+                   <composite:insertChildren></composite:insertChildren>
+                </h:panelGroup>
+
+
+                <script type="text/javascript">
+                    (function() {
+                        var NODE = myfaces._impl._dom.Node;
+                        var _Lang = myfaces._impl._util._Lang;
+
+                        var rootNode = NODE.querySelector("#"+"#{cc.clientId}");
+                        var toggles = rootNode.querySelectorAll(".accordionContent > [data-componentType = 'at.irian.Toggle']").getAttribute("javascriptVar");
+                        var finalToggles = [];
+                        _Lang.forEach(toggles, function(toggle)) {
+                           finalToggles.push(window[toggle]);
+                        };
+
+                        var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
+                            id:"#{cc.clientId}",
+                            toggles:finalToggles,
+                            javascriptVar:"#{cc.javascriptVar}"
+                        });
+                    }());
+                </script>
+        </div>
+
+    </composite:implementation>
+</ui:component>

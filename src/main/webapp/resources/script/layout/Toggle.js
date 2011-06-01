@@ -20,13 +20,15 @@
                     this.unloadAware = false;
                     this.onOpen = _Lang.hitch(this, this.onOpen);
                     this.onClose = _Lang.hitch(this, this.onClose);
-                    this.groupRootNode = this.groupRootNode || this.rootNode;
+
+                    this._componentType = "at.irian.Toggle";
                 },
 
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
                     this.rootNode.querySelectorAll(".toggleControl").addEventListener("click", this.ontoggleClick, true);
                     this.valueHolder = this.rootNode.querySelector(".valueHolder input");
+                    this.groupRootNode = this.groupRootNode || this.rootNode;
 
                 },
 

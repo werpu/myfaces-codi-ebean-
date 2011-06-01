@@ -162,6 +162,12 @@
                         _AjaxQueue.enqueue(this.onAjaxEvent);
                         _ErrorQueue.enqueue(this.onAjaxError);
                     }
+                    if(this.javascriptVar) {
+                        this.rootNode.setAttribute("data-ezw_javascriptVar", this.javascriptVar);
+                    }
+                    if(this._componentType) {
+                        this.rootNode.setAttribute("data-ezw_componentType", this._componentType);
+                    }
                 },
 
                 querySelectorAll: function(queryStr) {
