@@ -1,0 +1,62 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="javascriptVar" required="false"></composite:attribute>
+        <composite:attribute name="javascriptClass" default="extras.apache.ImageButton" />
+
+
+        <composite:attribute name="imageNormal" required="true" />
+        <composite:attribute name="imagePressed" />
+        <composite:attribute name="imageFocus" />
+        <composite:attribute name="onClick" />
+
+        <composite:attribute name="value" />
+
+        <composite:attribute name="action"  method-signature="java.lang.String f()"/>
+        <composite:attribute name="actionListener"  method-signature="void f(javax.faces.event.ActionEvent)"/>
+
+        <composite:actionSource name="imageCommand" />
+
+        <composite:attribute name="tabIndex" default="0" />
+
+        <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
+
+
+    </composite:interface>
+    <composite:implementation>
+
+        <h:outputScript library="script" name="dom/_DomEngine.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
+
+        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
+        <h:outputScript library="script" name="dom/Sizzle.js"/>
+        <h:outputScript library="script" name="dom/Node.js"/>
+        <h:outputScript library="script" name="dom/NodeList.js"/>
+
+        <h:outputScript library="script" name="ComponentBase.js"/>
+        <h:outputScript library="script" name="ImageButton.js"/>
+
+        <div id="#{cc.clientId}" class="imageButton #{cc.attrs.styleClass}" style="#{cc.attrs.style}" tabindex="#{cc.attrs.tabIndex}">
+            <h:graphicImage value="#{cc.attrs.imageNormal}" class="imageNormal" id="imageNormal"  />
+            <h:graphicImage value="#{cc.attrs.imagePressed}" class="imagePressed" id="imagePressed"  />
+            <h:graphicImage value="#{cc.attrs.imageFocus}" class="imageFocus" id="imageFocus"  />
+            <h:outputFormat class="label" value="#{cc.attrs.valueHolder}" />
+            <h:commandLink id="imageCommand" class="imageCommand" action="#{cc.attrs.action}" actionListener="#{cc.attrs.actionListener}">
+                <composite:insertChildren></composite:insertChildren>
+            </h:commandLink>
+        </div>
+        <script type="text/javascript">
+            var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}}({
+                                 clientId:"#{cc.clientId}",
+                                 onClick:#{(cc.attrs.onClick != "")?cc.attrs.onClick : null}
+            });
+        </script>
+    </composite:implementation>
+</ui:component>

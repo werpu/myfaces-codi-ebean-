@@ -1,0 +1,34 @@
+.imageButton {
+
+}
+
+.imageButton:focus {
+
+}
+
+/**
+* focus non focus display behavior
+*/
+.imageButton .imageNormal,
+.imageButton:focus .imageFocus{
+    display: block;
+}
+
+.imageButton .imageFocus,
+.imageButton:focus .imageNormal,
+.imageButton .imagePressed,
+.imageButton.clicked .imageFocus,
+.imageButton.clicked .imageNormal
+{
+    display:none;
+}
+
+/**
+* the clicked styleclass is appended
+* if the button goes down
+*/
+.imageButton.clicked .imagePressed {
+    display:block;
+}
+
+
