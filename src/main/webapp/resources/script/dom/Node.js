@@ -275,7 +275,23 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
         event = this._NODE_UTILS.createEvent(event, additionalData);
         this._referencedNode.dispatchEvent(event);
         return this;
-    }
+    },
+    offsetWidth: function() {
+        return this._referencedNode.offsetWidth;
+    },
+    offsetHeight: function() {
+        return this._referencedNode.offsetHeight;
+    },
+    offsetLeft: function() {
+        return this._referencedNode.offsetLeft;
+    },
+    offsetTop: function() {
+        return this._referencedNode.offsetTop;
+    },
+    offsetParent: function() {
+         return this._referencedNode.offsetParent;
+     },
+
 },
 //static methods
 {

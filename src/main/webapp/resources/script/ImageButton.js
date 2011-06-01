@@ -19,14 +19,15 @@
                 _label: null,
                 _imageCommand: null,
                 onClick: null,
-
+                autoWidth: true,
 
                 constructor_:function(args) {
                     this._callSuper("constructor", args);
                     this._onMouseDown = this._LANG.hitch(this, this._onMouseDown);
                     this._onMouseUp = this._LANG.hitch(this, this._onMouseUp);
                     this._onClickCallback = this._LANG.hitch(this, this._onClickCallback);
-
+                    this._onKeyDown  = this._LANG.hitch(this, this._onKeyDown);
+                    this._onKeyUp    = this._LANG.hitch(this, this._onKeyUp);
                 },
 
                 _postInit:function() {
@@ -50,7 +51,12 @@
                     //click should make a short animation between the image changes
                     //mousedown should apply the click styleclass
                     //mouseup on a global scale should remove the image styleclass
-                    //this.rootNode.addEventListener("mousedown", this._onMouseDown, false);
+                    this.rootNode.addEventListener("mousedown", this._onMouseDown, false);
+
+                    this.rootNode.addEventListener("keydown", this._onKeyDown, false);
+                    this.rootNode.addEventListener("keyup", this._onKeyUp, false);
+
+
                     //this.rootNode.addEventListener("mouseup", this._onMouseUp, false);
 
                     //this.rootNode.addEventListener("click", this._onClick, false);
@@ -61,15 +67,24 @@
                             elem.toDomNode().addEventListener('click', _t._onClickCallback, false);
                         }
                     });
+                    if(this.autoWidth) {
+                        var innerWidth = parseInt(this._imageNormal.offsetWidth()) +
+                                parseInt(this._label.offsetWidth())+
+                                Math.min(
+                                        parseInt(this._imageNormal.offsetLeft()) * 3,
+                                        parseInt(this._label.offsetLeft()) * 3);
+                        this.rootNode.setStyle("width",innerWidth+"px");
+                    }
 
                 },
 
                 _onClickCallback: function(evt) {
                     var ret = (this.onClick) ? this.onClick(evt): true;
+                    //evt.consumeEvent();
                     if(!ret) return;
 
                     this._imageCommand.toDomNode().click();
-                    evt.consumeEvent();
+
                 },
 
                 _onMouseDown: function(evt) {
@@ -81,7 +96,24 @@
                       this.rootNode.removeClass("clicked");
                       window.removeEventListener("mouseup", this._onMouseUp, false);
 
+                },
+
+                _onKeyDown: function(evt) {
+
+                    var keyCode = evt.keyCode;
+                    if(evt.keyCode == this.KEY_ENTER) {
+                        this.rootNode.addClass("clicked");
+                    }
+                },
+
+                _onKeyUp: function(evt) {
+                    var keyCode = evt.keyCode;
+                    if(evt.keyCode == this.KEY_ENTER) {
+                        this.rootNode.removeClass("clicked");
+                        this._onClickCallback(evt);
+                    }
                 }
+
             });
 })
         ();
