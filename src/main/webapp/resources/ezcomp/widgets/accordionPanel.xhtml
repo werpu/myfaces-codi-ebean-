@@ -49,23 +49,14 @@
 
 
                 <script type="text/javascript">
-                    (function() {
-                        var NODE = myfaces._impl._dom.Node;
-                        var _Lang = myfaces._impl._util._Lang;
 
-                        var rootNode = NODE.querySelector("#"+"#{cc.clientId}");
-                        var toggles = rootNode.querySelectorAll(".accordionContent > [data-componentType = 'at.irian.Toggle']").getAttribute("javascriptVar");
-                        var finalToggles = [];
-                        _Lang.forEach(toggles, function(toggle)) {
-                           finalToggles.push(window[toggle]);
-                        };
 
                         var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
                             id:"#{cc.clientId}",
-                            toggles:finalToggles,
+
                             javascriptVar:"#{cc.javascriptVar}"
                         });
-                    }());
+
                 </script>
         </div>
 

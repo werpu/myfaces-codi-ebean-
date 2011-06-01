@@ -119,6 +119,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
         return this._stdOp("setAttribute" ,attr , val);
     },
 
+    getAttribute: function(attr) {
+        return this._stdOp2("getAttribute", attr);
+    },
+
     setStyle: function(attr, val) {
         return this._stdOp("setStyle" ,attr , val);
     },

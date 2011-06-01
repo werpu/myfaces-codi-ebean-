@@ -23,7 +23,7 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineC
     },
 
     getAttribute : function(node, attr) {
-        return node[attr];
+        return node.getAttribute(attr);
     },
 
 
@@ -75,14 +75,13 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineC
     //To the dom engine
     createEvent: function(event,/*optional*/ additionalData) {
         if(this._Lang.isString(event)) {
-            event = document.createEvent(additionalData._evt_type || "HTMLEvents");
-
-            var bubbles = additionalData["_evt_bubbles"] || true;
+            var evtType =event;
+            event = document.createEvent(additionalData._evt_type || "Event");
+            var bubbles = additionalData["_evt_bubbles"] || false;
             var cancellable = additionalData["_evt_cancellable"] || true;
-            var channel = additionalData["_evt_channel"] || "global";
 
             event.additionalData = additionalData;
-            event.initEvent(channel, bubbles, cancellable);
+            event.initEvent(evtType, bubbles, cancellable);
         }
         return event;
     }
