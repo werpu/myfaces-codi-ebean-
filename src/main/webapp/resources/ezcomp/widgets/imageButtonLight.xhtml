@@ -1,0 +1,61 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <composite:interface componentType="at.irian.ImageButton">
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="javascriptVar" required="false"></composite:attribute>
+        <composite:attribute name="javascriptClass" default="extras.apache.ImageButtonLight"/>
+
+
+        <composite:attribute name="onClick" default="false"/>
+
+        <composite:attribute name="value"/>
+
+        <composite:attribute name="action" targets="imageCommand" method-signature="java.lang.String f()"/>
+
+        <composite:actionSource name="imageCommand"/>
+
+        <composite:attribute name="tabIndex" default="0"/>
+
+        <composite:attribute name="styleClass"/>
+        <composite:attribute name="style"/>
+
+        <composite:clientBehavior name="click" targets="imageCommand" event="action"/>
+
+
+    </composite:interface>
+    <composite:implementation>
+
+        <h:outputScript library="script" name="dom/_DomEngine.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
+        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
+
+        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
+        <h:outputScript library="script" name="dom/Sizzle.js"/>
+        <h:outputScript library="script" name="dom/Node.js"/>
+        <h:outputScript library="script" name="dom/NodeList.js"/>
+
+        <h:outputScript library="script" name="ComponentBase.js"/>
+        <h:outputScript library="script" name="ImageButtonLight.js"/>
+
+        <div id="#{cc.clientId}" class="imageButtonLight">
+            <h:commandLink onclick="#{cc.attrs.onClick}" id="imageCommand" class="imageCommand #{cc.attrs.styleClass}"
+                           action="#{cc.attrs.action}" tabindex="#{cc.attrs.tabIndex}">
+                <h:outputFormat value="#{cc.attrs.value}" styleClass="label" />
+                <composite:insertChildren></composite:insertChildren>
+            </h:commandLink>
+        </div>
+
+        <script type="text/javascript">
+            var #{cc.javascriptVar} =
+            new #{cc.attrs.javascriptClass}({
+                id:"#{cc.clientId}",
+                ajaxRequest:#{cc.ajaxState.toString()}
+
+            });
+        </script>
+    </composite:implementation>
+</ui:component>
