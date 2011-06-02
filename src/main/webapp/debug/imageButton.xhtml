@@ -59,8 +59,12 @@
                              action="#{imageButtonController.doAction}"
                              library="images"
                              imageNormal="icons/famfam/accept.png"
-                             value="Press me"  />
-
+                             value="Press me"  >
+                 <f:ajax render="@none" execute="@this" />
+             </ezw:imageButton>
+             <ezw:testButton id="bla" value="test" action="#{imageButtonController.doAction}">
+                <f:ajax render="@none" event="click" execute="@this" />
+             </ezw:testButton>
         </h:form>
 
 

@@ -2,7 +2,7 @@
               xmlns:ui="http://java.sun.com/jsf/facelets"
               xmlns:cc="http://java.sun.com/jsf/composite"
               xmlns:h="http://java.sun.com/jsf/html"
-              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets" xmlns:f="http://java.sun.com/jsf/core"
         >
 
     <!-- INTERFACE -->
@@ -31,8 +31,8 @@
 
                     </h:panelGrid>
                     <script type="text/javascript">
-                        function saveHandler() {
-                            jsf.ajax.request(this ,event, {execute:document.querySelectorAll('.groupDetaDialog form')[0].id, render:document.querySelectorAll('.groupDetaDialog')[0].id+' resultArea'});
+                        function theSave(evt) {
+                            jsf.ajax.request(this ,evt, {execute:document.querySelectorAll('.groupDetaDialog form')[0].id, render:document.querySelectorAll('.groupDetaDialog')[0].id+' resultArea'});
                             return false;
                         }
                     </script>
@@ -40,9 +40,10 @@
                          <ezw:imageButton id="myImageButton"
                              action="#{cc.attrs.value.doSave}"
                              library="images"
-                             onClick="saveHandler"
                              imageNormal="icons/famfam/accept.png"
-                             value="#{msgs.save}"  />
+                             value="#{msgs.save}"
+                             onClick="jsf.ajax.request(this ,event, {execute:document.querySelectorAll('.groupDetaDialog form')[0].id, render:document.querySelectorAll('.groupDetaDialog')[0].id+' resultArea','javax.faces.behavior.event':'action'}); return false;">
+                           </ezw:imageButton>
 
                         <h:commandLink id="edit_save" action="#{cc.attrs.value.doSave}" onclick="jsf.ajax.request(this ,event, {execute:document.querySelectorAll('.groupDetaDialog form')[0].id, render:document.querySelectorAll('.groupDetaDialog')[0].id+' resultArea'}); return false;" value="[#{msgs.save}]"/>
                         <h:commandLink id="edit_cancel" action="#{cc.attrs.value.doCancel}"

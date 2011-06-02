@@ -28,6 +28,8 @@
                     this._onClickCallback = this._LANG.hitch(this, this._onClickCallback);
                     this._onKeyDown  = this._LANG.hitch(this, this._onKeyDown);
                     this._onKeyUp    = this._LANG.hitch(this, this._onKeyUp);
+                    this._postInit = this._LANG.hitch(this, this._postInit);
+                    setTimeout(this._postInit, 0);
                 },
 
                 _postInit:function() {
@@ -61,12 +63,12 @@
 
                     //this.rootNode.addEventListener("click", this._onClick, false);
                     this.rootNode.toDomNode().addEventListener('click', this._onClickCallback, false)
-                    var _t = this;
-                    this.rootNode.querySelectorAll("*").forEach(function(elem) {
-                        if(!elem.hasClass("imageCommand"))   {
-                            elem.toDomNode().addEventListener('click', _t._onClickCallback, false);
-                        }
-                    });
+                    //var _t = this;
+                    //this.rootNode.querySelectorAll("*").forEach(function(elem) {
+                    //    if(!elem.hasClass("imageCommand"))   {
+                    //        elem.toDomNode().addEventListener('click', _t._onClickCallback, false);
+                    //    }
+                    //});
                     if(this.autoWidth) {
                         var innerWidth = parseInt(this._imageNormal.offsetWidth()) +
                                 parseInt(this._label.offsetWidth())+
@@ -80,10 +82,10 @@
 
                 _onClickCallback: function(evt) {
                     var ret = (this.onClick) ? this.onClick(evt): true;
-                    //evt.consumeEvent();
+                    evt.stopPropagation();
                     if(!ret) return;
 
-                    this._imageCommand.toDomNode().click();
+                    this._imageCommand.toDomNode().onclick();
 
                 },
 
