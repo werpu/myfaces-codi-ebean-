@@ -82,9 +82,16 @@
 
                 _onClickCallback: function(evt) {
                     var ret = (this.onClick) ? this.onClick(evt): true;
+                    var currentTime = (new Date()).getTime();
+                    //double click prevention
                     evt.stopPropagation();
+                    if(extras.apache.ImageButton.__lastClick && (currentTime - extras.apache.ImageButton.__lastClick) < 500) {
+                        extras.apache.ImageButton.__lastClick = currentTime;
+                        return;
+                    }
+                    extras.apache.ImageButton.__lastClick = currentTime;
                     if(!ret) return;
-
+                    //for strange kind of reasons we bubble a click up
                     this._imageCommand.toDomNode().onclick();
 
                 },
