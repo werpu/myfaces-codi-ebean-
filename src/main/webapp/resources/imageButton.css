@@ -62,3 +62,38 @@
 }
 
 
+/*image button light, basic structure div as
+root element with a href as only subelemet*/
+.imageButtonLight {
+    width: auto;
+    padding:  0px;
+}
+
+.imageButtonLight .imageCommand {
+    background-color: #97adbf;
+    border: 2px groove gray;
+    display: table;
+
+    background-position: 3px 3px;
+    background-repeat: no-repeat;
+    padding: 3px 3px 2px 25px;
+    margin:  0px;
+
+    width: 10px;
+}
+
+.imageButtonLight .imageCommand.clicked {
+    box-shadow: 2px 2px 3px 0 #777777 inset;
+    border: 1px solid black;
+}
+
+.imageButtonLight .label {
+    color: black;
+    text-shadow: 0px 1px 1px #fff;
+}
+
+.imageButtonLight .imageCommand.accept {
+    background-image: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images);
+    background-repeat: no-repeat;
+    background-position:  3px  2px;
+}
