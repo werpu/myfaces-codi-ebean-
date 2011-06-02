@@ -130,22 +130,32 @@
                     //we enforce the scope for the onAjaxEvent
                     this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
                     this.onAjaxError = _Lang.hitch(this, this.onAjaxError);
+                    this._ajaxInit = _Lang.hitch(this, this._ajaxInit);
 
                     this.id = this.id || this.clientId + ":" + this.clientId;
 
                     this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
 
                     if (this.ajaxRequest) {
-                        setTimeout(_Lang.hitch(this, function() {
-                            this._postInit();
-                            this.postInit_();
-                        }), 100);
+                        _AjaxQueue.enqueue(this._ajaxInit);
+                        _ErrorQueue.enqueue(this._ajaxInit);
+
                     } else {
                         /*internal postinit*/
                         this.addOnLoad(window, _Lang.hitch(this, this._postInit));
                         /*external postinit*/
                         this.addOnLoad(window, _Lang.hitch(this, this.postInit_));
 
+                    }
+                },
+
+                _ajaxInit: function(data) {
+                    try {
+                        this._postInit();
+                        this.postInit_();
+                    } finally {
+                        _AjaxQueue.remove(this._ajaxInit);
+                        _ErrorQueue.remove(this._ajaxInit);
                     }
                 },
 
