@@ -60,7 +60,8 @@
         <script type="text/javascript">
             var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
                                  id:"#{cc.clientId}",
-                                 autoWidth: #{cc.attrs.autoWidth}
+                                 autoWidth: #{cc.attrs.autoWidth},
+                                 ajaxRequest:#{cc.ajaxState.toString()}
 
             });
         </script>
