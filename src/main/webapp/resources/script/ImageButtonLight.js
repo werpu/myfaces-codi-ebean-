@@ -23,6 +23,8 @@
                     this._onKeyDown  = this._LANG.hitch(this, this._onKeyDown);
                     this._onKeyUp    = this._LANG.hitch(this, this._onKeyUp);
                     this._postInit = this._LANG.hitch(this, this._postInit);
+                    this._onRootFocus = this._LANG.hitch(this, this._onRootFocus);
+
                     setTimeout(this._postInit, 0);
                 },
 
@@ -31,8 +33,7 @@
 
                     this._label =   this.rootNode.querySelector(".label");
                     this._imageCommand = this.rootNode.querySelector(".imageCommand");
-                    this.rootNode.querySelectorAll("*").setAttribute("draggable", "false");
-
+                    this.rootNode.setAttribute("draggable","false");
 
                     //now we apply the event handlers
                     //click should make a short animation between the image changes
@@ -40,11 +41,15 @@
                     //mouseup on a global scale should remove the image styleclass
                     this._imageCommand.addEventListener("mousedown", this._onMouseDown, false);
 
-                    this._imageCommand.addEventListener("keydown", this._onKeyDown, false);
-                    this._imageCommand.addEventListener("keyup", this._onKeyUp, false);
+                    this.rootNode.addEventListener("keydown", this._onKeyDown, false);
+                    this.rootNode.addEventListener("keyup", this._onKeyUp, false);
+                    this.rootNode.addEventListener("focus", this._onRootFocus, false);
+
                  },
 
-
+                _onRootFocus: function(evt) {
+                    this._imageCommand.toDomNode().focus();
+                },
 
                 _onMouseDown: function(evt) {
                        this._imageCommand.addClass("clicked");
@@ -70,6 +75,7 @@
                     var keyCode = evt.keyCode;
                     if(evt.keyCode == this.KEY_ENTER) {
                         this._imageCommand.removeClass("clicked");
+
                     }
                 }
 

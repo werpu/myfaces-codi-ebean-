@@ -61,12 +61,12 @@
     display: block;
 }
 
-
 /*image button light, basic structure div as
 root element with a href as only subelemet*/
 .imageButtonLight {
-    width: auto;
-    padding:  0px;
+    padding: 0px;
+    width: 10px;
+    display: table;
 }
 
 .imageButtonLight .imageCommand {
@@ -77,7 +77,7 @@ root element with a href as only subelemet*/
     background-position: 3px 3px;
     background-repeat: no-repeat;
     padding: 3px 3px 2px 25px;
-    margin:  0px;
+    margin: 0px;
 
     width: 10px;
 }
@@ -90,10 +90,19 @@ root element with a href as only subelemet*/
 .imageButtonLight .label {
     color: black;
     text-shadow: 0px 1px 1px #fff;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+
+    user-select: none;
+
 }
 
 .imageButtonLight .imageCommand.accept {
     background-image: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images);
     background-repeat: no-repeat;
-    background-position:  3px  2px;
+    background-position: 3px 2px;
 }
