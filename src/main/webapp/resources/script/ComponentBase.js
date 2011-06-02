@@ -89,6 +89,7 @@
                  */
                 javascriptVar: null,
 
+                ajaxRequest: false,
 
                 NODE: myfaces._impl._dom.Node,
                 /**
@@ -125,10 +126,6 @@
 
                 constructor_: function(argsMap) {
                     _Lang.applyArgs(this, argsMap);
-                    /*internal postinit*/
-                    this.addOnLoad(window, _Lang.hitch(this, this._postInit));
-                    /*external postinit*/
-                    this.addOnLoad(window, _Lang.hitch(this, this.postInit_));
 
                     //we enforce the scope for the onAjaxEvent
                     this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
@@ -137,6 +134,17 @@
                     this.id = this.id || this.clientId + ":" + this.clientId;
 
                     this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
+
+                    if (this.ajaxRequest) {
+                        this._postInit();
+                        this.postInit_();
+                    } else {
+                        /*internal postinit*/
+                        this.addOnLoad(window, _Lang.hitch(this, this._postInit));
+                        /*external postinit*/
+                        this.addOnLoad(window, _Lang.hitch(this, this.postInit_));
+
+                    }
                 },
 
                 addOnLoad: function(target, func) {
@@ -162,10 +170,10 @@
                         _AjaxQueue.enqueue(this.onAjaxEvent);
                         _ErrorQueue.enqueue(this.onAjaxError);
                     }
-                    if(this.javascriptVar) {
+                    if (this.javascriptVar) {
                         this.rootNode.setAttribute("data-ezw_javascriptVar", this.javascriptVar);
                     }
-                    if(this._componentType) {
+                    if (this._componentType) {
                         this.rootNode.setAttribute("data-ezw_componentType", this._componentType);
                     }
                 },
