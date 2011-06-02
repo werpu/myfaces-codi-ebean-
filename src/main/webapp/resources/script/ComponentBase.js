@@ -136,8 +136,10 @@
                     this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
 
                     if (this.ajaxRequest) {
-                        this._postInit();
-                        this.postInit_();
+                        setTimeout(_Lang.hitch(this, function() {
+                            this._postInit();
+                            this.postInit_();
+                        }), 100);
                     } else {
                         /*internal postinit*/
                         this.addOnLoad(window, _Lang.hitch(this, this._postInit));
