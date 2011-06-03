@@ -1,10 +1,7 @@
 .imageButton {
 
-    background-color: #97adbf;
-    border-width: 2px;
-    border-style: groove;
-    border-color: gray;
-
+    background-color: #E0E0E0;
+    border: 2px groove gray;
     display: block;
     width: 80px;
     height: 22px;
@@ -70,12 +67,10 @@ root element with a href as only subelemet*/
 }
 
 .imageButtonLight .imageCommand {
-    background-color: #97adbf;
+    background: #E0E0E0 no-repeat 3px 3px;
     border: 2px groove gray;
     display: table;
 
-    background-position: 3px 3px;
-    background-repeat: no-repeat;
     padding: 3px 3px 2px 25px;
     margin: 0px;
 
@@ -102,9 +97,7 @@ root element with a href as only subelemet*/
 }
 
 .imageButtonLight .imageCommand.accept {
-    background-image: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images);
-    background-repeat: no-repeat;
-    background-position: 3px 2px;
+    background: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images) no-repeat 3px 2px;
 }
 /*toggle button*/
 /**
@@ -124,12 +117,10 @@ root element with a href as only subelemet*/
 }
 
 .toggleButton .imageCommand {
-    background-color: #97adbf;
+    background: #E0E0E0 no-repeat 3px 3px;
     border: 2px groove gray;
     display: table;
 
-    background-position: 3px 3px;
-    background-repeat: no-repeat;
     padding: 3px 3px 2px 25px;
     margin: 0px;
 
@@ -160,8 +151,6 @@ root element with a href as only subelemet*/
 }
 
 .toggleButton .imageCommand.accept {
-    background-image: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images);
-    background-repeat: no-repeat;
-    background-position: 3px 2px;
+    background: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images) no-repeat 3px 2px;
 }
 
