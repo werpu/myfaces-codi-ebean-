@@ -4,19 +4,18 @@
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <composite:interface componentType="at.irian.ImageButton">
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="javascriptVar" required="false"></composite:attribute>
-        <composite:attribute name="javascriptClass" default="extras.apache.ImageButtonLight"/>
+        <composite:attribute name="javascriptClass" default="extras.apache.ToggleButton"/>
 
 
         <composite:attribute name="onClick" default="false"/>
 
         <composite:attribute name="label"/>
+        <composite:attribute name="value"/>
 
-        <composite:attribute name="action" targets="imageCommand" method-signature="java.lang.String f()"/>
-
-        <composite:actionSource name="imageCommand"/>
+        <composite:valueHolder name="valueHolder" targets="valueHolder" />
 
         <composite:attribute name="tabIndex" default="0"/>
 
@@ -40,6 +39,8 @@
 
         <h:outputScript library="script" name="dom/ComponentBase.js"/>
         <h:outputScript library="script" name="input/ImageButtonLight.js"/>
+        <h:outputScript library="script" name="input/ToggleButton.js.js"/>
+
 
         <div id="#{cc.clientId}" class="imageButtonLight" tabindex="#{cc.attrs.tabIndex}">
             <h:commandLink onclick="#{cc.attrs.onClick}" id="imageCommand" class="imageCommand #{cc.attrs.styleClass}"
@@ -48,13 +49,13 @@
                 <composite:insertChildren></composite:insertChildren>
             </h:commandLink>
         </div>
+        <h:selectBooleanCheckbox styleClass="valueHolder" id="valueHolder" value="#{cc.attrs.value}"/>
 
         <script type="text/javascript">
             var #{cc.javascriptVar} =
             new #{cc.attrs.javascriptClass}({
                 id:"#{cc.clientId}",
                 ajaxRequest:#{cc.ajaxState.toString()}
-
             });
         </script>
     </composite:implementation>
