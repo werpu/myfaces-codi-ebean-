@@ -58,81 +58,43 @@
     display: block;
 }
 
+
+
 /*image button light, basic structure div as
 root element with a href as only subelemet*/
-.imageButtonLight {
+.imageButtonLight, .toggleButton {
     padding: 0px;
     width: 10px;
     display: table;
 }
 
-.imageButtonLight .imageCommand {
-    background: #E0E0E0 no-repeat 3px 3px;
-    border: 2px groove gray;
+.imageButtonLight .imageCommand, .toggleButton .imageCommand {
+    background-color: #E0E0E0;
+    border: 1px groove gray;
     display: table;
 
+    background-position: 3px 3px;
+    background-repeat: no-repeat;
     padding: 3px 3px 2px 25px;
     margin: 0px;
 
     width: 10px;
-}
-
-.imageButtonLight .imageCommand.clicked {
-    box-shadow: 2px 2px 3px 0 #777777 inset;
-    border: 1px solid black;
-}
-
-.imageButtonLight .label {
-    color: black;
-    text-shadow: 0px 1px 1px #fff;
-
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    -ms-user-select: none;
-
-    user-select: none;
-
-}
-
-.imageButtonLight .imageCommand.accept {
-    background: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images) no-repeat 3px 2px;
-}
-/*toggle button*/
-/**
-* the clicked styleclass is appended
-* if the button goes down
-*/
-.imageButton.clicked .imagePressed {
-    display: block;
-}
-
-/*image button light, basic structure div as
-root element with a href as only subelemet*/
-.toggleButton {
-    padding: 0px;
-    width: 10px;
-    display: table;
 }
 
 .toggleButton .imageCommand {
-    background: #E0E0E0 no-repeat 3px 3px;
-    border: 2px groove gray;
-    display: table;
-
-    padding: 3px 3px 2px 25px;
-    margin: 0px;
-
-    width: 10px;
+    -webkit-transition: all 0.1s ease-out;
+    -moz-transition: all 0.1s ease-out;
+    -ms-transition:all 0.2s ease-out;
+    -o-transition: all 0.1s ease-out;
+    transition: all 0.1s ease-out;
 }
 
-.toggleButton .imageCommand.clicked {
+.imageButtonLight .imageCommand.clicked, .toggleButton .imageCommand.clicked {
     box-shadow: 2px 2px 3px 0 #777777 inset;
     border: 1px solid black;
 }
 
-.toggleButton .label {
+.imageButtonLight .label, .toggleButton .label {
     color: black;
     text-shadow: 0px 1px 1px #fff;
 
@@ -146,11 +108,17 @@ root element with a href as only subelemet*/
 
 }
 
+.imageButtonLight .imageCommand.accept, .toggleButton .imageCommand.accept {
+    background-image: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images);
+    background-repeat: no-repeat;
+    background-position: 3px 2px;
+}
+
+/*toggle button*/
 .toggleButton .valueHolder {
     display: none;
 }
 
-.toggleButton .imageCommand.accept {
-    background: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images) no-repeat 3px 2px;
-}
+
+
 
