@@ -1,0 +1,45 @@
+/**
+Fisheye design
+
+to keep the number of dom nodes at a bare minimum we use
+a flexible css3 box layout
+http://www.css3.info/introducing-the-flexible-box-layout-module/
+
+This prevents that we have to use a table layout because we have to zoom subelements
+without any line break
+
+For the animation we use css transitions (the zoom property to be more precise)
+*/
+.fishEye {
+    -webkit-box-orient: horizontal;
+    -o-box-orient: horizontal;
+    -ms-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    box-orient: horizontal;
+
+    /*we set the alignment*/
+    -webkit-box-align: center;
+    -o-box-align: center;
+    -ms-box-align: center;
+    -moz-box-align: center;
+    box-align: center;
+
+    /*we have to set the display to enable the box orientation layout*/
+    display: -webkit-box;
+    display: -o-box;
+    display: -ms-box;
+    display: -moz-box;
+    display: box;
+}
+
+/**
+* zoom definition for all hover element
+*/
+.fishEye > *:hover {
+    background-color: yellow: -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -o-box-flex: 1;
+    -ms-box-flex: 1;
+
+    box-flex: 1;
+}
