@@ -66,14 +66,14 @@
                 _onKeyDown: function(evt) {
 
                     var keyCode = evt.keyCode;
-                    if(evt.keyCode == this.KEY_ENTER) {
+                    if(evt.keyCode == this.KEY_ENTER || evt.keyCode == this.KEY_SPACE) {
                         this._imageCommand.addClass("clicked");
                     }
                 },
 
                 _onKeyUp: function(evt) {
                     var keyCode = evt.keyCode;
-                    if(evt.keyCode == this.KEY_ENTER) {
+                    if(evt.keyCode == this.KEY_ENTER || evt.keyCode == this.KEY_SPACE) {
                         this._imageCommand.removeClass("clicked");
 
                     }
