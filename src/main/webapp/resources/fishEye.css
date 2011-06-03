@@ -11,6 +11,13 @@ without any line break
 For the animation we use css transitions (the zoom property to be more precise)
 */
 .fishEye {
+    /*we have to set the display to enable the box orientation layout*/
+    display: -webkit-box;
+    display: -o-box;
+    display: -ms-box;
+    display: -moz-box;
+    display: box;
+
     -webkit-box-orient: horizontal;
     -o-box-orient: horizontal;
     -ms-box-orient: horizontal;
@@ -18,28 +25,48 @@ For the animation we use css transitions (the zoom property to be more precise)
     box-orient: horizontal;
 
     /*we set the alignment*/
-    -webkit-box-align: center;
-    -o-box-align: center;
-    -ms-box-align: center;
-    -moz-box-align: center;
-    box-align: center;
+    -webkit-box-align: end;
+    -o-box-align: end;
+    -ms-box-align: end;
+    -moz-box-align: end;
+    box-align: end;
 
-    /*we have to set the display to enable the box orientation layout*/
-    display: -webkit-box;
-    display: -o-box;
-    display: -ms-box;
-    display: -moz-box;
-    display: box;
+   /*we set the alignment*/
+    -webkit-box-pack: center;
+    -o-box-pack: center;
+    -ms-box-pack: center;
+    -moz-box-pack: center;
+    box-pack: center;
+
+
 }
 
-/**
-* zoom definition for all hover element
+/*
+in case of a top alignment
+we use the baseline
 */
-.fishEye > *:hover {
-    background-color: yellow: -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -o-box-flex: 1;
-    -ms-box-flex: 1;
+.fishEye.top {
+    /*we set the alignment*/
+    -webkit-box-align: baseLine;
+    -o-box-align: baseLine;
+    -ms-box-align: baseLine;
+    -moz-box-align: baseLine;
+    box-align: baseLine;
 
-    box-flex: 1;
 }
+
+.fishEye >* {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition:all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+}
+
+.fishEye >*:hover {
+    -moz-zoom: 200%;
+    -webkit-zoom: 200%;
+    -o-zoom: 200%;
+    -ms-zoom: 200%;
+    zoom: 200%;
+}
+
