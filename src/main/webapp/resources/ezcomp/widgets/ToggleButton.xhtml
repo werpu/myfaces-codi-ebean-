@@ -10,7 +10,7 @@
         <composite:attribute name="javascriptClass" default="extras.apache.ToggleButton"/>
 
 
-        <composite:attribute name="onClick" default="false"/>
+        <composite:attribute name="onClick" default="return false;"/>
 
         <composite:attribute name="label"/>
         <composite:attribute name="value"/>
@@ -39,21 +39,21 @@
 
         <h:outputScript library="script" name="dom/ComponentBase.js"/>
         <h:outputScript library="script" name="input/ImageButtonLight.js"/>
-        <h:outputScript library="script" name="input/ToggleButton.js.js"/>
+        <h:outputScript library="script" name="input/ToggleButton.js"/>
 
 
-        <div id="#{cc.clientId}" class="imageButtonLight" tabindex="#{cc.attrs.tabIndex}">
+        <div id="#{cc.clientId}" class="toggleButton" tabindex="#{cc.attrs.tabIndex}">
             <h:commandLink onclick="#{cc.attrs.onClick}" id="imageCommand" class="imageCommand #{cc.attrs.styleClass}"
                            action="#{cc.attrs.action}" >
                 <h:outputFormat value="#{cc.attrs.label}" styleClass="label" />
                 <composite:insertChildren></composite:insertChildren>
             </h:commandLink>
+            <h:selectBooleanCheckbox styleClass="valueHolder" id="valueHolder" value="#{cc.attrs.value}"/>
+
         </div>
-        <h:selectBooleanCheckbox styleClass="valueHolder" id="valueHolder" value="#{cc.attrs.value}"/>
 
         <script type="text/javascript">
-            var #{cc.javascriptVar} =
-            new #{cc.attrs.javascriptClass}({
+            var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
                 id:"#{cc.clientId}",
                 ajaxRequest:#{cc.ajaxState.toString()}
             });
