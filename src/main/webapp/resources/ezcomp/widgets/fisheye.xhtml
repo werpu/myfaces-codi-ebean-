@@ -1,0 +1,18 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="tabIndex" default="-1" ></composite:attribute>
+        <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
+    </composite:interface>
+    <composite:implementation>
+        <div id="#{cc.clientId}" class="fisheye #{cc.attrs.styleClass}" style="#{cc.attrs.style}" tabindex="#{cc.attrs.tabIndex}">
+            <composite:insertChildren></composite:insertChildren>
+        </div>
+    </composite:implementation>
+</ui:component>
