@@ -9,9 +9,10 @@
         <composite:attribute name="tabIndex" default="-1" ></composite:attribute>
         <composite:attribute name="styleClass" />
         <composite:attribute name="style" />
+        <composite:attribute name="align" />
     </composite:interface>
     <composite:implementation>
-        <div id="#{cc.clientId}" class="fishEye #{cc.attrs.styleClass}" style="#{cc.attrs.style}" tabindex="#{cc.attrs.tabIndex}">
+        <div id="#{cc.clientId}" class="fishEye #{cc.attrs.align} #{cc.attrs.styleClass}" style="#{cc.attrs.style}" tabindex="#{cc.attrs.tabIndex}">
             <composite:insertChildren></composite:insertChildren>
         </div>
     </composite:implementation>
