@@ -54,7 +54,7 @@
             <ezw:ajaxStatus id="pull">
                 Ajax in progress
             </ezw:ajaxStatus>
-
+            <h2>image button which allows the definition of images directly</h2>
             <ezw:imageButton id="myImageButton"
                              action="#{imageButtonController.doAction}"
                              library="images"
@@ -62,13 +62,22 @@
                              value="Press me"  >
                  <f:ajax render="@none" execute="@this" />
              </ezw:imageButton>
-             <ezw:testButton id="bla" value="test" action="#{imageButtonController.doAction}">
+             <h2>small prototyping testbutton</h2>
+
+             <ezw:testButton id="imageBt" value="test" action="#{imageButtonController.doAction}">
                 <f:ajax render="@none" event="click" execute="@this" />
              </ezw:testButton>
 
-            <ezw:imageButtonLight id="bla2" styleClass="accept" value="test" action="#{imageButtonController.doAction}">
+            <h2>css style lightweight image button which works entirely over css</h2>
+
+            <ezw:imageButtonLight id="imageBtLight" styleClass="accept" label="test" action="#{imageButtonController.doAction}">
                 <f:ajax render="@none" event="click" execute="@this" />
              </ezw:imageButtonLight>
+
+            <ezw:toggleButton id="toggle" styleClass="accept" label="toggle"  >
+
+             </ezw:toggleButton>
+
         </h:form>
 
 

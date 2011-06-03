@@ -15,22 +15,22 @@
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
                     this.valueHolder = this.rootNode.querySelector(".valueHolder");
+                    this._renderToggle(!!this.valueHolder.toDomNode().checked);
                 },
 
                 //todo toggle via the checked state on the value holder
                 _onMouseDown: function(evt) {
-                    var toggle = !this.valueHolder.getAttribute("clicked");
-                    if (toggle) {
+                    this._renderToggle(!this.valueHolder.toDomNode().checked);
+                },
+                _renderToggle: function(toggle) {
+                  if (toggle) {
                         this._imageCommand.addClass("clicked");
-                        this.valueHolder.toDomNode().setAttribute("clicked", "");
+                        this.valueHolder.toDomNode().checked = true;
                     } else {
                         this._imageCommand.removeClass("clicked");
-                        this.valueHolder.toDomNode().removeAttribute("clicked");
+                        this.valueHolder.toDomNode().checked = false;
                     }
-                    //window.addEventListener("mouseup", this._onMouseUp, false);
-                    //this._imageCommand.addEventListener("onmouseout", this._onMouseUp, false);
                 },
-
 
                 _onMouseUp: function(evt) {
                     //this._imageCommand.removeClass("clicked");
