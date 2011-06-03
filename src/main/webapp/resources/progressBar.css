@@ -13,6 +13,7 @@
     width: 0px; /*we add transitions to animate the flow*/
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
+    -ms-transition:all 0.2 ease-in;
     -o-transition: all 0.2s ease-in;
 }
 
