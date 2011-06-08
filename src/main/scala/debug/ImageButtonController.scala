@@ -2,7 +2,7 @@ package debug
 
 import javax.faces.event.ActionListener
 import javax.inject.Named
-import javax.faces.bean.RequestScoped
+import javax.faces.bean.{SessionScoped, RequestScoped}
 
 /**
  *
@@ -11,11 +11,20 @@ import javax.faces.bean.RequestScoped
  */
 
 @Named
-@RequestScoped
+@SessionScoped
+@serializable
 class ImageButtonController {
+
+  var visibleRow: Boolean = false
 
   def doActionListener(listener: ActionListener) {
     print("doing image action listener")
+  }
+
+  def doVisible(): String = {
+    println("making row visible")
+    visibleRow = true
+    null
   }
 
   def  doAction():String = {
