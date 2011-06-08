@@ -1,0 +1,28 @@
+/**
+Beginning of the collapsible tree output element
+*/
+
+.collapsibleTree {
+    position: relative;
+    display: table;
+}
+
+.collapsibleTree .node {
+    left: 20px;
+}
+
+.collapsibleTree .node > input[type="checkbox"] {
+
+}
+
+
+/*expanded*/
+.collapsibleTree .node > input[type="checkbox"].checked {
+
+}
+
+
+.collapsibleTree .node .subnodes {
+
+}
+
