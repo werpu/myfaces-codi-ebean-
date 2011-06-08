@@ -15,6 +15,10 @@
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
+
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }
 
 .ajaxStatus .statusArea.ajaxComplete .ajaxComplete {

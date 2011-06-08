@@ -74,13 +74,16 @@
                 <f:ajax render="@none" event="click" execute="@this" />
              </ezw:imageButtonLight>
 
-            <ezw:toggleButton id="toggle" styleClass="accept" label="toggle"  >
+            <ezw:toggleButton id="toggle" styleClass="accept" label="toggle"   >
 
              </ezw:toggleButton>
 
+            <h:commandLink id="blarb" action="#{imageButtonController.doVisible}" value="make visible"
+                           onclick="jsf.ajax.request(this, event, {execute:'@this', render:'@this bla'}); return false;" />
         </h:form>
-
-
+        <div id="bla">
+            <ezw:testbuttonrow id="bla" />
+        </div>
 
     </ui:define>
 </ui:composition>

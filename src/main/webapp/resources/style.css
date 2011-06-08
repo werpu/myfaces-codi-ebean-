@@ -180,44 +180,7 @@ h2 {
     margin-right: 5px;
 }
 
-/*paginator raw styling*/
-div.pagingController {
-    border: 1px groove #a9a9a9;
-    background-color: #d8d8e7;
 
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-}
-
-div.pagingController {
-    font-size: 15px;
-}
-
-div.pagingController .paginationGroups {
-    border-collapse: collapse;
-    border: none;
-
-}
-
-div.pagingController .paginationGroups td {
-    padding: 0px;
-    margin: 0px;
-}
-
-div.pagingController .pages .paginatorEntry {
-    margin-right: 0.4em;
-    padding-left: 0.2em;
-    border-left: 1px dashed gray;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-}
-
-div.pagingController .pages .paginatorEntry:first-child {
-    margin-left: 0.2em;
-    border-left: none;
-    padding-left: 0.2em;
-
-}
 
 .dialog {
     display: none;
@@ -326,3 +289,13 @@ as relative coordinate to the input*/
 
 
 
+
+
+
+/**
+general image button site style
+*/
+.imageButtonLight {
+    float: left;
+    margin:  5px;
+}
