@@ -37,17 +37,12 @@
                         }
                     </script>
                     <h:panelGroup layout="block" styleClass="actions">
-                         <ezw:imageButton id="myImageButton"
-                             action="#{cc.attrs.value.doSave}"
-                             library="images"
-                             imageNormal="icons/famfam/accept.png"
-                             value="#{msgs.save}"
-                             onClick="jsf.ajax.request(this ,event, {execute:document.querySelectorAll('.groupDetaDialog form')[0].id, render:document.querySelectorAll('.groupDetaDialog')[0].id+' resultArea','javax.faces.behavior.event':'action'}); return false;">
-                           </ezw:imageButton>
 
-                        <h:commandLink id="edit_save" action="#{cc.attrs.value.doSave}" onclick="jsf.ajax.request(this ,event, {execute:document.querySelectorAll('.groupDetaDialog form')[0].id, render:document.querySelectorAll('.groupDetaDialog')[0].id+' resultArea'}); return false;" value="[#{msgs.save}]"/>
+                        <h:commandLink id="edit_save" action="#{cc.attrs.value.doSave}" onclick="jsf.ajax.request(this ,event, {execute:document.querySelector('.groupDetaDialog form').id, render:document.querySelector('.groupDetaDialog').id+' resultArea'}); return false;" value="[#{msgs.save}]"/>
+
+
                         <h:commandLink id="edit_cancel" action="#{cc.attrs.value.doCancel}"
-                                       onclick="jsf.ajax.request(this ,event, {execute:'@this', render:document.querySelectorAll('.groupDetaDialog')[0].id}); return false;"
+                                       onclick="jsf.ajax.request(this ,event, {execute:'@this', render:document.querySelector('.groupDetaDialog form').id}); return false;"
                                        value="[#{msgs.cancel}]"/>
 
                     </h:panelGroup>

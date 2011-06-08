@@ -10,18 +10,20 @@
         <composite:attribute name="javascriptClass" default="extras.apache.ImageButtonLight"/>
 
 
-        <composite:attribute name="onClick" default="false"/>
+        <composite:attribute name="onClick" default="return false;"/>
 
         <composite:attribute name="label"/>
 
-        <composite:attribute name="action" targets="imageCommand" method-signature="java.lang.String f()"/>
+        <composite:attribute name="action"   method-signature="java.lang.String f()"/>
 
-        <composite:actionSource name="imageCommand"/>
+        <composite:actionSource name="imageCommand" />
 
         <composite:attribute name="tabIndex" default="0"/>
 
         <composite:attribute name="styleClass"/>
         <composite:attribute name="style"/>
+
+        <composite:attribute name="rendered" default="true" />
 
         <composite:clientBehavior name="click" targets="imageCommand" event="action"/>
 
@@ -41,9 +43,11 @@
         <h:outputScript library="script" name="dom/ComponentBase.js"/>
         <h:outputScript library="script" name="input/ImageButtonLight.js"/>
 
+
         <div id="#{cc.clientId}" class="imageButtonLight" tabindex="#{cc.attrs.tabIndex}">
-            <h:commandLink onclick="#{cc.attrs.onClick}" id="imageCommand" class="imageCommand #{cc.attrs.styleClass}"
-                           action="#{cc.attrs.action}" >
+            <h:commandLink onclick="#{cc.attrs.onClick}" id="imageCommand" action="#{cc.attrs.action}"
+                           class="imageCommand #{cc.attrs.styleClass}"
+                           rendered="#{cc.attrs.rendered}" >
                 <h:outputFormat value="#{cc.attrs.label}" styleClass="label" />
                 <composite:insertChildren></composite:insertChildren>
             </h:commandLink>

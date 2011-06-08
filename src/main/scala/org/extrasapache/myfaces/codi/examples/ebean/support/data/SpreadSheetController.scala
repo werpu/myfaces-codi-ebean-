@@ -16,11 +16,20 @@ import javax.enterprise.context.Dependent
 class SpreadSheetController {
   private[this] var editable = new HashSet[java.lang.Long]
 
-  def enableEdit(instance: StdEntity) = editable.add(instance.id)
+  def enableEdit(instance: StdEntity) = {
+    if(instance != null)
+      editable.add(instance.id)
+  }
 
-  def disableEdit(instance: StdEntity) = editable.remove(instance.id)
+  def disableEdit(instance: StdEntity) = {
+    if(instance != null)
+      editable.remove(instance.id)
+  }
 
-  def isEditable(instance: StdEntity): Boolean = editable.contains(instance.id)
+  def isEditable(instance: StdEntity): Boolean = {
+    if(instance == null) return false
+    editable.contains(instance.id)
+  }
 
   def isEmpty: Boolean = editable.isEmpty
 
