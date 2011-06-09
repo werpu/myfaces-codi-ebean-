@@ -46,17 +46,17 @@
                           style="#{cc.attrs.style}">
                 <header>
                     <div class="windowTitle">
-                        <composite:insertFacet name="title"/>
+                        <composite:renderFacet name="title"/>
                     </div>
                     <div class="minimize">[-]</div>
                     <div class="maximize">[+]</div>
                     <div class="close">[x]</div>
                 </header>
                 <div class="content">
-                    <composite:insertFacet name="content"/>
+                    <composite:renderFacet name="content"/>
                 </div>
                 <footer>
-                    <composite:insertFacet name="footer"/>
+                    <composite:renderFacet name="footer"/>
                 </footer>
                 <!-- window init code -->
                 <script type="text/javascript">

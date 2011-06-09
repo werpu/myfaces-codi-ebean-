@@ -5,6 +5,7 @@
 
     _RT.extendClass("extras.apache.Window", extras.apache.ComponentBase, {
 
+                _NODE:myfaces._impl._dom.Node,
 
                 moveable: false,
                 resizable: false,
@@ -65,6 +66,9 @@
                 mouseDown: function(evt) {
                     window.addEventListener("mouseup", this.mouseUp, true);
                     window.addEventListener("mousemove", this.mouseMove, true);
+
+                    this._NODE.querySelectorAll(".window").removeClass("focus");
+                    this.rootNode.addClass("focus");
 
                     this._windowOriginX = parseInt(this.rootNode.offsetLeft());
                     this._windowOriginY = parseInt(this.rootNode.offsetTop());
