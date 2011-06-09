@@ -7,6 +7,10 @@
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         border: 1px solid silver;
+
+        position: fixed;
+        left: 100px;
+        top: 100px;
 					
     }
     .window header {
