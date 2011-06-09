@@ -49,16 +49,11 @@
                 Ajax in progress
             </ezw:ajaxStatus>
 
-             <div id="window" class="window forgeround" resizable="true">
-                <header>
-					<div class="windowTitle">Title</div>
-                    <div class="minimize">[-]</div>
-                    <div class="maximize">[+]</div>
-                    <div class="close">[x]</div>
-                </header>
-                <div class="content"></div>
-                <footer></footer>
-            </div>
+            <ezw:window id="myWindow">
+                <f:facet name="header">my header</f:facet>
+                <f:facet name="content">dummy content bla bla bla</f:facet>
+            </ezw:window>
+
         </h:form>
     </ui:define>
 </ui:composition>
