@@ -58,22 +58,29 @@
     display: block;
 }
 
-
-
 /*image button light, basic structure div as
 root element with a href as only subelemet*/
 .imageButtonLight, .toggleButton {
     padding: 0px;
     width: 10px;
     display: table;
+
+    background: rgb(242, 245, 246); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(242, 245, 246, 1)), color-stop(37%, rgba(227, 234, 237, 1)), color-stop(100%, rgba(200, 215, 220, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f2f5f6', endColorstr = '#c8d7dc', GradientType = 0); /* IE6-9 */
+    background: linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* W3C */
+
 }
 
 .imageButtonLight .imageCommand, .toggleButton .imageCommand {
-    background-color: #E0E0E0;
+
     border: 1px groove gray;
     display: table;
 
-    background-position: 3px 3px;
     background-repeat: no-repeat;
     padding: 3px 3px 2px 25px;
     margin: 0px;
@@ -84,12 +91,13 @@ root element with a href as only subelemet*/
 .toggleButton .imageCommand {
     -webkit-transition: all 0.1s ease-out;
     -moz-transition: all 0.1s ease-out;
-    -ms-transition:all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
     -o-transition: all 0.1s ease-out;
     transition: all 0.1s ease-out;
 }
 
 .imageButtonLight .imageCommand.clicked, .toggleButton .imageCommand.clicked {
+    background-position: 3px 3px;
     box-shadow: 2px 2px 3px 0 #777777 inset;
     border: 1px solid black;
 }
@@ -107,8 +115,6 @@ root element with a href as only subelemet*/
     user-select: none;
 
 }
-
-
 
 /*toggle button*/
 .toggleButton .valueHolder {
