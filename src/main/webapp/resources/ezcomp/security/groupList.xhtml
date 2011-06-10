@@ -59,18 +59,22 @@
                 </f:facet>
                 <h:panelGroup class="ops" id="ops">
                     <h:panelGroup rendered="#{!groupView.spreadSheetController.isEditable(item)}">
-                        <h:commandLink action="#{cc.attrs.value.goDeta}" value="#{msgs.detail}">
+                        <h:commandLink id="saveit" action="#{cc.attrs.value.goDeta}" value="#{msgs.detail}">
                             <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="edit"/>
                             <f:ajax execute="@this" render="nameop descop grpType ops"/>
                         </h:commandLink>
-                        <h:commandLink action="#{cc.attrs.value.goDelete}"
-                                       value="#{msgs.delete}">
+                        <h:commandLink id="deleteit" action="#{cc.attrs.value.goDelete}"
+                                       value="#{msgs.delete}"
+                                        onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog:ajaxTarget', 'javax.faces.behavior.event':'action'}); return false;">
                             <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="delete"/>
+
                         </h:commandLink>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{groupView.spreadSheetController.isEditable(item)}">
+
+
                         <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}">
                             <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:ajax execute="groupResult" render="nameop descop grpType ops"/>

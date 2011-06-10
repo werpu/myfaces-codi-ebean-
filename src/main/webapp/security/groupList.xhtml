@@ -46,16 +46,22 @@
         <h:form id="searchform" prependId="false">
 
             <div id="search">
-                <h:panelGrid columns="5" id="searchArea">
+                <h:panelGrid columns="6" id="searchArea">
                     <h:outputFormat value="#{msgs.group_name}"/>
                     <h:inputText value="#{groupView.searchData['groupName']}"/>
                     <h:outputFormat value="#{msgs.description}"/>
                     <h:inputText value="#{groupView.searchData['description']}"/>
-
+                    <!--
                     <h:commandLink id="searchit" action="#{groupView.doSearchList}" value="&gt;&gt; #{msgs.search}"
                                    onclick="jsf.ajax.request(this ,event, {execute:'searchArea', render:'resultArea'}); return false;">
-
                     </h:commandLink>
+                     -->
+                    <h:panelGroup>
+                        <ezw:imageButtonLight id="searchit2" styleClass="small transparent search"
+                                              action="#{groupView.doSearchList}"
+                                              onClick="jsf.ajax.request(this ,event, {execute:'searchArea', render:'resultArea','javax.faces.behavior.event':'action'}); return false;"/>
+                    </h:panelGroup>
+
                 </h:panelGrid>
 
             </div>
@@ -67,10 +73,21 @@
 
 
         <h:form id="mainForm" prependId="false">
+            <!--
             <h:commandLink id="create_group" action="#{groupView.goCreate}" value="#{msgs.group_create}"
                            onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog:ajaxTarget'});return false;">
                 <f:setPropertyActionListener target="#{groupView.pageMode}" value="create"/>
             </h:commandLink>
+            -->
+            <h:panelGroup layout="block">
+                <ezw:imageButtonLight id="add" styleClass="add"
+                                      style="min-width: 80px; display: block;"
+                                      action="#{groupView.goCreate}" label="#{msgs.group_create}"
+                                      onClick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog:ajaxTarget groupDetaDialog:ajaxTargetCreate','javax.faces.behavior.event':'action'});return false;">
+                    <f:setPropertyActionListener for="imageCommand" target="#{groupView.pageMode}" value="create"/>
+                </ezw:imageButtonLight>
+            </h:panelGroup>
+
             <h:panelGroup id="resultArea">
                 <ezcomp:groupList value="#{groupView}"/>
             </h:panelGroup>

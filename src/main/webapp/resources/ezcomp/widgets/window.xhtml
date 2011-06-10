@@ -41,23 +41,24 @@
         <h:outputScript library="script" name="dom/ComponentBase.js"/>
         <h:outputScript library="script" name="layout/Window.js"/>
 
-        <div id="{cc.clientId}">
+        <div id="#{cc.clientId}">
             <h:panelGroup layout="block" id="#{cc.attrs.id}" styleClass="#{cc.attrs.styleClass} window forgeround"
                           style="#{cc.attrs.style}">
-                <header>
+                <div class="header">
                     <div class="windowTitle">
                         <composite:renderFacet name="title"/>
                     </div>
                     <div class="minimize">[-]</div>
                     <div class="maximize">[+]</div>
                     <div class="close">[x]</div>
-                </header>
+                </div>
                 <div class="content">
                     <composite:renderFacet name="content"/>
                 </div>
-                <footer>
+                <div class="footer">
                     <composite:renderFacet name="footer"/>
-                </footer>
+                    <div class="resize"></div>
+                </div>
                 <!-- window init code -->
                 <script type="text/javascript">
                     //<!--
