@@ -101,8 +101,8 @@
                     this._windowOriginX = parseInt(this.rootNode.offsetLeft());
                     this._windowOriginY = parseInt(this.rootNode.offsetTop());
 
-                    this._mouseOriginX = evt.pageX;
-                    this._mouseOriginY = evt.pageY;
+                    this._mouseOriginX = evt.pageX - window.scrollX;
+                    this._mouseOriginY = evt.pageY - window.scrollY;
 
                     this._origDeltaX = this._mouseOriginX - this._windowOriginX;
                     this._origDeltaY = this._mouseOriginY - this._windowOriginY;
@@ -135,8 +135,8 @@
                 },
 
                 _mouseMoveMove: function(evt) {
-                    var posX = evt.pageX;
-                    var posY = evt.pageY;
+                    var posX = evt.pageX - window.scrollX;
+                    var posY = evt.pageY - window.scrollY;
 
                     this.rootNode.setStyle("left", (posX - this._origDeltaX) + "px");
                     this.rootNode.setStyle("top", (posY - this._origDeltaY) + "px");
