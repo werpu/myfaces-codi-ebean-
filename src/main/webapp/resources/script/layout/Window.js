@@ -1,3 +1,7 @@
+/**
+ * movable modal or non modal window
+ * with resizing capaibilities.
+ */
 ( function() {
 
     var _RT = myfaces._impl.core._Runtime;
@@ -38,7 +42,7 @@
                     this._mouseUpResize = _Lang.hitch(this, this._mouseUpResize);
                     this._mouseMoveResize = _Lang.hitch(this, this._mouseMoveResize);
 
-                    this.focus = _Lang.hitch(this,this.focus);
+                    this.focus = _Lang.hitch(this, this.focus);
 
                     this.hide = _Lang.hitch(this, this.hide);
                 },
@@ -55,7 +59,6 @@
                     this._title = this._title || this._header.querySelector(".windowTitle");
                     this._resize = this._resize || this._footer.querySelector(".resize");
 
-
                     if (this._closer) {
                         this._closer.addEventListener("mousedown", this.hide, true);
                     }
@@ -67,7 +70,7 @@
                     if (this.resizable) {
                         this._resize.addEventListener("mousedown", this._mouseDownResize, false);
                     } else {
-                        this._resize.setStyle("display","none");
+                        this._resize.setStyle("display", "none");
                     }
                     this.rootNode.addEventListener("mousedown", this.focus, false);
 
@@ -161,7 +164,7 @@
                 },
 
                 hide: function() {
-                    if(!this.onHide()) {
+                    if (!this.onHide()) {
                         return;
                     }
                     this.rootNode.setStyle("opacity", "0");
