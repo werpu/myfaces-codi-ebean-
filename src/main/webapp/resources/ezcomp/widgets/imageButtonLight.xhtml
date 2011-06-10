@@ -44,9 +44,9 @@
         <h:outputScript library="script" name="input/ImageButtonLight.js"/>
 
 
-        <div id="#{cc.clientId}" class="imageButtonLight" tabindex="#{cc.attrs.tabIndex}">
+        <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} imageButtonLight"  tabindex="#{cc.attrs.tabIndex}">
             <h:commandLink onclick="#{cc.attrs.onClick}" id="imageCommand" action="#{cc.attrs.action}"
-                           class="imageCommand #{cc.attrs.styleClass}"
+                           class="imageCommand #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
                            rendered="#{cc.attrs.rendered}" >
                 <h:outputFormat value="#{cc.attrs.label}" styleClass="label" />
                 <composite:insertChildren></composite:insertChildren>

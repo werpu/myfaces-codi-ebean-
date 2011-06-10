@@ -23,8 +23,8 @@
 
                 constructor_: function() {
                     this._callSuper("constructor", arguments);
-                    this.mouseDown = _RT.hitch(this, this.mouseDown);
-                    this.mouseUp = _RT.hitch(this, this.mouseUp);
+                    this._mouseDownMove = _RT.hitch(this, this._mouseDownMove);
+                    this._mouseUpMove = _RT.hitch(this, this._mouseUpMove);
                 },
 
                 _postInit: function() {
@@ -35,8 +35,8 @@
 
                     this._dialog.setStyle("display", "block");
                     if(this.moveable) {
-                        this._dialogHeader.addEventListener("mouseDown",this.mouseDown, true);
-                        this._dialogHeader.addEventListener("mouseUp",this.mouseUp, true);
+                        this._dialogHeader.addEventListener("mouseDown",this._mouseDownMove, true);
+                        this._dialogHeader.addEventListener("mouseUp",this._mouseUpMove, true);
                     }
                 },
 
@@ -52,15 +52,15 @@
                             .setTransitionDuration("");
                 },
 
-                mouseDown: function(evt) {
+                _mouseDownMove: function(evt) {
 
                 },
 
-                mouseMove: function(evt) {
+                _mouseMoveMove: function(evt) {
 
                 },
 
-                mouseUp: function(evt) {
+                _mouseUpMove: function(evt) {
 
                 }
             });

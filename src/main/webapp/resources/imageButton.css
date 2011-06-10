@@ -121,29 +121,56 @@ root element with a href as only subelemet*/
     display: none;
 }
 
-/*various standard background images*/
-.imageButtonLight .imageCommand.accept, .toggleButton .imageCommand.accept {
-    background-image: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images);
+.imageButtonLight .imageCommand,  .toggleButton .imageCommand {
     background-repeat: no-repeat;
     background-position: 3px 2px;
+}
+
+/*various standard background images*/
+.transparent.imageButtonLight {
+    background: none;
+}
+
+.transparent.imageButtonLight .imageCommand {
+    border: 0px groove gray;
+}
+
+
+
+.small.imageButtonLight .imageCommand, .small.toggleButton .imageCommand.small {
+    width: 22px;
+    height: 22px;
+    margin:  0px;
+    padding: 0px;
+}
+
+
+.imageButtonLight .imageCommand.accept, .toggleButton .imageCommand.accept {
+    background-image: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images);
+}
+.imageButtonLight .imageCommand.add, .toggleButton .imageCommand.add {
+    background-image: url(/javax.faces.resource/icons/famfam/add.png.jsf?ln=images);
 }
 
 .imageButtonLight .imageCommand.cancel, .toggleButton .imageCommand.cancel {
     background-image: url(/javax.faces.resource/icons/famfam/cancel.png.jsf?ln=images);
-    background-repeat: no-repeat;
-    background-position: 3px 2px;
 }
 
 .imageButtonLight .imageCommand.delete, .toggleButton .imageCommand.delete {
     background-image: url(/javax.faces.resource/icons/famfam/delete.png.jsf?ln=images);
-    background-repeat: no-repeat;
-    background-position: 3px 2px;
+}
+
+.imageButtonLight .imageCommand.search, .toggleButton .imageCommand.search {
+    background-image: url(/javax.faces.resource/icons/famfam/magnifier.png.jsf?ln=images);
 }
 
 .imageButtonLight .imageCommand.edit, .toggleButton .imageCommand.edit {
     background-image: url(/javax.faces.resource/icons/famfam/pencil.png.jsf?ln=images);
-    background-repeat: no-repeat;
-    background-position: 3px 2px;
+}
+
+.small.imageButtonLight .imageCommand .label, .small.toggleButton .imageCommand .label
+{
+    display: none;
 }
 
 

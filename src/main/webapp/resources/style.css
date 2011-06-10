@@ -212,18 +212,21 @@ h2 {
     padding-left: 0.2em;
 }
 
-.dialog .about {
-    background-color: #D2DAEE;
-    border-left: 1px solid silver;
+.dialog .about, .window .about {
+    background-color: #e7eef4;
+    border-left: 1px groove silver;
     bottom: 0px;
-    left: 300px;
+    right: 0px;
     overflow: hidden;
     padding-left: 5px;
     padding-right: 5px;
     position: absolute;
     top: 31px;
-    width: auto;
+    width: 160px;
+}
 
+.window .about {
+    top: 0px;
 }
 
 .editform input {
@@ -298,4 +301,10 @@ general image button site style
 .imageButtonLight {
     float: left;
     margin:  5px;
+}
+
+
+.groupEdit.window {
+    width: 500px;
+    height: 200px;
 }

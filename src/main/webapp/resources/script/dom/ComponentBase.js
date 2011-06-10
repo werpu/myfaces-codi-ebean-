@@ -138,8 +138,10 @@
                     this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
 
                     if (this.ajaxRequest) {
-                        _AjaxQueue.enqueue(this._ajaxInit);
-                        _ErrorQueue.enqueue(this._ajaxInit);
+                        //TODO investigate why the queue is not triggering
+                        //_AjaxQueue.enqueue(this._ajaxInit);
+                        //_ErrorQueue.enqueue(this._ajaxInit);
+                        setTimeout(this._ajaxInit, 100);
 
                     } else {
                         /*internal postinit*/
@@ -155,8 +157,8 @@
                         this._postInit();
                         this.postInit_();
                     } finally {
-                        _AjaxQueue.remove(this._ajaxInit);
-                        _ErrorQueue.remove(this._ajaxInit);
+                       // _AjaxQueue.remove(this._ajaxInit);
+                       // _ErrorQueue.remove(this._ajaxInit);
                     }
                 },
 
