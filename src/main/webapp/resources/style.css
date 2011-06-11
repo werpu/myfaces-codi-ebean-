@@ -180,8 +180,6 @@ h2 {
     margin-right: 5px;
 }
 
-
-
 .dialog {
     display: none;
     border: 1px solid black;
@@ -290,21 +288,26 @@ as relative coordinate to the input*/
     display: block;
 }
 
-
-
-
-
-
 /**
 general image button site style
 */
 .imageButtonLight {
     float: left;
-    margin:  5px;
+    margin: 5px;
 }
-
 
 .groupEdit.window {
     width: 500px;
     height: 200px;
+}
+
+.ews_underlay {
+    background-color: gray;
+    opacity: 0.5;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10100;
 }
