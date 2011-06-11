@@ -98,6 +98,11 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 return this;
             },
 
+            removeStyle: function(key) {
+                this._referencedNode.style.removeProperty(key);
+                return this;
+            },
+
             getStyle: function(key, val) {
                 return this._referencedNode.style[key];
             },
@@ -294,7 +299,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             },
             offsetParent: function() {
                 return this._referencedNode.offsetParent;
-            },
+            }
 
         },
 //static methods
