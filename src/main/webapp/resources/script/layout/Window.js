@@ -13,23 +13,31 @@
 
                 moveable: false,
                 resizable: false,
+                modal: false,
+                focusOnCreate: true,
 
                 _header: null,
                 _footer: null,
                 _content: null,
 
+                /* nodes */
                 _closer: null,
                 _minimizer: null,
                 _maximizer: null,
                 _title: null,
                 _resize: null,
 
+                /*underlay is dynamically generated*/
+                _underlay: null,
+
                 /*delta origins for mouse movements*/
+                /*helpers*/
                 _mouseOriginX: -1,
                 _mouseOriginY: -1,
 
                 _windowOriginX: -1,
                 _windowOriginY: -1,
+
 
 
                 constructor_: function(args) {
@@ -45,10 +53,19 @@
                     this.focus = _Lang.hitch(this, this.focus);
 
                     this.hide = _Lang.hitch(this, this.hide);
+
+                    if (this.modal) {
+                        this._underlay = new extras.apache.Underlay();
+                    }
+
                 },
 
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
+                    if (this._underlay) {
+                        this._underlay._postInit();
+                        this._underlay.show();
+                    }
                     this._header = this._header || this.rootNode.querySelector(".header");
                     this._footer = this._footer || this.rootNode.querySelector(".footer");
                     this._content = this._content || this.rootNode.querySelector(".content");
@@ -75,6 +92,11 @@
                     this.rootNode.addEventListener("mousedown", this.focus, false);
 
                     this.pack();
+
+                    /*last defined is the front window unless defined otherwise*/
+                    if(this.focusOnCreate) {
+                        this.focus();
+                    }
                 },
 
                 fadeIn: function() {
@@ -92,6 +114,37 @@
                 focus: function() {
                     this._NODE.querySelectorAll(".window").removeClass("focus");
                     this.rootNode.addClass("focus");
+                },
+
+                hide: function() {
+                    if (this._underlay)
+                        this._underlay.hide();
+                    if (!this.onHide()) {
+                        return;
+                    }
+                    this.rootNode.setStyle("opacity", "0");
+                    var _t = this;
+                    setTimeout(function() {
+                        _t.rootNode.setStyle("display", "none");
+                    }, 2000);
+                },
+
+                onHide: function() {
+                    return true;
+                },
+
+                show: function() {
+                    if (this._underlay)
+                        this._underlay.show();
+                    this.rootNode.setStyle("display", "").setStyle("opacity", "1");
+                },
+
+                pack: function(w, h) {
+                    var contentSizeH = this.rootNode.offsetHeight() - this._header.offsetHeight() - this._footer.offsetHeight();
+                    var contentSizeW = this.rootNode.offsetWidth() - this._header.offsetWidth() - this._footer.offsetWidth();
+
+                    this._content.setStyle("width", contentSizeW + "px").setStyle("height", contentSizeH + "px");
+
                 },
 
                 _mouseDownMove: function(evt) {
@@ -125,14 +178,7 @@
                     this._origDeltaY = this._mouseOriginY - this._windowOriginY;
                 },
 
-                pack: function(w, h) {
-                    var contentSizeH = this.rootNode.offsetHeight() - this._header.offsetHeight() - this._footer.offsetHeight();
-                    var contentSizeW = this.rootNode.offsetWidth() - this._header.offsetWidth() - this._footer.offsetWidth();
 
-                    this._content.setStyle("width", contentSizeW + "px");
-                    this._content.setStyle("height", contentSizeH + "px");
-
-                },
 
                 _mouseMoveMove: function(evt) {
                     var posX = evt.pageX - window.scrollX;
@@ -151,6 +197,7 @@
                     this.rootNode.setStyle("height", (posY - this._windowOriginY) + "px");
 
                     this.pack();
+
                 },
 
                 _mouseUpMove: function(evt) {
@@ -163,25 +210,29 @@
                     window.removeEventListener("mousemove", this._mouseMoveResize, true);
                 },
 
-                hide: function() {
-                    if (!this.onHide()) {
+                _maximize: function(evt) {
+                    if (!this._dimensionStack) {
+                        this._dimensionStack = [];
+                    }
+                    this._dimensionStack.push(
+                            {
+                                x:this.rootNode.offsetLeft() + "px", y: this.rootNode.offsetTop() + "px",
+                                w:this.rootNode.offsetWidth() + "px", h: this.rootNode.offsetHeight() + "px"
+                            });
+                    this.rootNode.setStyle("left", "0px").setStyle("top", "0px")
+                            .setStyle("width", "").setStyle("right", "0px")
+                            .setStyle("height", "").setStyle("bottom", "0px");
+                },
+
+                _normal: function(evt) {
+                    if (!this._dimensionStack || ! this._dimensionStack.length) {
                         return;
                     }
-                    this.rootNode.setStyle("opacity", "0");
-                    var _t = this;
-                    setTimeout(function() {
-                        _t.rootNode.setStyle("display", "none");
-                    }, 2000);
-                },
+                    var oldDimension = this._dimensionStack.splice(0, 1);
+                    this.rootNode.setStyle("left", oldDimension.x).setStyle("top", oldDimension.y)
+                            .setStyle("width", oldDimension.w).setStyle("right", "")
+                            .setStyle("height", oldDimension.h).setStyle("bottom", "");
 
-                onHide: function() {
-                    return true;
-                },
-
-                show: function() {
-                    this.rootNode.setStyle("display", "")
-                            .setStyle("opacity", "1");
                 }
             });
-
 })();

@@ -16,25 +16,26 @@
                 },
 
                 _postInit: function() {
-                    this.rootNode = this._NODE.query(".ews_underlay");
+                    this.rootNode = this._NODE.querySelector(".ews_underlay");
                     if (!this.rootNode) {
                         var elem = document.createElement("div");
                         this.rootNode = new myfaces._impl._dom.Node(elem);
                         this.rootNode.setStyle("display", "none");
                         this.rootNode.addClass("ews_underlay");
-                        this._NODE.query("body").toDomNode().appendChild(elem);
+                        this.rootNode.addClass("fadeIn");
+                        this._NODE.querySelector("body").toDomNode().appendChild(elem);
                     }
                 },
                 show: function() {
-                    this.rootNode().setStyle("opacity", "0");
-                    this.rootNode().setStyle("display", "");
-                    this.rootNode().setStyle("opacity", this.opacity);
+                    this.rootNode.setStyle("opacity", "0");
+                    this.rootNode.setStyle("display", "");
+                    this.rootNode.setStyle("opacity", this.opacity);
                 },
                 hide: function() {
-                    this.rootNode().setStyle("opacity", "0");
+                    this.rootNode.setStyle("opacity", "0");
                     var _t = this;
                     setTimeout(function() {
-                        _t.rootNode().setStyle("display", "none");
+                        _t.rootNode.setStyle("display", "none");
                     }, 1000);
                 }
             })
