@@ -31,12 +31,12 @@
                 _underlay: null,
 
                 /*delta origins for mouse movements*/
-                /*helpers*/
-                _mouseOriginX: -1,
-                _mouseOriginY: -1,
+                /*helpers only declared implicitely*/
+                //_mouseOriginX: -1,
+                //_mouseOriginY: -1,
 
-                _windowOriginX: -1,
-                _windowOriginY: -1,
+                //_windowOriginX: -1,
+                //_windowOriginY: -1,
 
 
 
@@ -53,6 +53,9 @@
                     this.focus = _Lang.hitch(this, this.focus);
 
                     this.hide = _Lang.hitch(this, this.hide);
+                    this.maximize = _Lang.hitch(this, this.maximize);
+                    this.normalize = _Lang.hitch(this, this.normalize);
+
 
                     if (this.modal) {
                         this._underlay = new extras.apache.Underlay();
@@ -77,8 +80,12 @@
                     this._resize = this._resize || this._footer.querySelector(".resize");
 
                     if (this._closer) {
-                        this._closer.addEventListener("mousedown", this.hide, true);
+                        this._closer.addEventListener("click", this.hide, true);
                     }
+                    //if (this._maximize) {
+                    this._maximizer.addEventListener("click", this.maximize, true);
+                    //}
+
 
                     if (this.moveable) {
                         this._header.addEventListener("mousedown", this._mouseDownMove, false);
@@ -141,7 +148,7 @@
 
                 pack: function(w, h) {
                     var contentSizeH = this.rootNode.offsetHeight() - this._header.offsetHeight() - this._footer.offsetHeight();
-                    var contentSizeW = this.rootNode.offsetWidth() - this._header.offsetWidth() - this._footer.offsetWidth();
+                    var contentSizeW = this.rootNode.offsetWidth();
 
                     this._content.setStyle("width", contentSizeW + "px").setStyle("height", contentSizeH + "px");
 
@@ -210,29 +217,44 @@
                     window.removeEventListener("mousemove", this._mouseMoveResize, true);
                 },
 
-                _maximize: function(evt) {
+                maximize: function(evt) {
+                     if(evt) {
+                        evt.stopPropagation();
+                    }
                     if (!this._dimensionStack) {
                         this._dimensionStack = [];
                     }
+                    if(this._dimensionStack.length >= 1) {
+                        this.normalize(evt);
+                        return;
+                    }
+
                     this._dimensionStack.push(
                             {
                                 x:this.rootNode.offsetLeft() + "px", y: this.rootNode.offsetTop() + "px",
                                 w:this.rootNode.offsetWidth() + "px", h: this.rootNode.offsetHeight() + "px"
                             });
-                    this.rootNode.setStyle("left", "0px").setStyle("top", "0px")
-                            .setStyle("width", "").setStyle("right", "0px")
-                            .setStyle("height", "").setStyle("bottom", "0px");
+                    this.rootNode.removeStyle("width").removeStyle("height")
+                            .setStyle("left", "0px")
+                            .setStyle("top", "0px")
+                            .setStyle("right", "0px")
+                            .setStyle("bottom", "0px");
+                    this.pack();
+
                 },
 
-                _normal: function(evt) {
+                normalize: function(evt) {
+                    if(evt) {
+                        evt.stopPropagation();
+                    }
                     if (!this._dimensionStack || ! this._dimensionStack.length) {
                         return;
                     }
-                    var oldDimension = this._dimensionStack.splice(0, 1);
+                    var oldDimension = this._dimensionStack.splice(0, 1)[0];
                     this.rootNode.setStyle("left", oldDimension.x).setStyle("top", oldDimension.y)
-                            .setStyle("width", oldDimension.w).setStyle("right", "")
-                            .setStyle("height", oldDimension.h).setStyle("bottom", "");
-
+                            .setStyle("width", oldDimension.w).removeStyle("right")
+                            .setStyle("height", oldDimension.h).removeStyle("bottom");
+                    this.pack();
                 }
             });
 })();
