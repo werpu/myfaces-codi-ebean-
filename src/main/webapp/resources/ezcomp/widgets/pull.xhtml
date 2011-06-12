@@ -3,7 +3,8 @@
               xmlns:composite="http://java.sun.com/jsf/composite"
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:h="http://java.sun.com/jsf/html"
-              xmlns:c="http://java.sun.com/jsp/jstl/core">
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
     <composite:interface componentType="at.irian.StandardJavascriptComponent">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="refreshInterval" default="500"/>
@@ -12,17 +13,7 @@
 
     </composite:interface>
     <composite:implementation>
-        <h:outputScript library="script" name="dom/_DomEngine.js"/>
-        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
-        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
-
-        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
-        <h:outputScript library="script" name="dom/Sizzle.js"/>
-        <h:outputScript library="script" name="dom/Node.js"/>
-        <h:outputScript library="script" name="dom/NodeList.js"/>
-
-
-        <h:outputScript library="script" name="dom/ComponentBase.js"/>
+        <ezw:js_includes ></ezw:js_includes>
         <h:outputScript library="script" name="SelectionList.js"/>
         <h:outputScript library="script" name="output/Pull.js"/>
 

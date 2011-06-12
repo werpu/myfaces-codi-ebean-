@@ -1,4 +1,22 @@
 /**
+ * Extensions of the core runtime which have yet to make it in
+ */
+(function() {
+    if (!myfaces._impl.core._Runtime.clearNamespace) {
+        myfaces._impl.core._Runtime.clearNamespace = function(nms) {
+            var _RT = myfaces._impl.core._Runtime;
+            try {
+                _RT.globalEval("window." + nms + " = undefined");
+                _RT._reservedNMS[nms] = undefined;
+            } catch (e) {
+                //nms does not exist and since we are not
+                //in ie we can safely ignore the error here
+            }
+        };
+    }
+})();
+
+/**
  * Dom Engines with browser dependend low level dom operations.
  * Note, this class is only to be used as internal class
  * for the public api reference the selector api
@@ -367,7 +385,8 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom._DomEngine", Object,
                 delete delegationMap["constructor_"];
                 delete delegationMap["constructor"];
                 var clz = myfaces._impl.core._Runtime.delegateObj("myfaces._impl._dom._DomEngine._tmp", target, delegationMap);
-                myfaces._impl._dom._DomEngine._tmp = null;
+                //myfaces._impl._dom._DomEngine._tmp = undefined;
+                this._RT.clearNamespace("myfaces._impl._dom._DomEngine._tmp");
                 return new clz();
             }
 

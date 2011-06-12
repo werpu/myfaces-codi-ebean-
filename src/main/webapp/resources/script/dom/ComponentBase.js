@@ -26,21 +26,21 @@
 
     var _RT = myfaces._impl.core._Runtime;
 
-    _RT.reserveNamespace("extras.apache.ExtendedEventQueue");
-    _RT.reserveNamespace("extras.apache.ExtendedErrorQueue");
+    _RT.reserveNamespace("extras.apache", {});
+    //_RT.reserveNamespace("extras.apache.ExtendedErrorQueue");
 
     var _extras = extras.apache;
     var _util = myfaces._impl._util;
 
-    _extras.ExtendedEventQueue = new _util._ListenerQueue();
-    _extras.ExtendedErrorQueue = new _util._ListenerQueue();
+    _extras.ExtendedEventQueue = _extras.ExtendedEventQueue || new _util._ListenerQueue();
+    _extras.ExtendedErrorQueue = _extras.ExtendedErrorQueue || new _util._ListenerQueue();
 
     jsf.ajax.addOnEvent(function(eventData) {
-        _extras.ExtendedEventQueue.broadcastEvent(eventData);
+        extras.apache.ExtendedEventQueue.broadcastEvent(eventData);
     });
 
     jsf.ajax.addOnError(function(eventData) {
-        _extras.ExtendedErrorQueue.broadcastEvent(eventData);
+        extras.apache.ExtendedErrorQueue.broadcastEvent(eventData);
     });
 
 })();
@@ -51,8 +51,7 @@
      */
     var _RT = myfaces._impl.core._Runtime;
     var _Lang = myfaces._impl._util._Lang;
-    var _AjaxQueue = extras.apache.ExtendedEventQueue;
-    var _ErrorQueue = extras.apache.ExtendedErrorQueue;
+
 
     /**
      * Base class for all components which adds certain behavior
@@ -64,6 +63,9 @@
      * @namespace extras.apache.ComponentBase
      */
     _RT.extendClass("extras.apache.ComponentBase", Object, {
+                 _AjaxQueue : extras.apache.ExtendedEventQueue,
+                 _ErrorQueue : extras.apache.ExtendedErrorQueue,
+
                 /**
                  * the root node for grouped elements
                  * (important for intra group messaging)
@@ -139,9 +141,9 @@
 
                     if (this.ajaxRequest) {
                         //TODO investigate why the queue is not triggering
-                        //_AjaxQueue.enqueue(this._ajaxInit);
-                        //_ErrorQueue.enqueue(this._ajaxInit);
-                        setTimeout(this._ajaxInit, 100);
+                        this._AjaxQueue.enqueue(this._ajaxInit);
+                        this._ErrorQueue.enqueue(this._ajaxInit);
+                        //setTimeout(this._ajaxInit, 100);
 
                     } else {
                         /*internal postinit*/
@@ -157,8 +159,8 @@
                         this._postInit();
                         this.postInit_();
                     } finally {
-                       // _AjaxQueue.remove(this._ajaxInit);
-                       // _ErrorQueue.remove(this._ajaxInit);
+                       this._AjaxQueue.remove(this._ajaxInit);
+                       this._ErrorQueue.remove(this._ajaxInit);
                     }
                 },
 
@@ -182,8 +184,8 @@
 
                     this.rootNode = this.NODE.querySelector("#" + this.id.replace(/:/g, "\\:"));
                     if (this.ajaxAware) {
-                        _AjaxQueue.enqueue(this.onAjaxEvent);
-                        _ErrorQueue.enqueue(this.onAjaxError);
+                        this._AjaxQueue.enqueue(this.onAjaxEvent);
+                        this._ErrorQueue.enqueue(this.onAjaxError);
                     }
                     if (this.javascriptVar) {
                         this.rootNode.setAttribute("data-ezw_javascriptVar", this.javascriptVar);
@@ -260,13 +262,13 @@
                 //TODO we might move our jsf event triggered handler
                 //To the Dom Level 3 event DOMNodeRemoved
                 _onAjaxDomUnload: function(evt) {
-                    _AjaxQueue.dequeue(this.onAjaxEvent);
-                    _ErrorQueue.dequeue(this.onAjaxError);
+                    this._AjaxQueue.dequeue(this.onAjaxEvent);
+                    this._ErrorQueue.dequeue(this.onAjaxError);
                     this.onAjaxDomUnload(evt);
                 },
 
                 _onAjaxDomInsert: function(evt) {
-                    _AjaxQueue.dequeue(this.onAjaxEvent);
+                    this._AjaxQueue.dequeue(this.onAjaxEvent);
                     this.onAjaxDomLoad(evt);
                 },
 

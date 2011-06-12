@@ -9,10 +9,11 @@
     _RT.extendClass("extras.apache.Underlay", extras.apache.ComponentBase, {
                 _NODE:myfaces._impl._dom.Node,
                 opacity: "0.5",
+                _styleClass:"",
 
                 constructor_: function(args) {
                     this._callSuper("constructor_", args);
-
+                    this.ajaxAware = false;
                 },
 
                 _postInit: function() {
@@ -22,21 +23,15 @@
                         this.rootNode = new myfaces._impl._dom.Node(elem);
                         this.rootNode.setStyle("display", "none");
                         this.rootNode.addClass("ews_underlay");
-                        this.rootNode.addClass("fadeIn");
                         this._NODE.querySelector("body").toDomNode().appendChild(elem);
                     }
                 },
                 show: function() {
-                    this.rootNode.setStyle("opacity", "0");
-                    this.rootNode.setStyle("display", "");
-                    this.rootNode.setStyle("opacity", this.opacity);
+                    this.rootNode.setStyle("opacity", "0").setStyle("display", "block")
+                            .delay(200).setStyle("opacity", this.opacity);
                 },
                 hide: function() {
-                    this.rootNode.setStyle("opacity", "0");
-                    var _t = this;
-                    setTimeout(function() {
-                        _t.rootNode.setStyle("display", "none");
-                    }, 1000);
+                    this.rootNode.setStyle("opacity", "0").delay(1000).setStyle("display", "none");
                 }
             })
 })();

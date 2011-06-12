@@ -336,6 +336,19 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             byIdOrName: function(elem) {
                 var ret = myfaces._impl._dom._NodeUtils.byIdOrName(elem);
                 return (ret) ? new myfaces._impl._dom.Node(ret) : null;
+            },
+
+            window: function() {
+                return myfaces._impl._dom.Node.querySelector("window");
+            },
+            document: function() {
+                return myfaces._impl._dom.Node.querySelector("document");
+            },
+            body: function() {
+                return myfaces._impl._dom.Node.querySelector("body");
+            },
+            head: function() {
+                return myfaces._impl._dom.Node.querySelector("head");
             }
         });
 

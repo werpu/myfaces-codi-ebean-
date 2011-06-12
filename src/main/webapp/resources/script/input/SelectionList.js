@@ -278,8 +278,8 @@
             this.rootNode.querySelectorAll(this.selectorIdentifier).addEventListener(this.EVT_CLICK, this.onclick, false);
 
             this._refresh();
-            if(this.resizable) {
-                this.rootNode.setAttribute("resizable", this.resizable);
+            if(this._resizable) {
+                this.rootNode.setAttribute("resizable", this._resizable);
             }
         },
 

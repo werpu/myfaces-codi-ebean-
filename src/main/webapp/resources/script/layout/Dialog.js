@@ -7,8 +7,8 @@
 
     _RT.extendClass("extras.apache.Dialog", extras.apache.ComponentBase, {
 
-                moveable: false,
-                resizable: false,
+                _moveable: false,
+                _resizable: false,
 
                 _dialogHeader: null,
                 _dialog: null,
@@ -34,7 +34,7 @@
                     this._dialogCloser = this.rootNode.querySelector(".dialogCloser");
 
                     this._dialog.setStyle("display", "block");
-                    if(this.moveable) {
+                    if(this._moveable) {
                         this._dialogHeader.addEventListener("mouseDown",this._mouseDownMove, true);
                         this._dialogHeader.addEventListener("mouseUp",this._mouseUpMove, true);
                     }
