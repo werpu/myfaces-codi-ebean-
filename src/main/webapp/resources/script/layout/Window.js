@@ -11,10 +11,10 @@
 
                 _NODE:myfaces._impl._dom.Node,
 
-                moveable: false,
-                resizable: false,
-                modal: false,
-                focusOnCreate: true,
+                _moveable: false,
+                _resizable: false,
+                _modal: false,
+                _focusOnCreate: true,
 
                 _header: null,
                 _footer: null,
@@ -30,6 +30,8 @@
                 /*underlay is dynamically generated*/
                 _underlay: null,
 
+                _initialVisible: true,
+
                 /*delta origins for mouse movements*/
                 /*helpers only declared implicitely*/
                 //_mouseOriginX: -1,
@@ -37,6 +39,8 @@
 
                 //_windowOriginX: -1,
                 //_windowOriginY: -1,
+
+                //extras.apache.Window._modalStack
 
 
 
@@ -56,9 +60,12 @@
                     this.maximize = _Lang.hitch(this, this.maximize);
                     this.normalize = _Lang.hitch(this, this.normalize);
 
+                    if (this._modal) {
+                        this._underlay = this._underlay || new extras.apache.Underlay();
+                        if (!extras.apache.Window._modalStack) {
+                            extras.apache.Window._modalStack = [];
+                        }
 
-                    if (this.modal) {
-                        this._underlay = new extras.apache.Underlay();
                     }
 
                 },
@@ -86,12 +93,11 @@
                     this._maximizer.addEventListener("click", this.maximize, true);
                     //}
 
-
-                    if (this.moveable) {
+                    if (this._moveable) {
                         this._header.addEventListener("mousedown", this._mouseDownMove, false);
                     }
 
-                    if (this.resizable) {
+                    if (this._resizable) {
                         this._resize.addEventListener("mousedown", this._mouseDownResize, false);
                     } else {
                         this._resize.setStyle("display", "none");
@@ -101,8 +107,14 @@
                     this.pack();
 
                     /*last defined is the front window unless defined otherwise*/
-                    if(this.focusOnCreate) {
+                    if (this._focusOnCreate) {
                         this.focus();
+                    }
+
+                    if (this._initialVisible) {
+                      //  this.show();
+                    } else {
+                        this.hide();
                     }
                 },
 
@@ -124,16 +136,25 @@
                 },
 
                 hide: function() {
-                    if (this._underlay)
-                        this._underlay.hide();
+
                     if (!this.onHide()) {
                         return;
                     }
+
                     this.rootNode.setStyle("opacity", "0");
                     var _t = this;
                     setTimeout(function() {
                         _t.rootNode.setStyle("display", "none");
                     }, 2000);
+                    if (this._modal) {
+                        extras.apache.Window._modalStack.pop();
+                        if (this._underlay)
+                            this._underlay.hide();
+                        if (extras.apache.Window._modalStack.length > 0) {
+                            var parent = extras.apache.Window._modalStack.pop();
+                            parent.show();
+                        }
+                    }
                 },
 
                 onHide: function() {
@@ -141,8 +162,11 @@
                 },
 
                 show: function() {
-                    if (this._underlay)
-                        this._underlay.show();
+                    if (this._modal) {
+                        if (this._underlay)
+                            this._underlay.show();
+                        extras.apache.Window._modalStack.push(this);
+                    }
                     this.rootNode.setStyle("display", "").setStyle("opacity", "1");
                 },
 
@@ -154,7 +178,67 @@
 
                 },
 
+                maximize: function(evt) {
+
+                    if (!this.onMaximize()) {
+                        return false;
+                    }
+                    if (evt) {
+                        evt.stopPropagation();
+                    }
+                    if (!this._dimensionStack) {
+                        this._dimensionStack = [];
+                    }
+                    if (this._dimensionStack.length >= 1) {
+                        this.normalize(evt);
+                        return;
+                    }
+
+                    this._dimensionStack.push(
+                            {
+                                x:this.rootNode.offsetLeft() + "px", y: this.rootNode.offsetTop() + "px",
+                                w:this.rootNode.offsetWidth() + "px", h: this.rootNode.offsetHeight() + "px"
+                            });
+                    document.getElementsByTagName('body')[0].clientWidth
+                    this.rootNode.setStyle("width", window.innerWidth + "px")
+                            .setStyle("height", window.innerHeight + "px")
+                            .setStyle("left", "0px")
+                            .setStyle("top", "0px");
+                    this.pack();
+                    this._moveable = false;
+                },
+
+                normalize: function(evt) {
+                    this._moveable = true;
+                    if (!this.onNormalize()) {
+                        return false;
+                    }
+                    if (evt) {
+                        evt.stopPropagation();
+                    }
+                    if (!this._dimensionStack || ! this._dimensionStack.length) {
+                        return;
+                    }
+                    var oldDimension = this._dimensionStack.splice(0, 1)[0];
+                    this.rootNode.setStyle("left", oldDimension.x)
+                            .setStyle("top", oldDimension.y)
+                            .setStyle("width", oldDimension.w)
+                            .setStyle("height", oldDimension.h);
+                    this.pack();
+                },
+
+                onMaximize: function(evt) {
+                    //overridable callback handler
+                    return true;
+                },
+                onNormalize: function(evt) {
+                    //overridable callback handler
+                    return true;
+                },
+
                 _mouseDownMove: function(evt) {
+                    if(!this._moveable) return;
+
                     window.addEventListener("mouseup", this._mouseUpMove, true);
                     window.addEventListener("mousemove", this._mouseMoveMove, true);
 
@@ -216,45 +300,12 @@
                     window.removeEventListener("mouseup", this._mouseUpResize, true);
                     window.removeEventListener("mousemove", this._mouseMoveResize, true);
                 },
-
-                maximize: function(evt) {
-                     if(evt) {
-                        evt.stopPropagation();
+                _onAjaxDomUnload: function(evt) {
+                    this._callSuper("_onAjaxDomUnload", evt);
+                    if(this._underlay) {
+                        this._underlay.hide();
                     }
-                    if (!this._dimensionStack) {
-                        this._dimensionStack = [];
-                    }
-                    if(this._dimensionStack.length >= 1) {
-                        this.normalize(evt);
-                        return;
-                    }
-
-                    this._dimensionStack.push(
-                            {
-                                x:this.rootNode.offsetLeft() + "px", y: this.rootNode.offsetTop() + "px",
-                                w:this.rootNode.offsetWidth() + "px", h: this.rootNode.offsetHeight() + "px"
-                            });
-                    this.rootNode.removeStyle("width").removeStyle("height")
-                            .setStyle("left", "0px")
-                            .setStyle("top", "0px")
-                            .setStyle("right", "0px")
-                            .setStyle("bottom", "0px");
-                    this.pack();
-
-                },
-
-                normalize: function(evt) {
-                    if(evt) {
-                        evt.stopPropagation();
-                    }
-                    if (!this._dimensionStack || ! this._dimensionStack.length) {
-                        return;
-                    }
-                    var oldDimension = this._dimensionStack.splice(0, 1)[0];
-                    this.rootNode.setStyle("left", oldDimension.x).setStyle("top", oldDimension.y)
-                            .setStyle("width", oldDimension.w).removeStyle("right")
-                            .setStyle("height", oldDimension.h).removeStyle("bottom");
-                    this.pack();
                 }
+
             });
 })();

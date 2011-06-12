@@ -310,4 +310,8 @@ general image button site style
     right: 0px;
     bottom: 0px;
     z-index: 10100;
+
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
 }

@@ -3,7 +3,8 @@
               xmlns:composite="http://java.sun.com/jsf/composite"
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:h="http://java.sun.com/jsf/html"
-              xmlns:c="http://java.sun.com/jsp/jstl/core">
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
     <composite:interface componentType="at.irian.StandardJavascriptComponent">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="javascriptVar" required="false"></composite:attribute>
@@ -28,17 +29,7 @@
 
     </composite:interface>
     <composite:implementation>
-
-        <h:outputScript library="script" name="dom/_DomEngine.js"/>
-        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
-        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
-
-        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
-        <h:outputScript library="script" name="dom/Sizzle.js"/>
-        <h:outputScript library="script" name="dom/Node.js"/>
-        <h:outputScript library="script" name="dom/NodeList.js"/>
-
-        <h:outputScript library="script" name="dom/ComponentBase.js"/>
+        <ezw:js_includes />
         <h:outputScript library="script" name="layout/Underlay.js"/>
         <h:outputScript library="script" name="layout/Window.js"/>
 
@@ -69,12 +60,12 @@
                         id:"#{cc.clientId}:#{cc.attrs.id}",
 
                         ajaxRequest: #{cc.ajaxState.toString()},
-                        resizable: #{cc.attrs.resizable},
-                        modal:#{cc.attrs.modal},
+                        _resizable: #{cc.attrs.resizable},
+                        _modal:#{cc.attrs.modal},
                         closeable: #{cc.attrs.closeable},
                         maximizable: #{cc.attrs.maximizable},
                         minimizable: #{cc.attrs.minimizable},
-                        moveable:#{cc.attrs.moveable}
+                        _moveable:#{cc.attrs.moveable}
                     });
                     //-->
                 </script>
