@@ -167,6 +167,7 @@ root element with a href as only subelemet*/
 
 .imageButtonLight .imageCommand.add, .toggleButton .imageCommand.add {
     background-image: url(/javax.faces.resource/icons/famfam/add.png.jsf?ln=images);
+
 }
 
 .imageButtonLight .imageCommand.cancel, .toggleButton .imageCommand.cancel {
