@@ -130,9 +130,20 @@
     background-repeat: no-repeat;
     width: 17px;
     height: 17px;
-    margin-top: 2px;
+    position: absolute;
+    top: 3px;
 }
 
+.window .header .maximize {
+    left: 3px;
+}
+
+.window .header .close {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+
+}
 
 .window .header .minimize {
     /*for now not implemented*/
