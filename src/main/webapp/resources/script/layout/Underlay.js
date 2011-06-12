@@ -11,6 +11,7 @@
                 opacity: "0.5",
                 _styleClass:"",
 
+
                 constructor_: function(args) {
                     this._callSuper("constructor_", args);
                     this.ajaxAware = false;
@@ -27,11 +28,23 @@
                     }
                 },
                 show: function() {
-                    this.rootNode.setStyle("opacity", "0").setStyle("display", "block")
-                            .delay(100).setStyle("opacity", this.opacity);
+                    if(extras.apache.Underlay._hideTimeout) {
+                        clearTimeout(extras.apache.Underlay._hideTimeout);
+                        extras.apache.Underlay._hideTimeout = null;
+                        return;
+                    }
+                    this.rootNode.setStyle("opacity", "0").setStyle("display", "block").delay(300)
+                            .setStyle("opacity", this.opacity);
                 },
                 hide: function() {
-                    this.rootNode.setStyle("opacity", "0").delay(1000).setStyle("display", "none");
+                    var _t = this;
+                    //we use a timeout to defer the operation as needed and then
+                    //we can intercept on a show in case of a dialog being
+                    //redisplayed due to a ajax redisplay situation
+                    extras.apache.Underlay._hideTimeout = setTimeout(function() {
+                        _t.rootNode.setStyle("opacity", "0").delay(100).setStyle("display", "none");
+                        extras.apache.Underlay._hideTimeout = null;
+                    },100);
                 }
             })
 })();
