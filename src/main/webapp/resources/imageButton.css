@@ -7,6 +7,12 @@
     height: 22px;
 
     position: relative;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
 }
 
 .imageButton:focus {
@@ -58,6 +64,10 @@
     display: block;
 }
 
+imageButton a:hover {
+    text-decoration: none;
+}
+
 /*image button light, basic structure div as
 root element with a href as only subelemet*/
 .imageButtonLight, .toggleButton {
@@ -74,6 +84,15 @@ root element with a href as only subelemet*/
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f2f5f6', endColorstr = '#c8d7dc', GradientType = 0); /* IE6-9 */
     background: linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* W3C */
 
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+}
+
+.imageButtonLight a:hover, .toggleButton a:hover {
+    text-decoration: none;
 }
 
 .imageButtonLight .imageCommand, .toggleButton .imageCommand {
@@ -121,7 +140,7 @@ root element with a href as only subelemet*/
     display: none;
 }
 
-.imageButtonLight .imageCommand,  .toggleButton .imageCommand {
+.imageButtonLight .imageCommand, .toggleButton .imageCommand {
     background-repeat: no-repeat;
     background-position: 3px 2px;
 }
@@ -135,19 +154,17 @@ root element with a href as only subelemet*/
     border: 0px groove gray;
 }
 
-
-
 .small.imageButtonLight .imageCommand, .small.toggleButton .imageCommand.small {
     width: 22px;
     height: 22px;
-    margin:  0px;
+    margin: 0px;
     padding: 0px;
 }
-
 
 .imageButtonLight .imageCommand.accept, .toggleButton .imageCommand.accept {
     background-image: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images);
 }
+
 .imageButtonLight .imageCommand.add, .toggleButton .imageCommand.add {
     background-image: url(/javax.faces.resource/icons/famfam/add.png.jsf?ln=images);
 }
@@ -168,8 +185,7 @@ root element with a href as only subelemet*/
     background-image: url(/javax.faces.resource/icons/famfam/pencil.png.jsf?ln=images);
 }
 
-.small.imageButtonLight .imageCommand .label, .small.toggleButton .imageCommand .label
-{
+.small.imageButtonLight .imageCommand .label, .small.toggleButton .imageCommand .label {
     display: none;
 }
 
