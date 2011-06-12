@@ -10,6 +10,7 @@
     _RT.extendClass("extras.apache.Window", extras.apache.ComponentBase, {
 
                 _NODE:myfaces._impl._dom.Node,
+                _Lang: myfaces._impl._util._Lang,
 
                 _moveable: false,
                 _resizable: false,
@@ -172,6 +173,7 @@
 
                 pack: function(w, h) {
                     //TODO add a proper border calculation here
+
                     var contentSizeH = this.rootNode.offsetHeight() - this._header.offsetHeight() - this._footer.offsetHeight();
                     var contentSizeW = this.rootNode.offsetWidth()-2*this.rootNode.toDomNode().borderWidth;
 
@@ -201,11 +203,12 @@
                                 w:this.rootNode.offsetWidth() + "px", h: this.rootNode.offsetHeight() + "px"
                             });
                     document.getElementsByTagName('body')[0].clientWidth
-                    this.rootNode.setStyle("width", window.innerWidth + "px")
+                    var _t = this;
+                    this.rootNode.addClass("fastScale").setStyle("width", window.innerWidth + "px")
                             .setStyle("height", window.innerHeight + "px")
                             .setStyle("left", "0px")
-                            .setStyle("top", "0px");
-                    this.pack();
+                            .setStyle("top", "0px").delay(500)
+                            .removeClass("fastScale").exec(this._Lang.hitch(this, function() {this.pack(); }));
                     this._moveable = false;
                     this._maximizer.removeClass("stateNormal").addClass("stateMaximized");
                 },
@@ -222,11 +225,14 @@
                         return;
                     }
                     var oldDimension = this._dimensionStack.splice(0, 1)[0];
-                    this.rootNode.setStyle("left", oldDimension.x)
+                    var _t = this;
+                    this.rootNode.addClass("fastScale").setStyle("left", oldDimension.x)
                             .setStyle("top", oldDimension.y)
                             .setStyle("width", oldDimension.w)
-                            .setStyle("height", oldDimension.h);
-                    this.pack();
+                            .setStyle("height", oldDimension.h)
+                            .delay(500).removeClass("fastScale")
+                            .exec(this._Lang.hitch(this,function() { this.pack(); }));
+
                     this._maximizer.removeClass("stateMaximized").addClass("stateNormal");
                 },
 

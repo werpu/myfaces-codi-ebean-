@@ -149,3 +149,12 @@
     /*for now not implemented*/
     display: none;
 }
+
+
+.window.fastScale {
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
