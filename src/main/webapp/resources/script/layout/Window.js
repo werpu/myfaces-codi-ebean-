@@ -206,6 +206,7 @@
                             .setStyle("top", "0px");
                     this.pack();
                     this._moveable = false;
+                    this._maximizer.removeClass("stateNormal").addClass("stateMaximized");
                 },
 
                 normalize: function(evt) {
@@ -225,6 +226,7 @@
                             .setStyle("width", oldDimension.w)
                             .setStyle("height", oldDimension.h);
                     this.pack();
+                    this._maximizer.removeClass("stateMaximized").addClass("stateNormal");
                 },
 
                 onMaximize: function(evt) {

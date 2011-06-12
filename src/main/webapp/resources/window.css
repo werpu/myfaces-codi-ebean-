@@ -119,3 +119,22 @@
 }
 
 
+.window .maximize.stateNormal {
+    background-image: url(/javax.faces.resource/icons/custom/maximize.png.jsf?ln=images);
+}
+.window .maximize.stateMaximized {
+    background-image: url(/javax.faces.resource/icons/custom/minimize.png.jsf?ln=images);
+}
+
+.window .header .maximize, .window .header .minimize  {
+    background-repeat: no-repeat;
+    width: 17px;
+    height: 17px;
+    margin-top: 2px;
+}
+
+
+.window .header .minimize {
+    /*for now not implemented*/
+    display: none;
+}
