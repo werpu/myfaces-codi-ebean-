@@ -171,8 +171,9 @@
                 },
 
                 pack: function(w, h) {
+                    //TODO add a proper border calculation here
                     var contentSizeH = this.rootNode.offsetHeight() - this._header.offsetHeight() - this._footer.offsetHeight();
-                    var contentSizeW = this.rootNode.offsetWidth();
+                    var contentSizeW = this.rootNode.offsetWidth()-2*this.rootNode.toDomNode().borderWidth;
 
                     this._content.setStyle("width", contentSizeW + "px").setStyle("height", contentSizeH + "px");
 
