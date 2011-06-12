@@ -299,7 +299,13 @@ general image button site style
 .groupEdit.window {
     width: 500px;
     height: 200px;
+
 }
+.groupDelete.window {
+    width: 500px;
+    height: 200px;
+}
+
 
 .ews_underlay {
     background-color: gray;

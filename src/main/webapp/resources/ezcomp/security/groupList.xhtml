@@ -66,7 +66,7 @@
                         </h:commandLink>
                         <h:commandLink id="deleteit" action="#{cc.attrs.value.goDelete}"
                                        value="#{msgs.delete}"
-                                        onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog:ajaxTarget', 'javax.faces.behavior.event':'action'}); return false;">
+                                        onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog:ajaxTargetDelete', 'javax.faces.behavior.event':'action'}); return false;">
                             <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
                             <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="delete"/>
 
