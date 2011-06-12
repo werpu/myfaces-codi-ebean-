@@ -28,7 +28,7 @@
                 },
                 show: function() {
                     this.rootNode.setStyle("opacity", "0").setStyle("display", "block")
-                            .delay(200).setStyle("opacity", this.opacity);
+                            .delay(100).setStyle("opacity", this.opacity);
                 },
                 hide: function() {
                     this.rootNode.setStyle("opacity", "0").delay(1000).setStyle("display", "none");

@@ -21,6 +21,8 @@
     -o-transition: opacity 0.5s ease-out;
     -ms-transition: opacity 0.5s ease-out;
     transition: opacity 0.5s ease-out;
+
+    display: block;
 }
 
 .window.focus {
