@@ -299,6 +299,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             },
             offsetParent: function() {
                 return this._referencedNode.offsetParent;
+            },
+            exec: function(func) {
+                func();
+                return this;
             }
 
         },
