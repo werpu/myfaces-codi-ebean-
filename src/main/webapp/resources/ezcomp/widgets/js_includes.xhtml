@@ -7,16 +7,18 @@
     <composite:interface>
     </composite:interface>
     <composite:implementation>
-        <h:outputScript library="script" name="dom/_DomEngine.js"/>
-        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
-        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
+        <h:outputScript library="javax.faces" name="jsf.js" />
 
-        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
-        <h:outputScript library="script" name="dom/Sizzle.js"/>
-        <h:outputScript library="script" name="dom/Node.js"/>
-        <h:outputScript library="script" name="dom/NodeList.js"/>
+        <h:outputScript library="script"  name="dom/_DomEngine.js"/>
+        <h:outputScript library="script"  name="dom/_DomEngineCompliant.js"/>
+        <h:outputScript library="script"  name="dom/_DomEngineNonCompliant.js"/>
 
-        <h:outputScript library="script" name="dom/ComponentBase.js"/>
+        <h:outputScript library="script"  name="dom/_NodeUtils.js"/>
+        <h:outputScript library="script"  name="dom/Sizzle.js"/>
+        <h:outputScript library="script"  name="dom/Node.js"/>
+        <h:outputScript library="script"  name="dom/NodeList.js"/>
+
+        <h:outputScript library="script"  name="dom/ComponentBase.js"/>
 
     </composite:implementation>
 </ui:component>
