@@ -5,7 +5,7 @@
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:c="http://java.sun.com/jsp/jstl/core"
               xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
-    <composite:interface componentType="at.irian.StandardJavascriptComponent">
+    <composite:interface componentType="at.irian.Popup">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="javascriptVar"/>
         <composite:attribute name="open" default="true"/>
@@ -35,7 +35,8 @@
                     autoHover: true,
                     popupDelay: #{cc.attrs.popupDelay},
                     position:"#{cc.attrs.position}",
-                    mousePositioned:#{cc.attrs.mousePositioned}
+                    mousePositioned:#{cc.attrs.mousePositioned},
+                    referencedNode:"#{cc.attrs.forClientId}"
                 });
             </script>
         </div>
