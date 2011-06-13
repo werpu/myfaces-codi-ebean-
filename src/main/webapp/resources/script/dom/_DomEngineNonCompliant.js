@@ -1,4 +1,8 @@
 myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineNonCompliant", myfaces._impl._dom._DomEngine, {
+            mousePosX: -1, /*position X dynamically set*/
+            mousePosY: -1, /*position Y dynamically set*/
+            //TODO code the IE mouse position handler
+
 
             IE_QUIRKS_EVENTS : {
                 "onabort": true,

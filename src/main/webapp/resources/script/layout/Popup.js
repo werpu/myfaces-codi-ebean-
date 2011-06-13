@@ -12,9 +12,11 @@
                 _Lang: myfaces._impl._util._Lang,
 
                 /*
-                 *
+                 * root node of the referencing element
+                 * can be another control (in that case a jsVar must be set as -data attribute
+                 * or another normal node
                  */
-                _referenceControl: null,
+                _referencedNode: null,
                 _mousePositioned: false,
                 _controlPositioned: true,
 
@@ -28,10 +30,11 @@
                     this._onMouseEnter = _Lang.hitch(this, this._onMouseEnter);
                     this._onMouseEnter = _Lang.hitch(this, this._onMouseLeave);
 
-                    if(this._autoHover) {
+                    if (this._autoHover) {
                         //attach the hover events on the parent
                         //this._referenceControl.rootNode.addEventListener("hover",
                         //)
+
                     }
                 },
 
@@ -40,6 +43,37 @@
                 },
 
                 show: function() {
+                    if (this._mousePositioned) {
+                        var globalMousePos = this.rootNode.globalMousePos();
+                        this.rootNode.style("position", "fixed").
+                                style("left", globalMousePos.x + "px").
+                                style("top", globalMousePos.y + "px");
+                    } else {
+                        //standard case position absolute with the enclosing container
+                        //being position relative and part of the control, and offet the same X as the parent control
+
+                        switch(this._position) {
+                            case "bottom":
+                                this._layoutBottom();
+
+                                break;
+                            case "left": break;
+                            case "top": break;
+                            case "bottom": break;
+                            default:break;
+
+
+                        }
+
+                    }
+                    this.rootNode.style("display", "block");
+                },
+
+                _layoutBottom: function() {
+                    var offsetLeft = this._referencedNode.offsetLeft();
+                    var offsetTop = this._referencedNode.offsetTop();
+                    var height = this._referencedNode.offsetHeight();
+
 
                 },
 
