@@ -46,6 +46,9 @@
                             this._NODE.querySelector("#"+this._referencedNode) :
                             this._referencedNode;
 
+                    /*we store a reference to our for element for easier backward referencing*/
+                    this.rootNode.setAttribute("-data-ews_for",this._referencedNode.id);
+
                     if (this._autoHover && this._referencedNode) {
                         this._referencedNode.addEventListener("mouseover", this._onMouseEnter, false);
                         this._referencedNode.addEventListener("mouseout", this._onMouseLeave, false);
