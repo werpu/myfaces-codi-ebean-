@@ -25,6 +25,8 @@
                 /*if set to true, the parent gets a hover event attached which opens the popup*/
                 _autoHover: false,
 
+                _popupDelay: 1000,
+
                 constructor_: function(args) {
                     this._callSuper("constructor_", args);
                     this._onMouseEnter = _Lang.hitch(this, this._onMouseEnter);
@@ -39,7 +41,11 @@
                 },
 
                 _postInit: function() {
-
+                    this._callSuper("_postInit", arguments);
+                    if(this._autoHover && this._referencedNode) {
+                        this._referencedNode.addEventListener("mouseenter", this._onMouseEnter, false);
+                        this._referencedNode.addEventListener("mouseleave", this._onMouseLeave, false);
+                    }
                 },
 
                 show: function() {
@@ -52,41 +58,92 @@
                         //standard case position absolute with the enclosing container
                         //being position relative and part of the control, and offet the same X as the parent control
 
-                        switch(this._position) {
+                        switch (this._position) {
                             case "bottom":
                                 this._layoutBottom();
-
                                 break;
-                            case "left": break;
-                            case "top": break;
-                            case "bottom": break;
-                            default:break;
-
-
+                            case "left":
+                                this._layoutLeft();
+                                break;
+                            case "top":
+                                this._layoutTop();
+                                break;
+                            case "bottom":
+                                this._layoutBottom();
+                                break;
+                            default:
+                                throw Exception("Unsupported layout position");
                         }
-
                     }
-                    this.rootNode.style("display", "block");
+                    this.rootNode.style("display", "block")
+                            .addClass("fastScale")
+                            .style("opacity", "0")
+                            .delay(300)
+                            .removeClass("fastScale");
                 },
 
                 _layoutBottom: function() {
-                    var offsetLeft = this._referencedNode.offsetLeft();
-                    var offsetTop = this._referencedNode.offsetTop();
-                    var height = this._referencedNode.offsetHeight();
-
-
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":parOffset.x + "px",
+                                "top":(parOffset.y + parOffset.h) + "px"
+                            });
+                },
+                _layoutRight: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":(parOffset.x + parOffset.w ) + "px",
+                                "top":parOffset.y + "px"
+                            });
+                },
+                _layoutLeft: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":(parOffset.x - this.rootNode.offsetWidth() ) + "px",
+                                "top":parOffset.y + "px"
+                            });
+                },
+                _layoutTop: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":parOffset.x + "px",
+                                "top":(parOffset.y - this.rootNode.offsetHeight()) + "px"
+                            });
                 },
 
-                hide: function() {
 
+
+                hide: function() {
+                    this.rootNode.addClass("fastScale")
+                            .style("opacity", "1")
+                            .delay(200)
+                            .style("display", "none")
+                            .removeClass("fastScale");
                 },
 
                 _onMouseEnter: function() {
-
+                    if(this._closeTimer) {
+                        clearTimeout(this._closeTimer);
+                    }
+                    this._openTimer = setTimeout(this._Lang.hitch(this, function() {
+                        this._openTimer = null;
+                        this.show();
+                    }),this._popupDelay);
                 },
 
                 _onMouseLeave: function() {
-
+                    if(this._openTimer) {
+                        clearTimeout(this._openTimer);
+                        return;
+                    }
+                    this._closeTimer = setTimeout(this._Lang.hitch(this, function() {
+                        this._closeTimer = null;
+                        this.hide();
+                    }),this._popupDelay);
                 }
 
             },

@@ -312,6 +312,14 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             offsetTop: function() {
                 return this._referencedNode.offsetTop;
             },
+
+            offset: function() {
+                return {x: this._referencedNode.offsetLeft(),
+                        y: this._referencedNode.offsetTop(),
+                        h: this._referencedNode.offsetHeight(),
+                        w: this._referencedNode.offsetWidth()};
+            },
+
             offsetParent: function() {
                 return this._referencedNode.offsetParent;
             },
