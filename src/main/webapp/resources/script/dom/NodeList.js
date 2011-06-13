@@ -239,6 +239,11 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
             offsetHeight: function() {
                 return this._stdOp2("offsetHeight");
             },
+            offset: function() {
+                return this._stdOp2("offset");
+            },
+
+
             offsetParent: function() {
                 return this._stdOp2("offsetParent");
             },
