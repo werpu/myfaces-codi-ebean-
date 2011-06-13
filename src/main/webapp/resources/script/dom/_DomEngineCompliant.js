@@ -1,4 +1,16 @@
 myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineCompliant", myfaces._impl._dom._DomEngine, {
+            mousePosX: -1, /*position X dynamically set*/
+            mousePosY: -1, /*position Y dynamically set*/
+
+            constructor_: function(args) {
+                this._callSuper("constructor_", args);
+                document.addEventListener("mousemove",this._Lang.hitch(this, function(evt) {
+                    this.mousePosX = evt.clientX;
+                    this.mousePosY = evt.clientY;
+                }) ,false);
+            },
+
+
             outerHTML: function(item, markup) {
                 var evalNodes;
                 //table element replacements like thead, tbody etc... have to be treated differently

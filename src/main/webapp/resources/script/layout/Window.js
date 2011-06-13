@@ -113,7 +113,7 @@
                     }
 
                     if (this._initialVisible) {
-                      //  this.show();
+                        //  this.show();
                     } else {
                         this.hide();
                     }
@@ -141,10 +141,9 @@
                     if (!this.onHide()) {
                         return;
                     }
-                     var _t = this;
+                    var _t = this;
 
                     this.rootNode.setStyle("opacity", "0").delay(2000).setStyle("display", "none");
-
 
                     if (this._modal) {
                         extras.apache.Window._modalStack.pop();
@@ -174,7 +173,7 @@
                     //TODO add a proper border calculation here
 
                     var contentSizeH = this.rootNode.offsetHeight() - this._header.offsetHeight() - this._footer.offsetHeight();
-                    var contentSizeW = this.rootNode.offsetWidth()-2*this.rootNode.toDomNode().borderWidth;
+                    var contentSizeW = this.rootNode.offsetWidth() - 2 * this.rootNode.toDomNode().borderWidth;
 
                     this._content.setStyle("width", contentSizeW + "px").setStyle("height", contentSizeH + "px");
 
@@ -202,13 +201,17 @@
                                 w:this.rootNode.offsetWidth() + "px", h: this.rootNode.offsetHeight() + "px"
                             });
                     document.getElementsByTagName('body')[0].clientWidth
-                    var _t = this;
-                    var node = this.rootNode.addClass("fastScale").setStyle("width", window.innerWidth + "px")
-                            .setStyle("height", window.innerHeight + "px")
-                            .setStyle("left", "0px")
-                            .setStyle("top", "0px");
-                    node.delayTransition(500)
-                            .removeClass("fastScale").exec(this._Lang.hitch(this, function() {this.pack(); }));
+
+                    this.rootNode.addClass("fastScale")
+                            .style({"width": window.innerWidth + "px",
+                                "height": window.innerHeight + "px",
+                                "height": window.innerHeight + "px",
+                                "left": "0px",
+                                "top": "0px"}).delayTransition(500)
+                            .removeClass("fastScale")
+                            .exec(this._Lang.hitch(this, function() {
+                        this.pack();
+                    }));
                     this._moveable = false;
                     this._maximizer.removeClass("stateNormal").addClass("stateMaximized");
                 },
@@ -226,12 +229,15 @@
                     }
                     var oldDimension = this._dimensionStack.splice(0, 1)[0];
                     var _t = this;
-                    this.rootNode.addClass("fastScale").setStyle("left", oldDimension.x)
-                            .setStyle("top", oldDimension.y)
-                            .setStyle("width", oldDimension.w)
-                            .setStyle("height", oldDimension.h)
+                    this.rootNode.addClass("fastScale")
+                            .style({"left": oldDimension.x,
+                                "top": oldDimension.y,
+                                "width": oldDimension.w,
+                                "height": oldDimension.h})
                             .delayTransition(500).removeClass("fastScale")
-                            .exec(this._Lang.hitch(this,function() { this.pack(); }));
+                            .exec(this._Lang.hitch(this, function() {
+                        this.pack();
+                    }));
 
                     this._maximizer.removeClass("stateMaximized").addClass("stateNormal");
                 },
@@ -246,7 +252,7 @@
                 },
 
                 _mouseDownMove: function(evt) {
-                    if(!this._moveable) return;
+                    if (!this._moveable) return;
 
                     window.addEventListener("mouseup", this._mouseUpMove, true);
                     window.addEventListener("mousemove", this._mouseMoveMove, true);
@@ -284,8 +290,8 @@
                     var posX = evt.pageX - window.scrollX;
                     var posY = evt.pageY - window.scrollY;
 
-                    this.rootNode.setStyle("left", (posX - this._origDeltaX) + "px");
-                    this.rootNode.setStyle("top", (posY - this._origDeltaY) + "px");
+                    this.rootNode.style({"left": (posX - this._origDeltaX) + "px",
+                                "top": (posY - this._origDeltaY) + "px"});
                 },
 
                 _mouseMoveResize: function(evt) {
@@ -293,8 +299,8 @@
                     var posX = evt.pageX - parseInt(window.scrollX);
                     var posY = evt.pageY - parseInt(window.scrollY);
 
-                    this.rootNode.setStyle("width", (posX - this._windowOriginX) + "px");
-                    this.rootNode.setStyle("height", (posY - this._windowOriginY) + "px");
+                    this.rootNode.style({"width": (posX - this._windowOriginX) + "px",
+                                "height": (posY - this._windowOriginY) + "px"});
 
                     this.pack();
 
@@ -311,7 +317,7 @@
                 },
                 _onAjaxDomUnload: function(evt) {
                     this._callSuper("_onAjaxDomUnload", evt);
-                    if(this._underlay) {
+                    if (this._underlay) {
                         this._underlay.hide();
                     }
                 }

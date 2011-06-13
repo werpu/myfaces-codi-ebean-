@@ -127,6 +127,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
                 return this._stdOp("setStyle", attr, val);
             },
 
+            style: function(styleMap) {
+                return this._stdOp("style", styleMap);
+            },
+
             removeStyle: function(attr) {
                 return this._stdOp("removeStyle", attr);
             },
@@ -237,6 +241,15 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
             },
             offsetParent: function() {
                 return this._stdOp2("offsetParent");
+            },
+
+            exec: function(func) {
+                func();
+                return this;
+            },
+
+            globalMousePos: function() {
+                return {x: this._NODE_UTILS.mousePosX, y: this._NODE_UTILS.mousePosY};
             },
 
             /*

@@ -38,6 +38,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom._DomEngine", Object,
             _RT:    myfaces._impl.core._Runtime,
             _dummyPlaceHolder:null,
 
+            constructor_: function(args) {
+
+
+            },
 
             /**
              * Run through the given Html item and execute the inline scripts
@@ -462,6 +466,8 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom._DomEngine", Object,
                 this._RT.clearNamespace("myfaces._impl._dom._DomEngine._tmp");
                 return new clz();
             }
+
+
 
         });
 

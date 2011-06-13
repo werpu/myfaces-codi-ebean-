@@ -10,6 +10,7 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils"
     _domEngine: null,
 
     constructor_: function() {
+
     },
 
 
@@ -182,6 +183,7 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils"
     createEvent: function(event,/*optional*/ additionalData) {
         return this.getEngine().createEvent(event, additionalData);
     }
+
 
 
 });

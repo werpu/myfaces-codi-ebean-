@@ -98,6 +98,15 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 return this;
             },
 
+            style: function(styleMap) {
+                for(var key in styleMap) {
+                    if(!key) continue;
+                    this.setStyle(""+key, styleMap[key]);
+                }
+                return this;
+            },
+
+
             removeStyle: function(key) {
                 this._referencedNode.style.removeProperty(key);
                 return this;
@@ -309,6 +318,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             exec: function(func) {
                 func();
                 return this;
+            },
+
+            globalMousePos: function() {
+                return {x: this._NODE_UTILS.mousePosX, y: this._NODE_UTILS.mousePosY};
             }
 
         },
