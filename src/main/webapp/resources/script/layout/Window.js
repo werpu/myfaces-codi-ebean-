@@ -141,12 +141,11 @@
                     if (!this.onHide()) {
                         return;
                     }
+                     var _t = this;
 
-                    this.rootNode.setStyle("opacity", "0");
-                    var _t = this;
-                    setTimeout(function() {
-                        _t.rootNode.setStyle("display", "none");
-                    }, 2000);
+                    this.rootNode.setStyle("opacity", "0").delay(2000).setStyle("display", "none");
+
+
                     if (this._modal) {
                         extras.apache.Window._modalStack.pop();
                         if (this._underlay)
@@ -204,10 +203,11 @@
                             });
                     document.getElementsByTagName('body')[0].clientWidth
                     var _t = this;
-                    this.rootNode.addClass("fastScale").setStyle("width", window.innerWidth + "px")
+                    var node = this.rootNode.addClass("fastScale").setStyle("width", window.innerWidth + "px")
                             .setStyle("height", window.innerHeight + "px")
                             .setStyle("left", "0px")
-                            .setStyle("top", "0px").delay(500)
+                            .setStyle("top", "0px");
+                    node.delayTransition(500)
                             .removeClass("fastScale").exec(this._Lang.hitch(this, function() {this.pack(); }));
                     this._moveable = false;
                     this._maximizer.removeClass("stateNormal").addClass("stateMaximized");
@@ -230,7 +230,7 @@
                             .setStyle("top", oldDimension.y)
                             .setStyle("width", oldDimension.w)
                             .setStyle("height", oldDimension.h)
-                            .delay(500).removeClass("fastScale")
+                            .delayTransition(500).removeClass("fastScale")
                             .exec(this._Lang.hitch(this,function() { this.pack(); }));
 
                     this._maximizer.removeClass("stateMaximized").addClass("stateNormal");

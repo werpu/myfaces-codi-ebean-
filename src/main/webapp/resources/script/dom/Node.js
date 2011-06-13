@@ -228,6 +228,12 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             delay: function(timeout) {
                 return this._NODE_UTILS.getEngine().decorateDelay(this, timeout);
             },
+            //causes an asynchronous delay for a certain period of time
+            //until we can perform the subsequent operation,
+            //this is a one time op after which we work again on another function
+            delayTransition: function(fallbackTimeout) {
+                return this._NODE_UTILS.getEngine().decorateDelayTransition(this, fallbackTimeout);
+            },
 
             alert: function(msg) {
                 alert(msg);

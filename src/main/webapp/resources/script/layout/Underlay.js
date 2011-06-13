@@ -8,6 +8,7 @@
 
     _RT.extendClass("extras.apache.Underlay", extras.apache.ComponentBase, {
                 _NODE:myfaces._impl._dom.Node,
+                _Lang: myfaces._impl._util._Lang,
                 opacity: "0.5",
                 _styleClass:"",
 
@@ -27,24 +28,15 @@
                         this._NODE.querySelector("body").toDomNode().appendChild(elem);
                     }
                 },
+
                 show: function() {
-                    if(extras.apache.Underlay._hideTimeout) {
-                        clearTimeout(extras.apache.Underlay._hideTimeout);
-                        extras.apache.Underlay._hideTimeout = null;
-                        return;
-                    }
-                    this.rootNode.setStyle("opacity", "0").setStyle("display", "block").delay(300)
-                            .setStyle("opacity", this.opacity);
+                    if(this.rootNode.getStyle("display") != "none" && this.rootNode.getStyle("opacity") == this.opacity) return;
+                    this.rootNode.setStyle("opacity", "0").delay(300).setStyle("display", "block").delay(300).setStyle("opacity", this.opacity);
                 },
-                hide: function() {
-                    var _t = this;
-                    //we use a timeout to defer the operation as needed and then
-                    //we can intercept on a show in case of a dialog being
-                    //redisplayed due to a ajax redisplay situation
-                    extras.apache.Underlay._hideTimeout = setTimeout(function() {
-                        _t.rootNode.setStyle("opacity", "0").delay(100).setStyle("display", "none");
-                        extras.apache.Underlay._hideTimeout = null;
-                    },100);
+
+                hide: function(fromUnload) {
+                    if(this.rootNode.getStyle("display") == "none") return;
+                    this.rootNode.setStyle("opacity", "1").delay(100).setStyle("display", "none");
                 }
             })
 })();
