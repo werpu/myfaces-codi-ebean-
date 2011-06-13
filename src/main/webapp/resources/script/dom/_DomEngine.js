@@ -388,6 +388,79 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom._DomEngine", Object,
                 //myfaces._impl._dom._DomEngine._tmp = undefined;
                 this._RT.clearNamespace("myfaces._impl._dom._DomEngine._tmp");
                 return new clz();
+            },
+
+            //causes an asynchronous delay for a certain period of time
+            //until we can perform the subsequent operation,
+            //this is a one time op after which we work again on another function
+            decorateDelayTransition: function(target, fallbackDelay) {
+                //TODO enable a delayed execution
+                //first we generate the delegation map
+                var transitionEvent = this.getTransitionEndEvent();
+                if(!transitionEvent) {
+                    this.decorateDelay(target, fallbackDelay);
+                    return;
+                }
+                var _Lang = myfaces._impl._util._Lang;
+                var delegationMap = {};
+
+                for (var key in target) (function(orig, key, delFn, delegationMap) {
+                    if (!key || typeof delFn != "function") {
+                        return;
+                    }
+
+                    delegationMap[key] = function() {
+                        //note the this here will be remapped by our decoration function
+                        //as well as _callDelegate(methodName, args)  will be provided
+                        //in case of an ongoing delay we have to push all subsequent operations onto a call stack
+                        this._mutex = this._mutex || false;
+                        this._callStack = this._callStack || [];
+
+                        if (this._mutex) {
+                            this._callStack.push({key: key, args: _Lang.objToArray(arguments)});
+                            return this;
+                        }
+                        var args = arguments;
+                        this._mutex = true;
+                        var eventHandler = _Lang.hitch(this, function (evt) {
+                            var newArgs = [];
+
+                            try {
+                                newArgs.push(key);
+                                newArgs = newArgs.concat(_Lang.objToArray(args));
+
+                                // all subsequent operations are again performed on the original object
+                                return this._callDelegate.apply(this, newArgs);
+                            } finally {
+                                try {
+                                    //now we resolve the call stack as javascript would do it on its own
+                                    if (this._callStack.length) {
+                                        var scope = this;
+                                        for (var cnt = 0; cnt < this._callStack.length; cnt++) {
+                                            var parms = [];
+                                            parms.push(this._callStack[cnt].key);
+                                            parms = (scope._callDelegate) ? parms.concat(this._callStack[cnt].args) : parms;
+                                            scope = (scope._callDelegate) ? scope._callDelegate.apply(scope, parms) : scope[key].apply(scope, parms);
+                                        }
+                                    }
+                                } finally {
+                                    delete this._callStack;
+                                    delete this._mutex;
+                                    target.removeEventListener(transitionEvent, eventHandler, false);
+                                }
+                            }
+                        });
+                        target.addEventListener(transitionEvent, eventHandler, false);
+
+                        return this;
+                    };
+                })(target, key, target[key], delegationMap);
+                delete delegationMap["constructor_"];
+                delete delegationMap["constructor"];
+                var clz = myfaces._impl.core._Runtime.delegateObj("myfaces._impl._dom._DomEngine._tmp", target, delegationMap);
+                //myfaces._impl._dom._DomEngine._tmp = undefined;
+                this._RT.clearNamespace("myfaces._impl._dom._DomEngine._tmp");
+                return new clz();
             }
 
         });
