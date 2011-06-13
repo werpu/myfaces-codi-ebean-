@@ -31,7 +31,7 @@
                     this._callSuper("constructor_", args);
                     this._onMouseEnter = _Lang.hitch(this, this._onMouseEnter);
                     this._onMouseEnter = _Lang.hitch(this, this._onMouseLeave);
-
+                    this._popupDelay = parseInt(this._popupDelay);
                     if (this._autoHover) {
                         //attach the hover events on the parent
                         //this._referenceControl.rootNode.addEventListener("hover",
@@ -42,7 +42,11 @@
 
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
-                    if(this._autoHover && this._referencedNode) {
+                    this._referencedNode = this._Lang.isString(this._referencedNode) ?
+                            this._NODE.querySelectorAll(this._referencedNode) :
+                            this._referencedNode;
+
+                    if (this._autoHover && this._referencedNode) {
                         this._referencedNode.addEventListener("mouseenter", this._onMouseEnter, false);
                         this._referencedNode.addEventListener("mouseleave", this._onMouseLeave, false);
                     }
@@ -126,24 +130,24 @@
                 },
 
                 _onMouseEnter: function() {
-                    if(this._closeTimer) {
+                    if (this._closeTimer) {
                         clearTimeout(this._closeTimer);
                     }
                     this._openTimer = setTimeout(this._Lang.hitch(this, function() {
                         this._openTimer = null;
                         this.show();
-                    }),this._popupDelay);
+                    }), this._popupDelay);
                 },
 
                 _onMouseLeave: function() {
-                    if(this._openTimer) {
+                    if (this._openTimer) {
                         clearTimeout(this._openTimer);
                         return;
                     }
                     this._closeTimer = setTimeout(this._Lang.hitch(this, function() {
                         this._closeTimer = null;
                         this.hide();
-                    }),this._popupDelay);
+                    }), this._popupDelay);
                 }
 
             },
