@@ -30,7 +30,7 @@
                 constructor_: function(args) {
                     this._callSuper("constructor_", args);
                     this._onMouseEnter = _Lang.hitch(this, this._onMouseEnter);
-                    this._onMouseEnter = _Lang.hitch(this, this._onMouseLeave);
+                    this._onMouseLeave = _Lang.hitch(this, this._onMouseLeave);
                     this._popupDelay = parseInt(this._popupDelay);
                     if (this._autoHover) {
                         //attach the hover events on the parent
@@ -43,21 +43,21 @@
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
                     this._referencedNode = this._Lang.isString(this._referencedNode) ?
-                            this._NODE.querySelectorAll(this._referencedNode) :
+                            this._NODE.querySelector("#"+this._referencedNode) :
                             this._referencedNode;
 
                     if (this._autoHover && this._referencedNode) {
-                        this._referencedNode.addEventListener("mouseenter", this._onMouseEnter, false);
-                        this._referencedNode.addEventListener("mouseleave", this._onMouseLeave, false);
+                        this._referencedNode.addEventListener("mouseover", this._onMouseEnter, false);
+                        this._referencedNode.addEventListener("mouseout", this._onMouseLeave, false);
                     }
                 },
 
                 show: function() {
                     if (this._mousePositioned) {
                         var globalMousePos = this.rootNode.globalMousePos();
-                        this.rootNode.style("position", "fixed").
-                                style("left", globalMousePos.x + "px").
-                                style("top", globalMousePos.y + "px");
+                        this.rootNode.setStyle("position", "fixed").
+                                setStyle("left", globalMousePos.x + "px").
+                                setStyle("top", globalMousePos.y + "px");
                     } else {
                         //standard case position absolute with the enclosing container
                         //being position relative and part of the control, and offet the same X as the parent control
@@ -79,9 +79,9 @@
                                 throw Exception("Unsupported layout position");
                         }
                     }
-                    this.rootNode.style("display", "block")
+                    this.rootNode.setStyle("display", "block")
                             .addClass("fastScale")
-                            .style("opacity", "0")
+                            .setStyle("opacity", "1")
                             .delay(300)
                             .removeClass("fastScale");
                 },
@@ -123,15 +123,17 @@
 
                 hide: function() {
                     this.rootNode.addClass("fastScale")
-                            .style("opacity", "1")
+                            .setStyle("opacity", "0")
                             .delay(200)
-                            .style("display", "none")
+                            .setStyle("display", "none")
                             .removeClass("fastScale");
                 },
 
                 _onMouseEnter: function() {
+                    if(this._openTimer) return;
                     if (this._closeTimer) {
                         clearTimeout(this._closeTimer);
+                        this._closeTimer = null;
                     }
                     this._openTimer = setTimeout(this._Lang.hitch(this, function() {
                         this._openTimer = null;
@@ -142,6 +144,7 @@
                 _onMouseLeave: function() {
                     if (this._openTimer) {
                         clearTimeout(this._openTimer);
+                        this._openTimer = null;
                         return;
                     }
                     this._closeTimer = setTimeout(this._Lang.hitch(this, function() {
