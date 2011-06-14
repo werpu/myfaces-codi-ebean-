@@ -13,7 +13,7 @@
 
         <composite:attribute name="styleClass"/>
         <composite:attribute name="style"/>
-        <composite:attribute name="popupDelay" default="2000"/>
+        <composite:attribute name="popupDelay" default="500"/>
         <composite:attribute name="position" default="bottom"/>
         <composite:attribute name="for" required="true"/>
         <composite:attribute name="mousePositioned" default="false"/>
@@ -23,7 +23,7 @@
         <h:outputScript library="script" name="layout/Popup.js"/>
 
 
-        <div id="#{cc.clientId}" class="toggle #{cc.attrs.styleClass} popup" style="#{cc.attrs.style}">
+        <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} popup" style="#{cc.attrs.style}">
             <h:panelGroup layout="block" id="popupContent" class="popupContent">
                 <composite:insertChildren></composite:insertChildren>
             </h:panelGroup>
