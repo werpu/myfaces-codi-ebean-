@@ -27,6 +27,12 @@
                         //we only use xhr level2 objects
                         //if not xhr level2 we bomb out here
                     }
+                },
+                //callback handler which is called
+                //from an outer container whenever
+                //the container shows the pane
+                onShow: function() {
+
                 }
             })
 })();

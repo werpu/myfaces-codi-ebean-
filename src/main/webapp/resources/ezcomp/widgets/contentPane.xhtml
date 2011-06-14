@@ -11,7 +11,7 @@
         <composite:attribute name="style"/>
         <composite:attribute name="title"/>
         <composite:facet name="head"/>
-
+        <composite:facet name="content"/>
 
     </composite:interface>
     <composite:implementation>
@@ -23,6 +23,7 @@
             </h:panelGroup>
             <h:panelGroup layout="block" id="content">
                 <composite:insertChildren/>
+                <composite:renderFacet name="content"/>
             </h:panelGroup>
         </div>
     </composite:implementation>
