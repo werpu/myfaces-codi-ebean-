@@ -39,6 +39,7 @@
         <geronimo-jta_1.1_spec.version>1.1.1</geronimo-jta_1.1_spec.version>
         <jstl.version>1.2</jstl.version>
         <maven-scala-plugin.scalaVersion>2.8.1</maven-scala-plugin.scalaVersion>
+        <netbeans.hint.deploy.server>Tomcat70</netbeans.hint.deploy.server>
     </properties>
 
     <repositories>
