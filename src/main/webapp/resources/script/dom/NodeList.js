@@ -254,7 +254,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
             },
 
             globalMousePos: function() {
-                return {x: this._NODE_UTILS.mousePosX, y: this._NODE_UTILS.mousePosY};
+                return {x: this._NODE_UTILS.getEngine().mousePosX, y: this._NODE_UTILS.getEngine().mousePosY};
             },
 
             /*

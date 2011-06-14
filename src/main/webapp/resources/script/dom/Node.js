@@ -299,17 +299,21 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 this._referencedNode.dispatchEvent(event);
                 return this;
             },
-            offsetWidth: function() {
-                return this._referencedNode.offsetWidth;
+            offsetWidth: function(offset) {
+                offset = offset || 0;
+                return Math.max(this._referencedNode.offsetWidth, offset);
             },
-            offsetHeight: function() {
-                return this._referencedNode.offsetHeight;
+            offsetHeight: function(offset) {
+                offset = offset || 0;
+                return Math.max(this._referencedNode.offsetHeight, offset);
             },
-            offsetLeft: function() {
-                return this._referencedNode.offsetLeft;
+            offsetLeft: function(offset) {
+                offset = offset || 0;
+                return Math.max(this._referencedNode.offsetLeft, 0);
             },
-            offsetTop: function() {
-                return this._referencedNode.offsetTop;
+            offsetTop: function(offset) {
+                offset = offset || 0;
+                return Math.max(this._referencedNode.offsetTop, 0);
             },
 
             offset: function() {
@@ -328,7 +332,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             },
 
             globalMousePos: function() {
-                return {x: this._NODE_UTILS.mousePosX, y: this._NODE_UTILS.mousePosY};
+                return {x: this._NODE_UTILS.getEngine().mousePosX, y: this._NODE_UTILS.getEngine().mousePosY};
             }
 
         },
