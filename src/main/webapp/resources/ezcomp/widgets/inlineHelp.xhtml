@@ -10,7 +10,7 @@
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="helpText" default=""/>
         <composite:attribute name="helpPosition" default="mouse"/>
-        <composite:attribute name="escape" default="true"/>
+        <composite:attribute name="escape" default="false"/>
 
     </composite:interface>
     <composite:implementation>
@@ -20,6 +20,7 @@
             <h:panelGroup layout="block" id="helpTrigger" class="helpTrigger"></h:panelGroup>
             <ezw:popup id="helpArea" for="helpTrigger" position="#{cc.attrs.helpPosition}">
                 <h:outputFormat styleClass="helpText" escape="#{cc.attrs.escape}" value="#{cc.attrs.helpText}"/>
+                <composite:insertChildren></composite:insertChildren>
             </ezw:popup>
         </div>
 
