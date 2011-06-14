@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext
 
 @serializable
 object Popup {
-  val FOR = "for"
+  val FOR_COMPONENT = "for"
   var FOR_CLIENT_ID = "forClientId"
 }
 
@@ -25,7 +25,8 @@ class Popup extends StandardJavascriptComponent {
   import Popup._
 
   override def encodeAll(context: FacesContext) {
-    val forComponent = getParent.findComponent( getAttr[String](FOR, "") ).asInstanceOf[UIComponent]
+    val forStr = getAttr[String](FOR_COMPONENT, "")
+    val forComponent = getParent.findComponent( forStr ).asInstanceOf[UIComponent]
     setAttr[String](FOR_CLIENT_ID,forComponent.getClientId(FacesContext.getCurrentInstance))
     super.encodeAll(context)
   }

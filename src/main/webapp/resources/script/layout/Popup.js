@@ -45,7 +45,7 @@
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
                     this._referencedNode = this._Lang.isString(this._referencedNode) ?
-                            this._NODE.querySelector("#" + this._referencedNode) :
+                            this._NODE.querySelector("#" + this._referencedNode.replace(/:/g,"\\:")) :
                             this._referencedNode;
 
                     /*we store a reference to our for element for easier backward referencing*/
@@ -85,6 +85,22 @@
                             case "bottom":
                                 this._layoutBottom();
                                 break;
+                            case "topRight":
+                                this._layoutTopRight();
+                                break;
+                            case "topLeft":
+                                this._layoutTopLeft();
+                                break;
+
+                            case "bottomLeft":
+                                    this._layoutBottomLeft();
+                                break;
+                            case "bottomRight":
+                                    this._layoutBottomRight();
+                                break;
+                            case "mouse":
+                                    this._layoutMouse();
+                                break;
                             default:
                                 throw Exception("Unsupported layout position");
                         }
@@ -93,39 +109,6 @@
                             .setStyle("opacity", "1")
                             .delay(500)
                             .removeClass("fastScale");
-                },
-
-                _layoutBottom: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":parOffset.x + "px",
-                                "top":(parOffset.y + parOffset.h) + "px"
-                            });
-                },
-                _layoutRight: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":(parOffset.x + parOffset.w ) + "px",
-                                "top":parOffset.y + "px"
-                            });
-                },
-                _layoutLeft: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":(parOffset.x - this.rootNode.offsetWidth() ) + "px",
-                                "top":parOffset.y + "px"
-                            });
-                },
-                _layoutTop: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":parOffset.x + "px",
-                                "top":(parOffset.y - this.rootNode.offsetHeight()) + "px"
-                            });
                 },
 
 
@@ -159,8 +142,81 @@
                         this._closeTimer = null;
                         this.hide();
                     }), this._popupDelay);
-                }
+                },
 
+
+                /*-------------------layout functionality-------------------*/
+                _layoutBottom: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":parOffset.x + "px",
+                                "top":(parOffset.y + parOffset.h) + "px"
+                            });
+                },
+                _layoutRight: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":(parOffset.x + parOffset.w ) + "px",
+                                "top":parOffset.y + "px"
+                            });
+                },
+                _layoutLeft: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":(parOffset.x - this.rootNode.offsetWidth() ) + "px",
+                                "top":parOffset.y + "px"
+                            });
+                },
+                _layoutTop: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":parOffset.x + "px",
+                                "top":(parOffset.y - this.rootNode.offsetHeight()) + "px"
+                            });
+                },
+                _layoutTopLeft: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":(parOffset.x - this.rootNode.offsetWidth() ) + "px",
+                                "top":(parOffset.y - this.rootNode.offsetHeight()) + "px"
+                            });
+                },
+                _layoutTopRight: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":(parOffset.x + parOffset.w ) + "px",
+                                "top":(parOffset.y - this.rootNode.offsetHeight()) + "px"
+                            });
+                },
+                _layoutBottomLeft: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":(parOffset.x - this.rootNode.offsetWidth()) + "px",
+                                "top":(parOffset.y + parOffset.h) + "px"
+                            });
+                },
+                _layoutBottomRight: function() {
+                    var parOffset = this._referencedNode.offset();
+                    this.rootNode.style({
+                                "position":"absolute",
+                                "left":(parOffset.x + parOffset.w) + "px",
+                                "top":(parOffset.y + parOffset.h) + "px"
+                            });
+                },
+                _layoutMouse: function() {
+                     this.rootNode.style({
+                                "position":"absolute",
+                                "left":(this.rootNode.globalMousePos().x) + "px",
+                                "top":(this.rootNode.globalMousePos().y)  + "px"
+                            });
+                }
             },
             //static in namespace attached
             {

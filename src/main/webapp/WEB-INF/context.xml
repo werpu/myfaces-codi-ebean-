@@ -1,5 +1,5 @@
 <Context path="/testenterpriseweb" docBase="testenterpriseweb"
-         debug="5" reloadable="true" crossContext="true">
+         debug="5" reloadable="true" crossContext="true" antiJARLocking="true" antiResourceLocking="true">
 
     <!-- maxActive: Maximum number of dB connections in pool. Make sure you
          configure your mysqld max_connections large enough to handle
