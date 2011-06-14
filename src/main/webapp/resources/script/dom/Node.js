@@ -106,7 +106,6 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 return this;
             },
 
-
             removeStyle: function(key) {
                 this._referencedNode.style.removeProperty(key);
                 return this;

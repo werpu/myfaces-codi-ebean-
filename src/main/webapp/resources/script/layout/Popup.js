@@ -25,7 +25,9 @@
                 /*if set to true, the parent gets a hover event attached which opens the popup*/
                 _autoHover: false,
 
-                _popupDelay: 1000,
+                _popupDelay: 500,
+
+                _initialVisible: false,
 
                 constructor_: function(args) {
                     this._callSuper("constructor_", args);
@@ -43,11 +45,16 @@
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
                     this._referencedNode = this._Lang.isString(this._referencedNode) ?
-                            this._NODE.querySelector("#"+this._referencedNode) :
+                            this._NODE.querySelector("#" + this._referencedNode) :
                             this._referencedNode;
 
                     /*we store a reference to our for element for easier backward referencing*/
-                    this.rootNode.setAttribute("-data-ews_for",this._referencedNode.id);
+                    this.rootNode.setAttribute("data-ews_for", this._referencedNode.id);
+                    if (!this._initialVisible) {
+                        this.rootNode.style({"display": "none","opacity":"0"});
+                    } else {
+                        this.rootNode.style({"display": "block","opacity":"1"});
+                    }
 
                     if (this._autoHover && this._referencedNode) {
                         this._referencedNode.addEventListener("mouseover", this._onMouseEnter, false);
@@ -82,10 +89,9 @@
                                 throw Exception("Unsupported layout position");
                         }
                     }
-                    this.rootNode.setStyle("display", "block")
-                            .addClass("fastScale")
+                    this.rootNode.addClass("fastScale").setStyle("display", "block")
                             .setStyle("opacity", "1")
-                            .delay(300)
+                            .delay(500)
                             .removeClass("fastScale");
                 },
 
@@ -133,7 +139,7 @@
                 },
 
                 _onMouseEnter: function() {
-                    if(this._openTimer) return;
+                    if (this._openTimer) return;
                     if (this._closeTimer) {
                         clearTimeout(this._closeTimer);
                         this._closeTimer = null;
@@ -148,7 +154,6 @@
                     if (this._openTimer) {
                         clearTimeout(this._openTimer);
                         this._openTimer = null;
-                        return;
                     }
                     this._closeTimer = setTimeout(this._Lang.hitch(this, function() {
                         this._closeTimer = null;
