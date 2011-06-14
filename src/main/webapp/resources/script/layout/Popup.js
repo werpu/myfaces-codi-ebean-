@@ -59,6 +59,8 @@
                     if (this._autoHover && this._referencedNode) {
                         this._referencedNode.addEventListener("mouseover", this._onMouseEnter, false);
                         this._referencedNode.addEventListener("mouseout", this._onMouseLeave, false);
+                        this.rootNode.addEventListener("mouseover", this._onMouseEnter, false);
+                        this.rootNode.addEventListener("mouseout", this._onMouseLeave, false);
                     }
                 },
 
