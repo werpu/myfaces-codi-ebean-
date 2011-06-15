@@ -19,6 +19,9 @@
 
     </composite:interface>
     <composite:implementation>
+        <h:outputScript library="script" name="layout/ContentPane.js"/>
+
+
         <div id="#{cc.clientId}" class="contentPane #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
              tabindex="#{cc.attrs.tabIndex}">
             <h:panelGroup layout="block" id="head">
