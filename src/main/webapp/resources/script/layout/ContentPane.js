@@ -28,8 +28,9 @@
 
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
-                    this._titleNode = this._titleNode || this.rootNode.querySelector(".title");
-                    this._contentNode = this._titleNode || this.rootNode.querySelector(".content");
+                    this._titleNode = this._titleNode || this.rootNode.querySelector(".head" +
+                            "");
+                    this._contentNode = this._contentNode || this.rootNode.querySelector(".content");
 
                     if (this._externalContentUrl) {
                         //TODO fetch content and innerHTML
@@ -37,13 +38,21 @@
                         //if not xhr level2 we bomb out here
                         var xhr = _RT.getXHRObject();
                         //now we assume for secure we have an xhr level2 object
-                        xhr.loadend = function(data) {
-                            this._contentNode.innerHTML(data.toString());
-                        };
-                        xhr.error = function(data) {
-                            throw Error("Communications error");
+
+                        if('undefined' == typeof xhr.onloadend) {
+                            xhr.onload = this._Lang.hitch(this, function(data) {
+                                this._contentNode.innerHTML(data.currentTarget.responseText);
+                            });
+                        } else {
+                            xhr.onloadend = this._Lang.hitch(this, function(data) {
+                                this._contentNode.innerHTML(data.currentTarget.responseText);
+                            });
                         }
+                        xhr.onerror = this._Lang.hitch(this,function(data) {
+                            throw Error("Communications error");
+                        });
                         xhr.open("GET", this._externalContentUrl, true);
+                        xhr.send();
                     }
                 },
                 //callback handler which is called
