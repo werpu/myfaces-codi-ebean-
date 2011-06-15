@@ -32,8 +32,12 @@
                 _offsetHeight: 16,
                 _offsetWith: 16,
 
+                _layouter: null,
+
                 constructor_: function(args) {
                     this._callSuper("constructor_", args);
+                    this._layouter = new extras.apache.LayoutController(args);
+                    
                     this._onMouseEnter = _Lang.hitch(this, this._onMouseEnter);
                     this._onMouseLeave = _Lang.hitch(this, this._onMouseLeave);
                     this._popupDelay = parseInt(this._popupDelay);
@@ -79,32 +83,35 @@
 
                         switch (this._position) {
                             case "bottom":
-                                this._layoutBottom();
+                                this._layouter._layoutBottom();
                                 break;
                             case "left":
-                                this._layoutLeft();
+                                this._layouter._layoutLeft();
                                 break;
                             case "top":
-                                this._layoutTop();
+                                this._layouter._layoutTop();
                                 break;
                             case "bottom":
-                                this._layoutBottom();
+                                this._layouter._layoutBottom();
                                 break;
                             case "topRight":
-                                this._layoutTopRight();
+                                this._layouter._layoutTopRight();
                                 break;
                             case "topLeft":
-                                this._layoutTopLeft();
+                                this._layouter._layoutTopLeft();
                                 break;
 
                             case "bottomLeft":
-                                this._layoutBottomLeft();
+                                this._layouter._layoutBottomLeft();
                                 break;
                             case "bottomRight":
-                                this._layoutBottomRight();
+                                this._layouter._layoutBottomRight();
                                 break;
                             case "mouse":
-                                this._layoutMouse();
+                                this._layouter._layoutMouse();
+                                break;
+                             case "followMouse":
+                                this._layouter._layoutFollowMouse();
                                 break;
                             default:
                                 throw Exception("Unsupported layout position");
@@ -150,87 +157,6 @@
                         this._closeTimer = null;
                         this.hide();
                     }), this._popupDelay);
-                },
-
-
-                /*-------------------layout functionality-------------------*/
-                _layoutBottom: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":parOffset.x + "px",
-                                "top":(parOffset.y + parOffset.h) + "px"
-                            });
-                },
-                _layoutRight: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":(parOffset.x + parOffset.w ) + "px",
-                                "top":parOffset.y + "px"
-                            });
-                },
-                _layoutLeft: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":(parOffset.x - this.rootNode.offsetWidth(this._offsetWith) ) + "px",
-                                "top":parOffset.y + "px"
-                            });
-                },
-                _layoutTop: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":parOffset.x + "px",
-                                "top":(parOffset.y - this.rootNode.offsetHeight(this._offsetHeight)) + "px"
-                            });
-                },
-                _layoutTopLeft: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":(parOffset.x - this.rootNode.offsetWidth(this._offsetWith) ) + "px",
-                                "top":(parOffset.y - this.rootNode.offsetHeight(this._offsetHeight)) + "px"
-                            });
-                },
-                _layoutTopRight: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":(parOffset.x + parOffset.w ) + "px",
-                                "top":(parOffset.y - this.rootNode.offsetHeight(this._offsetHeight)) + "px"
-                            });
-                },
-                _layoutBottomLeft: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":(parOffset.x - this.rootNode.offsetWidth(this._offsetWith)) + "px",
-                                "top":(parOffset.y + parOffset.h) + "px"
-                            });
-                },
-                _layoutBottomRight: function() {
-                    var parOffset = this._referencedNode.offset();
-                    this.rootNode.style({
-                                "position":"absolute",
-                                "left":(parOffset.x + parOffset.w) + "px",
-                                "top":(parOffset.y + parOffset.h) + "px"
-                            });
-                },
-                _layoutMouse: function() {
-                    var rightOverflow = this.rootNode.globalMousePos().x  + this.rootNode.offsetWidth() > (window.innerWidth - window.scrollX);
-                    var topOverflow = this.rootNode.globalMousePos().y + this.rootNode.offsetHeight(this._offsetHeight) > (window.innerHeight - window.scrollY)
-                    var xPos = rightOverflow ? this.rootNode.globalMousePos().x - this.rootNode.offsetWidth(this._offsetWith) :
-                            this.rootNode.globalMousePos().x;
-                    var yPos = topOverflow ? this.rootNode.globalMousePos().y   - this.rootNode.offsetHeight(this._offsetHeight) :
-                            this.rootNode.globalMousePos().y;
-
-                    this.rootNode.style({
-                                "position":"fixed",
-                                "left":xPos + "px",
-                                "top":yPos + "px"
-                            });
                 }
             },
             //static in namespace attached
