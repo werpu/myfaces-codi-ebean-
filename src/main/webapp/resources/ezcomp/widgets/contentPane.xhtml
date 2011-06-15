@@ -6,6 +6,9 @@
               xmlns:c="http://java.sun.com/jsp/jstl/core">
     <composite:interface componentType="at.irian.StandardJavascriptComponent">
         <composite:attribute name="id" required="true"/>
+        <composite:attribute name="javascriptVar" ></composite:attribute>
+        <composite:attribute name="javascriptClass" default="extras.apache.ContentPane"/>
+
         <composite:attribute name="tabIndex" default="-1"></composite:attribute>
         <composite:attribute name="styleClass"/>
         <composite:attribute name="style"/>
@@ -36,9 +39,9 @@
                 var #{cc.javascriptVar} =
                 new #{cc.attrs.javascriptClass}({
                     id:"#{cc.clientId}",
-                    ajaxRequest:#{cc.ajaxState.toString()}
-                    externalContentUrl:"#{cc.attrs.externalContentUrl}",
-                    evalExternalContent:"#{cc.attrs.evalExternalContent}"
+                    ajaxRequest:#{cc.ajaxState.toString()},
+                     externalContentUrl:"#{cc.attrs.externalContentUrl}",
+                     evalExternalContent:"#{cc.attrs.evalExternalContent}"
                 });
             </script>
         </div>
