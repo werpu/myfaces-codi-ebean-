@@ -27,11 +27,11 @@
 
         <div id="#{cc.clientId}" class="contentPane #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
              tabindex="#{cc.attrs.tabIndex}">
-            <h:panelGroup layout="block" id="head">
+            <h:panelGroup layout="block" id="head" class="head">
                 <h:outputFormat value="#{cc.attrs.title}" rendered="#{cc.attrs.title != null}"/>
                 <composite:renderFacet name="head"/>
             </h:panelGroup>
-            <h:panelGroup layout="block" id="content">
+            <h:panelGroup layout="block" id="content" class="content">
                 <composite:insertChildren/>
                 <composite:renderFacet name="content"/>
             </h:panelGroup>
