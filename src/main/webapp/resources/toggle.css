@@ -5,7 +5,7 @@
 /**
 * head definition
 */
-.toggle .toggleHead {
+.toggle .head {
     background: rgb(242, 245, 246); /* Old browsers */
     background: -moz-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(242, 245, 246, 1)), color-stop(37%, rgba(227, 234, 237, 1)), color-stop(100%, rgba(200, 215, 220, 1))); /* Chrome,Safari4+ */
@@ -32,7 +32,7 @@
 /**
 * toggle on styles
 */
-.toggle .toggleContent.toggleOn {
+.toggle .content.toggleOn {
     -moz-box-shadow:inset 0px 6px 3px -3px #888888;
     -webkit-box-shadow:inset 0px 6px 3px -3px #888888;
     -o-box-shadow:inset 0px 6px 3px -3px #888888;
@@ -48,7 +48,7 @@
 /**
 * general content styles
 */
-.toggle .toggleContent {
+.toggle .content {
     -webkit-transition: all 0.5s ease-in;
     -moz-transition: all 0.5s ease-in;
     -ms-transition: all 0.5s ease-in;
@@ -62,12 +62,12 @@
 /**
 * toggle on and toggle off height
 */
-.toggle .toggleContent.toggleOn {
+.toggle .content.toggleOn {
     height: 200px;
     overflow: auto;;
 }
 
-.toggle .toggleContent.toggleOff {
+.toggle .content.toggleOff {
     height: 0px;
     overflow:  hidden;
     padding-top: 0px;
