@@ -4,10 +4,10 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineC
 
             constructor_: function(args) {
                 this._callSuper("constructor_", args);
-                document.addEventListener("mousemove",this._Lang.hitch(this, function(evt) {
+                document.addEventListener("mousemove", this._Lang.hitch(this, function(evt) {
                     this.mousePosX = evt.clientX;
                     this.mousePosY = evt.clientY;
-                }) ,false);
+                }), false);
             },
 
 
@@ -111,7 +111,7 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineC
                     // As of Opera 10.61, there is no "onotransitionend" property added to DOM elements,
                     // so it will always use the navigator.appName fallback
                     transition = 'oTransitionEnd';
-                }else if(this._RT.browser.isFF > 3.9){
+                } else if (this._RT.browser.isFF > 3.9) {
                     //mozilla does not have ontransitionend anymore after 4.0
                     transition = 'transitionend';
                 } else {
@@ -119,7 +119,25 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineC
                     transition = false;
                 }
                 return transition;
+            },
+
+            getPositition: function(node) {
+                /*
+                  http://www.quirksmode.org/js/findpos.html however
+                  quirksmode is not entirely correct you have to
+                  take also the scrollers into consideration
+                */
+                var orig = node;
+                var curleft = 0;
+                var curtop = 0;
+                
+                if (node.offsetParent) {
+                    do {
+                        curleft += node.offsetLeft - node.offsetParent.scrollLeft;
+                        curtop += node.offsetTop - node.offsetParent.scrollTop;
+                    } while (node = node.offsetParent);
+                }
+                return {x:curleft, y:curtop, w: orig.offsetWidth, h: orig.offsetHeight}
             }
-
-
-        });
+        }
+);

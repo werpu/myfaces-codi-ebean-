@@ -335,6 +335,21 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineN
 
             getTransitionEndEvent: function() {
                 return false;
+            },
+            getPositition: function(obj) {
+                var orig = obj;
+                var left = 0;
+                var top = 0;
+
+                if (obj.offsetParent) {
+                    left += obj.offsetLeft;
+                    top += obj.offsetTop;
+                    while (obj = obj.offsetParent) {
+                        left += (obj.offsetLeft - obj.scrollLeft + obj.clientLeft);
+                        top += (obj.offsetTop - obj.scrollTop + obj.clientTop);
+                    }
+                }
+                return {x:left, y:top, w: orig.offsetWidth, h: orig.offsetHeight};
             }
 
         });

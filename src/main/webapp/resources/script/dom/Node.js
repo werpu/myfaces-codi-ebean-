@@ -323,6 +323,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                         w: this._referencedNode.offsetWidth};
             },
 
+            position: function() {
+                this._NODE_UTILS.getEngine().getPositition(this._referencedNode);
+            },
+
             offsetParent: function() {
                 return this._referencedNode.offsetParent;
             },
