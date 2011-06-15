@@ -7,7 +7,7 @@
     var _Lang = myfaces._impl._util._Lang;
     var _AjaxQueue = extras.apache.ExtendedEventQueue;
 
-    _RT.extendClass("extras.apache.Toggle", extras.apache.ComponentBase, {
+    _RT.extendClass("extras.apache.Toggle", extras.apache.ContentPane, {
 
                 /**
                  * the refresh interval
@@ -24,7 +24,7 @@
                 ajaxPostback: true,
 
                 constructor_:function(args) {
-                    this._callSuper("constructor", args);
+                    this._callSuper("constructor_", args);
                     this.ontoggleClick = _Lang.hitch(this, this.ontoggleClick);
                     this.unloadAware = false;
                     this.onOpen = _Lang.hitch(this, this.onOpen);
@@ -59,7 +59,7 @@
                 open: function() {
 
                     this.toggleOpen = true;
-                    this.rootNode.querySelectorAll(".toggleContent").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
+                    this.rootNode.querySelectorAll(".content").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
                     this.rootNode.querySelectorAll(".toggleControl").removeClass("toggleOff").removeClass("toggleOn").addClass("toggleOn");
                     this.onOpen({});
                 },
@@ -67,7 +67,7 @@
                 close: function() {
 
                     this.toggleOpen = false;
-                    this.rootNode.querySelectorAll(".toggleContent").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
+                    this.rootNode.querySelectorAll(".content").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
                     this.rootNode.querySelectorAll(".toggleControl").removeClass("toggleOn").removeClass("toggleOff").addClass("toggleOff");
                     this.onClose({});
                 },

@@ -25,15 +25,16 @@
         <composite:facet name="content" required="true" />
     </composite:interface>
     <composite:implementation>
+        <h:outputScript library="script" name="layout/ContentPane.js"/>
 
         <h:outputScript library="script" name="layout/Toggle.js"/>
 
 
         <div id="#{cc.clientId}" class="toggle #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
-                <h:panelGroup style="#{cc.attrs.headStyle}" styleClass="toggleHead #{cc.attrs.headStyleClass}  toggleControl #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" id="toggleHead" layout="block">
+                <h:panelGroup style="#{cc.attrs.headStyle}" styleClass="head #{cc.attrs.headStyleClass}  toggleControl #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" id="head" layout="block">
                     <composite:renderFacet name="head"></composite:renderFacet>
                 </h:panelGroup>
-                <h:panelGroup tyle="#{cc.attrs.contentStyle}" styleClass="toggleContent #{cc.attrs.contentStyleClass}  #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" layout="block" id="toggleContent">
+                <h:panelGroup tyle="#{cc.attrs.contentStyle}" styleClass="content #{cc.attrs.contentStyleClass}  #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" layout="block" id="content">
                    <composite:renderFacet name="content"></composite:renderFacet>
                 </h:panelGroup>
 
