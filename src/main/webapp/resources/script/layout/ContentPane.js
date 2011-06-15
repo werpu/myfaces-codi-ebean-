@@ -8,7 +8,7 @@
      */
     var _RT = myfaces._impl.core._Runtime;
 
-    _RT.extendClass("extras.apache.AccordionPanel", extras.apache.ComponentBase, {
+    _RT.extendClass("extras.apache.ContentPane", extras.apache.ComponentBase, {
                 _NODE:myfaces._impl._dom.Node,
                 _Lang: myfaces._impl._util._Lang,
                 _RT: myfaces._impl.core._Runtime,
@@ -23,7 +23,7 @@
 
 
                 constructor_: function(args) {
-                    this._callSuper(args);
+                    this._callSuper("constructor_",args);
                 },
 
                 _postInit: function() {
