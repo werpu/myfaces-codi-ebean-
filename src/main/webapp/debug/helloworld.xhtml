@@ -27,19 +27,11 @@
 
     <ui:define name="header">
 
-        <title>Person List view</title>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
-        </f:metadata>
-
-        <!-- we have to force an import because we rely on single files in the impl -->
-        <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
-        --></script>
-
 
     </ui:define>
 
     <ui:define name="search">
+
 
 
     </ui:define>
@@ -48,27 +40,10 @@
     <ui:define name="content">
 
 
-        <h:form id="mainForm" prependId="false">
-
-            <ezw:ajaxStatus id="pull">
-                Ajax in progress
-            </ezw:ajaxStatus>
-            <!-- support functions for the animated toggle -->
-            <ezw:contentPane id="accordion1" externalContentUrl="./helloworld.jsf" evalExternalContent="true">
-                <f:facet name="head">orf content</f:facet>
-            </ezw:contentPane>
-
-            <h:inputText id="blabla"/>
-
-            <h:commandLink action="#{toggleClass.doSubmit}" value="Press me"/>
-            <h:commandLink action="toggle" value="Press me 2"/>
-
-        </h:form>
-
+        hello from loaded page
 
     </ui:define>
 </ui:composition>
 
 
 </html>
-
