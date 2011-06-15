@@ -132,6 +132,7 @@
                         clearTimeout(this._closeTimer);
                         this._closeTimer = null;
                     }
+                    if(this.rootNode.getStyle("display") != "none") return;
                     this._openTimer = setTimeout(this._Lang.hitch(this, function() {
                         this._openTimer = null;
                         this.show();
@@ -143,6 +144,8 @@
                         clearTimeout(this._openTimer);
                         this._openTimer = null;
                     }
+                    if(this.rootNode.getStyle("display") == "none") return;
+
                     this._closeTimer = setTimeout(this._Lang.hitch(this, function() {
                         this._closeTimer = null;
                         this.hide();
@@ -216,7 +219,7 @@
                             });
                 },
                 _layoutMouse: function() {
-                    var rightOverflow = this.rootNode.globalMousePos().x  + this.rootNode.offsetWidth(this._offsetWith) > (window.innerWidth - window.scrollX);
+                    var rightOverflow = this.rootNode.globalMousePos().x  + this.rootNode.offsetWidth() > (window.innerWidth - window.scrollX);
                     var topOverflow = this.rootNode.globalMousePos().y + this.rootNode.offsetHeight(this._offsetHeight) > (window.innerHeight - window.scrollY)
                     var xPos = rightOverflow ? this.rootNode.globalMousePos().x - this.rootNode.offsetWidth(this._offsetWith) :
                             this.rootNode.globalMousePos().x;
