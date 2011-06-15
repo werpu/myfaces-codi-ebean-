@@ -13,6 +13,10 @@
         <composite:facet name="head"/>
         <composite:facet name="content"/>
 
+        <composite:attribute name="externalContentUrl"/>
+        <composite:attribute name="evalExternalContent" default="false"/>
+
+
     </composite:interface>
     <composite:implementation>
         <div id="#{cc.clientId}" class="contentPane #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
@@ -25,6 +29,15 @@
                 <composite:insertChildren/>
                 <composite:renderFacet name="content"/>
             </h:panelGroup>
+            <script type="text/javascript">
+                var #{cc.javascriptVar} =
+                new #{cc.attrs.javascriptClass}({
+                    id:"#{cc.clientId}",
+                    ajaxRequest:#{cc.ajaxState.toString()}
+                    externalContentUrl:"#{cc.attrs.externalContentUrl}}",
+                    evalExternalContent:"#{cc.attrs.evalExternalContent}"
+                });
+            </script>
         </div>
     </composite:implementation>
 </ui:component>
