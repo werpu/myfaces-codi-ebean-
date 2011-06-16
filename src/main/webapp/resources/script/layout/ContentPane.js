@@ -21,40 +21,45 @@
                 _externalContentTarget: null,
 
                 constructor_: function(args) {
-                    this._callSuper("constructor_",args);
+                    this._callSuper("constructor_", args);
+
                 },
 
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
                     this._titleNode = this._titleNode || this.rootNode.querySelector(".head");
                     this._contentNode = this._contentNode || this.rootNode.querySelector(".content");
-                    this._externalContentTarget = (this._Lang.isString(this._externalContentTarget))? this.rootNode.querySelectorAll(this._externalContentTarget):
+                    this._externalContentTarget = (this._Lang.isString(this._externalContentTarget)) ? this.rootNode.querySelectorAll(this._externalContentTarget) :
                             this._externalContentTarget;
 
                     if (this._externalContentUrl) {
-
-                        var xhr = _RT.getXHRObject();
-                        //now we assume for secure we have an xhr level2 object
-
-                        if('undefined' == typeof xhr.onloadend) {
-                            xhr.onload = this._Lang.hitch(this, function(data) {
-                                var htmlStripper = new myfaces._impl._util._HtmlStripper();
-                                var bodyData = htmlStripper.parse(data.currentTarget.responseText, "body")
-
-                                this._externalContentTarget.innerHTML(bodyData, this._evalExternalContent);
-                            });
-                        } else {
-                            xhr.onloadend = this._Lang.hitch(this, function(data) {
-                                this._contentNode.innerHTML(data.currentTarget.responseText);
-                            });
-                        }
-                        xhr.onerror = this._Lang.hitch(this,function(data) {
-                            throw Error("Communications error");
-                        });
-                        xhr.open("GET", this._externalContentUrl, true);
-                        xhr.send();
+                        this.refreshContent(this._externalContentUrl);
                     }
                 },
+
+                refreshContent: function(contentUrl) {
+                    var xhr = _RT.getXHRObject();
+                    //now we assume for secure we have an xhr level2 object
+
+                    if ('undefined' == typeof xhr.onloadend) {
+                        xhr.onload = this._Lang.hitch(this, function(data) {
+                            var htmlStripper = new myfaces._impl._util._HtmlStripper();
+                            var bodyData = htmlStripper.parse(data.currentTarget.responseText, "body")
+
+                            this._externalContentTarget.innerHTML(bodyData, this._evalExternalContent);
+                        });
+                    } else {
+                        xhr.onloadend = this._Lang.hitch(this, function(data) {
+                            this._contentNode.innerHTML(data.currentTarget.responseText);
+                        });
+                    }
+                    xhr.onerror = this._Lang.hitch(this, function(data) {
+                        throw Error("Communications error");
+                    });
+                    xhr.open("GET", contentUrl, true);
+                    xhr.send();
+                },
+
                 //callback handler which is called
                 //from an outer container whenever
                 //the container shows the pane
