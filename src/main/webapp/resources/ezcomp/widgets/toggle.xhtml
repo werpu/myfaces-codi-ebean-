@@ -23,6 +23,11 @@
 
         <composite:facet name="head" required="true" />
         <composite:facet name="content" required="true" />
+
+        <composite:attribute name="externalContentUrl"/>
+        <composite:attribute name="externalContentTarget" default=".content"  />
+        <composite:attribute name="evalExternalContent" default="false"/>
+
     </composite:interface>
     <composite:implementation>
         <h:outputScript library="script" name="layout/ContentPane.js"/>

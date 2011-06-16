@@ -18,6 +18,7 @@
                 _titleNode: null,
                 _contentNode: null,
 
+                _externalContentTarget: null,
 
                 constructor_: function(args) {
                     this._callSuper("constructor_",args);
@@ -27,6 +28,8 @@
                     this._callSuper("_postInit", arguments);
                     this._titleNode = this._titleNode || this.rootNode.querySelector(".head");
                     this._contentNode = this._contentNode || this.rootNode.querySelector(".content");
+                    this._externalContentTarget = (this._Lang.isString(this._externalContentTarget))? this.rootNode.querySelectorAll(this._externalContentTarget):
+                            this._externalContentTarget;
 
                     if (this._externalContentUrl) {
 
@@ -38,9 +41,7 @@
                                 var htmlStripper = new myfaces._impl._util._HtmlStripper();
                                 var bodyData = htmlStripper.parse(data.currentTarget.responseText, "body")
 
-                                this._contentNode.innerHTML(bodyData, this._evalExternalContent);
-
-
+                                this._externalContentTarget.innerHTML(bodyData, this._evalExternalContent);
                             });
                         } else {
                             xhr.onloadend = this._Lang.hitch(this, function(data) {

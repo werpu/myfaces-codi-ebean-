@@ -112,7 +112,7 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils"
 
     innerHTML: function(node, markup, autoEval) {
         this.getEngine().innerHTML(node, markup);
-        if (autoEval && this.isManualScriptEval()) {
+        if (autoEval && this.getEngine().isManualScriptEval()) {
             this.runScripts(node);
         }
     },
