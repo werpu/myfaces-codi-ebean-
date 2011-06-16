@@ -26,6 +26,35 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineN
                 "onmouseup": true
             },
 
+            isManualScriptEval: function() {
+
+                if (!this._Lang.exists(myfaces, "config._autoeval")) {
+                    var _Browser = this._RT.browser;
+                    //now we rely on the document being processed if called for the first time
+                    var evalDiv = document.createElement("div");
+                    this._Lang.reserveNamespace("myfaces.config._autoeval");
+                    //null not swallowed
+                    myfaces.config._autoeval = false;
+
+                    var markup = "<script type='text/javascript'> myfaces.config._autoeval = true; </script>";
+                    //now we rely on the same replacement mechanisms as outerhtml because
+                    //some browsers have different behavior of embedded scripts in the contextualfragment
+                    //or innerhtml case (opera for instance), this way we make sure the
+                    //eval detection is covered correctly
+                    this.setAttribute(evalDiv, "style", "display:none");
+
+                    //it is less critical in some browsers (old ie versions)
+                    //to append as first element than as last
+                    //it should not make any difference layoutwise since we are on display none anyway.
+                    this.insertFirst(evalDiv);
+
+                    //we remap it into a real boolean value
+                    this.outerHTML(evalDiv, markup);
+                }
+
+                return  !myfaces.config._autoeval;
+            },
+
             outerHTML: function(item, markup) {
                 var evalNodes;
                 //table element replacements like thead, tbody etc... have to be treated differently

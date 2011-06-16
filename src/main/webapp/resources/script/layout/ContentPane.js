@@ -38,11 +38,9 @@
                                 var htmlStripper = new myfaces._impl._util._HtmlStripper();
                                 var bodyData = htmlStripper.parse(data.currentTarget.responseText, "body")
 
-                                this._contentNode.innerHTML(bodyData);
+                                this._contentNode.innerHTML(bodyData, this._evalExternalContent);
 
-                                if(this._evalExternalContent) {
-                                    this._contentNode.runScripts();
-                                }
+
                             });
                         } else {
                             xhr.onloadend = this._Lang.hitch(this, function(data) {

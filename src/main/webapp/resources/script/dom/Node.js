@@ -134,8 +134,8 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 }
             },
 
-            innerHTML: function(markup) {
-                myfaces._impl._dom._NodeUtils.innerHTML(this._referencedNode, markup);
+            innerHTML: function(markup, autoEval) {
+                myfaces._impl._dom._NodeUtils.innerHTML(this._referencedNode, markup ,!!autoEval);
                 //we defer until finished, webkit issue that innerhtml often
                 //is not finished when the next op is performed
                 //a query fixes that
