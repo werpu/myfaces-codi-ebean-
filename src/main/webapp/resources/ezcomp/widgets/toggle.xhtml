@@ -32,6 +32,7 @@
 
         <div id="#{cc.clientId}" class="toggle #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
                 <h:panelGroup style="#{cc.attrs.headStyle}" styleClass="head #{cc.attrs.headStyleClass}  toggleControl #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" id="head" layout="block">
+                    <div class="stateIndicator"></div>
                     <composite:renderFacet name="head"></composite:renderFacet>
                 </h:panelGroup>
                 <h:panelGroup tyle="#{cc.attrs.contentStyle}" styleClass="content #{cc.attrs.contentStyleClass}  #{cc.attrs.open == true? 'toggleOn':'toggleOff'}" layout="block" id="content">

@@ -98,8 +98,8 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
                 return this._stdOp("detach");
             },
 
-            innerHTML: function(markup) {
-                return this._stdOp("innerHTML", markup);
+            innerHTML: function(markup, autoEval) {
+                return this._stdOp("innerHTML", markup, !!autoEval);
             },
 
             isForm: function() {

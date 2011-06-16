@@ -10,6 +10,12 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._DomEngineC
                 }), false);
             },
 
+            /**
+             * eval is per default off on all recent browsers
+             */
+            isManualScriptEval: function() {
+                return false;
+            },
 
             outerHTML: function(item, markup) {
                 var evalNodes;
