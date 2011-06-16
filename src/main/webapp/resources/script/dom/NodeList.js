@@ -257,6 +257,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
                 return {x: this._NODE_UTILS.getEngine().mousePosX, y: this._NODE_UTILS.getEngine().mousePosY};
             },
 
+            runScripts: function() {
+                return this._stdOp("runScripts");
+            },
+
             /*
              * helpers to reduce the locs, by defining the
              * functionality of most operations as generic methods
