@@ -1,8 +1,5 @@
 (function () {
     /**
-     * a pull component which pulls
-     * a certain area periodically
-     *
      * a content pane with some extras like being able to fetch extra content
      * and a title section which optionally is set
      */
@@ -28,20 +25,24 @@
 
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
-                    this._titleNode = this._titleNode || this.rootNode.querySelector(".head" +
-                            "");
+                    this._titleNode = this._titleNode || this.rootNode.querySelector(".head");
                     this._contentNode = this._contentNode || this.rootNode.querySelector(".content");
 
                     if (this._externalContentUrl) {
-                        //TODO fetch content and innerHTML
-                        //we only use xhr level2 objects
-                        //if not xhr level2 we bomb out here
+
                         var xhr = _RT.getXHRObject();
                         //now we assume for secure we have an xhr level2 object
 
                         if('undefined' == typeof xhr.onloadend) {
                             xhr.onload = this._Lang.hitch(this, function(data) {
-                                this._contentNode.innerHTML(data.currentTarget.responseText);
+                                var htmlStripper = new myfaces._impl._util._HtmlStripper();
+                                var bodyData = htmlStripper.parse(data.currentTarget.responseText, "body")
+
+                                this._contentNode.innerHTML(bodyData);
+
+                                if(this._evalExternalContent) {
+                                    this._contentNode.runScripts();
+                                }
                             });
                         } else {
                             xhr.onloadend = this._Lang.hitch(this, function(data) {
@@ -59,7 +60,7 @@
                 //from an outer container whenever
                 //the container shows the pane
                 onShow: function() {
-
+                    //TODO implement this
                 }
             })
 })();

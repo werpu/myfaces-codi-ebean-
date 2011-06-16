@@ -136,7 +136,11 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
             innerHTML: function(markup) {
                 myfaces._impl._dom._NodeUtils.innerHTML(this._referencedNode, markup);
-                return this;
+                //we defer until finished, webkit issue that innerhtml often
+                //is not finished when the next op is performed
+                //a query fixes that
+                var ret = this.querySelectorAll("div");
+                return ret;
             },
 
             getInnerHTML: function() {
@@ -337,6 +341,11 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
             globalMousePos: function() {
                 return {x: this._NODE_UTILS.getEngine().mousePosX, y: this._NODE_UTILS.getEngine().mousePosY};
+            },
+            /*global eval the embedded scripts of this node*/
+            runScripts: function() {
+                this._NODE_UTILS.getEngine().runScripts(this._referencedNode, true);
+                return this;
             }
 
         },
