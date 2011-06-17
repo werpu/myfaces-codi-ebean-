@@ -9,16 +9,21 @@
     <composite:implementation>
         <h:outputScript library="javax.faces" name="jsf.js" />
 
-        <h:outputScript library="script"  name="dom/_DomEngine.js"/>
-        <h:outputScript library="script"  name="dom/_DomEngineCompliant.js"/>
-        <h:outputScript library="script"  name="dom/_DomEngineNonCompliant.js"/>
+        <h:outputScript library="script"  name="runtime/_myfaces/_Runtime.js"/>
+        <h:outputScript library="script"  name="runtime/_myfaces/_Lang.js"/>
+        <h:outputScript library="script"  name="runtime/_myfaces/_HtmlStripper.js"/>
+        <h:outputScript library="script"  name="runtime/_myfaces/_Queue.js"/>
+        <h:outputScript library="script"  name="runtime/_myfaces/_ListenerQueue.js"/>
 
-        <h:outputScript library="script"  name="dom/_NodeUtils.js"/>
-        <h:outputScript library="script"  name="dom/Sizzle.js"/>
-        <h:outputScript library="script"  name="dom/Node.js"/>
-        <h:outputScript library="script"  name="dom/NodeList.js"/>
 
-        <h:outputScript library="script"  name="dom/ComponentBase.js"/>
+        <h:outputScript library="script"  name="runtime/dom/_DomEngine.js"/>
+        <h:outputScript library="script"  name="runtime/dom/_DomEngineCompliant.js"/>
+        <h:outputScript library="script"  name="runtime/dom/_NodeUtils.js"/>
+
+        <h:outputScript library="script"  name="runtime/dom/Node.js"/>
+        <h:outputScript library="script"  name="runtime/dom/NodeList.js"/>
+
+        <h:outputScript library="script"  name="runtime/dom/ComponentBase.js"/>
 
     </composite:implementation>
 </ui:component>

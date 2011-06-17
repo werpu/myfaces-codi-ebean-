@@ -154,6 +154,9 @@
                     }
                 },
 
+                //TODO apply ecmascript 2
+                // setters and getters for the private vars
+
                 _ajaxInit: function(data) {
                     try {
                         this._postInit();
