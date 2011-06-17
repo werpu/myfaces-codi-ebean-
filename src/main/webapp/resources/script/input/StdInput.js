@@ -5,7 +5,7 @@
      */
     var _RT = myfaces._impl.core._Runtime;
 
-    _RT.extendClass("extras.apache.ToggleButton", extras.apache.ImageButtonLight, {
+    _RT.extendClass("extras.apache.StdInput", extras.apache.ComponentBase, {
                 valueHolder: null,
 
                 constructor_:function(args) {
