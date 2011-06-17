@@ -22,8 +22,27 @@
 
         <composite:attribute name="showMessage" default="true"/>
 
-        <composite:attribute name="inputMask" />
-        <composite:attribute name="validationRegexp" />
+        <!-- validation attributes, an input mask predefines a masked input -->
+
+        <composite:attribute name="inputMask"/>
+        <composite:attribute name="validationRegexp"/>
+
+        <!-- exposed styling infos -->
+        <composite:attribute name="labelClass"/>
+        <composite:attribute name="labelStyle"/>
+
+        <composite:attribute name="infoClass"/>
+        <composite:attribute name="infoStyle"/>
+
+        <composite:attribute name="errorClass"/>
+        <composite:attribute name="errorStyle"/>
+        <composite:attribute name="fatalClass"/>
+        <composite:attribute name="fatalStyle"/>
+
+
+        <composite:attribute name="inputClass"/>
+        <composite:attribute name="inputStyle"/>
+
 
     </composite:interface>
     <composite:implementation>
@@ -32,9 +51,20 @@
         -->
 
         <div id="#{cc.clientId}" class="input">
-            <h:outputLabel id="label" for="input" value="#{cc.attrs.label}"/>
-            <h:inputText id="input" value="#{cc.attrs.value}"></h:inputText>
-            <h:message for="input" id="message" styleClass="message" rendered="#{cc.attrs.showMessage}"/>
+            <h:outputLabel id="label" styleClass="#{cc.attrs.labelClass} label" style="#{cc.attrs.labelStyle}"
+                           for="input" value="#{cc.attrs.label}"/>
+            <h:inputText id="input" styleClass="#{cc.attrs.inputClass} input" style="#{cc.attrs.inputStyle}"
+                         value="#{cc.attrs.value}"></h:inputText>
+            <h:message for="input" id="message" styleClass="‘message"
+                       infoClass="#{cc.attrs.infoClass} infoClass"
+                       errorClass="#{cc.attrs.errorClass} errorClass"
+                       fatalClass="#{cc.attrs.fatalClass} fatalClass"
+
+                       infoStyle="#{cc.attrs.infoStyle}"
+                       erorStyle="#{cc.attrs.errorStyle}"
+                       fatalStyle="#{cc.attrs.fatalStyle}"
+
+                       rendered="#{cc.attrs.showMessage}"/>
             <script type="text/javascript">
                 var #{cc.javascriptVar} =
                 new extras.apache.AjaxStatus({
@@ -42,7 +72,7 @@
                             id:"#{cc.clientId}:#{cc.attrs.id}",
                             javascriptVar:"#{cc.javascriptVar}"
                         });
-           </script>
+            </script>
 
         </div>
 
