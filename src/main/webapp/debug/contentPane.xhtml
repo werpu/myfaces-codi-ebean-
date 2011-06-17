@@ -25,35 +25,48 @@
 
 <ui:composition template="../templates/template.xhtml">
 
-<ui:define name="header">
+    <ui:define name="header">
 
-    <title>Person List view</title>
-    <f:metadata>
-        <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
-    </f:metadata>
+        <title>Person List view</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
+        </f:metadata>
 
-    <!-- we have to force an import because we rely on single files in the impl -->
-    <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
+        <!-- we have to force an import because we rely on single files in the impl -->
+        <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
         --></script>
 
 
-</ui:define>
+    </ui:define>
 
-<ui:define name="search">
-
-
-</ui:define>
+    <ui:define name="search">
 
 
-<ui:define name="content">
-
-<ul class="sf-menu navigation-bluetabs" id="navi"><li id="my_home" class="nosub first active top"><span>Home</span></li><li class="top"><span>Investment Banking</span><ul><li class="first"><a href="http://csintra.net/ib">Investment Banking Overview</a></li><li><a href="http://csintra.net/equities/en/index.html">Equities</a></li><li><a href="http://csintra.net/fid/en/index.html">Fixed Income</a></li><li><a href="http://csintra.net/investmentbanking/en/">Investment Banking</a></li><li><a href="#">IB Support</a><ul class="navigation-submenu subsub"><li class="first"><a href="http://csintra.net/cfo_ib/en/index.html">IB Finance</a></li><li><a href="http://csintra.net/ib/operations/en/index.html">IB Operations</a></li><li><a href="http://csintra.net/cfo/ib/en/teams_am.html">IB Project Services</a></li><li class="last"><a href="http://csintra.net/cfo/ib/en/teams_strategy.html">IB Strategy</a></li></ul></li><li class="last"><a href="http://csintra.net/weekly_wins/en/index.html">Weekly Wins</a></li></ul></li><li class="top"><span>Private Banking</span><ul><li class="first"><a href="http://csintra.net/pb/de">Private Banking Overview</a></li><li><a href="#">Switzerland</a><ul class="navigation-submenu subsub"><li class="first"><a href="http://csintra.net/switzerland/en/index.html">Private &#38; Business Banking Switzerland</a></li><li><a href="http://csintra.net/pbs/en/index.html">Private Banking</a></li><li><a href="http://csintra.net/ccs/en/index.html">Corporate &amp; Institutional Clients</a></li><li><a href="http://csintra.net/pcs/en/index.html">Private Clients</a></li><li><a href="http://csintra.net/switzerland/en/securities_trading_and_sales.html">Securities Trading &#38; Sales</a></li><li><a href="http://csintra.net/pbb_support/en/">COO Region Switzerland</a></li><li><a href="http://csintra.net/cro/crm/en/index.html">Credit Risk Management</a></li><li class="last"><a href="http://isp.csintra.net/research/">Economic Research </a></li></ul></li><li><a href="http://csintra.net/pbeurope/">Europe, Middle East and Africa</a></li><li><a href="http://csintra.net/pbasia/en/">Asia Pacific</a></li><li><a href="http://csintra.net/pbamericas/">Americas</a></li><li><a href="http://csintra.net/pb_isp/de">Investment Services &amp; Products</a></li><li><a href="http://csintra.net/pb_coo/de">COO</a></li><li><a href="http://csintra.net/opscustomerinformation/de/index.html">Operations</a></li><li class="last"><a href="#">Independent Private Banks</a><ul class="navigation-submenu subsub"><li class="first"><a href="http://clintra.net/">Clariden Leu</a></li><li class="last"><a href="http://das.nabintra.net/">Neue Aargauer Bank</a></li></ul></li></ul></li><li class="top"><span>Asset Management</span><ul><li class="first"><a href="http://csintra.net/am">Asset Management Overview</a></li><li><a href="http://csintra.net/am_americas">Americas</a></li><li><a href="#">EMEA</a><ul class="navigation-submenu subsub"><li class="first"><a href="http://csintra.net/am_emea">EMEA Overview</a></li><li><a href="http://csintra.net/am_uk">United Kingdom</a></li><li><a href="http://csintra.net/am_germany">Germany</a></li><li class="last"><a
-                        href="http://ln-sharepoint.csintra.net/shs/csitalia/default.aspx">Italy</a></li></ul></li><li><a href="http://csintra.net/am_switzerland">Switzerland</a></li><li><a href="http://csintra.net/acd">Alternative Investments</a></li><li class="last"><a href="http://csintra.net/am/en/products/index.html">Products</a></li></ul></li><li class="top"><span>Shared Services</span><ul><li class="first"><a href="http://csintra.net/sharedservices">Shared Services Overview</a></li><li><a href="#">CFO Division</a><ul class="navigation-submenu subsub"><li class="first"><a href="http://csintra.net/finance">CFO Division Overview</a></li><li><a href="http://csintra.net/corp_development">Corporate Development</a></li><li><a href="http://csintra.net/cfo_strategic_process_change/en/index.html">CFO Change</a></li><li><a href="http://csintra.net/corporate_realestate/en/index.html">Corporate Real Estate and Services</a></li><li><a href="http://csintra.net/cfo/expense_management/en/index.html">Expense Management</a></li><li><a href="http://csintra.net/financial_accounting/en/index.html">Financial Accounting</a></li><li><a href="http://csintra.net/cfo_groupinsurance/en/index.html">Group Insurance</a></li><li><a href="http://csintra.net/controlling/en/index.html">Group FP&#38;A</a></li><li><a href="https://www.credit-suisse.com/investors/de/">Investor Relations</a></li><li><a href="http://csintra.net/cfo_newbusiness/en/index.html">New Business</a></li><li><a href="http://csintra.net/coo_qualityandefficiency/en/index.html">Operational Excellence</a></li><li><a href="http://csintra.net/productcontrol/en/index.html">Product Control</a></li><li><a href="http://csintra.net/finance/en/shared_services_finance/monthly_reporting_cfo_cro.html">Shared Services Finance</a></li><li><a href="http://csintra.net/supplymanagement/de">Supply Management</a></li><li><a href="http://csintra.net/tax/en/index.html">Tax</a></li><li><a href="http://csintra.net/treasury/en/index.html">Treasury</a></li><li><a href="http://csintra.net/finance/en/quality_v2.html">Quality in Finance</a></li><li class="last"><a
-                        href="http://csintra.net/finance/en/engaging_difference.html">Engaging Difference</a></li></ul></li><li><a class="sf-with-ul" href="#">General Counsel</a><ul class="navigation-submenu subsub"><li class="first"><a href="http://csintra.net/generalcounsel/en/index.html">Overview</a></li><li class="last"><a
-                        href="http://csintra.net/generalcounsel/en/mycompliance/index.html">MyCompliance</a></li></ul></li><li><a href="http://csintra.net/risk">Risk Division</a></li><li><a href="http://csintra.net/it">IT Division</a></li><li><a href="#">Talent Branding &amp; Communications</a><ul class="navigation-submenu subsub"><li class="first"><a href="http://csintra.net/tbc/en/index.html">Overview</a></li><li><a href="http://csintra.net/branding/en/index.html">Branding</a></li><li><a href="http://csintra.net/communications/en/index.html">Corporate Communications</a></li><li><a href="https://myhr.csintra.net/">Human Resources</a></li></ul></li><li class="last"><a href="http://csintra.net/publicpolicy">Public Policy</a></li></ul></li><li class="top"><span>Regions</span><ul><li class="first"><a href="http://csintra.net/regions">Regions Overview</a></li><li><a href="http://csintra.net/americas">Americas</a></li><li><a href="http://csintra.net/asia">Asia Pacific</a></li><li><a href="http://csintra.net/emea">EMEA</a></li><li><a href="http://csintra.net/switzerland/de">Switzerland</a></li><li class="last"><a href="http://csintra.net/emerging_markets/en/index.html">Emerging Markets</a></li></ul></li><li class="top"><span>One Bank Collaboration</span><ul><li class="first"><a href="http://csintra.net/onebankwins/en/index.html">Collaboration Overview</a></li><li><a href="http://csintra.net/onebankwins/en/sgc.html">Single Global Currency</a></li><li><a href="http://csintra.net/onebankwins/en/features.html">Features</a></li><li><a href="http://csintra.net/onebankwins/en/obw.html">Wins</a></li><li><a href="http://csintra.net/onebankwins/en/kam_overview.html">Key Account Management</a></li><li class="last"><a href="http://csintra.net/emerging_markets/en/index.html">Emerging Markets</a></li></ul></li><li class="top"><span>About Us</span><ul><li class="first"><a href="http://csintra.net/about/en/index.html">About Credit Suisse</a></li><li><a href="http://csintra.net/about/en/index_ceo.html">CEO Page</a></li><li><a href="http://csintra.net/communications/en/profile.html">A brief presentation</a></li><li><a href="https://www.credit-suisse.com/governance/en">Corporate Governance</a></li><li><a href="http://csintra.net/about/en/bod.html">BoD Communications</a></li><li><a href="http://csintra.net/corporate_citizenship/en/employer.html">Human Capital</a></li><li><a href="http://csintra.net/corporate_citizenship/en/index.html">Corporate Responsibility</a></li><li><a href="https://www.credit-suisse.com/who_we_are/en/history_overview.jsp">Our History</a></li><li><a href="http://csintra.net/branding/en/index.html">Our Brand</a></li><li><a href="http://csintra.net/sponsorship/en/index.html">Sponsorship</a></li><li><a href="http://emagazine.credit-suisse.com/app/home/index.cfm?fuseaction=OpenHome〈=EN">In Focus</a></li><li><a href="http://emagazine.credit-suisse.com/app/shop/index.cfm?fuseaction=OpenShop coid=127171〈=EN">Key Publications</a></li><li class="last"><a href="http://csintra.net/view_point_archive/en/index.html">View Point Video Archive</a></li></ul></li></ul>
+    </ui:define>
 
 
-</ui:define>
+    <ui:define name="content">
+
+
+        <h:form id="mainForm" prependId="false">
+
+            <ezw:ajaxStatus id="pull">
+                Ajax in progress
+            </ezw:ajaxStatus>
+            <!-- support functions for the animated toggle -->
+            <ezw:contentPane id="accordion1" externalContentUrl="./helloworld.jsf" evalExternalContent="true">
+                <f:facet name="head">orf content</f:facet>
+            </ezw:contentPane>
+
+            <h:inputText id="blabla"/>
+
+            <h:commandLink action="#{toggleClass.doSubmit}" value="Press me"/>
+            <h:commandLink action="toggle" value="Press me 2"/>
+
+        </h:form>
+
+
+    </ui:define>
 </ui:composition>
 
 
