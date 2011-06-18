@@ -8,7 +8,7 @@
     <composite:interface componentType="at.irian.StandardJavascriptComponent">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="javascriptVar"/>
-        <composite:attribute name="javascriptClass" default="extras.apache.Input"/>
+        <composite:attribute name="javascriptClass" default="extras.apache.StdInput"/>
         <composite:attribute name="styleClass"/>
         <composite:attribute name="style"/>
 
@@ -46,14 +46,14 @@
 
     </composite:interface>
     <composite:implementation>
-        <!--
-        <h:outputScript library="script" name="input/input.js"/>
-        -->
+
+        <h:outputScript library="script" name="input/StdInput.js"/>
+
 
         <div id="#{cc.clientId}" class="input">
             <h:outputLabel id="label" styleClass="#{cc.attrs.labelClass} label" style="#{cc.attrs.labelStyle}"
                            for="input" value="#{cc.attrs.label}"/>
-            <h:inputText id="input" styleClass="#{cc.attrs.inputClass} input" style="#{cc.attrs.inputStyle}"
+            <h:inputText id="input" styleClass="#{cc.attrs.inputClass} input valueHolder" style="#{cc.attrs.inputStyle}"
                          value="#{cc.attrs.value}"></h:inputText>
             <h:message for="input" id="message" styleClass="‘message"
                        infoClass="#{cc.attrs.infoClass} infoClass"
@@ -67,9 +67,9 @@
                        rendered="#{cc.attrs.showMessage}"/>
             <script type="text/javascript">
                 var #{cc.javascriptVar} =
-                new extras.apache.AjaxStatus({
-                            clientId:"#{cc.clientId}",
-                            id:"#{cc.clientId}:#{cc.attrs.id}",
+                new #{cc.attrs.javascriptClass}({
+                            id:"#{cc.clientId}",
+                            ajaxRequest:#{cc.ajaxState.toString()},
                             javascriptVar:"#{cc.javascriptVar}",
                             inputMask:"#{cc.attrs.inputMask}",
                             validationRegexp:"#{cc.attrs.validationRegexp}"

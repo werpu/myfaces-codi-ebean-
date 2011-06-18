@@ -152,6 +152,12 @@
                         this.addOnLoad(window, _Lang.hitch(this, this.postInit_));
 
                     }
+
+                    this._initProperties();
+                },
+
+                _initProperties: function() {
+
                 },
 
                 //TODO apply ecmascript 2

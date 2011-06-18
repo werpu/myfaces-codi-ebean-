@@ -18,16 +18,36 @@
                     this._renderToggle(!!this.valueHolder.toDomNode().checked);
                 },
 
+
+                _initProperties: function() {
+                    this._callSuper("_initProperties", arguments);
+
+                    this.__defineGetter__("checked", function() {
+                        return this.valueHolder.toDomNode().checked;
+                    });
+
+                    this.__defineSetter__("checked", function(val) {
+                        this.valueHolder.toDomNode().checked = !!val;
+                    });
+                    this.__defineGetter__("value", function() {
+                        return this.valueHolder.toDomNode().value;
+                    });
+                    this.__defineSetter__("value", function(val) {
+                        this.valueHolder.toDomNode().value = val;
+                    });
+                },
+
                 _onMouseDown: function(evt) {
                     this._renderToggle(!this.valueHolder.toDomNode().checked);
                 },
+
                 _renderToggle: function(toggle) {
                   if (toggle) {
                         this._imageCommand.addClass("clicked");
-                        this.valueHolder.toDomNode().checked = true;
+                        this.checked = true;
                     } else {
                         this._imageCommand.removeClass("clicked");
-                        this.valueHolder.toDomNode().checked = false;
+                        this.checked = false;
                     }
                 },
 

@@ -27,10 +27,12 @@
     /**
      * a pull component which pulls
      * a certain area periodically
+     *
+     * we can use an ll parser here
      */
     var _RT = myfaces._impl.core._Runtime;
 
-    _RT.extendClass("extras.apache.ImageButton", extras.apache.ComponentBase, {
+    _RT.extendClass("extras.apache._InputMask", extras.apache.ComponentBase, {
 
                 _LANG: myfaces._impl._util._Lang,
 
@@ -39,34 +41,60 @@
                      0 Digit (0 through 9, entry required; plus [+]
                      and minus [-] signs not allowed).
                      */
-                    "0":"DigitZeroNone",
+                    "0": {
+                        val: "DigitZeroNone",
+                        fixed: true
+
+                    },
                     /*
                      9   Digit or space
                      (entry not required;
                      plus and minus signs not allowed).
                      */
-                    "9":"DigitSpace",
+                    "9":{
+                        val: "DigitSpace",
+                        fixed: true
+                    },
                     /*
                      #     Digit or space (entry not required; blank positions converted to spaces, plus and minus signs allowed).
+                     note + and - is not allowed here for now
 
                      */
-                    "#":"DigitSpacePlusAllowed",
+                    "#":{
+                        val:"DigitSpacePlusAllowed",
+                        fixed: true
+                    },
                     /*
                      L     Letter (A through Z, entry required).
                      */
-                    "L":"AZ_EntryReq",
+                    "L":{
+                        val:"AZ_EntryReq",
+                        fixed: true
+                    },
                     /*
                      L      Letter (A through Z, entry optional
                      */
-                    "?":"AZ_EntryOptional",
+                    "?":{
+                        val:"AZ_EntryOptional",
+                        fixed: false
+                    },
                     /*
                      A      Letter or digit (entry required)
                      */
-                    "A":"LetterOrDigitEntryReq",
+                    "A":{
+                        val: "LetterOrDigitEntryReq",
+                        fixed: true
+                    },
 
 
-                    "\\":"Escaped",
-                    null: "ANY"
+                    "\\":{
+                        val:"Escaped",
+                        fixed: true
+                    },
+                    null:{
+                        val:"ANY",
+                        fixed: true
+                    }
 
 
                 },
@@ -76,8 +104,8 @@
                 /*syntax tree a tree of tokens after the parsing has been done*/
                 _syntaxTree: null,
 
-                constructor_: function(inputMask) {
-                    this._tokenize(inputMask);
+                constructor_:  function(inputMask) {
+                    this._createMatchTree(inputMask);
                 },
 
                 /**
@@ -86,77 +114,112 @@
                  * the semantics are simply a match or not match
                  * for a given character
                  */
-                _tokenize: function(inputMask) {
+                _createMatchTree: function(inputMask) {
                     var parseArray = this._Lang.strToArray(inputMask, /\*/);
                     var pos = 0;
                     this.syntaxTree = [];
-                    this._Lang.arrForEach(parseArray, this._Lang.hitch(this, function(item) {
+                    for (var cnt = 0; cnt < parseArray.length; cnt++) {
+                        var nextAny = false;
+                        var item = parseArray[cnt].val;
                         var token = this._tokens[item];
-                        if (!item) {
-                            throw new Error("Invalid token at position:" + pos + " in string:" + inputMask);
+                        if (nextAny || !token) {
+                            nextAny = false;
+                            this.syntaxTree.push({
+                                        tokenType: "ANY",
+                                        value: item
+                                    });
+                        } else if (token == "ESCAPED") {
+                            nextAny = true;
+                        } else {
+                            this.syntaxTree.push({
+                                        tokenType: token,
+                                        value: item
+                                    });
                         }
-                        this.syntaxTree.push({
-                                    tokenType: token,
-                                    value: item
-                                });
-                        pos++;
-                    }));
-                },
+
+                    }
+                }
+                ,
 
                 resetParse: function() {
                     this._syntaxPos = 0;
-                },
+                }
+                ,
 
                 parse: function(incomingItem, syntaxPos) {
                     this._syntaxPos = syntaxPos;
-                },
+                }
+                ,
+
+                _matches: function(incomingItem) {
+                    try {
+                        if (incomingItem == "_") {
+                            return true;
+                        }
+                        //end reached
+                        if (this.syntaxTree.length >= this._syntaxPos) return true;
+                        /*var currentToken = this.syntaxTree[this._syntaxPos];
+                        if(!currentToken.fixed) {
+                            //optional handling
+                            //var res = this["semantic" + currentToken.tokenType](incomingItem, false);
+                            //if(!res) {
+                            //    this._syntaxPos++;
+                                //case a optional fails next element must match
+                            //    return this._matches(incomingItem);
+                            //}
+                            var lookAheadPos = this._syntaxPos + 1;
+                            while(!this.syntaxTree[lookAheadPos])  lookAheadPos++;
+                            var lookAhead = lookAheadPos;
+
+                            //case optional matches and subsequent non optional fails optional is the one
+                            //case optional matches and subsequent non optoonal matches then optional is set
+                            //cas optional matches and subsequent also optional matches rins repeat for the next one
+
+                        }*/
 
 
-                parse: function(incomingItem) {
-                    //end reached
-                    if (this.syntaxTree.length >= this._syntaxPos) return;
 
-                    var currentToken = this.syntaxTree[this._syntaxPos];
+                        return   this["semantic" + currentToken.tokenType](incomingItem, false);
 
-                    switch (currentToken.tokenType) {
-                        case  "Escaped":
-                            this._syntaxPos++;
-
-                            currentToken = this._syntaxTree[this._syntaxPos];
-                            this.semanticEscape(currentToken.value);
-                            break;
-
-                        //optional handlers here which check for optional and then move forward
-                        default:
-                            this["semantic" + currentToken.tokenType](incomingItem, false);
-
+                    } finally {
+                        this._syntaxPos++;
                     }
-                },
+                }
+                ,
 
 
                 //semantic connection can and must be overloaded
                 //by specialized functions which check
-                semanticEscape: function(token, element) {
-
-                },
+                //semanticEscape: function(token, element) {
+                //cannot happen due to the tokenizer prefiltering escape
+                //},
+                semanticAny: function(token, element) {
+                    return true;
+                }
+                ,
                 semanticDigitZeroNone: function(token, element) {
-
-                },
+                    return element.match(/0-9/g);
+                }
+                ,
                 semanticDigitSpace: function(token, element) {
-
-                },
+                    return element.match(/[0-9\s]/g);
+                }
+                ,
                 semanticDigitSpacePlusAllowed: function(token, element) {
-
-                },
+                    throw Error("not yet supported");
+                }
+                ,
                 semanticAZ_EntryReq: function(token, element) {
-
-                },
+                    return element.match(/[A-Z]/g);
+                }
+                ,
                 semanticAZ_EntryOptional: function(token, element) {
-
-                },
+                    throw Error("Not supported yet");
+                }
+                ,
                 semanticLetterOrDigitEntryReq: function(token, element) {
-
+                    return element.match(/[A-Z0-9]/g)
                 }
 
-            })
-})()
+            });
+})();
