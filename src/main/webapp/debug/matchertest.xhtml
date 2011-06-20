@@ -46,6 +46,12 @@
                 var matches = inputMask.match("898");
                 console.info("matches", matches);
             }
+
+            function getSelection() {
+                console.info("Pattern value:", pattern.selectedText);
+                console.info("Value value: ", value.selectedText);
+
+            }
         </script>
 
 
@@ -53,6 +59,8 @@
             <ezw:input value="#{patternMatcher.pattern}" label="Pattern" id="pattern" javascriptVar="pattern"/>
             <ezw:input value="#{patternMatcher.value}" label="Value" id="val" javascriptVar="value"/>
             <ezw:imageButtonLight id="submit" label="Match" styleClass="accept" onClick="submitIt(); return false;"/>
+            <ezw:imageButtonLight id="match" label="get selection" styleClass="accept" onClick="getSelection(); return false;"/>
+
         </h:form>
 
     </ui:define>

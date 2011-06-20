@@ -41,6 +41,7 @@
                                 toggle.ajaxPostback = this.ajaxPostback;
                             }
                         }));
+
                     }
                     this._resetOpenState();
                     /**

@@ -13,7 +13,6 @@
         <composite:attribute name="style"/>
 
         <composite:attribute name="label"/>
-        <composite:attribute name="value"/>
 
         <composite:attribute name="value" required="true"/>
 
@@ -42,10 +41,18 @@
 
         <composite:attribute name="inputClass"/>
         <composite:attribute name="inputStyle"/>
-
+        <composite:attribute name="form"/>
 
     </composite:interface>
     <composite:implementation>
+
+        <h:outputScript library="script" name="_behaviors/_Behavior.js"/>
+        <h:outputScript library="script" name="_behaviors/_Selectable.js"/>
+        <h:outputScript library="script" name="_behaviors/_ValueHolder.js"/>
+        <h:outputScript library="script" name="_behaviors/_RegexpValidating.js"/>
+        <h:outputScript library="script" name="_behaviors/_MaskValidating.js"/>
+        <h:outputScript library="script" name="_behaviors/_RegexpMatcher.js"/>
+        <h:outputScript library="script" name="_behaviors/_MaskMatcher.js"/>
 
         <h:outputScript library="script" name="input/StdInput.js"/>
 
@@ -68,12 +75,13 @@
             <script type="text/javascript">
                 var #{cc.javascriptVar} =
                 new #{cc.attrs.javascriptClass}({
-                            id:"#{cc.clientId}",
-                            ajaxRequest:#{cc.ajaxState.toString()},
-                            javascriptVar:"#{cc.javascriptVar}",
-                            inputMask:"#{cc.attrs.inputMask}",
-                            validationRegexp:"#{cc.attrs.validationRegexp}"
-                        });
+                    id:"#{cc.clientId}",
+                    ajaxRequest:#{cc.ajaxState.toString()},
+                    javascriptVar:"#{cc.javascriptVar}",
+                    inputMask:"#{cc.attrs.inputMask}",
+                    validationRegexp:"#{cc.attrs.validationRegexp}",
+                    form:"#{cc.attrs.form}"
+                });
             </script>
 
         </div>
