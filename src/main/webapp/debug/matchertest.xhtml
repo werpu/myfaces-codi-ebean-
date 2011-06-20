@@ -33,23 +33,26 @@
     <ui:define name="search">
 
 
-
     </ui:define>
 
 
     <ui:define name="content">
+         <h:outputScript library="script" name="input/_InputMask.js"/>
         <script type="text/javascript">
-           function submitIt() {
-               console.debug("Pattern value:", pattern.value);
-               console.debug("Value value: ", value.value);
-           }
+            function submitIt() {
+                console.info("Pattern value:", pattern.value);
+                console.info("Value value: ", value.value);
+                var inputMask = new extras.apache._InputMask("000");
+                var matches = inputMask.parse("89A");
+                console.info("matches", matches);
+            }
         </script>
 
 
         <h:form id="testform" prependId="false">
-            <ezw:input value="#{patternMatcher.pattern}" label="Pattern" id="pattern" javascriptVar="pattern" />
+            <ezw:input value="#{patternMatcher.pattern}" label="Pattern" id="pattern" javascriptVar="pattern"/>
             <ezw:input value="#{patternMatcher.value}" label="Value" id="val" javascriptVar="value"/>
-            <ezw:imageButtonLight id="submit" label="Match" styleClass="accept" onClick="submitIt(); return false;" />
+            <ezw:imageButtonLight id="submit" label="Match" styleClass="accept" onClick="submitIt(); return false;"/>
         </h:form>
 
     </ui:define>

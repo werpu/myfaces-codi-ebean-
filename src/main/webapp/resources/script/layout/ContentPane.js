@@ -38,21 +38,19 @@
                 },
 
                 refreshContent: function(contentUrl) {
-                    var xhr = _RT.getXHRObject();
+                    var xhr = new XMLHttpRequest();
+
                     //now we assume for secure we have an xhr level2 object
+                    //we now only support the official w3c specs since firefox
+                    //and chrome have caught up and probably opera as well
+                    xhr.onloadend = this._Lang.hitch(this, function(data) {
+                        var htmlStripper = new myfaces._impl._util._HtmlStripper();
+                        var bodyData = htmlStripper.parse(data.currentTarget.responseText, "body")
 
-                    if ('undefined' == typeof xhr.onloadend) {
-                        xhr.onload = this._Lang.hitch(this, function(data) {
-                            var htmlStripper = new myfaces._impl._util._HtmlStripper();
-                            var bodyData = htmlStripper.parse(data.currentTarget.responseText, "body")
+                        this._externalContentTarget.innerHTML(bodyData, this._evalExternalContent);
 
-                            this._externalContentTarget.innerHTML(bodyData, this._evalExternalContent);
-                        });
-                    } else {
-                        xhr.onloadend = this._Lang.hitch(this, function(data) {
-                            this._contentNode.innerHTML(data.currentTarget.responseText);
-                        });
-                    }
+                    });
+
                     xhr.onerror = this._Lang.hitch(this, function(data) {
                         throw Error("Communications error");
                     });

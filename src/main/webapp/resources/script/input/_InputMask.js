@@ -115,12 +115,12 @@
                  * for a given character
                  */
                 _createMatchTree: function(inputMask) {
-                    var parseArray = this._Lang.strToArray(inputMask, /\*/);
+                    var parseArray = inputMask.split("");
                     var pos = 0;
                     this.syntaxTree = [];
                     for (var cnt = 0; cnt < parseArray.length; cnt++) {
                         var nextAny = false;
-                        var item = parseArray[cnt].val;
+                        var item = parseArray[cnt];
                         var token = this._tokens[item];
                         if (nextAny || !token) {
                             nextAny = false;
@@ -128,7 +128,7 @@
                                         tokenType: "ANY",
                                         value: item
                                     });
-                        } else if (token == "ESCAPED") {
+                        } else if (token.val == "ESCAPED") {
                             nextAny = true;
                         } else {
                             this.syntaxTree.push({
@@ -138,28 +138,27 @@
                         }
 
                     }
-                }
-                ,
-
-                resetParse: function() {
-                    this._syntaxPos = 0;
-                }
-                ,
+                },
 
                 parse: function(incomingItem, syntaxPos) {
-                    this._syntaxPos = syntaxPos;
-                }
-                ,
+                    syntaxPos = syntaxPos || 0;
+                    incomingItem = incomingItem.split("");
 
-                _matches: function(incomingItem) {
+                    for(var cnt = syntaxPos; cnt < this.syntaxTree.length; cnt++ ) {
+                        if(!this._matches(incomingItem, cnt)) return false;
+                    }
+                    return true;
+                },
+
+                _matches: function(incomingItem, syntaxPos) {
                     try {
                         if (incomingItem == "_") {
                             return true;
                         }
                         //end reached
-                        if (this.syntaxTree.length >= this._syntaxPos) return true;
-                        /*var currentToken = this.syntaxTree[this._syntaxPos];
-                        if(!currentToken.fixed) {
+                        if (this.syntaxTree.length >= syntaxPos) return true;
+                        var currentToken = this.syntaxTree[this._syntaxPos];
+                        /*if(!currentToken.fixed) {
                             //optional handling
                             //var res = this["semantic" + currentToken.tokenType](incomingItem, false);
                             //if(!res) {
@@ -179,7 +178,7 @@
 
 
 
-                        return   this["semantic" + currentToken.tokenType](incomingItem, false);
+                        return this["semantic" + currentToken.val](incomingItem[syntaxPos], false);
 
                     } finally {
                         this._syntaxPos++;
