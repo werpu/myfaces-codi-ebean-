@@ -6,13 +6,20 @@
     var _RT = myfaces._impl.core._Runtime;
 
     _RT.extendClass("extras.apache.StdInput", extras.apache.ComponentBase, {
+                _LANG: myfaces._impl._util._Lang,
+
                 valueHolder: null,
                 _validationMask: null,
                 _validationRegExp: null,
 
+
+
                 constructor_:function(args) {
                     this._callSuper("constructor", args);
 
+                    this.onKeyDown = this._LANG.hitch(this, this.onKeyDown);
+                    this.onKeyUp = this._LANG.hitch(this, this.onKeyUp);
+                    this.onKeyUp = this._LANG.hitch(this, this.onkeyPress);
                 },
 
                 _postInit: function() {
@@ -28,8 +35,18 @@
                     } else {
                         new extras.apache._RegexpMatcher(this);
                     }
+
+                    new extras.apache._KeyboardAware(this);
+                },
+
+                onkeyPress: function(evt) {
+
+                },
+                onkeyUp: function(evt) {
+
+                },
+                onKeyDown: function(evt) {
+
                 }
-
-
             })
 })();
