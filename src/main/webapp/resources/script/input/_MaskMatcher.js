@@ -32,7 +32,7 @@
      */
     var _RT = myfaces._impl.core._Runtime;
 
-    _RT.extendClass("extras.apache._InputMask", extras.apache.ComponentBase, {
+    _RT.extendClass("extras.apache._MaskMatcher", Object, {
 
                 _LANG: myfaces._impl._util._Lang,
 
@@ -104,8 +104,37 @@
                 /*syntax tree a tree of tokens after the parsing has been done*/
                 _syntaxTree: null,
 
+                _matchRegexp: null,
+
+                _controlInputMask: null,
+
                 constructor_:  function(inputMask) {
                     this._createMatchTree(inputMask);
+                    var reexpr = this._compile();
+                    this._matchRegexp = new RegExp(reexpr);
+                    var _t = this;
+                    this._generateControlInputMask();
+                    this._initProperties();
+                },
+
+
+                _initProperties: function() {
+                    this.__defineGetter__("controlInputMask", function() {
+                        return _t._controlInputMask;
+                    });
+                },
+
+                match: function(incomingString) {
+                    return !! incomingString.match(this._matchRegexp);
+                },
+
+                _generateControlInputMask: function() {
+                    var res = [];
+                    for (var cnt = 0; cnt < this.syntaxTree.length; cnt++) {
+                        var currentToken = this.syntaxTree[cnt];
+                        res.push(currentToken.tokenType.val == "LITERAL" ? this.syntaxTree.value : "_");
+                    }
+                    this._controlInputMask = res.join("");
                 },
 
                 /**
@@ -122,6 +151,9 @@
                         var nextAny = false;
                         var item = parseArray[cnt];
                         var token = this._tokens[item];
+
+                        token = token || this._tokens["LITERAL"];
+
                         if (nextAny || !token) {
                             nextAny = false;
                             this.syntaxTree.push({
@@ -140,31 +172,27 @@
                     }
                 },
 
-                parse: function(incomingItem, syntaxPos) {
-                    syntaxPos = syntaxPos || 0;
-                    incomingItem = incomingItem.split("");
 
-                    for(var cnt = syntaxPos; cnt < this.syntaxTree.length; cnt++ ) {
-                        if(!this._matches(incomingItem, cnt)) return false;
-                    }
-                    return true;
-                },
-
-                matchExpr: function() {
+                /**
+                 * we now have a mini compiler which compiles
+                 * our input mask format into a regular expression
+                 * so that we can leverage regexps for the pattern matching
+                 * */
+                _compile: function() {
                     var compiledExpr = [];
-                    for(var cnt = 0; cnt < this.syntaxTree.length; cnt++ ) {
+                    for (var cnt = 0; cnt < this.syntaxTree.length; cnt++) {
                         compiledExpr.push(this._exprEntry(this.syntaxTree[cnt]));
                     }
                     return compiledExpr.join("");
                 },
 
                 _exprEntry: function(currentToken) {
-                    return this["_semantic" + currentToken.val]();
+                    return this["_semantic" + currentToken.tokenType.val](currentToken);
                 },
 
                 //TODO semantic any to a letter resolution given (with escapes)
-                _semanticAny: function(token) {
-                    return ".*";
+                _semanticLiteral: function(token) {
+                    return (!token.value.match(/A-Za-z/gi)) ? "\\" + token.value : token.value;
                 },
 
                 _semanticDigitZeroNone: function(token) {
@@ -174,85 +202,16 @@
                     return "[0-1\\s_]";
                 },
                 _semanticDigitSpacePlusAllowed: function() {
-                    return "[\\+\\-]{0,1}"+this._semanticDigitSpace();
+                    return "[\\+\\-]{0,1}" + this._semanticDigitSpace();
                 },
                 _semanticAZ_EntryReq: function() {
                     return "[A-Za-z_]";
                 },
                 semanticAZ_EntryOptional: function() {
-                    return this._semanticAZ_EntryReq()+"{0,1}";
-                },
-
-
-                _matches: function(incomingItem, syntaxPos) {
-                    try {
-                        if (incomingItem == "_") {
-                            return true;
-                        }
-                        //end reached
-                        if (this.syntaxTree.length >= syntaxPos) return true;
-                        var currentToken = this.syntaxTree[this._syntaxPos];
-                        /*if(!currentToken.fixed) {
-                            //optional handling
-                            //var res = this["semantic" + currentToken.tokenType](incomingItem, false);
-                            //if(!res) {
-                            //    this._syntaxPos++;
-                                //case a optional fails next element must match
-                            //    return this._matches(incomingItem);
-                            //}
-                            var lookAheadPos = this._syntaxPos + 1;
-                            while(!this.syntaxTree[lookAheadPos])  lookAheadPos++;
-                            var lookAhead = lookAheadPos;
-
-                            //case optional matches and subsequent non optional fails optional is the one
-                            //case optional matches and subsequent non optoonal matches then optional is set
-                            //cas optional matches and subsequent also optional matches rins repeat for the next one
-
-                        }*/
-
-
-
-                        return this["semantic" + currentToken.val](incomingItem[syntaxPos], false);
-
-                    } finally {
-                        this._syntaxPos++;
-                    }
+                    return this._semanticAZ_EntryReq() + "{0,1}";
                 }
-                ,
+                //TODO add more semantics here
 
-
-                //semantic connection can and must be overloaded
-                //by specialized functions which check
-                //semanticEscape: function(token, element) {
-                //cannot happen due to the tokenizer prefiltering escape
-                //},
-                semanticAny: function(token, element) {
-                    return true;
-                }
-                ,
-                semanticDigitZeroNone: function(token, element) {
-                    return element.match(/0-9/g);
-                }
-                ,
-                semanticDigitSpace: function(token, element) {
-                    return element.match(/[0-9\s]/g);
-                }
-                ,
-                semanticDigitSpacePlusAllowed: function(token, element) {
-                    throw Error("not yet supported");
-                }
-                ,
-                semanticAZ_EntryReq: function(token, element) {
-                    return element.match(/[A-Z]/g);
-                }
-                ,
-                semanticAZ_EntryOptional: function(token, element) {
-                    throw Error("Not supported yet");
-                }
-                ,
-                semanticLetterOrDigitEntryReq: function(token, element) {
-                    return element.match(/[A-Z0-9]/g)
-                }
 
             });
 })();

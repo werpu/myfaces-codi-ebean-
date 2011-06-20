@@ -37,13 +37,13 @@
 
 
     <ui:define name="content">
-         <h:outputScript library="script" name="input/_InputMask.js"/>
+         <h:outputScript library="script" name="input/_MaskMatcher.js"/>
         <script type="text/javascript">
             function submitIt() {
                 console.info("Pattern value:", pattern.value);
                 console.info("Value value: ", value.value);
                 var inputMask = new extras.apache._InputMask("000");
-                var matches = inputMask.parse("89A");
+                var matches = inputMask.match("898");
                 console.info("matches", matches);
             }
         </script>
