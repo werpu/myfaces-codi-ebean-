@@ -92,7 +92,7 @@
                         fixed: true
                     },
                     null:{
-                        val:"ANY",
+                        val:"LITERAL",
                         fixed: true
                     }
 
@@ -125,7 +125,7 @@
                         if (nextAny || !token) {
                             nextAny = false;
                             this.syntaxTree.push({
-                                        tokenType: "ANY",
+                                        tokenType: "LITERAL",
                                         value: item
                                     });
                         } else if (token.val == "ESCAPED") {
@@ -149,6 +149,40 @@
                     }
                     return true;
                 },
+
+                matchExpr: function() {
+                    var compiledExpr = [];
+                    for(var cnt = 0; cnt < this.syntaxTree.length; cnt++ ) {
+                        compiledExpr.push(this._exprEntry(this.syntaxTree[cnt]));
+                    }
+                    return compiledExpr.join("");
+                },
+
+                _exprEntry: function(currentToken) {
+                    return this["_semantic" + currentToken.val]();
+                },
+
+                //TODO semantic any to a letter resolution given (with escapes)
+                _semanticAny: function(token) {
+                    return ".*";
+                },
+
+                _semanticDigitZeroNone: function(token) {
+                    return "[0-9\\_]";
+                },
+                _semanticDigitSpace: function(token) {
+                    return "[0-1\\s_]";
+                },
+                _semanticDigitSpacePlusAllowed: function() {
+                    return "[\\+\\-]{0,1}"+this._semanticDigitSpace();
+                },
+                _semanticAZ_EntryReq: function() {
+                    return "[A-Za-z_]";
+                },
+                semanticAZ_EntryOptional: function() {
+                    return this._semanticAZ_EntryReq()+"{0,1}";
+                },
+
 
                 _matches: function(incomingItem, syntaxPos) {
                     try {

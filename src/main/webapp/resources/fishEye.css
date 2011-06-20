@@ -64,10 +64,13 @@ we use the baseline
 }
 
 .fishEye >*:hover {
-    -moz-zoom: 200%;
+    /*-moz-zoom: 200%;
     -webkit-zoom: 200%;
     -o-zoom: 200%;
     -ms-zoom: 200%;
-    zoom: 200%;
+    zoom: 200%;   */
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+
 }
 
