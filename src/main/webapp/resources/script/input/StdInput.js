@@ -34,6 +34,7 @@
                         new extras.apache._MaskMatcher(this);
                     } else {
                         new extras.apache._RegexpMatcher(this);
+
                     }
 
                     new extras.apache._KeyboardAware(this);

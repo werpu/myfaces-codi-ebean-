@@ -99,6 +99,9 @@
                  * cover the entire huge quirksmode.org section
                  * but concentrate ourselves on the raw codes
                  * only supported by newer browsers
+                 *
+                 * TODO move this part to the keyboard aware behavior
+                 *
                  */
                 KEY_ARROW_UP:   38,
                 KEY_ARROW_DOWN: 40,

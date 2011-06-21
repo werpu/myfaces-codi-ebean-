@@ -37,12 +37,12 @@
                     });
                 },
 
-                _onMouseDown: function(evt) {
+                _onmousedown: function(evt) {
                     this._renderToggle(!this.valueHolder.toDomNode().checked);
                 },
 
                 _renderToggle: function(toggle) {
-                  if (toggle) {
+                    if (toggle) {
                         this._imageCommand.addClass("clicked");
                         this.checked = true;
                     } else {
@@ -51,15 +51,19 @@
                     }
                 },
 
-                _onMouseUp: function(evt) {
+                _onMouseUp_: function(evt) {
                 },
 
-                _onKeyDown: function(evt) {
+                _onkeydown: function(evt) {
 
                     var keyCode = evt.keyCode;
                     if (evt.keyCode == this.KEY_ENTER || evt.keyCode == this.KEY_SPACE) {
-                        this._onMouseDown(evt);
+                        this._onmousedown(evt);
                     }
+                },
+
+                _onkeyup: function(evt) {
+
                 }
             });
 })();

@@ -15,32 +15,36 @@
 
         <composite:attribute name="label"/>
 
-        <composite:attribute name="action" targets="imageCommand"   method-signature="java.lang.String f()"/>
+        <composite:attribute name="action" targets="imageCommand" method-signature="java.lang.String f()"/>
 
-        <composite:actionSource name="imageCommand" />
+        <composite:actionSource name="imageCommand"/>
 
         <composite:attribute name="tabIndex" default="0"/>
 
         <composite:attribute name="styleClass"/>
         <composite:attribute name="style"/>
 
-        <composite:attribute name="rendered" default="true" />
+        <composite:attribute name="rendered" default="true"/>
 
         <composite:clientBehavior name="click" targets="imageCommand" event="action"/>
 
 
     </composite:interface>
     <composite:implementation>
+        <h:outputScript library="script" name="_behaviors/_Behavior.js"/>
+        <h:outputScript library="script" name="_behaviors/_KeyboardAware.js"/>
+        <h:outputScript library="script" name="_behaviors/_MouseAware.js"/>
+        <h:outputScript library="script" name="_behaviors/_Focusable.js"/>
 
 
         <h:outputScript library="script" name="input/ImageButtonLight.js"/>
 
 
-        <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} imageButtonLight"  tabindex="#{cc.attrs.tabIndex}">
+        <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} imageButtonLight" tabindex="#{cc.attrs.tabIndex}">
             <h:commandLink onclick="#{cc.attrs.onClick}" id="imageCommand" action="#{cc.attrs.action}"
                            class="imageCommand #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
-                           rendered="#{cc.attrs.rendered}" >
-                <h:outputFormat value="#{cc.attrs.label}" styleClass="label" />
+                           rendered="#{cc.attrs.rendered}">
+                <h:outputFormat value="#{cc.attrs.label}" styleClass="label"/>
                 <composite:insertChildren></composite:insertChildren>
             </h:commandLink>
         </div>
