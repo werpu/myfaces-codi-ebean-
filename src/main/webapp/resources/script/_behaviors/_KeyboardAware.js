@@ -15,14 +15,8 @@
 
 
 
-                constructor_: function(scope, eventTarget) {
-                    eventTarget = eventTarget || scope.rootNode;
-                    scope._tmpEventTarget = eventTarget;
-                    try {
-                        this._callSuper("constructor_", scope);
-                    } finally {
-                        scope._tmpEventTarget = null;
-                    }
+                constructor_: function(scope, eventTarget, eventOverrides) {
+                    this._callSuper("constructor_", scope, eventTarget, eventOverrides);
                 },
                 defineBehavior: function() {
                     var events = ["keydown","keyup","keypress"];

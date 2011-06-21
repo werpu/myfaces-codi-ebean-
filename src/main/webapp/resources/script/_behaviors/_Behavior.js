@@ -11,10 +11,17 @@
 
     _RT.extendClass("extras.apache._Behavior", Object, {
 
-                constructor_: function(scope) {
-                    myfaces._impl._util._Lang.hitch(scope, this.defineBehavior)();
+                constructor_: function(scope, eventTarget, eventOverrides) {
+                    eventTarget = eventTarget || scope.rootNode;
+                    eventOverrides = eventOverrides || {};
+                    scope._tmpEventTarget = eventTarget;
+                    scope._tmpEventOverrides = eventOverrides;
+                    try {
+                        myfaces._impl._util._Lang.hitch(scope, this.defineBehavior)();
+                    } finally {
+                        scope._tmpEventTarget = null;
+                        scope._tmpEventOverrides = null;
+                    }
                 }
-                //abstract method without callsuper defineBehavior
-
             })
 })();
