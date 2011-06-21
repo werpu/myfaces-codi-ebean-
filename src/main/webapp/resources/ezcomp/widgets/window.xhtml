@@ -29,6 +29,11 @@
 
     </composite:interface>
     <composite:implementation>
+        <h:outputScript library="script" name="_behaviors/_Behavior.js"/>
+        <h:outputScript library="script" name="_behaviors/_Movable.js"/>
+        <h:outputScript library="script" name="_behaviors/_Resizable.js"/>
+        <h:outputScript library="script" name="_behaviors/_Focusable.js"/>
+
 
         <h:outputScript library="script" name="layout/Underlay.js"/>
         <h:outputScript library="script" name="layout/Window.js"/>
@@ -36,7 +41,7 @@
         <div id="#{cc.clientId}">
             <h:panelGroup layout="block" id="#{cc.attrs.id}" styleClass="#{cc.attrs.styleClass} window forgeround"
                           style="#{cc.attrs.style}">
-                <div class="header">
+                <div class="header moveHandler">
                     <div class="windowTitle">
                         <composite:renderFacet name="title"/>
                     </div>

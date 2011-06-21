@@ -14,7 +14,7 @@
                 defineBehavior: function() {
                     var event = "focus";
                     (this["_onfocus"]) ? this._tmpEventTarget.addEventListener(event, this["_on" + (this._tmpEventOverrides[event] || event)], false) : null;
-                    (this["onfocus"]) ? this._tmpEventTarget.addEventListener(event, this["_on" + (this._tmpEventOverrides[event] || event)], false) : null;
+                    (this["onfocus"]) ? this._tmpEventTarget.addEventListener(event, this["on" + (this._tmpEventOverrides[event] || event)], false) : null;
                 }
             })
 })();

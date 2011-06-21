@@ -26,7 +26,7 @@
                 _minimizer: null,
                 _maximizer: null,
                 _title: null,
-                _resize: null,
+                _resizeHandler: null,
 
                 /*underlay is dynamically generated*/
                 _underlay: null,
@@ -47,15 +47,9 @@
 
                 constructor_: function(args) {
                     this._callSuper("constructor", args);
-                    this._mouseDownMove = _Lang.hitch(this, this._mouseDownMove);
-                    this._mouseUpMove = _Lang.hitch(this, this._mouseUpMove);
-                    this._mouseMoveMove = _Lang.hitch(this, this._mouseMoveMove);
 
-                    this._mouseDownResize = _Lang.hitch(this, this._mouseDownResize);
-                    this._mouseUpResize = _Lang.hitch(this, this._mouseUpResize);
-                    this._mouseMoveResize = _Lang.hitch(this, this._mouseMoveResize);
 
-                    this.focus = _Lang.hitch(this, this.focus);
+                    this._onfocus = _Lang.hitch(this, this._onfocus);
 
                     this.hide = _Lang.hitch(this, this.hide);
                     this.maximize = _Lang.hitch(this, this.maximize);
@@ -66,9 +60,7 @@
                         if (!extras.apache.Window._modalStack) {
                             extras.apache.Window._modalStack = [];
                         }
-
                     }
-
                 },
 
                 _postInit: function() {
@@ -78,6 +70,8 @@
                         this._underlay.show();
                     }
                     this._header = this._header || this.rootNode.querySelector(".header");
+                    this._moveHandler = this._moveHandler || this.rootNode.querySelector(".moveHandler");
+
                     this._footer = this._footer || this.rootNode.querySelector(".footer");
                     this._content = this._content || this.rootNode.querySelector(".content");
 
@@ -85,7 +79,7 @@
                     this._minimizer = this._minimizer || this._header.querySelector(".minimize");
                     this._maximizer = this._maximizer || this._header.querySelector(".maximize");
                     this._title = this._title || this._header.querySelector(".windowTitle");
-                    this._resize = this._resize || this._footer.querySelector(".resize");
+                    this._resizeHandler = this._resizeHandler || this._footer.querySelector(".resize");
 
                     if (this._closer) {
                         this._closer.addEventListener("click", this.hide, true);
@@ -95,21 +89,21 @@
                     //}
 
                     if (this._moveable) {
-                        this._header.addEventListener("mousedown", this._mouseDownMove, false);
+                        new extras.apache._Movable(this, this._moveHandler);
                     }
 
                     if (this._resizable) {
-                        this._resize.addEventListener("mousedown", this._mouseDownResize, false);
+                        new extras.apache._Resizable(this, this._resizeHandler);
                     } else {
-                        this._resize.setStyle("display", "none");
+                        this._resizeHandler.setStyle("display", "none");
                     }
-                    this.rootNode.addEventListener("mousedown", this.focus, false);
+                    this.rootNode.addEventListener("mousedown", this._onfocus, false);
 
                     this.pack();
 
                     /*last defined is the front window unless defined otherwise*/
                     if (this._focusOnCreate) {
-                        this.focus();
+                        new extras.apache._Focusable(this);
                     }
 
                     if (this._initialVisible) {
@@ -131,9 +125,13 @@
                             .setTransitionDuration("");
                 },
 
-                focus: function() {
+                _onfocus: function() {
                     this._NODE.querySelectorAll(".window").removeClass("focus");
                     this.rootNode.addClass("focus");
+                },
+                
+                focus: function() {
+                    this._onfocus();   
                 },
 
                 hide: function() {
@@ -251,70 +249,6 @@
                     return true;
                 },
 
-                _mouseDownMove: function(evt) {
-                    if (!this._moveable) return;
-
-                    window.addEventListener("mouseup", this._mouseUpMove, true);
-                    window.addEventListener("mousemove", this._mouseMoveMove, true);
-
-                    this._windowOriginX = parseInt(this.rootNode.offsetLeft());
-                    this._windowOriginY = parseInt(this.rootNode.offsetTop());
-
-                    this._mouseOriginX = evt.pageX - window.scrollX;
-                    this._mouseOriginY = evt.pageY - window.scrollY;
-
-                    this._origDeltaX = this._mouseOriginX - this._windowOriginX;
-                    this._origDeltaY = this._mouseOriginY - this._windowOriginY;
-                },
-
-                _mouseDownResize: function(evt) {
-                    window.addEventListener("mouseup", this._mouseUpResize, true);
-                    window.addEventListener("mousemove", this._mouseMoveResize, true);
-
-                    this._NODE.querySelectorAll(".window").removeClass("focus");
-                    this.rootNode.addClass("focus");
-
-                    this._windowOriginX = parseInt(this.rootNode.offsetLeft());
-                    this._windowOriginY = parseInt(this.rootNode.offsetTop());
-
-                    this._mouseOriginX = evt.pageX;
-                    this._mouseOriginY = evt.pageY;
-
-                    this._origDeltaX = this._mouseOriginX - this._windowOriginX;
-                    this._origDeltaY = this._mouseOriginY - this._windowOriginY;
-                },
-
-
-
-                _mouseMoveMove: function(evt) {
-                    var posX = evt.pageX - window.scrollX;
-                    var posY = evt.pageY - window.scrollY;
-
-                    this.rootNode.style({"left": (posX - this._origDeltaX) + "px",
-                                "top": (posY - this._origDeltaY) + "px"});
-                },
-
-                _mouseMoveResize: function(evt) {
-
-                    var posX = evt.pageX - parseInt(window.scrollX);
-                    var posY = evt.pageY - parseInt(window.scrollY);
-
-                    this.rootNode.style({"width": (posX - this._windowOriginX) + "px",
-                                "height": (posY - this._windowOriginY) + "px"});
-
-                    this.pack();
-
-                },
-
-                _mouseUpMove: function(evt) {
-                    window.removeEventListener("mouseup", this._mouseUpMove, true);
-                    window.removeEventListener("mousemove", this._mouseMoveMove, true);
-                },
-
-                _mouseUpResize: function(evt) {
-                    window.removeEventListener("mouseup", this._mouseUpResize, true);
-                    window.removeEventListener("mousemove", this._mouseMoveResize, true);
-                },
                 _onAjaxDomUnload: function(evt) {
                     this._callSuper("_onAjaxDomUnload", evt);
                     if (this._underlay) {
