@@ -13,15 +13,17 @@
 
     _RT.extendClass("extras.apache._KeyboardAware", extras.apache._Behavior, {
 
+
+
                 constructor_: function(scope) {
                     this._callSuper("constructor_", scope);
                 },
                 defineBehavior: function() {
-                    (this._onKeyDown) ? this.addEventListener("keydown", this._onKeyDown, true) : null;
-                    (this._onKeyUp) ? this.addEventListener("keyup", this._onKeyUp, true) : null;
-                    (this._onKeyPress) ? this.addEventListener("keypress", this._onKeyPress, true) : null;
-                    (this.onKeyDown) ? this.addEventListener("keydown", this.onKeyDown, true) : null;
-                    (this.onKeyUp) ? this.addEventListener("keyup", this.onKeyUp, true) : null;
-                    (this.onKeyPress) ? this.addEventListener("keypress", this.onKeyPress, true) : null;
+                    events:["keydown","keyup","keypress"];
+                    for(var cnt = 0; cnt < events.length; cnt++) {
+                        var event = events[cnt];
+                        (this["_on"+event])?this.addEventListener(event, this["_on"+event], false):null;
+                        (this["on"+event])?this.addEventListener(event, this["_on"+event], false):null;
+                    }
                 }})
 })();

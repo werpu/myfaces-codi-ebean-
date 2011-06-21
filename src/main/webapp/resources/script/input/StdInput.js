@@ -17,9 +17,9 @@
                 constructor_:function(args) {
                     this._callSuper("constructor", args);
 
-                    this.onKeyDown = this._LANG.hitch(this, this.onKeyDown);
-                    this.onKeyUp = this._LANG.hitch(this, this.onKeyUp);
-                    this.onKeyUp = this._LANG.hitch(this, this.onkeyPress);
+                    this.onkeydown = this._LANG.hitch(this, this.onKeyDown);
+                    this.onkeyup = this._LANG.hitch(this, this.onkeyup);
+                    this.onkeypress = this._LANG.hitch(this, this.onkeypress);
                 },
 
                 _postInit: function() {
@@ -39,13 +39,13 @@
                     new extras.apache._KeyboardAware(this);
                 },
 
-                onkeyPress: function(evt) {
+                onkeypress: function(evt) {
 
                 },
-                onkeyUp: function(evt) {
+                onkeup: function(evt) {
 
                 },
-                onKeyDown: function(evt) {
+                onkeydown: function(evt) {
 
                 }
             })
