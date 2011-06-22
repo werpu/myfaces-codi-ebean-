@@ -39,6 +39,14 @@
                         proto.KEY_ENTER = 13;
                         proto.KEY_CTRL = 17;
                         proto.KEY_SPACE = 49;
+                        proto.KEY_DELETE = 46;
+                        proto.KEY_END = 35;
+                        proto.KEY_HOME = 36;
+
+                        //standard character keys which get a new meaning with meta
+                        proto.KEY_c = 67;
+                        proto.KEY_x = 88;
+                        proto.KEY_v = 86;
                         //TODO add additional keycodes on demand
                     }
 
