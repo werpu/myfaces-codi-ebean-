@@ -85,13 +85,17 @@
 
                 /*next position*/
                 _nextPosition: function(evt) {
-                    var caretPosition = this.cursorPos;
+                    var origCaretPosition = this.cursorPos, caretPosition = this.cursorPos;
 
                     while (this._literalPositions[caretPosition+1]) {
                         //end of position reached
                         caretPosition++;
                     }
                     //TODO if the end is reached dont do anything
+                    if(caretPosition == this.value.length-1 && this._literalPositions[caretPosition]) {
+                        origCaretPosition--;
+                        caretPosition = origCaretPosition;
+                    }
 
                     //mixin from behavior Selectable we
                     //can set our cursor pos
@@ -101,14 +105,16 @@
 
                 /*previous position*/
                 _previousPosition: function(evt) {
-                    var caretPosition = this.cursorPos;
+                    var origCaretPosition = this.cursorPos, caretPosition = this.cursorPos;
 
                     while ((caretPosition) && this._literalPositions[caretPosition-1] ) {
                         //end of position reached
                         caretPosition--;
                     }
-                    //TODO if caretPosition == 0 &&  this._literalPositions[0] dont do anything
-
+                    if(!caretPosition && this._literalPositions[caretPosition]) {
+                        origCaretPosition++;
+                        caretPosition = origCaretPosition;
+                    }
 
                     this.cursorPos = caretPosition;
                 },
