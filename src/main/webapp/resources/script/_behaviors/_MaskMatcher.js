@@ -22,6 +22,8 @@
 /**
  * The accordion panel is a group of toggles
  * interconnected by
+ *
+ * @namespace extras.apache._MaskMatcher
  */
 (function () {
     /**
@@ -115,12 +117,22 @@
                     var _t = this;
                     this._generateControlInputMask();
                     this._initProperties();
+
+                    this.__defineGetter__("literalPositions", function() {
+                        var literalPositions = {};
+                        var cnt = 0;
+                        this._LANG.arrForEach(this.syntaxTree, function(elem) {
+                            if(elem.tokenType.val == "LITERAL") literalPositions[cnt] = true;
+                            cnt++
+                        });
+                        return literalPositions;
+                    });
                 },
 
 
                 _initProperties: function() {
                     this.__defineGetter__("controlInputMask", function() {
-                        return _t._controlInputMask;
+                        return this._controlInputMask;
                     });
                 },
 
@@ -132,10 +144,12 @@
                     var res = [];
                     for (var cnt = 0; cnt < this.syntaxTree.length; cnt++) {
                         var currentToken = this.syntaxTree[cnt];
-                        res.push(currentToken.tokenType.val == "LITERAL" ? this.syntaxTree.value : "_");
+                        res.push(currentToken.tokenType.val == "LITERAL" ? this.syntaxTree[cnt].value : "_");
                     }
                     this._controlInputMask = res.join("");
                 },
+
+
 
                 /**
                  * the tokenization of the input mask is relatively simple we
@@ -152,12 +166,13 @@
                         var item = parseArray[cnt];
                         var token = this._tokens[item];
 
-                        token = token || this._tokens["LITERAL"];
+                        token = token || this._tokens[null];
 
-                        if (nextAny || !token) {
+                        if (nextAny) {
                             nextAny = false;
                             this.syntaxTree.push({
-                                        tokenType: "LITERAL",
+                                        tokenType: this.tokens[null],
+
                                         value: item
                                     });
                         } else if (token.val == "ESCAPED") {
@@ -191,7 +206,7 @@
                 },
 
                 //TODO semantic any to a letter resolution given (with escapes)
-                _semanticLiteral: function(token) {
+                _semanticLITERAL: function(token) {
                     return (!token.value.match(/A-Za-z/gi)) ? "\\" + token.value : token.value;
                 },
 

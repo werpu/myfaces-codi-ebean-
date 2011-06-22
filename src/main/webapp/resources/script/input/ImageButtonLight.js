@@ -4,8 +4,9 @@
  */
 (function () {
     /**
-     * a pull component which pulls
-     * a certain area periodically
+     * a light css only version of the image button control
+     *
+     * @namespace extras.apache.ImageButtonLight
      */
     var _RT = myfaces._impl.core._Runtime;
 

@@ -2,6 +2,8 @@
     /**
      * a pull component which pulls
      * a certain area periodically
+     *
+     * @namespace extras.apache.MaskedInput
      */
     var _RT = myfaces._impl.core._Runtime;
 
@@ -25,11 +27,13 @@
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
                     this._defaultInputMask = this.matcher.controlInputMask;
+                    //value defined in _ValueHolder.js
+                    this.value = this._defaultInputMask;
                 },
 
                 onkeypress: function(evt) {
-                    this._callSuper("onkeyPress", evt);
-                    var matches = this.matcher.match();
+                    //this._callSuper("onkeyPress", evt);
+
                     //mixin from behavior Selectable we
                     //can set our cursor pos
                     //@see extras.apache._Selectable
@@ -81,17 +85,13 @@
 
                 /*next position*/
                 _nextPosition: function(evt) {
-                    var caretPosition = this.valueHolder.cursorPos;
-                    caretPosition++;
+                    var caretPosition = this.cursorPos;
 
-                    while (this._literalPositions[caretPosition]) {
+                    while (this._literalPositions[caretPosition+1]) {
                         //end of position reached
                         caretPosition++;
                     }
-                    if (caretPosition == this._defaultInputMask.length) {
-                        evt.stopPropagation();
-                        return;
-                    }
+                    //TODO if the end is reached dont do anything
 
                     //mixin from behavior Selectable we
                     //can set our cursor pos
@@ -101,17 +101,15 @@
 
                 /*previous position*/
                 _previousPosition: function(evt) {
-                    var caretPosition = this.valueHolder.cursorPos;
-                    caretPosition --;
+                    var caretPosition = this.cursorPos;
 
-                    while (this._literalPositions[caretPosition]) {
+                    while ((caretPosition) && this._literalPositions[caretPosition-1] ) {
                         //end of position reached
                         caretPosition--;
                     }
-                    if (caretPosition < 0) {
-                        evt.stopPropagation();
-                        return;
-                    }
+                    //TODO if caretPosition == 0 &&  this._literalPositions[0] dont do anything
+
+
                     this.cursorPos = caretPosition;
                 },
 
@@ -145,6 +143,9 @@
                     //itself
                 },
                 _charInput:function(evt) {
+
+                    //  var matches = this.matcher.match();
+
                     //insert the char if the next non literal is a free position and
                     //the result matches, otherwise do nothing
                 }

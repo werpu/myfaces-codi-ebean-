@@ -8,6 +8,8 @@
      * a matching control which
      *
      * we can use an ll parser here
+     *
+     * @namespace extras.apache._MaskValidating
      */
     var _RT = myfaces._impl.core._Runtime;
 
@@ -33,6 +35,7 @@
                         return valid;
                     }
                     this.matcher = new extras.apache._MaskMatcher(this._validationMask);
+                    this._literalPositions = this.matcher.literalPositions;
                 }
             })
 })();

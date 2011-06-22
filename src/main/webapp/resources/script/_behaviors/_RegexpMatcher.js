@@ -4,6 +4,8 @@
      * a certain area periodically
      *
      * we can use an ll parser here
+     *
+     * @namespace extras.apache._RegexpMatcher
      */
     var _RT = myfaces._impl.core._Runtime;
     _RT.extendClass("extras.apache._RegexpMatcher", Object, {

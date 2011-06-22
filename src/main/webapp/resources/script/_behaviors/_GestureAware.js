@@ -1,6 +1,8 @@
 (function () {
     /**
      * Safari/Chrome gesture event behaviors
+     *
+     * @namespace extras.apache._TouchAware
      */
     var _RT = myfaces._impl.core._Runtime;
 

@@ -8,6 +8,8 @@
      * a matching control which
      *
      * we can use an ll parser here
+     *
+     * @namespace extras.apache._KeyboardAware
      */
     var _RT = myfaces._impl.core._Runtime;
 
@@ -27,9 +29,9 @@
                      */
                     
                     
-                    if (!this.KEY_ARROW_UP) {
-                        var proto = this.__proto__ || this._mfClazz.prototype || this;
-                        
+                    if (!this.KEY_ARROW_LEFT) {
+                        var proto = this;
+
                         proto.KEY_ARROW_LEFT = 37;
                         proto.KEY_ARROW_UP = 38;
                         proto.KEY_ARROW_RIGHT = 39;
@@ -53,8 +55,8 @@
                     var events = ["keydown","keyup","keypress"];
                     for (var cnt = 0; cnt < events.length; cnt++) {
                         var event = events[cnt];
-                        (this["_on" + event]) ? this._tmpEventTarget.addEventListener(event, this["_on" + event], false) : null;
-                        (this["on" + event]) ? this._tmpEventTarget.addEventListener(event, this["_on" + event], false) : null;
+                        (this["_on" + event]) ? this._tmpEventTarget.addEventListener(event, this["_on" + event], true) : null;
+                        (this["on" + event]) ? this._tmpEventTarget.addEventListener(event, this["on" + event], true) : null;
                     }
                 }})
 })();

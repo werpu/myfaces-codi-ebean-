@@ -7,6 +7,8 @@
      * a matching control which
      *
      * we can use an ll parser here
+     *
+     * @namespace extras.apache._RegexpValidating
      */
     var _RT = myfaces._impl.core._Runtime;
 

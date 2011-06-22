@@ -6,6 +6,8 @@
     /**
      *  a behavior which is a plugin which isolates common ui element behavior
      *  (note this has nothing to do with jsf behaviors)
+     *
+     *  @namespace extras.apache._Behavior
      */
     var _RT = myfaces._impl.core._Runtime;
 

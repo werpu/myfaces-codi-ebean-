@@ -2,6 +2,8 @@
     /**
      * Mouse aware behavior handler which automatically
      * registers all given html5 mouse events
+     *
+     * @namespace extras.apache._Focusable
      */
     var _RT = myfaces._impl.core._Runtime;
 

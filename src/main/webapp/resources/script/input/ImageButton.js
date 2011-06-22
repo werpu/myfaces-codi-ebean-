@@ -4,8 +4,9 @@
  */
 (function () {
     /**
-     * a pull component which pulls
-     * a certain area periodically
+     * Imagebutton component probably soon to be @deprecated
+     *
+     * @namespace extras.apache.ImageButton
      */
     var _RT = myfaces._impl.core._Runtime;
 

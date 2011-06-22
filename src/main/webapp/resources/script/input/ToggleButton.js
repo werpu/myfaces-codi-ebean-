@@ -1,7 +1,9 @@
 (function () {
     /**
-     * a pull component which pulls
-     * a certain area periodically
+     * generalized toggle button control
+     * which displays a toggle one way or the other
+     *
+     * @namespace extras.apache.ToggleButton
      */
     var _RT = myfaces._impl.core._Runtime;
 
