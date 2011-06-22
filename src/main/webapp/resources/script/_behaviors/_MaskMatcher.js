@@ -118,15 +118,6 @@
                     this._generateControlInputMask();
                     this._initProperties();
 
-                    this.__defineGetter__("literalPositions", function() {
-                        var literalPositions = {};
-                        var cnt = 0;
-                        this._LANG.arrForEach(this.syntaxTree, function(elem) {
-                            if(elem.tokenType.val == "LITERAL") literalPositions[cnt] = true;
-                            cnt++
-                        });
-                        return literalPositions;
-                    });
                 },
 
 
@@ -134,6 +125,16 @@
                     this.__defineGetter__("controlInputMask", function() {
                         return this._controlInputMask;
                     });
+                    this.literalPositions = {};
+                    var cnt = 0;
+                    var _t = this;
+                    this._LANG.arrForEach(this.syntaxTree, function(elem) {
+                        if (elem.tokenType.val == "LITERAL") _t.literalPositions[cnt] = true;
+                        cnt++
+                    });
+
+
+
                 },
 
                 match: function(incomingString) {
