@@ -215,7 +215,7 @@
                     return "[0-9\\_]";
                 },
                 _semanticDigitSpace: function(token) {
-                    return "[0-1\\s_]";
+                    return "[0-9\\s_]";
                 },
                 _semanticDigitSpacePlusAllowed: function() {
                     return "[\\+\\-]{0,1}" + this._semanticDigitSpace();
