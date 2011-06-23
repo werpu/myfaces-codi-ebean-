@@ -209,8 +209,37 @@
                         }
 
                         value = value.substr(0, caretPosition) + str + ( (caretPosition < value.length - 1) ? value.substr(caretPosition + 1, value.length) : "");
-                        this.value = value;
-                        this.cursorPos = caretPosition + 1;
+                        if (!this.matcher.match(value)) {
+                            var foundPos = -1;
+
+                            for (var cnt = caretPosition; cnt < this._defaultInputMask.length && foundPos == -1; cnt++) {
+                                if (str == this._defaultInputMask[cnt]) {
+                                    foundPos = cnt;
+                                }
+                            }
+                            if (foundPos == -1) {
+                                for (var cnt = 0; cnt < this._defaultInputMask.length && foundPos == -1; cnt++) {
+                                    if (str == this._defaultInputMask[cnt]) {
+                                        foundPos = cnt;
+                                    }
+                                }
+                            }
+
+                            if (foundPos == -1) {
+                                return;
+                            } else {
+                                caretPosition = foundPos;
+                                this.cursorPos = caretPosition;
+                            }
+
+                        } else {
+
+                            //TODO if no match check for the next non literal which could match
+                            //and jump to its position
+
+                            this.value = value;
+                            this.cursorPos = caretPosition + 1;
+                        }
                         this._nextPosition();
                     } finally {
                         evt.stopPropagation();
