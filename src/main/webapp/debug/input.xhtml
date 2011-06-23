@@ -52,8 +52,24 @@
         <h:form id="mainForm" prependId="false">
 
             <ezw:maskedInput value="" id="maskedInput" inputMask="(###)###-###-####" />
+            <input type="text" id="booga" />
+
+            <script type="text/javascript">
+                document.querySelector("#booga").addEventListener("keypress", function(evt){
+                    alert("keypress");
+
+                }, true);
+                 document.querySelector("#booga").addEventListener("keyup", function(evt){
+
+                      evt.stopPropagation();
+                    evt.preventDefault();
+                }, true);
+
+                document.querySelector("#booga").addEventListener("keydown", function(evt){
 
 
+                }, true);
+            </script>
         </h:form>
         <div id="bla">
             <ezw:testbuttonrow id="bla" />

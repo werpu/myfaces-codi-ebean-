@@ -49,6 +49,10 @@
                         proto.KEY_c = 67;
                         proto.KEY_x = 88;
                         proto.KEY_v = 86;
+
+
+
+
                         //TODO add additional keycodes on demand
                     }
 

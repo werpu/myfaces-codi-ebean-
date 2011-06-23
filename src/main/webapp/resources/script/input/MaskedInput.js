@@ -31,8 +31,17 @@
                     this.value = this._defaultInputMask;
                 },
 
-                onkeypress: function(evt) {
-                    //this._callSuper("onkeyPress", evt);
+
+                onkeyup: function(evt) {
+                    //now to something messy, the key events,
+                    //if you think that the browsers get it finally right
+                    //after all those years, good luck
+                    //opera keyup, keypress
+                    //safari non visual command keyup, letter keyup keypress
+                    //mozilla, keydown, keypress,keyup, the only browser getting
+                    //a simple keypress right is Mozilla
+                    //so to avoid browser fallbacks we will handle all command
+                    //keys on keyup
 
                     //mixin from behavior Selectable we
                     //can set our cursor pos
@@ -77,23 +86,59 @@
                             break;
 
                         default:
-                            this._charInput(evt);
 
                             break;
+
                     }
                 },
 
+                onkeypress: function(evt) {
+                    switch (evt) {
+                        case this.KEY_ARROW_RIGHT:
+
+                            break;
+                        case this.KEY_ARROW_LEFT:
+
+                            break;
+
+                        case this.KEY_DELETE:
+
+                            break;
+
+                        case this.KEY_END:
+
+                            break;
+                        case this.KEY_HOME:
+                            //TODO add hook here
+
+                            break;
+
+                        case this.KEY_v:
+                            (evt.metaKey) ? null : this._charInput(evt);
+
+                            break;
+
+                        case this.KEY_x:
+                            (evt.metaKey) ? null : this._charInput(evt);
+                            break;
+                        default:
+                            this._charInput(evt);
+                    }
+
+                },
+
+
+
                 /*next position*/
                 _nextPosition: function(evt) {
-                    var origCaretPosition = this.cursorPos, caretPosition = this.cursorPos;
+                    var origCaretPosition = this.cursorPos - 1, caretPosition = this.cursorPos;
 
-                    while (this._literalPositions[caretPosition+1]) {
+                    while (this._literalPositions[caretPosition]) {
                         //end of position reached
                         caretPosition++;
                     }
-                    //TODO if the end is reached dont do anything
-                    if(caretPosition == this.value.length-1 && this._literalPositions[caretPosition]) {
-                        origCaretPosition--;
+
+                    if (caretPosition == this.value.length - 1 && this._literalPositions[caretPosition]) {
                         caretPosition = origCaretPosition;
                     }
 
@@ -105,14 +150,13 @@
 
                 /*previous position*/
                 _previousPosition: function(evt) {
-                    var origCaretPosition = this.cursorPos, caretPosition = this.cursorPos;
+                    var origCaretPosition = this.cursorPos + 1, caretPosition = this.cursorPos;
 
-                    while ((caretPosition) && this._literalPositions[caretPosition-1] ) {
+                    while ((caretPosition) && this._literalPositions[caretPosition]) {
                         //end of position reached
                         caretPosition--;
                     }
-                    if(!caretPosition && this._literalPositions[caretPosition]) {
-                        origCaretPosition++;
+                    if (!caretPosition && this._literalPositions[caretPosition]) {
                         caretPosition = origCaretPosition;
                     }
 
@@ -149,13 +193,25 @@
                     //itself
                 },
                 _charInput:function(evt) {
+                    try {
+                        var origCaretPosition = this.cursorPos, caretPosition = this.cursorPos;
+                        this._keydownState = this.value;
+                        var str = String.fromCharCode(evt.keyCode);
+                        var cursorPos = this.cursorPos;
 
-                    //  var matches = this.matcher.match();
+                        var value = this.value;
+                        if (cursorPos == value.length - 1) {
+                            return;
+                        }
 
-                    //insert the char if the next non literal is a free position and
-                    //the result matches, otherwise do nothing
+                        value = value.substr(0, cursorPos) + str + value.substr(cursorPos + 1, value.length - 1);
+                        this.value = value;
+                        this.cursorPos = origCaretPosition;
+                        this._nextPosition();
+                    } finally {
+                        evt.stopPropagation();
+                        evt.preventDefault();
+                    }
                 }
-
-
             })
 })();
