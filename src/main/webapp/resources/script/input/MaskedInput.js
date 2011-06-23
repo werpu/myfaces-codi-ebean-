@@ -93,7 +93,7 @@
                 },
 
                 onkeypress: function(evt) {
-                    if(evt.metaKey) return;
+                    if (evt.metaKey) return;
 
                     switch (evt.keyCode) {
                         case this.KEY_ARROW_RIGHT:
@@ -176,6 +176,12 @@
                     //and replace it with _, this is not the standard
                     //behavior of an input which should do an entire shift left
                     //but it makes sense
+                    var caretPos = this.cursorPos;
+                    if (caretPos == this._defaultInputMask.length - 1) return;
+
+                    this.value = this.value.substr(0, caretPos) + this._defaultInputMask[caretPos]
+                            + ((caretPos < this.value.length - 1) ? this.value.substr(caretPos, this.value.length) : "");
+                    this.cursorPos = caretPos;
                 },
 
                 _paste: function(evt) {
@@ -198,7 +204,7 @@
                             return;
                         }
 
-                        value = value.substr(0, cursorPos) + str + value.substr(cursorPos + 1, value.length - 1);
+                        value = value.substr(0, cursorPos) + str + value.substr(cursorPos + 1, value.length);
                         this.value = value;
                         this.cursorPos = ++origCaretPosition;
                         this._nextPosition();
