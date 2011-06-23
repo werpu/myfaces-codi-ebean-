@@ -77,12 +77,12 @@
                             break;
 
                         case this.KEY_v:
-                            (evt.metaKey) ? this._paste(evt) : this._charInput(evt);
+                            (evt.metaKey) ? this._paste(evt) : null;
 
                             break;
 
                         case this.KEY_x:
-                            (evt.metaKey) ? this._cut(evt) : this._charInput(evt);
+                            (evt.metaKey) ? this._cut(evt) : null;
                             break;
 
                         default:
@@ -93,7 +93,9 @@
                 },
 
                 onkeypress: function(evt) {
-                    switch (evt) {
+                    if(evt.metaKey) return;
+
+                    switch (evt.keyCode) {
                         case this.KEY_ARROW_RIGHT:
 
                             break;
@@ -113,14 +115,6 @@
 
                             break;
 
-                        case this.KEY_v:
-                            (evt.metaKey) ? null : this._charInput(evt);
-
-                            break;
-
-                        case this.KEY_x:
-                            (evt.metaKey) ? null : this._charInput(evt);
-                            break;
                         default:
                             this._charInput(evt);
                     }
@@ -196,7 +190,7 @@
                     try {
                         var origCaretPosition = this.cursorPos, caretPosition = this.cursorPos;
                         this._keydownState = this.value;
-                        var str = String.fromCharCode(evt.keyCode);
+                        var str = String.fromCharCode(evt.charCode || evt.keyCode);
                         var cursorPos = this.cursorPos;
 
                         var value = this.value;
@@ -206,7 +200,7 @@
 
                         value = value.substr(0, cursorPos) + str + value.substr(cursorPos + 1, value.length - 1);
                         this.value = value;
-                        this.cursorPos = origCaretPosition;
+                        this.cursorPos = ++origCaretPosition;
                         this._nextPosition();
                     } finally {
                         evt.stopPropagation();
