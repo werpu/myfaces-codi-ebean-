@@ -177,10 +177,16 @@
                     //behavior of an input which should do an entire shift left
                     //but it makes sense
                     var caretPos = this.cursorPos;
-                    if (caretPos == this._defaultInputMask.length - 1) return;
+                    if (caretPos == this._defaultInputMask.length) return;
+                    var value = this.value;
 
-                    this.value = this.value.substr(0, caretPos) + this._defaultInputMask[caretPos]
-                            + ((caretPos < this.value.length - 1) ? this.value.substr(caretPos, this.value.length) : "");
+                    if (caretPos == this._defaultInputMask.length - 1) {
+                        value.substr(0, caretPos) + this._defaultInputMask[caretPos];
+                    }
+
+                    this.value = value.substr(0, caretPos)
+                            + this._defaultInputMask[caretPos]
+                            + value.substr(caretPos, value.length);
                     this.cursorPos = caretPos;
                 },
 
@@ -194,19 +200,17 @@
                 },
                 _charInput:function(evt) {
                     try {
-                        var origCaretPosition = this.cursorPos, caretPosition = this.cursorPos;
-                        this._keydownState = this.value;
-                        var str = String.fromCharCode(evt.charCode || evt.keyCode);
-                        var cursorPos = this.cursorPos;
+                        var caretPosition = this.cursorPos;
 
                         var value = this.value;
-                        if (cursorPos == value.length - 1) {
+                        var str = String.fromCharCode(evt.charCode || evt.keyCode);
+                        if (caretPosition >= value.length) {
                             return;
                         }
 
-                        value = value.substr(0, cursorPos) + str + value.substr(cursorPos + 1, value.length);
+                        value = value.substr(0, caretPosition) + str + ( (caretPosition < value.length - 1) ? value.substr(caretPosition + 1, value.length) : "");
                         this.value = value;
-                        this.cursorPos = ++origCaretPosition;
+                        this.cursorPos = caretPosition + 1;
                         this._nextPosition();
                     } finally {
                         evt.stopPropagation();
