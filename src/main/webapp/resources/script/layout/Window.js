@@ -108,9 +108,16 @@
 
                     if (this._initialVisible) {
                         //  this.show();
+                        if(extras.apache.Window._focusTimer) {
+                            clearTimeout(extras.apache.Window._focusTimer);
+                            extras.apache.Window._focusTimer = null;
+                        }
+                        extras.apache.Window._focusTimer = setTimeout(this._Lang.hitch(this, this.focus), 100);
                     } else {
                         this.hide();
                     }
+
+
                 },
 
                 fadeIn: function() {
@@ -165,6 +172,7 @@
                         extras.apache.Window._modalStack.push(this);
                     }
                     this.rootNode.setStyle("display", "").setStyle("opacity", "1");
+                    this.focus();
                 },
 
                 pack: function(w, h) {
