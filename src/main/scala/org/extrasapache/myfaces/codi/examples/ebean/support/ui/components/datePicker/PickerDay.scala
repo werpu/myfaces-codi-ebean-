@@ -13,8 +13,8 @@ import java.util.Calendar
 class PickerDay {
 
   var day: Calendar = _
-  var holiday: Boolean = _
-  var firstDayOfWeek: Boolean = _
-  var specialDay: Boolean = _
-  var specialDayMetaInfo = ""
+  var holiday: Boolean = false
+  var firstDayOfWeek: Boolean = false
+  var specialDay: Boolean = false
+  var specialDayMetaInfo:String = ""
 }

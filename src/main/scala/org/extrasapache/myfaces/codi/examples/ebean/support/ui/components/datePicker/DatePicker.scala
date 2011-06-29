@@ -2,8 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.dateP
 
 import javax.faces.component.FacesComponent
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
-import sun.util.resources.CalendarData
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -30,7 +28,7 @@ class DatePicker extends StandardJavascriptComponent {
   import java.util._
   import DatePicker._
 
-  var displayData = new ArrayList[PickerDay]
+  var displayData = new ArrayList[PickerWeek]
 
 
 
@@ -40,20 +38,20 @@ class DatePicker extends StandardJavascriptComponent {
    */
   def prepareMonth() {
 
-    var currentDay = getAttr[Calendar](VALUE, Calendar.getInstance())
+    val currentDay = getAttr[Calendar](VALUE, Calendar.getInstance())
     //not render from beginning of the month to the end of the current month
     var month = currentDay.get(Calendar.MONTH);
     //now reset th
-    var currentMonth = makeMonth(currentDay)
+    val currentMonth = makeMonth(currentDay)
 
     //not iterate over all days and create the day entry list
-    var firstDay = currentMonth.getActualMinimum(Calendar.DAY_OF_MONTH)
+    val firstDay = currentMonth.getActualMinimum(Calendar.DAY_OF_MONTH)
     var lastDay = currentMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-    var firstDayDisplayed = makeMonth(currentMonth);
+    val firstDayDisplayed = makeMonth(currentMonth);
     firstDayDisplayed.set(Calendar.DAY_OF_MONTH, firstDay)
 
-    var lastDayDisplayed = makeMonth(currentMonth);
+    val lastDayDisplayed = makeMonth(currentMonth);
     lastDayDisplayed.set(Calendar.DAY_OF_MONTH, firstDay)
 
     //we now skip to the beginning of the week according to the locale set
@@ -65,9 +63,9 @@ class DatePicker extends StandardJavascriptComponent {
       lastDayDisplayed.set(Calendar.DAY_OF_WEEK, lastDayDisplayed.get(Calendar.DAY_OF_WEEK) +1);
     }
     val DAY_LENGTH = 1000l*60l*60l*24l
-    var days =  (lastDayDisplayed.getTimeInMillis() - lastDayDisplayed.getTimeInMillis()) / DAY_LENGTH
-    var currentDate = makeDay(firstDayDisplayed)
-    var pickerWeek = _
+    val days = (lastDayDisplayed.getTimeInMillis() - lastDayDisplayed.getTimeInMillis()) / DAY_LENGTH
+    val currentDate = makeDay(firstDayDisplayed)
+    var pickerWeek:PickerWeek = null
 
     /*beginning of a new week*/
     def newWeek() {
@@ -80,17 +78,17 @@ class DatePicker extends StandardJavascriptComponent {
     //we now increment all days and generate the meta data for our view
     for(cnt <- 0 until days.asInstanceOf[Int] ) {
       currentDate.setTimeInMillis(currentDate.getTimeInMillis+DAY_LENGTH)
-      var currentPickerDay = new PickerDay
+      val currentPickerDay = new PickerDay
       currentPickerDay.day = makeDay(currentDate)
       if (currentDate.get(Calendar.DAY_OF_WEEK) == 0) {
         currentPickerDay.firstDayOfWeek = true
         newWeek()
         //todo add holiday handling here with a holiday hashmap provided
       }
-      pickerWeek.days.add(pickerDay)
+      pickerWeek.days.add(currentPickerDay)
     }
     newWeek()
-    pickerWeek = _
+    pickerWeek = null
 
     //now that we have determined the starting and end day, we now generate the
     //calendar data structures for displaying the meta information
@@ -98,7 +96,7 @@ class DatePicker extends StandardJavascriptComponent {
   }
 
   def makeMonth(in: Calendar): Calendar = {
-    var ret = Calendar.getInstance()
+    val ret = Calendar.getInstance()
     ret.set(Calendar.YEAR, in.get(Calendar.YEAR))
     ret.set(Calendar.MONTH, in.get(Calendar.MONTH))
     ret.set(Calendar.DAY_OF_MONTH, 0)
@@ -111,7 +109,7 @@ class DatePicker extends StandardJavascriptComponent {
   }
 
   def makeDay(in: Calendar): Calendar = {
-    var ret = Calendar.getInstance()
+    val ret = Calendar.getInstance()
     ret.set(Calendar.YEAR, in.get(Calendar.YEAR))
     ret.set(Calendar.MONTH, in.get(Calendar.MONTH))
     ret.set(Calendar.DAY_OF_MONTH, in.get(Calendar.DAY_OF_MONTH))
