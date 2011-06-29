@@ -11,12 +11,12 @@ import sun.util.resources.CalendarData
  */
 
 object DatePicker {
-  val DATE_PATTERN = "datePattern"
-  val HOLIDAYS = "holidays"
-  val SPECIAL_DAYS = "specialDays"
+  val DATE_PATTERN  = "datePattern"
+  val HOLIDAYS      = "holidays"
+  val SPECIAL_DAYS  = "specialDays"
 
-  val BEG_WEEK = "beginningOfWeek"
-  val VALUE = "value"
+  val BEG_WEEK      = "beginningOfWeek"
+  val VALUE         = "value"
 }
 
 /**
@@ -35,9 +35,11 @@ class DatePicker extends StandardJavascriptComponent {
 
 
   /**
-   * prerender creates the date picker list
+   * prerender creates the date picker list model which then is used
+   * for further processing
    */
   def prepareMonth() {
+
     var currentDay = getAttr[Calendar](VALUE, Calendar.getInstance())
     //not render from beginning of the month to the end of the current month
     var month = currentDay.get(Calendar.MONTH);
@@ -83,6 +85,7 @@ class DatePicker extends StandardJavascriptComponent {
       if (currentDate.get(Calendar.DAY_OF_WEEK) == 0) {
         currentPickerDay.firstDayOfWeek = true
         newWeek()
+        //todo add holiday handling here with a holiday hashmap provided
       }
       pickerWeek.days.add(pickerDay)
     }
