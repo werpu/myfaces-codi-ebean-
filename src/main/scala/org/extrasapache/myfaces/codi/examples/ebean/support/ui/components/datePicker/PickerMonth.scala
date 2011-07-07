@@ -79,7 +79,6 @@ case class PickerMonth(var selectedDay: Calendar) {
 
     //we now skip to the beginning of the week according to the locale set
     while(firstDayDisplayed.get(Calendar.DAY_OF_WEEK) != 1) {
-       log.info(firstDayDisplayed.get(Calendar.DAY_OF_WEEK).toString)
       firstDayDisplayed.set(Calendar.DAY_OF_WEEK, firstDayDisplayed.get(Calendar.DAY_OF_WEEK) -1);
     }
     //and to the end of the week according to the locale set
