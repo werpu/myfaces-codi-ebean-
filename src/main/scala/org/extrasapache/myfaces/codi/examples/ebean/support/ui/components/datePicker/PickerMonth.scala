@@ -11,10 +11,6 @@ import java.util.logging.Logger
 @serializable
 case class PickerMonth(var selectedDay: Calendar) {
 
-  @transient
-  var log = Logger.getLogger("PickerMonth")
-
-   
   var data = prepareMonth(selectedDay)
 
   /*properties for day month year selection*/
@@ -102,7 +98,7 @@ case class PickerMonth(var selectedDay: Calendar) {
           pickerWeek = new PickerWeek
         }
     }
-    log.info("Days" + days.asInstanceOf[Int])
+
     //we now increment all days and generate the meta data for our view
     for(cnt <- 0 until days.asInstanceOf[Int] ) {
       currentDate.setTimeInMillis(currentDate.getTimeInMillis+DAY_LENGTH)
