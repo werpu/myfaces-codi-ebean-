@@ -2,6 +2,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.dateP
 
 import java.util.{ArrayList, Calendar}
 import java.util.logging.Logger
+import java.io.ObjectInputStream
 
 /**
  *
@@ -99,6 +100,7 @@ case class PickerMonth(var selectedDay: Calendar) {
     while(firstDayDisplayed.get(Calendar.DAY_OF_WEEK) != 1) {
       firstDayDisplayed.setTimeInMillis( firstDayDisplayed.getTimeInMillis - DAY_LENGTH);
     }
+
     //and to the end of the week according to the locale set
     while(lastDayDisplayed.get(Calendar.DAY_OF_WEEK) != 7) {
       lastDayDisplayed.setTimeInMillis(lastDayDisplayed.getTimeInMillis + DAY_LENGTH);
@@ -161,8 +163,11 @@ case class PickerMonth(var selectedDay: Calendar) {
     ret
   }
 
-  def main(args: Array[String]) {
-    var pickerMonth = new PickerMonth(Calendar.getInstance());
+  private def readObject(in: ObjectInputStream) {
+    in.defaultReadObject
+    if (data == null) {
+      data = prepareMonth(selectedDay)
+    }
   }
 
 }
