@@ -1,7 +1,10 @@
 target/
 .svn
 out/
-test/
+*.lck
+*.ctrl
+*.dat
+test/service.properties
 logs/
 *.iml
 *.ipr
