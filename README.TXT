@@ -1,3 +1,4 @@
+
 This is a sample project for testing out and providing a project template for following stack.
 
 Apache MyFaces 2.x
