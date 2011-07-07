@@ -18,3 +18,5 @@ class PickerDay {
   var specialDay: Boolean = false
   var specialDayMetaInfo:String = ""
 }
+
+

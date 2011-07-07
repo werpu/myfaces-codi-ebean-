@@ -9,7 +9,11 @@ import java.util.{ArrayList, Calendar}
 @serializable
 case class PickerMonth(var selectedDay: Calendar) {
 
+  @transient
   var data = prepareMonth(selectedDay)
+
+  var current: PickerDay = _
+
 
   /*properties for day month year selection*/
   def day: Int = {
@@ -54,7 +58,15 @@ case class PickerMonth(var selectedDay: Calendar) {
     this.year = this.year-1
   }
 
+  def first:PickerDay = {
+    data.get(0).days.get(0)
+  }
 
+  def last:PickerDay = {
+    var pm = data.get(data.size -1)
+
+    pm.days.get(pm.days.size -1)
+  }
 
   /**
    * prerender creates the date picker list model which then is used
@@ -65,6 +77,8 @@ case class PickerMonth(var selectedDay: Calendar) {
     val ret = new ArrayList[PickerWeek]
 
     val currentMonth = makeMonth(currentDay)
+    current = new PickerDay
+    current.day = currentDay
 
     //not iterate over all days and create the day entry list
     val firstDay = currentMonth.getActualMinimum(Calendar.DAY_OF_MONTH)

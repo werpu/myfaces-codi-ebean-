@@ -27,8 +27,14 @@ class PickerMonthTest {
 
     var pickerMonth = new PickerMonth(Calendar.getInstance())
 
+    import DatePickerConversions._
+
     //TODO first day 27.12.2010
+    logger.info("First:"+pickerDay2Calendar(pickerMonth.first).get(Calendar.DAY_OF_MONTH))
+    logger.info("Last:"+pickerDay2Calendar(pickerMonth.last).get(Calendar.DAY_OF_MONTH))
+
     //Last day 06.02.2011
+
 
     //TODO assert now the begin and ending of the pickermonth properly
     logger.info("Ending Test")
