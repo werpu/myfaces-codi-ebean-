@@ -2,12 +2,9 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.dateP
 
 
 import org.junit.Test
-import junit.framework.TestCase
 import junit.framework.Assert._
 import java.util.Calendar
 import java.util.logging.Logger
-import javax.inject.Inject
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)

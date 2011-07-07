@@ -1,0 +1,77 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
+    <composite:interface componentType="at.irian.DatePicker">
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="javascriptVar" required="false"></composite:attribute>
+        <composite:attribute name="javascriptClass" default="extras.apache.DatePanel"/>
+
+
+        <composite:attribute name="styleClass"/>
+        <composite:attribute name="style"/>
+
+        <composite:attribute name="rendered" default="true"/>
+
+
+    </composite:interface>
+    <composite:implementation>
+        <!--
+        <h:outputScript library="script" name="_behaviors/_Behavior.js"/>
+        <h:outputScript library="script" name="_behaviors/_KeyboardAware.js"/>
+        <h:outputScript library="script" name="_behaviors/_MouseAware.js"/>
+        <h:outputScript library="script" name="_behaviors/_Focusable.js"/>
+
+
+        <h:outputScript library="script" name="input/DatePanel.js"/>
+        -->
+
+        <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} datePanel">
+            <h:panelGroup layout="block" rendered="#{cc.attrs.rendered}">
+                <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
+
+                <div class="header">
+
+                </div>
+
+                <div class="controls">
+
+                </div>
+
+                <div class="title row">
+                    <!-- TODO add the beginning of week handling here -->
+                    <div class="cell first">
+                        Mon
+                    </div>
+                    <div class="cell second">
+                        Tue
+                    </div>
+                    <div class="cell third">
+                        We
+                    </div>
+                    <div class="cell fourth">
+                        Th
+                    </div>
+                    <div class="cell fifth">
+                        Fr
+                    </div>
+                    <div class="cell sixth">
+                        Sat
+                    </div>
+                    <div class="cell seventh">
+                        Sun
+                    </div>
+                </div>
+                <!-- foreach the controls here -->
+                <!-- foreach the controls here end -->
+                <div class="footer row">
+
+                </div>
+
+            </h:panelGroup>
+        </div>
+    </composite:implementation>
+</ui:component>

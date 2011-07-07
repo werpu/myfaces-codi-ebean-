@@ -10,7 +10,7 @@ import java.io.ObjectInputStream
  * @version $Revision$ $Date$
  */
 @serializable
-case class PickerMonth(var selectedDay: Calendar) {
+class PickerMonth(var selectedDay: Calendar) {
 
   @transient
   var logger = Logger.getLogger("PickerMonth")

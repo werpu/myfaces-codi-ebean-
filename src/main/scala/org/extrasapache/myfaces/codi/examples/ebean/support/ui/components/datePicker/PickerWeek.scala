@@ -1,5 +1,7 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.datePicker
 
+import java.util._
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -7,6 +9,5 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.dateP
  */
 
 class PickerWeek {
-    import java.util._
-    var days = new ArrayList[PickerDay](7)
+  var days = new ArrayList[PickerDay](7)
 }

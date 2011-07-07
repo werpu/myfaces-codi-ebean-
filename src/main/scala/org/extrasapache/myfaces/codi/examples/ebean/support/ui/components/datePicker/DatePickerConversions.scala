@@ -16,10 +16,9 @@ object DatePickerConversions {
   }
 
   implicit def Calendar2PickerDay(cal: Calendar): PickerDay = {
-    var ret = new PickerDay()
+    val ret = new PickerDay()
     ret.day = cal
 
     ret
   }
-
 }
