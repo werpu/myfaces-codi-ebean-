@@ -1,8 +1,6 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.datePicker
 
 import java.util.{ArrayList, Calendar}
-import java.util.logging.Logger
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
