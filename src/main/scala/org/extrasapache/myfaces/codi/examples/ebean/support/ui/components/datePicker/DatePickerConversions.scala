@@ -12,12 +12,12 @@ import java.util.Calendar
 
 object DatePickerConversions {
   implicit def pickerDay2Calendar(pickerDay: PickerDay): Calendar = {
-    pickerDay.day
+    pickerDay.cal
   }
 
   implicit def Calendar2PickerDay(cal: Calendar): PickerDay = {
     val ret = new PickerDay()
-    ret.day = cal
+    ret.cal = cal
 
     ret
   }

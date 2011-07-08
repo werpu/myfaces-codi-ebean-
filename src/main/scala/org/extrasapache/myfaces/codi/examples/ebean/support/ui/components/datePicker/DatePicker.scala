@@ -2,7 +2,8 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.dateP
 
 import javax.faces.component.FacesComponent
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
-import javax.faces.event.ComponentSystemEvent
+import javax.faces.event.{ActionEvent, ComponentSystemEvent}
+import java.util.logging.Logger
 
 /**
  *
@@ -40,6 +41,11 @@ class DatePicker extends StandardJavascriptComponent {
     }
   }
 
+  def selectDay:String = {
+    val logger = Logger.getLogger("DatePicker.selectDay")
+    logger.info("picked")
+    return null
+  }
 
 
 }

@@ -30,7 +30,7 @@ class PickerMonthTest {
     logger.info("Last:"+pickerMonth.last.get(Calendar.DAY_OF_MONTH))
 
     assertTrue("First day", 27 == pickerMonth.first.get(Calendar.DAY_OF_MONTH))
-    assertTrue("Last day", 5 == pickerMonth.last.get(Calendar.DAY_OF_MONTH))
+    assertTrue("Last day", 6 == pickerMonth.last.get(Calendar.DAY_OF_MONTH))
 
     assertTrue("Month", Calendar.DECEMBER == pickerMonth.first.get(Calendar.MONTH))
     assertTrue("Month", Calendar.FEBRUARY == pickerMonth.last.get(Calendar.MONTH))

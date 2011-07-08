@@ -8,6 +8,8 @@ import java.io.ObjectInputStream
  *
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
+ *
+ * TODO proper beginning day calculation
  */
 @serializable
 class PickerMonth(var selectedDay: Calendar) {
@@ -16,10 +18,12 @@ class PickerMonth(var selectedDay: Calendar) {
   var logger = Logger.getLogger("PickerMonth")
 
   @transient
-  var data = prepareMonth(selectedDay)
+  var weeks = prepareMonth(selectedDay)
 
   var current: PickerDay = _
 
+  //TODO implement this
+  var beginDay: Int = 1 /*1 mon 2 tues etc...*/
 
   /*properties for day month year selection*/
   def day: Int = {
@@ -36,7 +40,7 @@ class PickerMonth(var selectedDay: Calendar) {
 
   def month_$eq(month: Int) {
     selectedDay.set(Calendar.MONTH, month)
-    data = prepareMonth(selectedDay)
+    weeks = prepareMonth(selectedDay)
   }
 
   def year: Int = {
@@ -45,7 +49,7 @@ class PickerMonth(var selectedDay: Calendar) {
 
   def year_$eq(year: Int) {
      selectedDay.set(Calendar.YEAR, year)
-     data = prepareMonth(selectedDay)
+     weeks = prepareMonth(selectedDay)
   }
 
   def nextMonth() {
@@ -65,11 +69,11 @@ class PickerMonth(var selectedDay: Calendar) {
   }
 
   def first:PickerDay = {
-    data.get(0).days.get(0)
+    weeks.get(0).days.get(0)
   }
 
   def last:PickerDay = {
-    var pm = data.get(data.size -1)
+    var pm = weeks.get(weeks.size -1)
 
     pm.days.get(pm.days.size -1)
   }
@@ -84,7 +88,7 @@ class PickerMonth(var selectedDay: Calendar) {
 
     val currentMonth = makeMonth(currentDay)
     current = new PickerDay
-    current.day = currentDay
+    current.cal = currentDay
 
     //not iterate over all days and create the day entry list
     val firstDay = currentMonth.getActualMinimum(Calendar.DAY_OF_MONTH)
@@ -97,17 +101,11 @@ class PickerMonth(var selectedDay: Calendar) {
 
     //we now skip to the beginning of the week according to the locale set
     val DAY_LENGTH = 1000l*60l*60l*24l
-    while(firstDayDisplayed.get(Calendar.DAY_OF_WEEK) != 1) {
-      firstDayDisplayed.setTimeInMillis( firstDayDisplayed.getTimeInMillis - DAY_LENGTH);
-    }
+    val firstMs = firstDayDisplayed.getTimeInMillis - DAY_LENGTH * ( firstDayDisplayed.get(Calendar.DAY_OF_WEEK) - 1 );
+    val lastMs = lastDayDisplayed.getTimeInMillis + DAY_LENGTH * (8 - lastDayDisplayed.get(Calendar.DAY_OF_WEEK)  );
+    val days = (lastMs - firstMs) / DAY_LENGTH
 
-    //and to the end of the week according to the locale set
-    while(lastDayDisplayed.get(Calendar.DAY_OF_WEEK) != 7) {
-      lastDayDisplayed.setTimeInMillis(lastDayDisplayed.getTimeInMillis + DAY_LENGTH);
-    }
-
-    val days = (lastDayDisplayed.getTimeInMillis() - firstDayDisplayed.getTimeInMillis()) / DAY_LENGTH
-
+    firstDayDisplayed.setTimeInMillis(firstMs)
     val currentDate = makeDay(firstDayDisplayed)
     var pickerWeek:PickerWeek = new PickerWeek()
 
@@ -123,13 +121,17 @@ class PickerMonth(var selectedDay: Calendar) {
     for(cnt <- 0 until days.asInstanceOf[Int] ) {
       currentDate.setTimeInMillis(currentDate.getTimeInMillis+DAY_LENGTH)
       val currentPickerDay = new PickerDay
-      currentPickerDay.day = makeDay(currentDate)
+      currentPickerDay.cal = makeDay(currentDate)
       if (currentDate.get(Calendar.DAY_OF_WEEK) == 1) {
         currentPickerDay.firstDayOfWeek = true
-        newWeek()
+        //TODO proper difference calculation
+        pickerWeek.days.add(currentPickerDay)
+        if (cnt < (days.asInstanceOf[Int]-1l))
+          newWeek()
         //todo add holiday handling here with a holiday hashmap provided
+      } else {
+        pickerWeek.days.add(currentPickerDay)
       }
-      pickerWeek.days.add(currentPickerDay)
     }
     newWeek()
     pickerWeek = null
@@ -145,7 +147,7 @@ class PickerMonth(var selectedDay: Calendar) {
     ret.set(Calendar.HOUR, 0)
     ret.set(Calendar.MINUTE, 0)
     ret.set(Calendar.SECOND, 0)
-    ret.set(Calendar.MILLISECOND, 0)
+    ret.set(Calendar.MILLISECOND, 1)
 
     ret
   }
@@ -165,8 +167,8 @@ class PickerMonth(var selectedDay: Calendar) {
 
   private def readObject(in: ObjectInputStream) {
     in.defaultReadObject
-    if (data == null) {
-      data = prepareMonth(selectedDay)
+    if (weeks == null) {
+      weeks = prepareMonth(selectedDay)
     }
   }
 
