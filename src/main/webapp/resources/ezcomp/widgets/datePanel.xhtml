@@ -30,21 +30,30 @@
         -->
 
         <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} datePanel">
-            <h:panelGroup id="dateSelector" layout="block" rendered="#{cc.attrs.rendered}">
-                <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
+            <h:panelGroup id="#{cc.clientId}" layout="block" rendered="#{cc.attrs.rendered}">
+                <h:panelGroup id="componentBinding" style="display:none">
+                    <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
+                </h:panelGroup>
+                <h:panelGroup id="header" layout="block" styleClass="header">
 
-                <div class="header">
+                </h:panelGroup>
 
-                </div>
-
-                <div class="controls">
+                <h:panelGroup id="controls" layout="block" styleClass="controls">
                     <!-- todo replace the command links with image buttons -->
-                    <h:commandLink value="&lt;&lt;" styleClass="previousYear"></h:commandLink>
-                    <h:commandLink value="&lt;" styleClass="previousMonth"></h:commandLink>
+                    <h:commandLink value="&lt;&lt;" styleClass="previousYear" actionListener="#{cc.previousYear}">
+                        <f:ajax render="header body controls" execute="@this"/>
+                    </h:commandLink>
+                    <h:commandLink value="&lt;" styleClass="previousMonth" actionListener="#{cc.previousMonth}">
+                        <f:ajax render="header body controls" execute="@this"/>
+                    </h:commandLink>
                     <h:inputText value="" styleClass="year"></h:inputText>
-                    <h:commandLink value="&gt;" styleClass="nextMonth"></h:commandLink>
-                    <h:commandLink value="&gt;&gt;" styleClass="nextYear"></h:commandLink>
-                </div>
+                    <h:commandLink value="&gt;" styleClass="nextMonth" actionListener="#{cc.nextMonth}">
+                        <f:ajax render="header body controls" execute="@this"/>
+                    </h:commandLink>
+                    <h:commandLink value="&gt;&gt;" styleClass="nextYear" actionListener="#{cc.nextYear}">
+                        <f:ajax render="header body controls" execute="@this"/>
+                    </h:commandLink>
+                </h:panelGroup>
 
                 <div class="title row">
                     <!-- TODO add the beginning of week handling here -->
@@ -59,21 +68,22 @@
                 </div>
                 <!-- foreach the controls here -->
                 <!-- foreach the controls here end -->
-                <div class="footer row">
+                <h:panelGroup id="body" layout="block" class="body row">
                     <ui:repeat value="#{cc.displayData.weeks}" var="week" varStatus="row">
                         <div class="week row row_#{row.index}">
                             <ui:repeat value="#{week.days}" var="day" varStatus="col">
-                                <div   class="day cell column col_#{col.index}">
-                                    <h:commandLink id="daySelection" action="#{cc.selectDay}">
-                                        <h:outputFormat  value="#{day.day}"/>
+                                <div class="day cell column col_#{col.index}">
+                                    <h:commandLink id="daySelection" onclick="jsf.ajax.request(this, event,{
+                                        execute:'@this', render:'#{cc.clientId}:header #{cc.clientId}:controls #{cc.clientId}:componentBinding', mf_dp:'1000'
+                                    }); return false;">
+                                        <h:outputFormat value="#{day.day}"/>
                                     </h:commandLink>
                                 </div>
                             </ui:repeat>
                         </div>
                         <div class="rowEnd"/>
                     </ui:repeat>
-                </div>
-
+                </h:panelGroup>
             </h:panelGroup>
         </div>
     </composite:implementation>
