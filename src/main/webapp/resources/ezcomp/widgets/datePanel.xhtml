@@ -72,7 +72,7 @@
                     <ui:repeat value="#{cc.displayData.weeks}" var="week" varStatus="row">
                         <div class="week row row_#{row.index}">
                             <ui:repeat value="#{week.days}" var="day" varStatus="col">
-                                <div class="day cell column col_#{col.index}">
+                                <div class="day cell column col_#{col.index}" data-mf-pickerdate="#{day.toLong}">
                                     <h:commandLink id="daySelection" onclick="jsf.ajax.request(this, event,{
                                         execute:'@this', render:'#{cc.clientId}:header #{cc.clientId}:controls #{cc.clientId}:componentBinding', mf_dp:'1000'
                                     }); return false;">

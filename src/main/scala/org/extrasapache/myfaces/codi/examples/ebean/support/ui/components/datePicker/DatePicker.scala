@@ -2,7 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.dateP
 
 import javax.faces.component.FacesComponent
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
-import java.util.logging.Logger
 import javax.faces.event.{PostRestoreStateEvent, ListenerFor, ActionEvent, ComponentSystemEvent}
 
 /**
@@ -18,6 +17,7 @@ object DatePicker {
 
   val BEG_WEEK = "beginningOfWeek"
   val VALUE = "value"
+  val DISPLAY_DATA = "displayData"
 }
 
 /**
@@ -34,14 +34,20 @@ class DatePicker extends StandardJavascriptComponent {
 
   var displayData: PickerMonth = _
 
+  def nextYear(event: ActionEvent) { displayData.nextYear }
+  def nextMonth(event: ActionEvent) { displayData.nextMonth }
+  def previousMonth(event: ActionEvent) { displayData.previousMonth }
+  def previousYear(event: ActionEvent) { displayData.previousYear }
+
+  def preRenderInput(ev: ComponentSystemEvent) { restoreDisplayData }
+
+
   /*
    * the listener now is responsible for checking for an incoming
    * date change value and then parsing it in
    */
   override def processEvent(event: ComponentSystemEvent) {
-    val logger = Logger.getLogger("DatePicker.selectDay")
-    logger.info("decoded")
-    val incomingParam: String = reqAttrMap.get("mf_dp")
+    val incomingParam = reqAttrMap.get("mf_dp")
     if (incomingParam != null && incomingParam.trim != "") {
       val longVal:Long =  incomingParam.toLong
       val value = getAttr[Calendar](VALUE, Calendar.getInstance())
@@ -54,41 +60,10 @@ class DatePicker extends StandardJavascriptComponent {
 
   protected def restoreDisplayData {
     val value = getAttr[Calendar]("value", Calendar.getInstance())
-    if (displayData == null || displayData.selectedDay != value) {
+    displayData = getAttr[PickerMonth](DISPLAY_DATA, null)
+    if (displayData == null) {
       displayData = new PickerMonth(value)
+      setAttr[PickerMonth](DISPLAY_DATA, displayData)
     }
   }
-
-  def nextYear(event: ActionEvent) {
-    val logger = Logger.getLogger("DatePicker.selectDay")
-    logger.info("nextYear")
-  }
-
-  def nextMonth(event: ActionEvent) {
-    val logger = Logger.getLogger("DatePicker.selectDay")
-    logger.info("nextMonth")
-  }
-
-  def previousMonth(event: ActionEvent) {
-    val logger = Logger.getLogger("DatePicker.selectDay")
-    logger.info("previousMonth")
-  }
-
-  def previousYear(event: ActionEvent) {
-    val logger = Logger.getLogger("DatePicker.selectDay")
-    logger.info("previousYear")
-  }
-
-  def preRenderInput(ev: ComponentSystemEvent) {
-    //we fetch the request attribute in case we did not have it yet
-
-    restoreDisplayData
-  }
-
-  def selectDay: String = {
-    val logger = Logger.getLogger("DatePicker.selectDay")
-    logger.info("picked")
-    null
-  }
-
 }

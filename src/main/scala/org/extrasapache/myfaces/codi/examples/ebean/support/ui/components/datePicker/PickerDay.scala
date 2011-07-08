@@ -9,7 +9,7 @@ import java.util.Calendar
  *
  * internal day descriptor for a single day
  */
-
+@serializable
 class PickerDay {
 
   var cal: Calendar = _
@@ -42,6 +42,10 @@ class PickerDay {
   def year_$eq(year: Int) {
     cal.set(Calendar.YEAR, year)
   }
+
+  def toLong: Long = cal.getTimeInMillis
+
+
 }
 
 
