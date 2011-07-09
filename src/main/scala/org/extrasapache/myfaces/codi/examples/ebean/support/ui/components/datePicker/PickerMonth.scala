@@ -93,6 +93,7 @@ class PickerMonth(var selectedDay: Calendar) {
     //not iterate over all days and create the day entry list
     val firstDay = currentMonth.getActualMinimum(Calendar.DAY_OF_MONTH)
     val lastDay = currentMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
+
     val firstDayDisplayed = makeMonth(currentMonth);
     firstDayDisplayed.set(Calendar.DAY_OF_MONTH, firstDay)
 
@@ -101,8 +102,11 @@ class PickerMonth(var selectedDay: Calendar) {
 
     //we now skip to the beginning of the week according to the locale set
     val DAY_LENGTH = 1000l*60l*60l*24l
-    val firstMs = firstDayDisplayed.getTimeInMillis - DAY_LENGTH * ( firstDayDisplayed.get(Calendar.DAY_OF_WEEK) - 1 );
-    val lastMs = lastDayDisplayed.getTimeInMillis + DAY_LENGTH * (8 - lastDayDisplayed.get(Calendar.DAY_OF_WEEK)  );
+    val firstDayOfMonthMS = firstDayDisplayed.getTimeInMillis
+    val lastDayOfMonthMS = lastDayDisplayed.getTimeInMillis
+    val firstMs = firstDayDisplayed.getTimeInMillis - DAY_LENGTH * ( firstDayDisplayed.get(Calendar.DAY_OF_WEEK) - 1);
+    val lastMs =  lastDayDisplayed.getTimeInMillis  + DAY_LENGTH * (8 - lastDayDisplayed.get(Calendar.DAY_OF_WEEK));
+
     val days = (lastMs - firstMs) / DAY_LENGTH
 
     firstDayDisplayed.setTimeInMillis(firstMs)
@@ -122,13 +126,15 @@ class PickerMonth(var selectedDay: Calendar) {
       currentDate.setTimeInMillis(currentDate.getTimeInMillis+DAY_LENGTH)
       val currentPickerDay = new PickerDay
       currentPickerDay.cal = makeDay(currentDate)
+      currentPickerDay.inSelectedMonth = currentPickerDay.cal.getTimeInMillis < firstDayOfMonthMS || currentPickerDay.cal.getTimeInMillis > lastDayOfMonthMS
+
       if (currentDate.get(Calendar.DAY_OF_WEEK) == 1) {
         currentPickerDay.firstDayOfWeek = true
-        //TODO proper difference calculation
+
         pickerWeek.days.add(currentPickerDay)
-        if (cnt < (days.asInstanceOf[Int]-1l))
+        if (cnt < (days.asInstanceOf[Int]-1l)) {
           newWeek()
-        //todo add holiday handling here with a holiday hashmap provided
+        }
       } else {
         pickerWeek.days.add(currentPickerDay)
       }

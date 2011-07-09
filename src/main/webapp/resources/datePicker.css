@@ -1,38 +1,47 @@
 .datePanel {
     border: 1px solid silver;
     background-color: #f1ecec;
-    width: 200px;
+    width: 230px;
 }
 
 .datePanel .header {
     height: 20px;
 
-    background: rgb(242, 245, 246); /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(242, 245, 246, 1)), color-stop(50%, rgba(196,196,196, 1)), color-stop(100%, rgba(168, 168, 168,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f2f5f6', endColorstr = '#d8d8d8', GradientType = 0); /* IE6-9 */
-    background: linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(216, 216, 216, 1) 100%); /* W3C */
+   	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* W3C */
 }
 
-.datePanel .controls  {
+.datePanel .title {
+    font-weight: bold;
+    border-bottom: 1px solid silver;
+}
+
+.datePanel .controls {
     height: 20px;
-    background-color: rgba(168, 168, 168,1);
+    background-color:#e5e5e5;
 }
 
 .datePanel .header, .datePanel .controls, .datePanel .footer {
     display: block;
+    position: relative;
     margin-left: auto;
     margin-right: auto;
-    width: 200px;
+    width: 230px;
 }
+
 .datePanel .row {
-    display: block;
+    display: table;
     margin-left: auto;
     margin-right: auto;
-    width: 180px;
+    width: 220px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .datePanel .cell {
@@ -40,9 +49,88 @@
     width: 20px;
     margin-left: 5px;
     text-align: center;
-    width: 20px;
+    width: 25px;
 }
 
 .datePanel .rowEnd {
     clear: both;
+}
+
+.datePanel .yearselector {
+    width: 40px;
+    display: inline;
+    text-align: center;
+    margin-left: 95px;
+    border-radius: 10px;
+    border: 1px groove silver;
+
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+.datePanel .yearselector:focus {
+    width: 80px;
+    margin-left: 75px;
+    display: inline;
+}
+
+.datePanel .controls .nextYear, .datePanel .controls .nextMonth, .datePanel .controls .previousYear, .datePanel .controls .previousMonth {
+    position: absolute;
+
+}
+
+.datePanel .controls .nextYear {
+    right: 0px;
+    background-image: url(/javax.faces.resource/icons/famfam/control_fastforward.png.jsf?ln=images);
+    background-repeat: no-repeat;
+}
+
+.datePanel .controls .nextMonth {
+    right: 20px;
+    background-image: url(/javax.faces.resource/icons/famfam/control_play.png.jsf?ln=images);
+    background-repeat: no-repeat;
+}
+
+.datePanel .controls .previousYear {
+    left: 0px;
+    background-image: url(/javax.faces.resource/icons/famfam/control_rewind.png.jsf?ln=images);
+    background-repeat: no-repeat;
+}
+
+.datePanel .controls .previousMonth {
+    left: 20px;
+    background-image: url(/javax.faces.resource/icons/famfam/control_play_inverse.png.jsf?ln=images);
+}
+
+.datePanel .controls .placeholder {
+    width: 16px;
+    height: 16px;
+    display: block;
+    float: left;
+}
+
+.datePanel .day {
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+
+    cursor: pointer;
+}
+
+.datePanel .day:hover {
+    background-color: #c6c4ec;
+	  border-radius: 10px;
+}
+
+.datePanel .row.even {
+    background-color: #d5d5d5;
+}
+
+.datePanel .row:hover {
+    background-color: #d0d0d0;
 }

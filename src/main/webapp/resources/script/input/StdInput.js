@@ -29,7 +29,7 @@
                     /*we plug in the selection routine behavior*/
                     new extras.apache._Selectable(this);
                     /*the componetn can deal with values*/
-                    new extras.apache._ValueHolder(this);
+                    new extras.apache._ValueHolder(this,".inputTextValueHolder");
                     /*we now add one of the two behaviors dynamically*/
                     /*both expose a method match which is called from the outside*/
                     if (this._validationMask) {

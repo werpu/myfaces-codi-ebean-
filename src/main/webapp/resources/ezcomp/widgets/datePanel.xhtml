@@ -8,7 +8,7 @@
     <composite:interface componentType="at.irian.DatePicker">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="javascriptVar" required="false"></composite:attribute>
-        <composite:attribute name="javascriptClass" default="extras.apache.DatePanel"/>
+        <composite:attribute name="javascriptClass" default="extras.apache.DatePicker"/>
 
 
         <composite:attribute name="styleClass"/>
@@ -19,20 +19,22 @@
 
     </composite:interface>
     <composite:implementation>
-        <!--
+
         <h:outputScript library="script" name="_behaviors/_Behavior.js"/>
         <h:outputScript library="script" name="_behaviors/_KeyboardAware.js"/>
         <h:outputScript library="script" name="_behaviors/_MouseAware.js"/>
         <h:outputScript library="script" name="_behaviors/_Focusable.js"/>
+        <h:outputScript library="script" name="_behaviors/_ValueHolder.js"/>
 
 
-        <h:outputScript library="script" name="input/DatePanel.js"/>
-        -->
+        <h:outputScript library="script" name="input/DatePicker.js"/>
+
 
         <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} datePanel">
             <h:panelGroup id="#{cc.clientId}" layout="block" rendered="#{cc.attrs.rendered}">
                 <h:panelGroup id="componentBinding" style="display:none">
                     <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
+                    <h:inputText style="display:none" id="valueHolder" styleClass="dateValueHolder" />
                 </h:panelGroup>
                 <h:panelGroup id="header" layout="block" styleClass="header">
 
@@ -40,18 +42,27 @@
 
                 <h:panelGroup id="controls" layout="block" styleClass="controls">
                     <!-- todo replace the command links with image buttons -->
-                    <h:commandLink value="&lt;&lt;" styleClass="previousYear" actionListener="#{cc.previousYear}">
+                    <h:commandLink  styleClass="previousYear" actionListener="#{cc.previousYear}">
                         <f:ajax render="header body controls" execute="@this"/>
+                        <div class="placeholder" />
                     </h:commandLink>
-                    <h:commandLink value="&lt;" styleClass="previousMonth" actionListener="#{cc.previousMonth}">
+                    <h:commandLink  styleClass="previousMonth" actionListener="#{cc.previousMonth}">
                         <f:ajax render="header body controls" execute="@this"/>
+                        <div class="placeholder" />
                     </h:commandLink>
-                    <h:inputText value="" styleClass="year"></h:inputText>
-                    <h:commandLink value="&gt;" styleClass="nextMonth" actionListener="#{cc.nextMonth}">
+
+                    <h:inputText value="#{cc.displayData.year}" styleClass="year yearselector" id="yearselector" >
+                         <f:ajax render="header body controls"  execute="@this"/>
+                        <div class="placeholder" />
+                    </h:inputText>
+
+                    <h:commandLink  styleClass="nextMonth" actionListener="#{cc.nextMonth}">
                         <f:ajax render="header body controls" execute="@this"/>
+                        <div class="placeholder" />
                     </h:commandLink>
-                    <h:commandLink value="&gt;&gt;" styleClass="nextYear" actionListener="#{cc.nextYear}">
+                    <h:commandLink  styleClass="nextYear" actionListener="#{cc.nextYear}">
                         <f:ajax render="header body controls" execute="@this"/>
+                        <div class="placeholder" />
                     </h:commandLink>
                 </h:panelGroup>
 
@@ -68,23 +79,31 @@
                 </div>
                 <!-- foreach the controls here -->
                 <!-- foreach the controls here end -->
-                <h:panelGroup id="body" layout="block" class="body row">
+                <h:panelGroup id="body" layout="block" class="body">
                     <ui:repeat value="#{cc.displayData.weeks}" var="week" varStatus="row">
-                        <div class="week row row_#{row.index}">
+                        <div class="week row row_#{row.index} #{((row.index) % 2 == 1) ? 'odd':'even'}">
                             <ui:repeat value="#{week.days}" var="day" varStatus="col">
-                                <div class="day cell column col_#{col.index}" data-mf-pickerdate="#{day.toLong}">
-                                    <h:commandLink id="daySelection" onclick="jsf.ajax.request(this, event,{
-                                        execute:'@this', render:'#{cc.clientId}:header #{cc.clientId}:controls #{cc.clientId}:componentBinding', mf_dp:'1000'
-                                    }); return false;">
-                                        <h:outputFormat value="#{day.day}"/>
-                                    </h:commandLink>
+                                <div class="day cell column col_#{col.index}"  data-mf-pickerdate="#{day.toLong}">
+                                    <h:outputFormat class="selector" id="daySelection" value="#{day.day}">
+
+                                    </h:outputFormat>
                                 </div>
                             </ui:repeat>
                         </div>
                         <div class="rowEnd"/>
                     </ui:repeat>
+                    <script type="text/javascript">
+                            var #{cc.javascriptVar} =
+                            new #{cc.attrs.javascriptClass}({
+                                id:"#{cc.clientId}",
+                                ajaxRequest:#{cc.ajaxState.toString()},
+                                javascriptVar:"#{cc.javascriptVar}"
+                            });
+                    </script>
                 </h:panelGroup>
             </h:panelGroup>
+
+
         </div>
     </composite:implementation>
 </ui:component>

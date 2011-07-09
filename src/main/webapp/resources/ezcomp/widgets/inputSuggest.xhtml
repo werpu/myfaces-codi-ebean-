@@ -47,7 +47,7 @@
                     <h:outputLabel value="#{cc.attrs.label}" for="valueHolder"
                                    styleClass="label #{cc.attrs.labelStyleClass}"/>
                     <h:inputText binding="#{cc.valueHolder}" id="valueHolder"
-                                 styleClass="valueHolder inputText #{cc.attrs.inputStyleClass}"
+                                 styleClass="inputTextValueHolder inputText #{cc.attrs.inputStyleClass}"
                                  value="#{cc.attrs.model.displayValue}" autocomplete="off">
                         <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
                     </h:inputText>
