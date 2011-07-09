@@ -46,10 +46,10 @@
 
 .datePanel .cell {
     float: left;
-    width: 20px;
-    margin-left: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
     text-align: center;
-    width: 25px;
+    width: 20px;
 }
 
 .datePanel .rowEnd {
@@ -134,3 +134,9 @@
 .datePanel .row:hover {
     background-color: #d0d0d0;
 }
+
+.datePanel .row .outside {
+	background-color: white;
+	color: silver;
+}
+

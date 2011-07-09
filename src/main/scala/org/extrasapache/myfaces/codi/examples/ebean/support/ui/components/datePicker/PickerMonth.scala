@@ -3,7 +3,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.dateP
 import java.util.{ArrayList, Calendar}
 import java.util.logging.Logger
 import java.io.ObjectInputStream
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -48,34 +47,34 @@ class PickerMonth(var selectedDay: Calendar) {
   }
 
   def year_$eq(year: Int) {
-     selectedDay.set(Calendar.YEAR, year)
-     weeks = prepareMonth(selectedDay)
+    selectedDay.set(Calendar.YEAR, year)
+    weeks = prepareMonth(selectedDay)
   }
 
   def nextMonth() {
-    this.month = this.month+1
+    this.month = this.month + 1
   }
 
   def previousMonth() {
-    this.month = this.month-1
+    this.month = this.month - 1
   }
 
   def nextYear() {
-    this.year = this.year+1
+    this.year = this.year + 1
   }
 
   def previousYear() {
-    this.year = this.year-1
+    this.year = this.year - 1
   }
 
-  def first:PickerDay = {
+  def first: PickerDay = {
     weeks.get(0).days.get(0)
   }
 
-  def last:PickerDay = {
-    var pm = weeks.get(weeks.size -1)
+  def last: PickerDay = {
+    val pm = weeks.get(weeks.size - 1)
 
-    pm.days.get(pm.days.size -1)
+    pm.days.get(pm.days.size - 1)
   }
 
   /**
@@ -101,47 +100,46 @@ class PickerMonth(var selectedDay: Calendar) {
     lastDayDisplayed.set(Calendar.DAY_OF_MONTH, lastDay)
 
     //we now skip to the beginning of the week according to the locale set
-    val DAY_LENGTH = 1000l*60l*60l*24l
+    val DAY_LENGTH = 1000l * 60l * 60l * 24l
     val firstDayOfMonthMS = firstDayDisplayed.getTimeInMillis
     val lastDayOfMonthMS = lastDayDisplayed.getTimeInMillis
-    val firstMs = firstDayDisplayed.getTimeInMillis - DAY_LENGTH * ( firstDayDisplayed.get(Calendar.DAY_OF_WEEK) - 1);
-    val lastMs =  lastDayDisplayed.getTimeInMillis  + DAY_LENGTH * (8 - lastDayDisplayed.get(Calendar.DAY_OF_WEEK));
+    val firstMs = firstDayDisplayed.getTimeInMillis - DAY_LENGTH * firstDayDisplayed.get(Calendar.DAY_OF_WEEK);
+    val lastMs = lastDayDisplayed.getTimeInMillis + DAY_LENGTH * 7 - lastDayDisplayed.get(Calendar.DAY_OF_WEEK);
 
     val days = (lastMs - firstMs) / DAY_LENGTH
 
     firstDayDisplayed.setTimeInMillis(firstMs)
     val currentDate = makeDay(firstDayDisplayed)
-    var pickerWeek:PickerWeek = new PickerWeek()
+    var pickerWeek: PickerWeek = new PickerWeek()
 
     /*beginning of a new week*/
     def newWeek() {
       if (pickerWeek != null) {
-          ret.add(pickerWeek)
-          pickerWeek = new PickerWeek
-        }
+        ret.add(pickerWeek)
+        pickerWeek = new PickerWeek
+      }
     }
 
     //we now increment all days and generate the meta data for our view
-    for(cnt <- 0 until days.asInstanceOf[Int] ) {
-      currentDate.setTimeInMillis(currentDate.getTimeInMillis+DAY_LENGTH)
-      val currentPickerDay = new PickerDay
-      currentPickerDay.cal = makeDay(currentDate)
-      currentPickerDay.inSelectedMonth = currentPickerDay.cal.getTimeInMillis < firstDayOfMonthMS || currentPickerDay.cal.getTimeInMillis > lastDayOfMonthMS
+    for (cnt <- 0 until days.asInstanceOf[Int]) {
+      currentDate.setTimeInMillis(currentDate.getTimeInMillis + DAY_LENGTH)
+      val currPickerDay = new PickerDay
+      currPickerDay.cal = makeDay(currentDate)
+      currPickerDay.outsideSelectMonth = currPickerDay.cal.getTimeInMillis < firstDayOfMonthMS ||
+                                            currPickerDay.cal.getTimeInMillis > lastDayOfMonthMS;
 
-      if (currentDate.get(Calendar.DAY_OF_WEEK) == 1) {
-        currentPickerDay.firstDayOfWeek = true
-
-        pickerWeek.days.add(currentPickerDay)
-        if (cnt < (days.asInstanceOf[Int]-1l)) {
+      currentDate.get(Calendar.DAY_OF_WEEK) match {
+        case 1 => {
+          currPickerDay.firstDayOfWeek = true
+          pickerWeek.days.add(currPickerDay)
+        }
+        case 7 => {
+          pickerWeek.days.add(currPickerDay)
           newWeek()
         }
-      } else {
-        pickerWeek.days.add(currentPickerDay)
+        case _ => pickerWeek.days.add(currPickerDay)
       }
     }
-    newWeek()
-    pickerWeek = null
-
     ret
   }
 
@@ -153,7 +151,7 @@ class PickerMonth(var selectedDay: Calendar) {
     ret.set(Calendar.HOUR, 0)
     ret.set(Calendar.MINUTE, 0)
     ret.set(Calendar.SECOND, 0)
-    ret.set(Calendar.MILLISECOND, 1)
+    ret.set(Calendar.MILLISECOND, 0)
 
     ret
   }

@@ -17,7 +17,7 @@ class PickerDay {
   var firstDayOfWeek: Boolean = false
   var specialDay: Boolean = false
   var specialDayMetaInfo: String = ""
-  var inSelectedMonth = true
+  var outsideSelectMonth = true
 
   /*properties for day month year selection*/
   def day: Int = {

@@ -67,23 +67,17 @@
                 </h:panelGroup>
 
                 <div class="title row">
-                    <!-- TODO add the beginning of week handling here -->
-                    <div class="cell column col_0">Mon</div>
-                    <div class="cell column col_1">Tue</div>
-                    <div class="cell column col_2">We</div>
-                    <div class="cell column col_3">Th</div>
-                    <div class="cell column col_4">Fr</div>
-                    <div class="cell column col_5">Sat</div>
-                    <div class="cell column col_6">Sun</div>
+                    <ui:repeat value="#{cc.weekList}" var="day"  varStatus="cnt">
+                        <div class="cell column col_#{cnt.index}">#{day}</div>
+                    </ui:repeat>
                     <div class="rowEnd"/>
                 </div>
-                <!-- foreach the controls here -->
-                <!-- foreach the controls here end -->
+
                 <h:panelGroup id="body" layout="block" class="body">
                     <ui:repeat value="#{cc.displayData.weeks}" var="week" varStatus="row">
                         <div class="week row row_#{row.index} #{((row.index) % 2 == 1) ? 'odd':'even'}">
                             <ui:repeat value="#{week.days}" var="day" varStatus="col">
-                                <div class="day cell column col_#{col.index}"  data-mf-pickerdate="#{day.toLong}">
+                                <div class="day cell column col_#{col.index} #{day.outsideSelectMonth ? 'outside':''}"  data-mf-pickerdate="#{day.toLong}">
                                     <h:outputFormat class="selector" id="daySelection" value="#{day.day}">
 
                                     </h:outputFormat>
