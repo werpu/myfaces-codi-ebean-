@@ -26,13 +26,7 @@
             this._callSuper("_postInit", arguments);
             new extras.apache._KeyboardAware(this);
             this._initReferences();
-            _t = this;
-            this.rootNode.querySelectorAll("[data-mf-pickerdate]").forEach(function(elem) {
-                var date = elem.getAttribute("data-mf-pickerdate");
-                elem.querySelector(".selector").toDomNode().onclick = function(evt) {
-                    return !!_t._onDateSelect_(evt, date);
-                }
-            })
+            this._initEvents();
         },
 
         _initReferences: function(resetReferences) {
@@ -45,10 +39,41 @@
             this._controls = this._controls || this.rootNode.querySelector(".controls");
         },
 
+        _initEvents: function() {
+              _t = this;
+            this.rootNode.querySelectorAll("[data-mf-pickerdate]").forEach(function(elem) {
+                var date = elem.getAttribute("data-mf-pickerdate");
+                elem.querySelector(".selector").toDomNode().onclick = function(evt) {
+                    return !!_t._onDateSelect_(evt, date);
+                }
+            });
+            /*this._controls.querySelector(".previousYear").toDomNode().onclick = this._LANG.hitch(this, this.onPreviousYear);
+            this._controls.querySelector(".previousMonth").toDomNode().onclick = this._LANG.hitch(this, this.onPreviousMonth);
+            this._controls.querySelector(".nextYear").toDomNode().onclick = this._LANG.hitch(this, this.onNextYear);
+            this._controls.querySelector(".nextMonth").toDomNode().onclick = this._LANG.hitch(this, this.onNextMonth);
+            */
+                     
+        },
+        
+        onPreviousYear: function(evt) {
+            this._body.addClass("rotate");
+            //TODO ajaxing code
+        },
+        onNextYear: function(evt) {
+
+        },
+
+        onPreviousMonth: function(evt) {
+
+        },
+        onNextMont: function(evt) {
+
+        },
 
         _onDateSelect_: function(evt, date) {
             //alert("date select");
             //in case of multiple requests it does not matter we simply go for the last date
+
             jsf.ajax.request(evt.target,
                     evt,
                     {

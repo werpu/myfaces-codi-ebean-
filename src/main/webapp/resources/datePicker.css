@@ -1,7 +1,7 @@
 .datePanel {
     border: 1px solid silver;
     background-color: #f1ecec;
-    width: 220px;
+    width: 210px;
 }
 
 .datePanel .header {
@@ -32,14 +32,14 @@
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    width: 220px;
+    width: 210px;
 }
 
 .datePanel .row {
     display: table;
     margin-left: auto;
     margin-right: auto;
-    width: 220px;
+    width: 210px;
 }
 
 .datePanel .cell {
@@ -130,10 +130,6 @@
     background-color: #c6c4ec;
 }
 
-.datePanel .row.even {
-    background-color: #d5d5d5;
-}
-
 .datePanel .row:hover {
     background-color: #d0d0d0;
 }
@@ -151,10 +147,51 @@
 }
 
 .datePanel .header, .datePanel .footer, .datePanel .title {
-       text-shadow: 0px 1px 1px #fff;
+    text-shadow: 0px 1px 1px #fff;
 }
 
 .datePanel .day.selected {
-	background-color: #99ccff;
+    background-color: #99ccff;
     border-radius: 10px;
+}
+
+/*date panel 3d transitions*/
+
+.datePanel {
+    -webkit-perspective: 600px;
+    -moz-perspective: 600px;
+    -o-perspective: 600px;
+    -ms-perspective: 600px;
+    perspective: 600px;
+}
+
+.datePanel .body {
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    opacity: 1;
+}
+
+.datePanel .body.rotate {
+    -webkit-transform: rotateY(90deg);
+    -webkit-transform-style: preserves-3d;
+    -moz-transform: rotateY(90deg);
+    -moz-transform-style: preserves-3d;
+    -o-transform: rotateY(90deg);
+    -o-transform-style: preserves-3d;
+    -ms-transform: rotateY(90deg);
+    -ms-transform-style: preserves-3d;
+    transform: rotateY(90deg);
+    transform-style: preserves-3d;
+}
+
+.datePanel .body.nonvisible {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+    transition: none;
+    opacity: 0;
 }
