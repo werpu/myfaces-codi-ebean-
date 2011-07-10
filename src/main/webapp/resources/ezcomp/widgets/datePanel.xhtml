@@ -14,9 +14,14 @@
         <composite:attribute name="styleClass"/>
         <composite:attribute name="style"/>
 
+        <composite:attribute name="label" />
+
         <composite:attribute name="rendered" default="true"/>
 
         <composite:attribute name="dateFormat" />
+        <composite:attribute name="specialDays" />
+        <composite:attribute name="showWeekNumbers" default="false" />
+
     </composite:interface>
     <composite:implementation>
 
@@ -37,7 +42,7 @@
                     <h:inputText style="display:none" id="valueHolder" styleClass="dateValueHolder" />
                 </h:panelGroup>
                 <h:panelGroup id="header" layout="block" styleClass="header">
-
+                    #{cc.attrs.label}
                 </h:panelGroup>
 
                 <h:panelGroup id="controls" layout="block" styleClass="controls">
@@ -82,10 +87,8 @@
                     <ui:repeat value="#{cc.displayData.weeks}" var="week" varStatus="row">
                         <div class="week row row_#{row.index} #{((row.index) % 2 == 1) ? 'odd':'even'}">
                             <ui:repeat value="#{week.days}" var="day" varStatus="col">
-                                <div class="day cell column col_#{col.index} #{day.outsideSelectMonth ? 'outside':''}"  data-mf-pickerdate="#{day.toLong}">
-                                    <h:outputFormat class="selector" id="daySelection" value="#{day.day}">
-
-                                    </h:outputFormat>
+                                <div class="day cell column col_#{col.index} #{day.outsideSelectMonth ? 'outside':''} #{day.readOnly ? 'readOnly':''} #{day.specialMarker}"  data-mf-pickerdate="#{day.toLong}">
+                                    <h:outputFormat class="selector" id="daySelection" value="#{day.day}"/>
                                 </div>
                             </ui:repeat>
                         </div>
@@ -103,7 +106,7 @@
                 </h:panelGroup>
 
                 <h:panelGroup layout="block" id="footer" class="footer">
-
+                    #{cc.selectedDate()}
                 </h:panelGroup>
             </h:panelGroup>
 

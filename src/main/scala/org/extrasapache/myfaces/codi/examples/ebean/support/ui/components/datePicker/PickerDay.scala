@@ -18,6 +18,8 @@ class PickerDay {
   var specialDay: Boolean = false
   var specialDayMetaInfo: String = ""
   var outsideSelectMonth = true
+  var readOnly = false
+  var specialMarker = ""
 
   /*properties for day month year selection*/
   def day: Int = {

@@ -3,9 +3,8 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.dateP
 import javax.faces.component.FacesComponent
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
 import javax.faces.event.{PostRestoreStateEvent, ListenerFor, ActionEvent, ComponentSystemEvent}
-import java.text.SimpleDateFormat
 import javax.faces.model.SelectItem
-import javax.faces.context.FacesContext
+import java.text.{DateFormat, SimpleDateFormat}
 
 /**
  *
@@ -21,6 +20,8 @@ object DatePicker {
   val BEG_WEEK = "beginningOfWeek"
   val VALUE = "value"
   val DISPLAY_DATA = "displayData"
+
+  val DATE_FORMAT = "dateFormat"
 
 }
 
@@ -114,6 +115,20 @@ class DatePicker extends StandardJavascriptComponent {
     ret
   }
 
+  def selectedDate():String = {
+    val dfStr = getAttr[String](DATE_FORMAT,null)
+    val locale  = getLocale
+    val dateFormat = if (dfStr != null) new SimpleDateFormat(dfStr) else  {
+      if (locale != null)
+        DateFormat.getDateInstance(DateFormat.LONG, locale)
+      else
+        DateFormat.getDateInstance(DateFormat.LONG)
+    }
+
+    dateFormat.format(getAttr[Calendar](VALUE, Calendar.getInstance()).getTime)
+  }
+
+
   def weekList:List[String] = {
     val ret = new ArrayList[String](7)
     val calHelper = Calendar.getInstance();
@@ -128,5 +143,7 @@ class DatePicker extends StandardJavascriptComponent {
 
     ret
   }
+
+
 
 }
