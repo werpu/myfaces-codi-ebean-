@@ -1,6 +1,7 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common
 
 import javax.faces.context.FacesContext
+import java.util.Locale
 
 /**
  *
@@ -28,4 +29,6 @@ trait JavascriptComponent extends AttributeHandler {
   }
 
   def getClientId(context: FacesContext): String
+
+  def getLocale: Locale = FacesContext.getCurrentInstance.getViewRoot.getLocale
 }

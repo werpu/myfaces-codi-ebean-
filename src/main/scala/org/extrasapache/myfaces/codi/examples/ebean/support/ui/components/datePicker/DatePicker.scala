@@ -5,6 +5,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common
 import javax.faces.event.{PostRestoreStateEvent, ListenerFor, ActionEvent, ComponentSystemEvent}
 import java.text.SimpleDateFormat
 import javax.faces.model.SelectItem
+import javax.faces.context.FacesContext
 
 /**
  *
@@ -98,11 +99,12 @@ class DatePicker extends StandardJavascriptComponent {
   }
   //
   def montList:List[SelectItem] = {
+
     val ret = new ArrayList[SelectItem](12)
     val calHelper = Calendar.getInstance();
 
 
-    val monthDF = new SimpleDateFormat("yyyy")
+    val monthDF = if(getLocale == null) new SimpleDateFormat("yyyy") else new SimpleDateFormat("yyyy", getLocale)
     for (cnt <- 0 until 12) {
       calHelper.set(Calendar.MONTH, cnt)
       val monthString = monthDF.format(calHelper.getTime).toString
@@ -115,8 +117,9 @@ class DatePicker extends StandardJavascriptComponent {
   def weekList:List[String] = {
     val ret = new ArrayList[String](7)
     val calHelper = Calendar.getInstance();
+    val locale  = getLocale
 
-    val formatter = new SimpleDateFormat("EEE")
+    val formatter:SimpleDateFormat = {if(locale == null)  new SimpleDateFormat("EEE") else  new SimpleDateFormat("EEE", locale)}
     for (cnt <- 1 until 8) {
       calHelper.set(Calendar.DAY_OF_WEEK, cnt)
       val weekString = formatter.format(calHelper.getTime).toString
