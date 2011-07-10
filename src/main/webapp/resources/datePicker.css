@@ -153,6 +153,8 @@
 .datePanel .day.selected {
     background-color: #99ccff;
     border-radius: 10px;
+    color: black;
+    font-weight: bold;
 }
 
 /*date panel 3d transitions*/

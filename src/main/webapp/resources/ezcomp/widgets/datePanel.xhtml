@@ -8,7 +8,7 @@
     <composite:interface componentType="at.irian.DatePicker">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="javascriptVar" required="false"></composite:attribute>
-        <composite:attribute name="javascriptClass" default="extras.apache.DatePicker"/>
+        <composite:attribute name="javascriptClass" default="extras.apache.DatePanel"/>
 
 
         <composite:attribute name="styleClass"/>
@@ -31,8 +31,8 @@
         <h:outputScript library="script" name="_behaviors/_Focusable.js"/>
         <h:outputScript library="script" name="_behaviors/_ValueHolder.js"/>
 
-
-        <h:outputScript library="script" name="input/DatePicker.js"/>
+        <h:outputScript library="script" name="input/BaseDateSelector.js"/>
+        <h:outputScript library="script" name="input/DatePanel.js"/>
 
 
         <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} datePanel">

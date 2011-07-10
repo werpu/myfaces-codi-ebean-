@@ -7,7 +7,7 @@
      */
     var _RT = myfaces._impl.core._Runtime;
 
-    _RT.extendClass("extras.apache.DatePicker", extras.apache.ComponentBase, {
+    _RT.extendClass("extras.apache.BaseDateSelector", extras.apache.ComponentBase, {
         _LANG: myfaces._impl._util._Lang,
 
         _header: null,
@@ -52,9 +52,9 @@
             this._controls.querySelector(".nextYear").toDomNode().onclick = this._LANG.hitch(this, this.onNextYear);
             this._controls.querySelector(".nextMonth").toDomNode().onclick = this._LANG.hitch(this, this.onNextMonth);
             */
-                     
+
         },
-        
+
         onPreviousYear: function(evt) {
             this._body.addClass("rotate");
             //TODO ajaxing code
