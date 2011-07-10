@@ -14,8 +14,8 @@
                 },
 
                 defineBehavior: function() {
-                    var finalSelector = this._tmpEventOverrides || ".valueHolder";
-                    this.valueHolder = this.rootNode.querySelector(".valueHolder");
+                    var finalSelector = this._tmpEventOverrides.selector || ".valueHolder";
+                    this.valueHolder = this.rootNode.querySelector(finalSelector);
 
                     this.__defineGetter__("value", function() {
                         return this.valueHolder.toDomNode().value;

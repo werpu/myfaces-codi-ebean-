@@ -12,6 +12,11 @@ import java.util.Calendar
 @serializable
 class PickerDay {
 
+  def this(in:Calendar) {
+    this()
+    this.cal = in
+  }
+
   var cal: Calendar = _
   var holiday: Boolean = false
   var firstDayOfWeek: Boolean = false
@@ -20,6 +25,7 @@ class PickerDay {
   var outsideSelectMonth = true
   var readOnly = false
   var specialMarker = ""
+  var selected = false
 
   /*properties for day month year selection*/
   def day: Int = {
@@ -48,6 +54,14 @@ class PickerDay {
 
   def toLong: Long = cal.getTimeInMillis
 
+  override def equals(p1: Any) = p1 match {
+    case other: PickerDay => {
+      other.day == this.day &&
+      other.month == this.month  &&
+      other.year == this.year
+    }
+    case _ => false
+  }
 
 }
 

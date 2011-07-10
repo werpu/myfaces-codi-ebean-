@@ -3,6 +3,9 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.dateP
 import java.util.{ArrayList, Calendar}
 import java.util.logging.Logger
 import java.io.ObjectInputStream
+import collection.JavaConversions._
+import reflect.This
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -11,44 +14,49 @@ import java.io.ObjectInputStream
  * TODO proper beginning day calculation
  */
 @serializable
-class PickerMonth(var selectedDay: Calendar) {
+class PickerMonth(var displayValue: Calendar) {
 
   @transient
   var logger = Logger.getLogger("PickerMonth")
 
   @transient
-  var weeks = prepareMonth(selectedDay)
+  var weeks = prepareMonth(displayValue)
 
-  var current: PickerDay = _
+  var selectedValue: PickerDay = _
 
   //TODO implement this
   var beginDay: Int = 1 /*1 mon 2 tues etc...*/
 
+
+  selectedValue = new PickerDay
+  selectedValue.cal = displayValue
+  selectedValue.selected = true;
+
   /*properties for day month year selection*/
   def day: Int = {
-    selectedDay.get(Calendar.DAY_OF_MONTH)
+    displayValue.get(Calendar.DAY_OF_MONTH)
   }
 
   def day_$eq(day: Int) {
-    selectedDay.set(Calendar.DAY_OF_MONTH, day)
+    displayValue.set(Calendar.DAY_OF_MONTH, day)
   }
 
   def month: Int = {
-    selectedDay.get(Calendar.MONTH)
+    displayValue.get(Calendar.MONTH)
   }
 
   def month_$eq(month: Int) {
-    selectedDay.set(Calendar.MONTH, month)
-    weeks = prepareMonth(selectedDay)
+    displayValue.set(Calendar.MONTH, month)
+    weeks = prepareMonth(displayValue)
   }
 
   def year: Int = {
-    selectedDay.get(Calendar.YEAR)
+    displayValue.get(Calendar.YEAR)
   }
 
   def year_$eq(year: Int) {
-    selectedDay.set(Calendar.YEAR, year)
-    weeks = prepareMonth(selectedDay)
+    displayValue.set(Calendar.YEAR, year)
+    weeks = prepareMonth(displayValue)
   }
 
   def nextMonth() {
@@ -86,8 +94,8 @@ class PickerMonth(var selectedDay: Calendar) {
     val ret = new ArrayList[PickerWeek]
 
     val currentMonth = makeMonth(currentDay)
-    current = new PickerDay
-    current.cal = currentDay
+
+
 
     //not iterate over all days and create the day entry list
     val firstDay = currentMonth.getActualMinimum(Calendar.DAY_OF_MONTH)
@@ -128,6 +136,8 @@ class PickerMonth(var selectedDay: Calendar) {
       currPickerDay.outsideSelectMonth = currPickerDay.cal.getTimeInMillis < firstDayOfMonthMS ||
                                             currPickerDay.cal.getTimeInMillis > lastDayOfMonthMS;
 
+
+      currPickerDay.selected = currPickerDay.equals(selectedValue)
       currentDate.get(Calendar.DAY_OF_WEEK) match {
         case 1 => {
           currPickerDay.firstDayOfWeek = true
@@ -141,6 +151,21 @@ class PickerMonth(var selectedDay: Calendar) {
       }
     }
     ret
+  }
+
+  def selectedCal_$eq(in:Calendar) {
+    selectedValue = new PickerDay
+    selectedValue.cal = makeDay(in)
+
+    for(week <- this.weeks) {
+      for (day <- week.days) {
+        day.selected = (day.equals(selectedValue))
+      }
+    }
+  }
+
+  def selectedCal:Calendar = {
+    return selectedValue.cal
   }
 
   protected def makeMonth(in: Calendar): Calendar = {
@@ -172,7 +197,7 @@ class PickerMonth(var selectedDay: Calendar) {
   private def readObject(in: ObjectInputStream) {
     in.defaultReadObject
     if (weeks == null) {
-      weeks = prepareMonth(selectedDay)
+      weeks = prepareMonth(displayValue)
     }
   }
 

@@ -81,6 +81,8 @@ class DatePicker extends StandardJavascriptComponent {
     if (displayData == null) {
       displayData = new PickerMonth(value)
       setAttr[PickerMonth](DISPLAY_DATA, displayData)
+    } else {
+      displayData.selectedCal = value
     }
   }
 
@@ -143,7 +145,4 @@ class DatePicker extends StandardJavascriptComponent {
 
     ret
   }
-
-
-
 }

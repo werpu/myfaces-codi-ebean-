@@ -87,7 +87,7 @@
                     <ui:repeat value="#{cc.displayData.weeks}" var="week" varStatus="row">
                         <div class="week row row_#{row.index} #{((row.index) % 2 == 1) ? 'odd':'even'}">
                             <ui:repeat value="#{week.days}" var="day" varStatus="col">
-                                <div class="day cell column col_#{col.index} #{day.outsideSelectMonth ? 'outside':''} #{day.readOnly ? 'readOnly':''} #{day.specialMarker}"  data-mf-pickerdate="#{day.toLong}">
+                                <div class="day cell column col_#{col.index} #{day.selected ? 'selected':''} #{day.outsideSelectMonth ? 'outside':''} #{day.readOnly ? 'readOnly':''} #{day.specialMarker}"  data-mf-pickerdate="#{day.toLong}">
                                     <h:outputFormat class="selector" id="daySelection" value="#{day.day}"/>
                                 </div>
                             </ui:repeat>
