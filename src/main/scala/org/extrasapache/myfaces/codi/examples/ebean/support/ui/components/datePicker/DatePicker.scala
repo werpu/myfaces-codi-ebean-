@@ -104,7 +104,7 @@ class DatePicker extends StandardJavascriptComponent {
     val calHelper = Calendar.getInstance();
 
 
-    val monthDF = if(getLocale == null) new SimpleDateFormat("yyyy") else new SimpleDateFormat("yyyy", getLocale)
+    val monthDF = if(getLocale == null) new SimpleDateFormat("MMM") else new SimpleDateFormat("MMM", getLocale)
     for (cnt <- 0 until 12) {
       calHelper.set(Calendar.MONTH, cnt)
       val monthString = monthDF.format(calHelper.getTime).toString
@@ -119,7 +119,7 @@ class DatePicker extends StandardJavascriptComponent {
     val calHelper = Calendar.getInstance();
     val locale  = getLocale
 
-    val formatter:SimpleDateFormat = {if(locale == null)  new SimpleDateFormat("EEE") else  new SimpleDateFormat("EEE", locale)}
+    val formatter:SimpleDateFormat = if(locale == null)  new SimpleDateFormat("EEE") else  new SimpleDateFormat("EEE", locale)
     for (cnt <- 1 until 8) {
       calHelper.set(Calendar.DAY_OF_WEEK, cnt)
       val weekString = formatter.format(calHelper.getTime).toString

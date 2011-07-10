@@ -16,7 +16,7 @@
 
         <composite:attribute name="rendered" default="true"/>
 
-
+        <composite:attribute name="dateFormat" />
     </composite:interface>
     <composite:implementation>
 
@@ -51,8 +51,13 @@
                         <div class="placeholder" />
                     </h:commandLink>
 
+                    <h:selectOneMenu value="#{cc.displayData.month}" styleClass="month monthSelector" id="monthSelector">
+                        <f:ajax render="header body"  execute="@this"/>
+                        <f:selectItems value="#{cc.montList()}" />
+                    </h:selectOneMenu>
+
                     <h:inputText value="#{cc.displayData.year}" styleClass="year yearselector" id="yearselector" >
-                         <f:ajax render="header body controls"  execute="@this"/>
+                         <f:ajax render="header body"  execute="@this"/>
                         <div class="placeholder" />
                     </h:inputText>
 
@@ -94,6 +99,11 @@
                                 javascriptVar:"#{cc.javascriptVar}"
                             });
                     </script>
+
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" id="footer" class="footer">
+
                 </h:panelGroup>
             </h:panelGroup>
 

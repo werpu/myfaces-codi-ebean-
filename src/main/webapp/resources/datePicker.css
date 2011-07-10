@@ -60,7 +60,7 @@
     width: 40px;
     display: inline;
     text-align: center;
-    margin-left: 95px;
+    margin-left: 105px;
     border-radius: 10px;
     border: 1px groove silver;
 
@@ -72,9 +72,15 @@
 }
 
 .datePanel .yearselector:focus {
-    width: 80px;
-    margin-left: 75px;
+    width: 60px;
+    margin-left: 100px;
     display: inline;
+}
+
+.datePanel .monthSelector {
+	border: 1px solid silver; 
+	position: absolute; 
+	left: 50px
 }
 
 .datePanel .controls .nextYear, .datePanel .controls .nextMonth, .datePanel .controls .previousYear, .datePanel .controls .previousMonth {
