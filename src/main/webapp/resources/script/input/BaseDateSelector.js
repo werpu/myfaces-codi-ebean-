@@ -1,9 +1,10 @@
 (function () {
     /**
-     * a pull component which pulls
-     * a certain area periodically
+     * Base date selector class
+     * this encapsules the common behavior between the date selector
+     * and date picker and other similar classes
      *
-     * @namespace extras.apache.StdInput
+     * @namespace extras.apache.BaseDateSelector
      */
     var _RT = myfaces._impl.core._Runtime;
 
@@ -40,24 +41,21 @@
         },
 
         _initEvents: function() {
-              _t = this;
+            _t = this;
             this.rootNode.querySelectorAll("[data-mf-pickerdate]").forEach(function(elem) {
                 var date = elem.getAttribute("data-mf-pickerdate");
-                elem.querySelector(".selector").toDomNode().onclick = function(evt) {
+                elem.querySelector(".selector").addEventListener("click", function(evt) {
                     return !!_t._onDateSelect_(evt, date);
-                }
+                }, false);
             });
-            /*this._controls.querySelector(".previousYear").toDomNode().onclick = this._LANG.hitch(this, this.onPreviousYear);
-            this._controls.querySelector(".previousMonth").toDomNode().onclick = this._LANG.hitch(this, this.onPreviousMonth);
-            this._controls.querySelector(".nextYear").toDomNode().onclick = this._LANG.hitch(this, this.onNextYear);
-            this._controls.querySelector(".nextMonth").toDomNode().onclick = this._LANG.hitch(this, this.onNextMonth);
-            */
-
+            this._controls.querySelector(".previousYear").addEventListener("click", this._LANG.hitch(this, this.onPreviousYear), false );
+            this._controls.querySelector(".previousMonth").addEventListener("click", this._LANG.hitch(this, this.onPreviousMonth), false );
+            this._controls.querySelector(".nextYear").addEventListener("click",this._LANG.hitch(this, this.onNextYear), false);
+            this._controls.querySelector(".nextMonth").addEventListener("click", this._LANG.hitch(this, this.onNextMonth), false);
         },
 
         onPreviousYear: function(evt) {
-            this._body.addClass("rotate");
-            //TODO ajaxing code
+
         },
         onNextYear: function(evt) {
 

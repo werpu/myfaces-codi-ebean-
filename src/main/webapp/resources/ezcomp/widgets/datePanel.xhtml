@@ -82,29 +82,29 @@
                     </ui:repeat>
                     <div class="rowEnd"/>
                 </div>
+                <div class="flipContainer">
+                    <h:panelGroup id="body" layout="block" class="body">
+                        <ui:repeat value="#{cc.displayData.weeks}" var="week" varStatus="row">
+                            <div class="week row row_#{row.index} #{((row.index) % 2 == 1) ? 'odd':'even'}">
+                                <ui:repeat value="#{week.days}" var="day" varStatus="col">
+                                    <div class="day cell column col_#{col.index} #{day.selected ? 'selected':''} #{day.outsideSelectMonth ? 'outside':''} #{day.readOnly ? 'readOnly':''} #{day.specialMarker}"  data-mf-pickerdate="#{day.toLong}">
+                                        <h:outputFormat class="selector" id="daySelection" value="#{day.day}"/>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                            <div class="rowEnd"/>
+                        </ui:repeat>
+                        <script type="text/javascript">
+                                var #{cc.javascriptVar} =
+                                new #{cc.attrs.javascriptClass}({
+                                    id:"#{cc.clientId}",
+                                    ajaxRequest:#{cc.ajaxState.toString()},
+                                    javascriptVar:"#{cc.javascriptVar}"
+                                });
+                        </script>
 
-                <h:panelGroup id="body" layout="block" class="body">
-                    <ui:repeat value="#{cc.displayData.weeks}" var="week" varStatus="row">
-                        <div class="week row row_#{row.index} #{((row.index) % 2 == 1) ? 'odd':'even'}">
-                            <ui:repeat value="#{week.days}" var="day" varStatus="col">
-                                <div class="day cell column col_#{col.index} #{day.selected ? 'selected':''} #{day.outsideSelectMonth ? 'outside':''} #{day.readOnly ? 'readOnly':''} #{day.specialMarker}"  data-mf-pickerdate="#{day.toLong}">
-                                    <h:outputFormat class="selector" id="daySelection" value="#{day.day}"/>
-                                </div>
-                            </ui:repeat>
-                        </div>
-                        <div class="rowEnd"/>
-                    </ui:repeat>
-                    <script type="text/javascript">
-                            var #{cc.javascriptVar} =
-                            new #{cc.attrs.javascriptClass}({
-                                id:"#{cc.clientId}",
-                                ajaxRequest:#{cc.ajaxState.toString()},
-                                javascriptVar:"#{cc.javascriptVar}"
-                            });
-                    </script>
-
-                </h:panelGroup>
-
+                    </h:panelGroup>
+                </div>
                 <h:panelGroup layout="block" id="footer" class="footer">
                     #{cc.selectedDate()}
                 </h:panelGroup>
