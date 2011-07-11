@@ -4,8 +4,6 @@ import java.util.{ArrayList, Calendar}
 import java.util.logging.Logger
 import java.io.ObjectInputStream
 import collection.JavaConversions._
-import reflect.This
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -24,13 +22,7 @@ class PickerMonth(var displayValue: Calendar) {
 
   var selectedValue: PickerDay = _
 
-  //TODO implement this
   var beginDay: Int = 1 /*1 mon 2 tues etc...*/
-
-
-  selectedValue = new PickerDay
-  selectedValue.cal = displayValue
-  selectedValue.selected = true;
 
   /*properties for day month year selection*/
   def day: Int = {
@@ -85,14 +77,23 @@ class PickerMonth(var displayValue: Calendar) {
     pm.days.get(pm.days.size - 1)
   }
 
+  protected def initSelectedValue() {
+    if (selectedValue == null) {
+      selectedValue = new PickerDay
+      selectedValue.cal = displayValue
+      selectedValue.selected = true;
+    }
+  }
+
   /**
    * prerender creates the date picker list model which then is used
    * for further processing
    */
   protected def prepareMonth(currentDay: Calendar): ArrayList[PickerWeek] = {
 
-    val ret = new ArrayList[PickerWeek]
+    initSelectedValue()
 
+    val ret = new ArrayList[PickerWeek]
     val currentMonth = makeMonth(currentDay)
 
 
@@ -134,8 +135,7 @@ class PickerMonth(var displayValue: Calendar) {
       val currPickerDay = new PickerDay
       currPickerDay.cal = makeDay(currentDate)
       currPickerDay.outsideSelectMonth = currPickerDay.cal.getTimeInMillis < firstDayOfMonthMS ||
-                                            currPickerDay.cal.getTimeInMillis > lastDayOfMonthMS;
-
+        currPickerDay.cal.getTimeInMillis > lastDayOfMonthMS;
 
       currPickerDay.selected = currPickerDay.equals(selectedValue)
       currentDate.get(Calendar.DAY_OF_WEEK) match {
@@ -153,18 +153,18 @@ class PickerMonth(var displayValue: Calendar) {
     ret
   }
 
-  def selectedCal_$eq(in:Calendar) {
+  def selectedCal_$eq(in: Calendar) {
     selectedValue = new PickerDay
     selectedValue.cal = makeDay(in)
 
-    for(week <- this.weeks) {
+    for (week <- this.weeks) {
       for (day <- week.days) {
         day.selected = (day.equals(selectedValue))
       }
     }
   }
 
-  def selectedCal:Calendar = {
+  def selectedCal: Calendar = {
     return selectedValue.cal
   }
 

@@ -167,7 +167,7 @@
     perspective: 600px;
 }
 
-.datePanel .body {
+.datePanel .flipContainer, .animateVisible {
     -webkit-transition: all 0.2s linear;
     -moz-transition: all 0.2s linear;
     -o-transition: all 0.2s linear;
@@ -176,7 +176,8 @@
     opacity: 1;
 }
 
-.datePanel .body.rotate {
+
+.animateRotate90 {
     -webkit-transform: rotateY(90deg);
     -webkit-transform-style: preserves-3d;
     -moz-transform: rotateY(90deg);
@@ -189,7 +190,42 @@
     transform-style: preserves-3d;
 }
 
-.datePanel .body.nonvisible {
+
+.animateRotate270 {
+    -webkit-transform: rotateY(270deg);
+    -webkit-transform-style: preserves-3d;
+    -moz-transform: rotateY(270deg);
+    -moz-transform-style: preserves-3d;
+    -o-transform: rotateY(270deg);
+    -o-transform-style: preserves-3d;
+    -ms-transform: rotateY(270deg);
+    -ms-transform-style: preserves-3d;
+    transform: rotateY(270deg);
+    transform-style: preserves-3d;
+}
+
+.animateRotate360 {
+    -webkit-transform: rotateY(360deg);
+    -webkit-transform-style: preserves-3d;
+    -moz-transform: rotateY(360deg);
+    -moz-transform-style: preserves-3d;
+    -o-transform: rotateY(360deg);
+    -o-transform-style: preserves-3d;
+    -ms-transform: rotateY(360deg);
+    -ms-transform-style: preserves-3d;
+    transform: rotateY(360deg);
+    transform-style: preserves-3d;
+}
+
+.animateNoTransition {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+    transition: none;
+}
+
+.animateNonvisible {
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
