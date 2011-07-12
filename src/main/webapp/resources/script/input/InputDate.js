@@ -11,8 +11,20 @@
     _RT.extendClass("extras.apache.InputDate", extras.apache.extras.apache.StdInput, {
         _datePicker: null,
         _datePopup:null,
-        constructor_:function() {
 
+        constructor_:function() {
+            this._callSuper("constructor_", arguments);
+        },
+
+        _postInit: function() {
+            this._callSuper("_postInit", arguments);
+
+            this._datePopup = this._datePopup || this._rootNode.querySelector(".inputPopup");
+            this._datePicker = this._datePicker || this._datePopup.querySelector(".datePanel");
+            //the date picker and this component share the same value holder
+            this._datePicker.valueHolder = this.valueHolder;
         }
+
+
     })();
 })();
