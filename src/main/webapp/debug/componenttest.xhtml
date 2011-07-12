@@ -40,18 +40,7 @@
     </ui:define>
 
     <ui:define name="search">
-        <h:outputScript library="script" name="dom/_DomEngine.js"/>
-        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
-        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
 
-        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
-        <h:outputScript library="script" name="dom/Sizzle.js"/>
-        <h:outputScript library="script" name="dom/Node.js"/>
-        <h:outputScript library="script" name="dom/NodeList.js"/>
-
-        <h:outputScript library="script" name="dom/ComponentBase.js"/>
-        <h:outputScript library="script" name="SelectionList.js"/>
-        <h:outputScript library="script" name="layout/Toggle.js"/>
 
 
         <h3>${msgs.group_search}</h3>
@@ -71,24 +60,25 @@
 
             </div>
 
-            <h:panelGroup class="toggle" id="toggle" layout="block">
-                <h:panelGroup class="toggleHead" id="toggleHead" layout="block">
+            <ezw:toggle id="toggle">
+
+                <f:facet name="head">
+                    <h:panelGroup>
                       Press toggle area for toggling <h:panelGroup class="toggleControl toggleOn" id="toggleControl"><span class="toggleOn">[-]</span><span class="toggleOff">[+]</span></h:panelGroup>
-                </h:panelGroup>
-                <h:panelGroup class="toggleArea toggleOn" layout="block" id="toggleArea">
+                    </h:panelGroup>
+                </f:facet>
+                <f:facet name="content">
+                    <h:panelGroup>
                     Toggle Area <br />
                     Toggle Area <br />
                     Toggle Area <br />
                     Toggle Area <br />
                     Toggle Area <br />
                     Toggle Area <br />
-                </h:panelGroup>
-            </h:panelGroup>
-            <script type="text/javascript">
-                var toggle = new extras.apache.Toggle({
-                            id:"toggle"
-                        });
-            </script>
+                    </h:panelGroup>
+                </f:facet>
+            </ezw:toggle>
+
         </h:form>
     </ui:define>
 
@@ -102,7 +92,7 @@
                 Ajax in progress
             </ezw:ajaxStatus>
 
-           <!--
+         <!--
             <ezw:inputSuggest id="mySuggest" value="booga"
                               inputStyleClass="inputStyle"
                               label="myInputLabel" model="#{groupView.suggestModel}" selectorIdentifier="ul li">
@@ -117,7 +107,7 @@
                 <h:outputFormat value="hello from suggest"/>
 
             </ezw:inputSuggest>
-            -->
+         -->
 
             <h:panelGroup type="block">
                 <h3>Item Select</h3>
@@ -144,11 +134,13 @@
                         border: 1px solid gray;
                     }
                 </style>
+                <!--
                 <script type="text/javascript">
                     var selectionList = new extras.apache.SelectionList({
                         id:"selectionList",  selectorIdentifier:"ul li"
                     });
                 </script>
+                -->
             </h:panelGroup>
 
         </h:form>

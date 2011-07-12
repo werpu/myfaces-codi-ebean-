@@ -2,6 +2,7 @@
     /**
      * a content pane with some extras like being able to fetch extra content
      * and a title section which optionally is set
+     * @namespace extras.apache.ContentPane
      */
     var _RT = myfaces._impl.core._Runtime;
 

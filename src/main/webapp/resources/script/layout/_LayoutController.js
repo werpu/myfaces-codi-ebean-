@@ -5,7 +5,7 @@
 
     _RT.extendClass("extras.apache._LayoutController", extras.apache.ComponentBase, {
                 constructor_: function(args) {
-                    this._callSuper(args);
+                    this._callSuper("constructor_",args);
                 },
                 /*-------------------layout functionality-------------------*/
                 _layoutBottom: function() {

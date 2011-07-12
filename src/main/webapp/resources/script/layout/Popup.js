@@ -36,7 +36,7 @@
 
                 constructor_: function(args) {
                     this._callSuper("constructor_", args);
-                    this._layouter = new extras.apache.LayoutController(args);
+                    this._layouter = new extras.apache._LayoutController(args);
                     
                     this._onMouseEnter = _Lang.hitch(this, this._onMouseEnter);
                     this._onMouseLeave = _Lang.hitch(this, this._onMouseLeave);
@@ -62,8 +62,12 @@
                     } else {
                         this.rootNode.style({"display": "block","opacity":"1"});
                     }
+                    this._initBehavior();
 
-                    if (this._autoHover && this._referencedNode) {
+                },
+
+                _initBehavior: function() {
+                     if (this._autoHover && this._referencedNode) {
                         this._referencedNode.addEventListener("mouseover", this._onMouseEnter, false);
                         this._referencedNode.addEventListener("mouseout", this._onMouseLeave, false);
                         this.rootNode.addEventListener("mouseover", this._onMouseEnter, false);
@@ -114,7 +118,7 @@
                                 this._layouter._layoutFollowMouse();
                                 break;
                             default:
-                                throw Exception("Unsupported layout position");
+                                throw Error("Unsupported layout position");
                         }
                     }
                     this.rootNode.addClass("fastScale").setStyle("display", "block")
