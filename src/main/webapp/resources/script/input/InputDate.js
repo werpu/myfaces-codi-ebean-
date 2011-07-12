@@ -8,24 +8,24 @@
      */
     var _RT = myfaces._impl.core._Runtime;
 
-    _RT.extendClass("extras.apache.InputDate", extras.apache.extras.apache.StdInput, {
+    _RT.extendClass("extras.apache.InputDate", extras.apache.StdInput, {
         _datePicker: null,
         _datePopup:null,
 
-        constructor_:function() {
-            this._callSuper("constructor_", arguments);
+
+        constructor_:function(args) {
+            this._callSuper("constructor_", args);
         },
 
         _postInit: function() {
             this._callSuper("_postInit", arguments);
-            new extras.apache._ValueHolder(this, ".inputTextValueHolder");
 
-            this._datePopup = this._datePopup || this._rootNode.querySelector(".inputPopup");
+            this._datePopup = this._datePopup_datePopup || this.rootNode.querySelector(".inputPopup");
             this._datePicker = this._datePicker || this._datePopup.querySelector(".datePanel");
             //the date picker and this component share the same value holder
             this._datePicker.valueHolder = this.valueHolder;
+            this._datePopup.jsVar().referencedNode = this.valueHolder;
         }
 
-
-    })();
+    });
 })();

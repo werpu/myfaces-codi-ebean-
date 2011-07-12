@@ -6,6 +6,14 @@
     _RT.extendClass("extras.apache._LayoutController", extras.apache.ComponentBase, {
                 constructor_: function(args) {
                     this._callSuper("constructor_",args);
+                    this._defineProperty('referencedNode',
+                        function() {
+                            return this._referencedNode;
+                        },
+                        function(value) {
+                            this._referencedNode = value;
+                        }
+                    );
                 },
                 /*-------------------layout functionality-------------------*/
                 _layoutBottom: function() {

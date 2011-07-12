@@ -37,7 +37,7 @@
                 constructor_: function(args) {
                     this._callSuper("constructor_", args);
                     this._layouter = new extras.apache._LayoutController(args);
-                    
+
                     this._onMouseEnter = _Lang.hitch(this, this._onMouseEnter);
                     this._onMouseLeave = _Lang.hitch(this, this._onMouseLeave);
                     this._popupDelay = parseInt(this._popupDelay);
@@ -47,9 +47,21 @@
                         //)
 
                     }
+
+                    this._defineProperty( 'referencedNode',  function() {
+                            return this._referencedNode;
+                        }, function(value) {
+                            this._referencedNode = value;
+                            this._layouter.referencedNode = value;
+                        }
+                    );
+
                 },
 
+
+
                 _postInit: function() {
+
                     this._callSuper("_postInit", arguments);
                     this._referencedNode = this._Lang.isString(this._referencedNode) ?
                             this._NODE.querySelector("#" + this._referencedNode.replace(/:/g, "\\:")) :
@@ -67,7 +79,7 @@
                 },
 
                 _initBehavior: function() {
-                     if (this._autoHover && this._referencedNode) {
+                    if (this._autoHover && this._referencedNode) {
                         this._referencedNode.addEventListener("mouseover", this._onMouseEnter, false);
                         this._referencedNode.addEventListener("mouseout", this._onMouseLeave, false);
                         this.rootNode.addEventListener("mouseover", this._onMouseEnter, false);
@@ -114,7 +126,7 @@
                             case "mouse":
                                 this._layouter._layoutMouse();
                                 break;
-                             case "followMouse":
+                            case "followMouse":
                                 this._layouter._layoutFollowMouse();
                                 break;
                             default:
@@ -143,7 +155,7 @@
                         clearTimeout(this._closeTimer);
                         this._closeTimer = null;
                     }
-                    if(this.rootNode.getStyle("display") != "none") return;
+                    if (this.rootNode.getStyle("display") != "none") return;
                     this._openTimer = setTimeout(this._Lang.hitch(this, function() {
                         this._openTimer = null;
                         this.show();
@@ -155,7 +167,7 @@
                         clearTimeout(this._openTimer);
                         this._openTimer = null;
                     }
-                    if(this.rootNode.getStyle("display") == "none") return;
+                    if (this.rootNode.getStyle("display") == "none") return;
 
                     this._closeTimer = setTimeout(this._Lang.hitch(this, function() {
                         this._closeTimer = null;

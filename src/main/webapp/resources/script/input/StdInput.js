@@ -17,7 +17,7 @@
 
 
                 constructor_:function(args) {
-                    this._callSuper("constructor", args);
+                    this._callSuper("constructor_", args);
 
                     this.onkeydown = this._LANG.hitch(this, this.onKeyDown);
                     this.onkeyup = this._LANG.hitch(this, this.onkeyup);

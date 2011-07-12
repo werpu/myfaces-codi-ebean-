@@ -18,10 +18,11 @@
             this._onBlur = _Lang.hitch(this, this._onBlur);
         },
         _postInit: function() {
-            this._callSuper("_postInit", args);
+            this._callSuper("_postInit", arguments);
         },
 
         _initBehavior: function() {
+
             this._referencedNode.addEventListener("focus", this._onFocus, false);
             this._referencedNode.addEventListener("blur", this._onBlur, false);
         },

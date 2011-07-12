@@ -346,7 +346,14 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             runScripts: function() {
                 this._NODE_UTILS.getEngine().runScripts(this._referencedNode, true);
                 return this;
+            },
+            /**
+             * returns the referenced javascript var for this node
+             */
+            jsVar: function() {
+                return window[this._referencedNode.getAttribute("data-ezw_javascriptvar")];
             }
+
 
         },
 //static methods
