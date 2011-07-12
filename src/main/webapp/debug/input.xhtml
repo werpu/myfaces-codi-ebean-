@@ -21,7 +21,10 @@
 
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
-      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
+      xmlns:ezwd="http://java.sun.com/jsf/composite/ezcomp/widgets/deprecated"
+
+        >
 
 <ui:composition template="../templates/template.xhtml">
 
@@ -47,15 +50,18 @@
 
     <ui:define name="content">
 
+        <h1>Inputs of the component set</h1>
 
         <h:form id="mainForm" prependId="false">
 
             <ezw:maskedInput value="" id="maskedInput" inputMask="(###)###-###.####"/>
+            <ezw:inputDate value="#{testBean.testDate}" id="myinput" />
+
 
         </h:form>
 
         <div id="bla">
-            <ezw:testbuttonrow id="bla"/>
+            <ezwd:testbuttonrow id="bla"/>
         </div>
 
     </ui:define>

@@ -67,22 +67,24 @@ class DatePicker extends StandardJavascriptComponent {
     val incomingParam = reqAttrMap.get("mf_dp")
     if (incomingParam != null && incomingParam.trim != "") {
       val longVal: Long = incomingParam.toLong
-      val value = getAttr[Calendar](VALUE, Calendar.getInstance())
-      value.setTimeInMillis(longVal)
-      setAttr[Calendar](VALUE, value)
+      val value = getAttr[Date](VALUE, Calendar.getInstance().getTime)
+      value.setTime(longVal)
+      setAttr[Date](VALUE, value)
     }
     restoreDisplayData
     super.processEvent(event)
   }
 
   protected def restoreDisplayData {
-    val value = getAttr[Calendar]("value", Calendar.getInstance())
+    val value = getAttr[Date]("value", Calendar.getInstance().getTime)
+    val calValue = Calendar.getInstance();
+    calValue.setTime(value)
     displayData = getAttr[PickerMonth](DISPLAY_DATA, null)
     if (displayData == null) {
-      displayData = new PickerMonth(value)
+      displayData = new PickerMonth(calValue)
       setAttr[PickerMonth](DISPLAY_DATA, displayData)
     } else {
-      displayData.selectedCal = value
+      displayData.selectedCal = calValue
     }
   }
 
@@ -98,16 +100,17 @@ class DatePicker extends StandardJavascriptComponent {
     val yearDF = new SimpleDateFormat("yyyy");
     val tempCal = Calendar.getInstance()
 
-    displayData.year =  tempCal.get(Calendar.YEAR)
+    displayData.year = tempCal.get(Calendar.YEAR)
   }
+
   //
-  def montList:List[SelectItem] = {
+  def montList: List[SelectItem] = {
 
     val ret = new ArrayList[SelectItem](12)
     val calHelper = Calendar.getInstance();
 
 
-    val monthDF = if(getLocale == null) new SimpleDateFormat("MMM") else new SimpleDateFormat("MMM", getLocale)
+    val monthDF = if (getLocale == null) new SimpleDateFormat("MMM") else new SimpleDateFormat("MMM", getLocale)
     for (cnt <- 0 until 12) {
       calHelper.set(Calendar.MONTH, cnt)
       val monthString = monthDF.format(calHelper.getTime).toString
@@ -117,26 +120,25 @@ class DatePicker extends StandardJavascriptComponent {
     ret
   }
 
-  def selectedDate():String = {
-    val dfStr = getAttr[String](DATE_FORMAT,null)
-    val locale  = getLocale
-    val dateFormat = if (dfStr != null) new SimpleDateFormat(dfStr) else  {
+  def selectedDate(): String = {
+    val dfStr = getAttr[String](DATE_FORMAT, null)
+    val locale = getLocale
+    val dateFormat = if (dfStr != null) new SimpleDateFormat(dfStr)
+    else {
       if (locale != null)
         DateFormat.getDateInstance(DateFormat.LONG, locale)
       else
         DateFormat.getDateInstance(DateFormat.LONG)
     }
-
-    dateFormat.format(getAttr[Calendar](VALUE, Calendar.getInstance()).getTime)
+    dateFormat.format(getAttr[Date](VALUE, Calendar.getInstance().getTime))
   }
 
-
-  def weekList:List[String] = {
+  def weekList: List[String] = {
     val ret = new ArrayList[String](7)
     val calHelper = Calendar.getInstance();
-    val locale  = getLocale
+    val locale = getLocale
 
-    val formatter:SimpleDateFormat = if(locale == null)  new SimpleDateFormat("EEE") else  new SimpleDateFormat("EEE", locale)
+    val formatter: SimpleDateFormat = if (locale == null) new SimpleDateFormat("EEE") else new SimpleDateFormat("EEE", locale)
     for (cnt <- 1 until 8) {
       calHelper.set(Calendar.DAY_OF_WEEK, cnt)
       val weekString = formatter.format(calHelper.getTime).toString

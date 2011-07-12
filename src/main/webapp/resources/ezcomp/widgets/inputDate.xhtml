@@ -65,10 +65,13 @@
 
             <h:outputLabel id="label" styleClass="#{cc.attrs.labelClass} label" style="#{cc.attrs.labelStyle}"
                            for="input" value="#{cc.attrs.label}"/>
-
+            <!--
+            todo make the date time conversion more flexible
+            by allowing converters to be appended as childs
+            -->
             <h:inputText id="input" styleClass="#{cc.attrs.inputClass} input inputTextValueHolder" style="#{cc.attrs.inputStyle}"
                          value="#{cc.attrs.value}">
-
+                <f:convertDateTime dateStyle="short" type="date" />
 
             </h:inputText>
             <ezws:inputPopup id="date_popup" for="input">

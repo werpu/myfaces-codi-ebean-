@@ -18,6 +18,7 @@
 
         _postInit: function() {
             this._callSuper("_postInit", arguments);
+            new extras.apache._ValueHolder(this, ".inputTextValueHolder");
 
             this._datePopup = this._datePopup || this._rootNode.querySelector(".inputPopup");
             this._datePicker = this._datePicker || this._datePopup.querySelector(".datePanel");
