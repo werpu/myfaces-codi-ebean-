@@ -323,9 +323,11 @@
         },
 
         _defineProperty: function(name, getter, setter) {
-            Object.defineProperty(this, name, {
-                  set:setter
-                , get:getter});
+            var props = {};
+            (getter)? props["get"] = getter: null;
+            (setter)? props["set"] = getter: null;
+
+            Object.defineProperty(this, name, props);
         }
 
     });

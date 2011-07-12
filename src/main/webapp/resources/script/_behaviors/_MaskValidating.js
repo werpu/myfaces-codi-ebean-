@@ -15,27 +15,28 @@
 
     _RT.extendClass("extras.apache._MaskValidating", extras.apache._Behavior, {
 
-                constructor_: function(scope) {
-                    this._callSuper("constructor_", scope);
-                },
+        constructor_: function(scope) {
+            this._callSuper("constructor_", scope);
+        },
 
-                defineBehavior: function() {
-                    this.__defineGetter__("validationMask", function() {
+        defineBehavior: function() {
+            this._defineProperty("validationMask",
+                    function() {
                         return this._validationMask;
-                    });
+                    },
 
-                    this.__defineSetter__("validationMask", function(pattern) {
+                    function(pattern) {
                         this._validationMask = pattern;
                         this.matcher = new extras.apache._MaskMatcher(pattern);
                     });
 
-                    this.match = function() {
-                        var valid = this.matcher.match(this.valueHolder.value);
-                        this.rootNode.addClass(valid ? "valid" : "invalid");
-                        return valid;
-                    }
-                    this.matcher = new extras.apache._MaskMatcher(this._validationMask);
-                    this._literalPositions = this.matcher.literalPositions;
-                }
-            })
+            this.match = function() {
+                var valid = this.matcher.match(this.valueHolder.value);
+                this.rootNode.addClass(valid ? "valid" : "invalid");
+                return valid;
+            }
+            this.matcher = new extras.apache._MaskMatcher(this._validationMask);
+            this._literalPositions = this.matcher.literalPositions;
+        }
+    })
 })();

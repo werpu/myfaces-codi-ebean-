@@ -14,60 +14,47 @@
 
     _RT.extendClass("extras.apache._Selectable", extras.apache._Behavior, {
 
-                constructor_: function(scope) {
-                    this._callSuper("constructor_", scope);
-                },
+        constructor_: function(scope) {
+            this._callSuper("constructor_", scope);
+        },
 
-                defineBehavior: function() {
-                    this.__defineGetter__("cursorPos", function() {
+        defineBehavior: function() {
+            this._defineProperty("cursorPos",
+                    function() {
                         return this.valueHolder.toDomNode().selectionStart;
-
                     });
-
-                    this.__defineSetter__("selection", function(val1, val2) {
-                        this.valueHolder.toDomNode().focus();
-                        this.valueHolder.toDomNode().setSelectionRange(val1, val2);
-                    });
-
-                    this.__defineGetter__("selection", function() {
+            this._defineProperty("selection",
+                    function() {
                         this.valueHolder.toDomNode().focus();
                         return {
                             start: this.valueHolder.toDomNode().selectionStart,
                             end: this.valueHolder.toDomNode().selectionEnd
                         };
-                    });
-
-                    this.__defineSetter__("cursorPos", function(val1) {
+                    }, function(val1, val2) {
                         this.valueHolder.toDomNode().focus();
-                        this.valueHolder.toDomNode().setSelectionRange(val1, val1);
+                        this.valueHolder.toDomNode().setSelectionRange(val1, val2);
                     });
 
-                    this.__defineGetter__("cursorPos", function() {
-                        return this.valueHolder.toDomNode().selectionStart;
+            this._defineProperty("cursorPos", function() {
+                return this.valueHolder.toDomNode().selectionStart;
+            }, function(val1) {
+                this.valueHolder.toDomNode().focus();
+                this.valueHolder.toDomNode().setSelectionRange(val1, val1);
+            });
 
-                    });
+            this._defineProperty("selectedText", function() {
+                var selectionPos = this.selection;
+                if (selectionPos.start == selectionPos.end) return "";
+                return this.value.substr(selectionPos.start, selectionPos.end);
 
-                    this.__defineSetter__("cursorPos", function(val) {
-                        this.valueHolder.toDomNode().focus();
-                        this.valueHolder.toDomNode().setSelectionRange(val, val);
-                    });
+            });
 
-                    this.__defineGetter__("selectedText", function() {
+            this._defineProperty("form", function() {
+                return this.valueHolder.getAttribute("form");
+            },  function(val) {
+                return this.valueHolder.setAttribute("form", val);
+            });
+        }
 
-                        var selectionPos = this.selection;
-                        if (selectionPos.start == selectionPos.end) return "";
-                        return this.value.substr(selectionPos.start, selectionPos.end);
-
-                    });
-
-                    this.__defineGetter__("form", function() {
-                        return this.valueHolder.getAttribute("form");
-                    });
-
-                    this.__defineSetter__("form", function(val) {
-                        return this.valueHolder.setAttribute("form", val);
-                    });
-                }
-
-            })
+    })
 })();

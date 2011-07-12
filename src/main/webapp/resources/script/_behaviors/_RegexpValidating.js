@@ -14,25 +14,26 @@
 
     _RT.extendClass("extras.apache._RegexpValidating", extras.apache._Behavior, {
 
-                constructor_: function(scope) {
-                    this._callSuper("constructor_", scope);
-                },
+        constructor_: function(scope) {
+            this._callSuper("constructor_", scope);
+        },
 
-                defineBehavior: function() {
-                    this.__defineGetter__("validationRegExp", function() {
+        defineBehavior: function() {
+            this._defineProperty("validationRegExp",
+                    function() {
                         return this._validationRegExp;
-                    });
+                    },
 
-                    this.__defineSetter__("validationRegExp", function(re) {
+                    function(re) {
                         this._validationRegExp = re;
                         this.matcher = new extras.apache._RegexpMatcher(re);
                     });
 
-                    this.match = function() {
-                        var valid = this.matcher.match(this.valueHolder.value);
-                        this.rootNode.addClass(valid ? "valid":"invalid");
-                        return valid;
-                    }
-                }
-            })
+            this.match = function() {
+                var valid = this.matcher.match(this.valueHolder.value);
+                this.rootNode.addClass(valid ? "valid" : "invalid");
+                return valid;
+            }
+        }
+    })
 })();

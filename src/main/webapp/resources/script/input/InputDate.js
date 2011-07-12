@@ -19,6 +19,8 @@
 
         _postInit: function() {
             this._callSuper("_postInit", arguments);
+            //TODO add movable behavior here trigger it on the title as move handler
+            //so that we can move it around
 
             this._datePopup = this._datePopup_datePopup || this.rootNode.querySelector(".inputPopup");
             this._datePicker = this._datePicker || this._datePopup.querySelector(".datePanel");
