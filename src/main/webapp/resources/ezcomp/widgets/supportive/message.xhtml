@@ -1,0 +1,47 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
+
+     <composite:interface>
+         <composite:attribute name="id" required="true" />
+         <composite:attribute name="for" required="true"/>
+
+        <composite:attribute name="labelClass"/>
+        <composite:attribute name="labelStyle"/>
+
+        <composite:attribute name="infoClass"/>
+        <composite:attribute name="infoStyle"/>
+
+        <composite:attribute name="errorClass"/>
+        <composite:attribute name="errorStyle"/>
+        <composite:attribute name="fatalClass"/>
+        <composite:attribute name="fatalStyle"/>
+
+
+        <composite:attribute name="inputClass"/>
+        <composite:attribute name="inputStyle"/>
+
+         <composite:attribute name="styleClass"/>
+
+         <composite:attribute name="rendered" default="true" />
+
+     </composite:interface>
+    <composite:implementation>
+        <h:panelGroup id="#{cc.attrs.id}" class="message">
+            <h:message for="#{cc.attrs.id}" id="#{cc.attrs.id}_msg" styleClass="#{cc.attrs.styleClass}"
+                       infoClass="#{cc.attrs.infoClass} infoClass"
+                       errorClass="#{cc.attrs.errorClass} errorClass"
+                       fatalClass="#{cc.attrs.fatalClass} fatalClass"
+
+                       infoStyle="#{cc.attrs.infoStyle} infoStyle"
+                       erorStyle="#{cc.attrs.errorStyle} errorStyle"
+                       fatalStyle="#{cc.attrs.fatalStyle} fatalStyle"
+
+                       rendered="#{cc.attrs.rendered}"/>
+        </h:panelGroup>
+    </composite:implementation>
+</ui:component>
