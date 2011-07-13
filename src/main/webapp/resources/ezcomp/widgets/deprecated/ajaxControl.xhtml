@@ -1,0 +1,20 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <composite:interface>
+        <composite:attribute name="id" required="true"/>
+
+        <composite:attribute name="value" />
+        <composite:actionSource name="imageCommand" />
+    </composite:interface>
+    <composite:implementation>
+        <div id="#{cc.attrs.id}">
+            <h:commandLink  id="imageCommand" class="imageCommand" action="#{cc.attrs.action}" value="#{cc.attrs.value}">
+                <composite:insertChildren></composite:insertChildren>
+            </h:commandLink>
+        </div>
+    </composite:implementation>
+</ui:component>
