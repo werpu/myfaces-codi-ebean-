@@ -22,7 +22,7 @@
             //TODO add movable behavior here trigger it on the title as move handler
             //so that we can move it around
 
-            this._datePopup = this._datePopup_datePopup || this.rootNode.querySelector(".inputPopup");
+            this._datePopup = this._datePopup || this.rootNode.querySelector(".inputPopup");
             this._datePicker = this._datePicker || this._datePopup.querySelector(".datePanel");
             //the date picker and this component share the same value holder
             this._datePicker.valueHolder = this.valueHolder;

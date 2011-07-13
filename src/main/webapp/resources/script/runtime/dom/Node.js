@@ -47,6 +47,15 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
             constructor_: function(elem) {
                 this._referencedNode = this._NODE_UTILS.byIdOrName(elem);
+
+                Object.defineProperty(this, "id", {
+                  set: function(id) {
+                      this._referencedNode = id;
+                  },
+                  get: function() {
+                      return this._referencedNode.id;
+                  }
+                });
             },
 
 

@@ -180,13 +180,13 @@
             target.onload = (!oldonload) ? func : function() {
                 try {
                     oldonload();
-                    console.debug(oldonload.toString());
+
                 } catch (e) {
                     console.error(e);
                     throw e;
                 } finally {
                     func();
-                    console.debug(func.toString())
+
                 }
             };
         },
@@ -252,8 +252,16 @@
                 //being one of the ids or a subchild of them
                 //note this is way more performant then to hook
                 //onto the dom change events
-                var updates = responseXML.querySelectorAll("changes update");
-                var deletes = responseXML.querySelectorAll("changes delete");
+                var updates = null;
+                var deletes = null;
+                if(responseXML.querySelectorAll) {
+                    updates = responseXML.querySelectorAll("changes update");
+                    deletes = responseXML.querySelectorAll("changes delete");
+                } else {
+                    responseXML.setProperty("SelectionLanguage","XPath");
+                    updates = responseXML.documentElement.selectNodes("//changes/update");
+                    deletes = responseXML.documentElement.selectNodes("//changes/delete");
+                }
 
                 //inserts are not needed because we can deal with
                 for (var cnt = updates.length - 1; cnt >= 0; cnt--) {
@@ -324,8 +332,8 @@
 
         _defineProperty: function(name, getter, setter) {
             var props = {};
-            (getter)? props["get"] = getter: null;
-            (setter)? props["set"] = getter: null;
+            (getter)? props.get = getter: null;
+            (setter)? props.set = setter: props.readonly = true;
 
             Object.defineProperty(this, name, props);
         }

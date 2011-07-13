@@ -47,30 +47,30 @@
 
                 <h:panelGroup id="controls" layout="block" styleClass="controls">
                     <!-- todo replace the command links with image buttons -->
-                    <h:commandLink  styleClass="previousYear" actionListener="#{cc.previousYear}">
+                    <h:commandLink id="previousYear"  styleClass="previousYear" actionListener="#{cc.previousYear}">
                         <f:ajax render="header body controls" execute="@this"/>
                         <div class="placeholder" />
                     </h:commandLink>
-                    <h:commandLink  styleClass="previousMonth" actionListener="#{cc.previousMonth}">
+                    <h:commandLink id="previousMonth" styleClass="previousMonth" actionListener="#{cc.previousMonth}">
                         <f:ajax render="header body controls" execute="@this"/>
                         <div class="placeholder" />
                     </h:commandLink>
 
-                    <h:selectOneMenu value="#{cc.displayData.month}" styleClass="month monthSelector" id="monthSelector">
+                    <h:selectOneMenu  value="#{cc.displayData.month}" styleClass="month monthSelector" id="monthSelector">
                         <f:ajax render="header body"  execute="@this"/>
                         <f:selectItems value="#{cc.montList()}" />
                     </h:selectOneMenu>
 
-                    <h:inputText value="#{cc.displayData.year}" styleClass="year yearselector" id="yearselector" >
+                    <h:inputText  value="#{cc.displayData.year}" styleClass="year yearselector" id="yearselector" >
                          <f:ajax render="header body"  execute="@this"/>
                         <div class="placeholder" />
                     </h:inputText>
 
-                    <h:commandLink  styleClass="nextMonth" actionListener="#{cc.nextMonth}">
+                    <h:commandLink id="nextMonth"  styleClass="nextMonth" actionListener="#{cc.nextMonth}">
                         <f:ajax render="header body controls" execute="@this"/>
                         <div class="placeholder" />
                     </h:commandLink>
-                    <h:commandLink  styleClass="nextYear" actionListener="#{cc.nextYear}">
+                    <h:commandLink id="nextYear"  styleClass="nextYear" actionListener="#{cc.nextYear}">
                         <f:ajax render="header body controls" execute="@this"/>
                         <div class="placeholder" />
                     </h:commandLink>

@@ -15,7 +15,7 @@
 
         <db.hbm2ddl>none</db.hbm2ddl>
 
-        <myfaces.version>2.1.2-SNAPSHOT</myfaces.version>
+        <myfaces.version>2.0.7</myfaces.version>
         <myfaces.codi.version>0.9.5</myfaces.codi.version>
         <openwebbeans.version>1.0.0</openwebbeans.version>
         <geronimo_interceptor.version>1.0</geronimo_interceptor.version>

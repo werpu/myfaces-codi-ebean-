@@ -19,10 +19,7 @@
         },
 
         defineBehavior: function() {
-            this._defineProperty("cursorPos",
-                    function() {
-                        return this.valueHolder.toDomNode().selectionStart;
-                    });
+
             this._defineProperty("selection",
                     function() {
                         this.valueHolder.toDomNode().focus();

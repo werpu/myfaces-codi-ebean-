@@ -34,6 +34,8 @@
 
                 _layouter: null,
 
+                _mouseInPopup: false,
+
                 constructor_: function(args) {
                     this._callSuper("constructor_", args);
                     this._layouter = new extras.apache._LayoutController(args);
@@ -57,8 +59,6 @@
                     );
 
                 },
-
-
 
                 _postInit: function() {
 
@@ -150,6 +150,7 @@
                 },
 
                 _onMouseEnter: function() {
+                    this._mouseInPopup = true;
                     if (this._openTimer) return;
                     if (this._closeTimer) {
                         clearTimeout(this._closeTimer);
@@ -163,6 +164,7 @@
                 },
 
                 _onMouseLeave: function() {
+                    this._mouseInPopup = false;
                     if (this._openTimer) {
                         clearTimeout(this._openTimer);
                         this._openTimer = null;

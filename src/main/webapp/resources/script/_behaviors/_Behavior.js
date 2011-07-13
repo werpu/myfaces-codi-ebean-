@@ -27,8 +27,8 @@
         },
         _defineProperty: function(name, getter, setter) {
             var props = {};
-            (getter)? props["get"] = getter: null;
-            (setter)? props["set"] = getter: null;
+            (getter)? props.get = getter: null;
+            (setter)? props.set = setter: props.readonly = true;
 
             Object.defineProperty(this, name, props);
         }

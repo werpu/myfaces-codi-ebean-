@@ -22,13 +22,15 @@
         },
 
         _initBehavior: function() {
-
+            //this._callSuper("_initBehavior", arguments);
             this._referencedNode.addEventListener("focus", this._onFocus, false);
             this._referencedNode.addEventListener("blur", this._onBlur, false);
+            this.rootNode.addEventListener("mouseover", this._onMouseEnter, false);
+            this.rootNode.addEventListener("mouseout", this._onMouseLeave, false);
         },
 
         _onFocus: function(evt) {
-            if(this._hideTimer) {
+            if(this._closeTimer) {
                 clearTimeout(this._hideTimer);
                 this._hideTimer = null;
             }
@@ -36,8 +38,11 @@
         },
 
         _onBlur: function(evt) {
+            if(this._mouseInPopup) {
+                return;
+            }
             var _t = this;
-            this._hideTimer = setTimeout( function() {
+            this._closeTimer = setTimeout( function() {
                 _t.hide();
                 _t._hideTimer = null;
             },300);
