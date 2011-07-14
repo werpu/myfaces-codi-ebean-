@@ -26,6 +26,9 @@
 
                 _postInit: function() {
                     this._callSuper("_postInit", arguments);
+                    this._initComponentBehavior();
+                },
+                _initComponentBehavior: function() {
                     /*we plug in the selection routine behavior*/
                     new extras.apache._Selectable(this);
                     /*the componetn can deal with values*/
@@ -40,7 +43,6 @@
                         this._validationRegExp = this._validationRegExp;
 
                     }
-
                     new extras.apache._KeyboardAware(this);
                 },
 

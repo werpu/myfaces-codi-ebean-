@@ -64,6 +64,7 @@
     _RT.extendClass("extras.apache.ComponentBase", Object, {
         _AjaxQueue : extras.apache.ExtendedEventQueue,
         _ErrorQueue : extras.apache.ExtendedErrorQueue,
+        _LANG:  myfaces._impl._util._Lang,
 
         /**
          * the root node for grouped elements
@@ -116,9 +117,22 @@
         EVT_KEY_PRESS:  "keypress",
         EVT_KEY_UP:     "keyup",
         EVT_ENTER:      "keyenter",
-
-
         EVT_CLICK:      "click",
+        EVT_MOUSE_OVER: "mouseover",
+        EVT_MOUSE_OUT:  "mouseout",
+
+        CEVT_DATE_SELECT: "ezw_dateSelect",
+        CEVT_ON_TOGGLE_OPEN: "ezw_onToggleOpen",
+        CEVT_ON_TOGGLE_CLOSE: "ezw_onToggleClose",
+        CEVT_AFTER_POST_INIT: "ezw_afterPostInit",
+        CEVT_VALUE_HOLDER_REPLACED: "ezw_valueHolderReplaced",
+        CEVT_PARENT_CHANGE: "ezw_parentChange",
+
+
+        DATA_ATTR_UPDATE_LISTENER: "data-ezw-update-listener",
+        DATA_ATTR_JAVASCRIPT_VAR: "data-ezw_javascriptvar",
+        DATA_ATTR_COMPONENTTYPE:"data-ezw_componentType",
+
 
         P_VIEWBODY: "javax.faces.ViewBody",
         P_VIEWROOT: "javax.faces.ViewRoot",
@@ -128,6 +142,12 @@
 
         ajaxAware: true,
         unloadAware: true,
+
+        /**
+         * if the object is referenced from outside the referencing
+         * instance can be assigned here as standard instance var
+         */
+        referencingInstance: null,
 
         constructor_: function(argsMap) {
             _Lang.applyArgs(this, argsMap);
@@ -149,9 +169,18 @@
 
             } else {
                 /*internal postinit*/
-                this.addOnLoad(window, _Lang.hitch(this, this._postInit));
+                this.addOnLoad(window, _Lang.hitch(this, function() {
+                            this._onBeforePostInit();
+                            this._postInit();
+                            this._onAfterPostInit();
+                        }
+                ));
                 /*external postinit*/
-                this.addOnLoad(window, _Lang.hitch(this, this.postInit_));
+                this.addOnLoad(window, _Lang.hitch(this, function() {
+                            this.postInit_();
+
+                        }
+                ));
 
             }
 
@@ -191,6 +220,10 @@
             };
         },
 
+        _onBeforePostInit: function() {
+
+        },
+
         _postInit: function() {
 
             this.rootNode = this.NODE.querySelector("#" + this.id.replace(/:/g, "\\:"));
@@ -199,10 +232,24 @@
                 this._ErrorQueue.enqueue(this.onAjaxError);
             }
             if (this.javascriptVar) {
-                this.rootNode.setAttribute("data-ezw_javascriptVar", this.javascriptVar);
+                this.rootNode.setAttribute(this.DATA_ATTR_JAVASCRIPT_VAR, this.javascriptVar);
             }
             if (this._componentType) {
-                this.rootNode.setAttribute("data-ezw_componentType", this._componentType);
+                this.rootNode.setAttribute(this.DATA_ATTR_COMPONENTTYPE, this._componentType);
+            }
+
+        },
+
+        _onAfterPostInit: function() {
+            var dataUpdateListeners = this.rootNode.getAttribute("data-ezw-update-listener");
+            if (dataUpdateListeners) {
+                dataUpdateListeners = dataUpdateListeners.split(" ");
+                var _t = this;
+                setTimeout(function() {
+                    for (var cnt = dataUpdateListeners.length - 1; cnt >= 0; cnt--) {
+                        window[dataUpdateListeners[cnt]].rootNode.dispatchEvent(_t.CEVT_AFTER_POST_INIT, {src:this});
+                    }
+                }, 0);
             }
         },
 
@@ -254,11 +301,11 @@
                 //onto the dom change events
                 var updates = null;
                 var deletes = null;
-                if(responseXML.querySelectorAll) {
+                if (responseXML.querySelectorAll) {
                     updates = responseXML.querySelectorAll("changes update");
                     deletes = responseXML.querySelectorAll("changes delete");
                 } else {
-                    responseXML.setProperty("SelectionLanguage","XPath");
+                    responseXML.setProperty("SelectionLanguage", "XPath");
                     updates = responseXML.documentElement.selectNodes("//changes/update");
                     deletes = responseXML.documentElement.selectNodes("//changes/delete");
                 }
@@ -277,6 +324,41 @@
                     }
                 }
             }
+            if (evt.status == "success" && this.contentAware) {
+                var responseXML = evt.responseXML;
+                var updates = null;
+                var deletes = null;
+                var inserts
+                if (responseXML.querySelectorAll) {
+                    updates = responseXML.querySelectorAll("changes update");
+                    deletes = responseXML.querySelectorAll("changes delete");
+                    inserts = responseXML.querySelectorAll("changes insert");
+                } else {
+                    responseXML.setProperty("SelectionLanguage", "XPath");
+                    updates = responseXML.documentElement.selectNodes("//changes/update");
+                    deletes = responseXML.documentElement.selectNodes("//changes/delete");
+                }
+                //inserts are not needed because we can deal with
+                for (var cnt = updates.length - 1; cnt >= 0; cnt--) {
+                    var updateId = updates[cnt].getAttribute("id");
+                    if (updateId && (updateId == this.P_VIEWBODY || updateId == "java.faces.ViewRoot" || this.id == updateId || this.clientId == updateId || this.rootNode.querySelector("#" + updateId.replace(/:/g, "\\:")) || document.querySelectorAll("#" + updateId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
+                        this._onAjaxContentRefreshed(evt);
+                    }
+                }
+                for (var cnt = deletes.length - 1; cnt >= 0; cnt--) {
+                    var deleteId = deletes[cnt].getAttribute("id");
+                    if (deleteId && (deleteId == this.P_VIEWBODY || deleteId == this.P_VIEWROOT || this.id == deleteId || this.rootNode.querySelector("#" + deleteId.replace(/:/g, "\\:")) || document.querySelectorAll("#" + deleteId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
+                        this._onAjaxContentRefreshed(evt);
+                    }
+                }
+                /*for (var cnt = inserts.length - 1; cnt >= 0; cnt--) {
+                 var deleteId = insert[cnt].getAttribute("id");
+                 if (deleteId && (deleteId == this.P_VIEWBODY || deleteId == this.P_VIEWROOT || this.id == deleteId || this.rootNode.querySelector("#"+deleteId.replace(/:/g, "\\:")) || document.querySelectorAll("#" + deleteId.replace(/:/g, "\\:") + " #" + this.id.replace(/:/g, "\\:")).length > 0)) {
+                 this._onAjaxDomUnload(evt);
+                 }
+                 }*/
+            }
+
         },
         //TODO we might move our jsf event triggered handler
         //To the Dom Level 3 event DOMNodeRemoved
@@ -289,6 +371,10 @@
         _onAjaxDomInsert: function(evt) {
             this._AjaxQueue.dequeue(this.onAjaxEvent);
             this.onAjaxDomLoad(evt);
+        },
+
+        _onAjaxContentRefreshed: function(evt) {
+
         },
 
         /**
@@ -332,8 +418,8 @@
 
         _defineProperty: function(name, getter, setter) {
             var props = {};
-            (getter)? props.get = getter: null;
-            (setter)? props.set = setter: props.readonly = true;
+            (getter) ? props.get = getter : null;
+            (setter) ? props.set = setter : props.readonly = true;
 
             Object.defineProperty(this, name, props);
         }

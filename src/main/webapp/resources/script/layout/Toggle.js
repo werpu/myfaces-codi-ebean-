@@ -45,12 +45,12 @@
                 _toggle: function(evt) {
                     if (!this.toggleOpen) {
                         if(!this.mouseOpenable) return;
-                        this.groupRootNode.dispatchEvent("ezw_onToggleOpen", {src: this});
+                        this.groupRootNode.dispatchEvent(this.CEVT_ON_TOGGLE_OPEN, {src: this});
                         this.open();
                         this.onOpen(evt);
                     } else {
                          if(!this.mouseCloseable) return;
-                        this.groupRootNode.dispatchEvent("ezw_onToggleClose", {src: this});
+                        this.groupRootNode.dispatchEvent(this.CEVT_ON_TOGGLE_CLOSE, {src: this});
                         this.close();
                         this.onClose(evt);
                     }

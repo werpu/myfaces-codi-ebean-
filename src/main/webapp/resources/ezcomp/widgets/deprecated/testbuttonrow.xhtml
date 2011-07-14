@@ -4,7 +4,8 @@
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:c="http://java.sun.com/jsp/jstl/core"
-              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
+               xmlns:ezwd="http://java.sun.com/jsf/composite/ezcomp/widgets/deprecated"  >
     <composite:interface>
         <composite:attribute name="id" required="true"/>
 
@@ -17,8 +18,8 @@
                     <ezw:imageButtonLight id="bla" label="button1"
                                      onClick="jsf.ajax.request(this ,event, {execute:document.querySelectorAll('.bla')[0].id, render:document.querySelectorAll('.bla')[0].id+' ','javax.faces.behavior.event':'action'}); return false;"
 
-                                    acc="#{imageButtonController.doAction}"/>
-                    <ezw:testButton id="bla2" value="button2" action="#{imageButtonController.doAction}"/>
+                                    action="#{imageButtonController.doAction}"/>
+                    <ezwd:testButton id="bla2" value="button2" action="#{imageButtonController.doAction}"/>
                 </h:panelGroup>
             </h:form>
 

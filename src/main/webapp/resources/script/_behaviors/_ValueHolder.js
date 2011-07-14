@@ -14,12 +14,15 @@
         defineBehavior: function() {
             var finalSelector = this._tmpEventOverrides.selector || ".valueHolder";
             this.valueHolder = this.rootNode.querySelector(finalSelector);
+            try {
+                this._defineProperty("value", function() {
+                    return this.valueHolder.toDomNode().value;
+                }, function(val) {
+                    this.valueHolder.toDomNode().value = val;
+                });
+            } catch(e) {
 
-            this._defineProperty("value", function() {
-                return this.valueHolder.toDomNode().value;
-            }, function(val) {
-                this.valueHolder.toDomNode().value = val;
-            });
+            }
         }
     })
 })();

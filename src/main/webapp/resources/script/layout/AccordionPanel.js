@@ -28,7 +28,7 @@
                         var _Lang = this._LANG;
                         /*we have to prepare our toggles
                          * and pass them as references to our toggle classes down*/
-                        var toggles = this.rootNode.querySelectorAll(".accordionContent > [data-ezw_componentType = 'at.irian.Toggle']").getAttribute("data-ezw_javascriptVar");
+                        var toggles = this.rootNode.querySelectorAll(".accordionContent > ["+this.DATA_ATTR_COMPONENTTYPE+" = 'at.irian.Toggle']").getAttribute(this.DATA_ATTR_JAVASCRIPT_VAR);
                         this.toggles = [];
                         var cnt = 0;
                         _Lang.arrForEach(toggles, _Lang.hitch(this, function(toggle) {
@@ -49,7 +49,7 @@
                      * so we simply can close subtoggle panels
                      * and then let the toggle control itself do the rest
                      */
-                    this.rootNode.addEventListener("ezw_onToggleOpen", this._LANG.hitch(this, this._onToggle), false);
+                    this.rootNode.addEventListener(this.CEVT_ON_TOGGLE_OPEN, this._LANG.hitch(this, this._onToggle), false);
                     //document.documentElement.addEventListener("ezw_onToggleOpen", function() {alert("toggle");}, false);
                     //this.rootNode.addEventListener("ezw_onToggleClose", this._LANG.hitch(this, this._onToggle));
 

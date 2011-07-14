@@ -36,7 +36,7 @@
 
 
         <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} datePanel">
-            <h:panelGroup id="#{cc.clientId}" layout="block" rendered="#{cc.attrs.rendered}">
+            <h:panelGroup id="datePanelRoot" styleClass="datePanelRoot" layout="block" rendered="#{cc.attrs.rendered}">
                 <h:panelGroup id="componentBinding" style="display:none">
                     <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
                     <h:inputText style="display:none" id="valueHolder" styleClass="dateValueHolder" />

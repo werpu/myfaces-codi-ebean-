@@ -16,6 +16,7 @@
             this._callSuper("constructor_", args);
             this._onFocus = _Lang.hitch(this, this._onFocus);
             this._onBlur = _Lang.hitch(this, this._onBlur);
+            this._onParentChange = _Lang.hitch(this, this._onParentChange);
         },
         _postInit: function() {
             this._callSuper("_postInit", arguments);
@@ -23,10 +24,23 @@
 
         _initBehavior: function() {
             //this._callSuper("_initBehavior", arguments);
-            this._referencedNode.addEventListener("focus", this._onFocus, false);
-            this._referencedNode.addEventListener("blur", this._onBlur, false);
             this.rootNode.addEventListener("mouseover", this._onMouseEnter, false);
             this.rootNode.addEventListener("mouseout", this._onMouseLeave, false);
+
+            this.rootNode.addEventListener(this.CEVT_PARENT_CHANGE, this._onParentChange, false);
+
+            this._initReferenceBehavior();
+        },
+
+        _initReferenceBehavior: function() {
+            this._referencedNode.addEventListener(this.EVT_CLICK, this._onFocus, false);
+            this._referencedNode.addEventListener(this.EVT_FOCUS, this._onFocus, false);
+            this._referencedNode.addEventListener(this.EVT_BLUR, this._onBlur, false);
+        },
+
+        _onParentChange: function(evt) {
+            this._initReferenceBehavior();
+            evt.consumeEvent();
         },
 
         _onFocus: function(evt) {

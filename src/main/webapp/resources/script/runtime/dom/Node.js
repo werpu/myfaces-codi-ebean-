@@ -45,16 +45,25 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             /** @namespace this._tagName */
             _tagName: null,
 
+            DATA_ATTR_JAVASCRIPT_VAR: "data-ezw_javascriptvar",
+
             constructor_: function(elem) {
                 this._referencedNode = this._NODE_UTILS.byIdOrName(elem);
 
                 Object.defineProperty(this, "id", {
-                  set: function(id) {
-                      this._referencedNode = id;
-                  },
-                  get: function() {
-                      return this._referencedNode.id;
-                  }
+                    set: function(id) {
+                        this._referencedNode = id;
+                    },
+                    get: function() {
+                        return this._referencedNode.id;
+                    }
+                });
+
+                Object.defineProperty(this, "javascriptVar", {
+                    get: function() {
+                        return window[ this._referencedNode.getAttribute(this.DATA_ATTR_JAVASCRIPT_VAR)];
+                    },
+                    readonly: true
                 });
             },
 
@@ -108,9 +117,9 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             },
 
             style: function(styleMap) {
-                for(var key in styleMap) {
-                    if(!key) continue;
-                    this.setStyle(""+key, styleMap[key]);
+                for (var key in styleMap) {
+                    if (!key) continue;
+                    this.setStyle("" + key, styleMap[key]);
                 }
                 return this;
             },
@@ -144,7 +153,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             },
 
             innerHTML: function(markup, autoEval) {
-                myfaces._impl._dom._NodeUtils.innerHTML(this._referencedNode, markup ,!!autoEval);
+                myfaces._impl._dom._NodeUtils.innerHTML(this._referencedNode, markup, !!autoEval);
                 //we defer until finished, webkit issue that innerhtml often
                 //is not finished when the next op is performed
                 //a query fixes that
@@ -313,27 +322,27 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 return this;
             },
             offsetWidth: function(offset) {
-                offset = offset || 0;
+                offset = offset || 0;
                 return Math.max(this._referencedNode.offsetWidth, offset);
             },
             offsetHeight: function(offset) {
-                offset = offset || 0;
+                offset = offset || 0;
                 return Math.max(this._referencedNode.offsetHeight, offset);
             },
             offsetLeft: function(offset) {
-                offset = offset || 0;
+                offset = offset || 0;
                 return Math.max(this._referencedNode.offsetLeft, 0);
             },
             offsetTop: function(offset) {
-                offset = offset || 0;
+                offset = offset || 0;
                 return Math.max(this._referencedNode.offsetTop, 0);
             },
 
             offset: function() {
                 return {x: this._referencedNode.offsetLeft,
-                        y: this._referencedNode.offsetTop,
-                        h: this._referencedNode.offsetHeight,
-                        w: this._referencedNode.offsetWidth};
+                    y: this._referencedNode.offsetTop,
+                    h: this._referencedNode.offsetHeight,
+                    w: this._referencedNode.offsetWidth};
             },
 
             position: function() {
@@ -360,7 +369,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
              * returns the referenced javascript var for this node
              */
             jsVar: function() {
-                return window[this._referencedNode.getAttribute("data-ezw_javascriptvar")];
+                return window[this._referencedNode.getAttribute(this.DATA_ATTR_JAVASCRIPT_VAR)];
             }
 
 
@@ -412,6 +421,17 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             },
             head: function() {
                 return myfaces._impl._dom.Node.querySelector("head");
+            },
+            requestAnimFrame: function(func) {
+                var animFunc = (window.requestAnimationFrame ||
+                        window.webkitRequestAnimationFrame ||
+                        window.mozRequestAnimationFrame ||
+                        window.oRequestAnimationFrame ||
+                        window.msRequestAnimationFrame ||
+                        function(/* function */ callback, /* DOMElement */ element) {
+                            window.setTimeout(callback, 1000 / 60);
+                        });
+                animFunc(func);
             }
         });
 

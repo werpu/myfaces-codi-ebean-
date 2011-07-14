@@ -48,9 +48,9 @@
                     return !!_t._onDateSelect_(evt, date);
                 }, false);
             });
-            this._controls.querySelector(".previousYear").addEventListener("click", this._LANG.hitch(this, this.onPreviousYear), false );
-            this._controls.querySelector(".previousMonth").addEventListener("click", this._LANG.hitch(this, this.onPreviousMonth), false );
-            this._controls.querySelector(".nextYear").addEventListener("click",this._LANG.hitch(this, this.onNextYear), false);
+            this._controls.querySelector(".previousYear").addEventListener("click", this._LANG.hitch(this, this.onPreviousYear), false);
+            this._controls.querySelector(".previousMonth").addEventListener("click", this._LANG.hitch(this, this.onPreviousMonth), false);
+            this._controls.querySelector(".nextYear").addEventListener("click", this._LANG.hitch(this, this.onNextYear), false);
             this._controls.querySelector(".nextMonth").addEventListener("click", this._LANG.hitch(this, this.onNextMonth), false);
         },
 
@@ -77,12 +77,12 @@
                     {
                         execute: evt.target.id,
                         render:[this.valueHolder.id,
-                                this._header.getId(),
-                                this._footer.getId(),
-                                this._body.getId()].join(" "),
+                                this._header.id,
+                                this._footer.id,
+                                this._body.id].join(" "),
                         "mf_dp": date,
                         onevent:this._LANG.hitch(this, function(evt) {
-                                this._onEvent(evt, date);
+                            this._onEvent(evt, date);
                         })
                     });
             return false;
@@ -90,11 +90,27 @@
 
         _onEvent: function(evt, date) {
             if (evt.status == "success") {
+
                 this.onDateSelect(date);
+
             }
         },
 
         onDateSelect: function(date) {
+
+            var dataUpdateListeners = this.rootNode.getAttribute("data-ezw-update-listener");
+            if (dataUpdateListeners) {
+                dataUpdateListeners = dataUpdateListeners.split(" ");
+                var _t = this;
+                setTimeout(function() {
+                    for (var cnt = dataUpdateListeners.length - 1; cnt >= 0; cnt--) {
+                        for (var cnt = dataUpdateListeners.length - 1; cnt >= 0; cnt--) {
+                            window[dataUpdateListeners[cnt]].rootNode.dispatchEvent(_t.CEVT_DATE_SELECT, {src:_t});
+                            window[dataUpdateListeners[cnt]].rootNode.dispatchEvent(_t.CEVT_VALUE_HOLDER_REPLACED, {src:_t});
+                        }
+                    }
+                }, 0);
+            }
 
             return false
         },

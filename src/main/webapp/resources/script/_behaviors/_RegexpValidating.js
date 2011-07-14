@@ -19,20 +19,24 @@
         },
 
         defineBehavior: function() {
-            this._defineProperty("validationRegExp",
-                    function() {
-                        return this._validationRegExp;
-                    },
+            try {
+                this._defineProperty("validationRegExp",
+                        function() {
+                            return this._validationRegExp;
+                        },
 
-                    function(re) {
-                        this._validationRegExp = re;
-                        this.matcher = new extras.apache._RegexpMatcher(re);
-                    });
+                        function(re) {
+                            this._validationRegExp = re;
+                            this.matcher = new extras.apache._RegexpMatcher(re);
+                        });
 
-            this.match = function() {
-                var valid = this.matcher.match(this.valueHolder.value);
-                this.rootNode.addClass(valid ? "valid" : "invalid");
-                return valid;
+                this.match = function() {
+                    var valid = this.matcher.match(this.valueHolder.value);
+                    this.rootNode.addClass(valid ? "valid" : "invalid");
+                    return valid;
+                }
+            } catch(e) {
+
             }
         }
     })
