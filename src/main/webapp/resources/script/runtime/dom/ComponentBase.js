@@ -162,11 +162,8 @@
             this.valueHolderId = this.valueHolderId || this.id + this.valueHolderAppendix;
 
             if (this.ajaxRequest) {
-                //TODO investigate why the queue is not triggering
                 this._AjaxQueue.enqueue(this._ajaxInit);
                 this._ErrorQueue.enqueue(this._ajaxInit);
-                //setTimeout(this._ajaxInit, 100);
-
             } else {
                 /*internal postinit*/
                 this.addOnLoad(window, _Lang.hitch(this, function() {
@@ -199,13 +196,20 @@
                 this._postInit();
                 this.postInit_();
             } finally {
-                this._AjaxQueue.remove(this._ajaxInit);
-                this._ErrorQueue.remove(this._ajaxInit);
+                //we ran into stack problems here with our slice code
+                //we are going to defer here (the stack problems also can be fixed
+                //by not using splice but using immutable data structures
+                setTimeout(this._LANG.hitch(this, function() {
+                    //TODO check why this fails without timeout
+                    this._AjaxQueue.remove(this._ajaxInit);
+                    this._ErrorQueue.remove(this._ajaxInit);
+                }), 0);
             }
         },
 
         addOnLoad: function(target, func) {
-            var oldonload = (target) ? target.onload : null;
+            document.addEventListener("DOMContentLoaded",func, false);
+            /*var oldonload = (target) ? target.onload : null;
             target.onload = (!oldonload) ? func : function() {
                 try {
                     oldonload();
@@ -217,7 +221,7 @@
                     func();
 
                 }
-            };
+            };*/
         },
 
         _onBeforePostInit: function() {
@@ -237,6 +241,28 @@
             if (this._componentType) {
                 this.rootNode.setAttribute(this.DATA_ATTR_COMPONENTTYPE, this._componentType);
             }
+            if (extras.apache.ComponentBase._preRenderTimer) {
+                clearTimeout(extras.apache.ComponentBase._preRenderTimer);
+            }
+            extras.apache.ComponentBase._preRenderStack.push(this._LANG.hitch(this, this._postRender));
+            setTimeout(function() {
+                try {
+                    var stack = extras.apache.ComponentBase._preRenderStack;
+                    for (var cnt = 0; cnt < stack.length; cnt ++) {
+                        try {
+                            stack[cnt]();
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }
+                } finally {
+                    extras.apache.ComponentBase._preRenderStack = [];
+                }
+            });
+
+        },
+
+        _postRender: function() {
 
         },
 
@@ -425,4 +451,6 @@
         }
 
     });
+    extras.apache.ComponentBase._preRenderStack = [];
+    extras.apache.ComponentBase._preRenderTimer = null;
 })();

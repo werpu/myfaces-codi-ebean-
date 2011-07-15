@@ -6,6 +6,7 @@
     _RT.extendClass("extras.apache._LayoutController", extras.apache.ComponentBase, {
                 constructor_: function(args) {
                     this._callSuper("constructor_",args);
+
                     this._defineProperty('referencedNode',
                         function() {
                             return this._referencedNode;
@@ -14,6 +15,16 @@
                             this._referencedNode = value;
                         }
                     );
+                },
+                _ajaxInit: function(data) {
+
+                    this._callSuper("_ajaxInit", data);
+
+                },
+                _postInit: function() {
+
+                    this.rootNode = this.NODE.querySelector("#" + this.id.replace(/:/g, "\\:"));
+
                 },
                 /*-------------------layout functionality-------------------*/
                 _layoutBottom: function() {

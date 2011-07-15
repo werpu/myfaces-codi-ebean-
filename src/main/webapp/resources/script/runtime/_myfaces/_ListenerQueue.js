@@ -65,7 +65,17 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._util._ListenerQueue", my
      */
     remove : function(/*function*/listener) {
         this._assertListener(listener);
-        this._callSuper("remove", listener);
+
+        var index = this.indexOf(element);
+        /*found*/
+        if (index != -1) {
+            if(index < this._q.length-1) {
+                this._q = [].concat(this._q.slice(0,index), this._q.slice(index+1, this._q.length-1));
+            } else {
+                this._q = this._q.slice(0, index);
+            }
+            //this._q.splice(index, 1);
+        }
     },
 
     /**

@@ -26,7 +26,11 @@
             //so that we can move it around
 
 
-            this._initReferences();
+
+        },
+
+        _postRender: function() {
+           this._initReferences();
 
             if(!this._initComponentListeners) {
                 this.rootNode.addEventListener(this.CEVT_AFTER_POST_INIT, this._LANG.hitch(this, this.onChildPostInit));
@@ -39,6 +43,7 @@
             this._datePopup =  this.rootNode.querySelector(".inputPopup");
             this._datePicker =  this._datePopup.querySelector(".datePanel");
             //the date picker and this component share the same value holder
+
             this._datePicker.javascriptVar.valueHolder = this.valueHolder;
             this._datePopup.javascriptVar.referencedNode = this.valueHolder;
             this._datePicker.referencingInstance = this;
@@ -62,6 +67,7 @@
             //already is done by now
             setTimeout(function() {
                 _t._postInit();
+                _t._postRender();
                 _t._datePopup.dispatchEvent(_t.CEVT_PARENT_CHANGE,{src:_t, srcType:"valueHolderReplaced" });
             },0);
             evt.consumeEvent();

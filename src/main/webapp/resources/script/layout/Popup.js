@@ -40,6 +40,7 @@
                     this._callSuper("constructor_", args);
                     this._layouter = new extras.apache._LayoutController(args);
 
+
                     this._onMouseEnter = _Lang.hitch(this, this._onMouseEnter);
                     this._onMouseLeave = _Lang.hitch(this, this._onMouseLeave);
                     this._popupDelay = parseInt(this._popupDelay);
@@ -49,20 +50,24 @@
                         //)
 
                     }
+                    try {
+                        this._defineProperty('referencedNode', function() {
+                                    return this._referencedNode;
+                                }, function(value) {
+                                    this._referencedNode = value;
+                                    this._layouter.referencedNode = value;
+                                }
+                        );
+                    } catch(e) {
 
-                    this._defineProperty( 'referencedNode',  function() {
-                            return this._referencedNode;
-                        }, function(value) {
-                            this._referencedNode = value;
-                            this._layouter.referencedNode = value;
-                        }
-                    );
+                    }
 
                 },
 
                 _postInit: function() {
 
                     this._callSuper("_postInit", arguments);
+                    //this._layouter.rootNode = this.rootNode;
                     this._referencedNode = this._Lang.isString(this._referencedNode) ?
                             this._NODE.querySelector("#" + this._referencedNode.replace(/:/g, "\\:")) :
                             this._referencedNode;
@@ -88,6 +93,7 @@
                 },
 
                 show: function() {
+
                     if (this._mousePositioned) {
                         var globalMousePos = this.rootNode.globalMousePos();
                         this.rootNode.setStyle("position", "fixed").
@@ -99,7 +105,9 @@
 
                         switch (this._position) {
                             case "bottom":
+
                                 this._layouter._layoutBottom();
+
                                 break;
                             case "left":
                                 this._layouter._layoutLeft();
@@ -107,8 +115,8 @@
                             case "top":
                                 this._layouter._layoutTop();
                                 break;
-                            case "bottom":
-                                this._layouter._layoutBottom();
+                            case "right":
+                                this._layouter._layoutRight();
                                 break;
                             case "topRight":
                                 this._layouter._layoutTopRight();
@@ -133,6 +141,7 @@
                                 throw Error("Unsupported layout position");
                         }
                     }
+
                     this.rootNode.addClass("fastScale").setStyle("display", "block")
                             .setStyle("opacity", "1")
                             .delay(500)

@@ -51,9 +51,12 @@
 
         <h:form id="mainForm" prependId="false">
             <ezwm:menuBar id="topMenu">
-                <ezwm:menu id="first" label="First Menu">
+                <ezwm:menu id="first" label="Form Controls">
                     <ezwm:menuItem>
-                        <h:outputText value="first item"></h:outputText>
+                       <h:commandLink action="input" >
+                           <h:outputFormat value="Various input controls" />
+                           <f:ajax execute="@this" render="mainForm" />
+                       </h:commandLink>
                     </ezwm:menuItem>
                     <ezwm:menuItem>
                         <h:outputText value="second item"></h:outputText>

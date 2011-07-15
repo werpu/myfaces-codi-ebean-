@@ -20,6 +20,7 @@
         },
 
         defineBehavior: function() {
+            try {
             this._defineProperty("validationMask",
                     function() {
                         return this._validationMask;
@@ -29,7 +30,9 @@
                         this._validationMask = pattern;
                         this.matcher = new extras.apache._MaskMatcher(pattern);
                     });
+            } catch(e) {
 
+            }
             this.match = function() {
                 var valid = this.matcher.match(this.valueHolder.value);
                 this.rootNode.addClass(valid ? "valid" : "invalid");
