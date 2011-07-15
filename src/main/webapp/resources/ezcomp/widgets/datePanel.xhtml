@@ -22,6 +22,8 @@
         <composite:attribute name="specialDays" />
         <composite:attribute name="showWeekNumbers" default="false" />
 
+        <composite:editableValueHolder name="input" targets="input" />
+
     </composite:interface>
     <composite:implementation>
 
@@ -39,7 +41,9 @@
             <h:panelGroup id="datePanelRoot" styleClass="datePanelRoot" layout="block" rendered="#{cc.attrs.rendered}">
                 <h:panelGroup id="componentBinding" style="display:none">
                     <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
-                    <h:inputText style="display:none" id="valueHolder" styleClass="dateValueHolder" />
+                    <h:inputText style="display:none" id="input" styleClass="dateValueHolder">
+
+                    </h:inputText>
                 </h:panelGroup>
                 <h:panelGroup id="header" layout="block" styleClass="header">
                     #{cc.attrs.label}

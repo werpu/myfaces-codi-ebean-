@@ -1,9 +1,10 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.datePicker
 
-import java.util.{ArrayList, Calendar}
 import java.util.logging.Logger
 import java.io.ObjectInputStream
 import collection.JavaConversions._
+import java.util.{TimeZone, ArrayList, Calendar}
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -19,6 +20,7 @@ class PickerMonth(var displayValue: Calendar) {
 
   @transient
   var weeks = prepareMonth(displayValue)
+
 
   var selectedValue: PickerDay = _
 
@@ -170,6 +172,7 @@ class PickerMonth(var displayValue: Calendar) {
 
   protected def makeMonth(in: Calendar): Calendar = {
     val ret = Calendar.getInstance()
+    ret.setTimeZone(in.getTimeZone)
     ret.set(Calendar.YEAR, in.get(Calendar.YEAR))
     ret.set(Calendar.MONTH, in.get(Calendar.MONTH))
     ret.set(Calendar.DAY_OF_MONTH, in.get(Calendar.DAY_OF_MONTH))
@@ -183,6 +186,7 @@ class PickerMonth(var displayValue: Calendar) {
 
   protected def makeDay(in: Calendar): Calendar = {
     val ret = Calendar.getInstance()
+    ret.setTimeZone(in.getTimeZone)
     ret.set(Calendar.YEAR, in.get(Calendar.YEAR))
     ret.set(Calendar.MONTH, in.get(Calendar.MONTH))
     ret.set(Calendar.DAY_OF_MONTH, in.get(Calendar.DAY_OF_MONTH))

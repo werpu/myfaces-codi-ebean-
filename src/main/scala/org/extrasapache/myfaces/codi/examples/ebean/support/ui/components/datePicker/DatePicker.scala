@@ -1,10 +1,14 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.datePicker
 
-import javax.faces.component.FacesComponent
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
-import javax.faces.event.{PostRestoreStateEvent, ListenerFor, ActionEvent, ComponentSystemEvent}
 import javax.faces.model.SelectItem
 import java.text.{DateFormat, SimpleDateFormat}
+import collection.mutable.ArrayBuffer
+import collection.JavaConversions._
+import java.util.ArrayList
+import javax.faces.event._
+import javax.faces.component.{UIInput, FacesComponent}
+import javax.faces.convert.DateTimeConverter
 
 /**
  *
@@ -31,7 +35,10 @@ object DatePicker {
  */
 @FacesComponent("at.irian.DatePicker")
 @serializable
-@ListenerFor(systemEventClass = classOf[PostRestoreStateEvent])
+@ListenersFor(Array(
+  new ListenerFor(systemEventClass = classOf[PostRestoreStateEvent]),
+  new ListenerFor(systemEventClass = classOf[PostAddToViewEvent])
+))
 class DatePicker extends StandardJavascriptComponent {
 
   import java.util._
@@ -43,42 +50,57 @@ class DatePicker extends StandardJavascriptComponent {
     displayData.nextYear
   }
 
-  def nextMonth(event: ActionEvent) {
-    displayData.nextMonth
-  }
-
-  def previousMonth(event: ActionEvent) {
-    displayData.previousMonth
-  }
-
-  def previousYear(event: ActionEvent) {
-    displayData.previousYear
-  }
-
-  def preRenderInput(ev: ComponentSystemEvent) {
-    restoreDisplayData
-  }
+  def nextMonth(event: ActionEvent):Unit      =  displayData.nextMonth
+  def previousMonth(event: ActionEvent):Unit  = displayData.previousMonth
+  def previousYear(event: ActionEvent):Unit   = displayData.previousYear
+  def preRenderInput(ev: ComponentSystemEvent):Unit = restoreDisplayData
 
   /*
   * the listener now is responsible for checking for an incoming
   * date change value and then parsing it in
   */
   override def processEvent(event: ComponentSystemEvent) {
-    val incomingParam = reqAttrMap.get("mf_dp")
-    if (incomingParam != null && incomingParam.trim != "") {
-      val longVal: Long = incomingParam.toLong
-      val value = getAttr[Date](VALUE, Calendar.getInstance().getTime)
-      value.setTime(longVal)
-      setAttr[Date](VALUE, value)
+    event match {
+      case evt: PostAddToViewEvent => {
+        if (valHolder.getConverter == null) {
+          val converter = new DateTimeConverter()
+          converter.setDateStyle("medium")
+          converter.setLocale(getLocale())
+          converter.setTimeZone(Calendar.getInstance().getTimeZone)
+          valHolder.setConverter(converter)
+        }
+      }
+      case evt: PostRestoreStateEvent => {
+          val incomingParam = reqAttrMap.get("mf_dp")
+          if (incomingParam != null && incomingParam.trim != "") {
+            val longVal: Long = incomingParam.toLong
+            val value = getAttr[Date](VALUE, Calendar.getInstance(getTimezone()).getTime)
+            value.setTime(longVal)
+            setAttr[Date](VALUE, value)
+          }
+          restoreDisplayData
+      }
+      case _ => {}
     }
-    restoreDisplayData
+
+
     super.processEvent(event)
   }
 
+
+  def valHolder:UIInput = {
+    findComponent("input") match {
+      case inp:UIInput => inp
+      case _ => null
+    }
+  }
+
+
   protected def restoreDisplayData {
-    val value = getAttr[Date]("value", Calendar.getInstance().getTime)
-    val calValue = Calendar.getInstance();
+    val value = getAttr[Date]("value", Calendar.getInstance(getTimezone()).getTime())
+    val calValue = Calendar.getInstance(getTimezone());
     calValue.setTime(value)
+
     displayData = getAttr[PickerMonth](DISPLAY_DATA, null)
     if (displayData == null) {
       displayData = new PickerMonth(calValue)
@@ -90,15 +112,16 @@ class DatePicker extends StandardJavascriptComponent {
 
   //accessors
   def getDisplayYear(): String = {
-    val yearDF = new SimpleDateFormat("yyyy");
-    val tempHolder = Calendar.getInstance();
+    val yearDF = new SimpleDateFormat("yyyy", getLocale());
+    val tempHolder = Calendar.getInstance(getTimezone());
     tempHolder.set(Calendar.YEAR, displayData.year)
+
     yearDF.format(tempHolder)
   }
 
   def setDisplayYear(year: String) {
-    val yearDF = new SimpleDateFormat("yyyy");
-    val tempCal = Calendar.getInstance()
+    val yearDF = new SimpleDateFormat("yyyy", getLocale());
+    val tempCal = Calendar.getInstance(getTimezone())
 
     displayData.year = tempCal.get(Calendar.YEAR)
   }
@@ -107,10 +130,10 @@ class DatePicker extends StandardJavascriptComponent {
   def montList: List[SelectItem] = {
 
     val ret = new ArrayList[SelectItem](12)
-    val calHelper = Calendar.getInstance();
+    val calHelper = Calendar.getInstance(getTimezone());
 
 
-    val monthDF = if (getLocale == null) new SimpleDateFormat("MMM") else new SimpleDateFormat("MMM", getLocale)
+    val monthDF = new SimpleDateFormat("MMM", getLocale())
     for (cnt <- 0 until 12) {
       calHelper.set(Calendar.MONTH, cnt)
       val monthString = monthDF.format(calHelper.getTime).toString
@@ -120,25 +143,56 @@ class DatePicker extends StandardJavascriptComponent {
     ret
   }
 
+  def finalConverter: DateTimeConverter = {
+      valHolder.getConverter() match {
+        case conv: DateTimeConverter => conv
+        case _ => null
+      }
+  }
+
+  /**
+   * fetches the current locale
+   * either from the converter or from
+   * the jsf locale being present
+   */
+  override def getLocale():Locale = {
+       if (finalConverter != null)
+         finalConverter.getLocale
+       else
+         super.getLocale
+  }
+
+  /**
+   * fetches the given timezone either from an embedded converter
+   * or from the system timezone currently present
+   */
+  def getTimezone():TimeZone = {
+      if (finalConverter != null)
+          finalConverter.getTimeZone
+      else
+         Calendar.getInstance().getTimeZone
+  }
+
+
   def selectedDate(): String = {
+
     val dfStr = getAttr[String](DATE_FORMAT, null)
-    val locale = getLocale
+
     val dateFormat = if (dfStr != null) new SimpleDateFormat(dfStr)
     else {
-      if (locale != null)
-        DateFormat.getDateInstance(DateFormat.LONG, locale)
-      else
-        DateFormat.getDateInstance(DateFormat.LONG)
+        DateFormat.getDateInstance(DateFormat.LONG, getLocale)
     }
-    dateFormat.format(getAttr[Date](VALUE, Calendar.getInstance().getTime))
+    dateFormat.setTimeZone(getTimezone())
+    dateFormat.format(getAttr[Date](VALUE, Calendar.getInstance(getTimezone()).getTime))
   }
 
   def weekList: List[String] = {
     val ret = new ArrayList[String](7)
-    val calHelper = Calendar.getInstance();
-    val locale = getLocale
+    val calHelper = Calendar.getInstance(getTimezone());
 
-    val formatter: SimpleDateFormat = if (locale == null) new SimpleDateFormat("EEE") else new SimpleDateFormat("EEE", locale)
+    val formatter: SimpleDateFormat = new SimpleDateFormat("EEE", getLocale)
+    formatter.setTimeZone(getTimezone())
+
     for (cnt <- 1 until 8) {
       calHelper.set(Calendar.DAY_OF_WEEK, cnt)
       val weekString = formatter.format(calHelper.getTime).toString

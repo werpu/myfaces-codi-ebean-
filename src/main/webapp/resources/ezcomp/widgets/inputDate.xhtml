@@ -7,7 +7,7 @@
               xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
               xmlns:ezws="http://java.sun.com/jsf/composite/ezcomp/widgets/supportive"
         >
-    <composite:interface componentType="at.irian.DatePicker">
+    <composite:interface componentType="at.irian.InputDate">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="javascriptVar"/>
         <composite:attribute name="javascriptClass" default="extras.apache.InputDate"/>
@@ -45,6 +45,8 @@
         <composite:attribute name="inputStyle"/>
         <composite:attribute name="form"/>
 
+        <composite:editableValueHolder name="input" targets="input" />
+
     </composite:interface>
     <composite:implementation>
 
@@ -74,8 +76,7 @@
             -->
             <h:inputText id="input" styleClass="#{cc.attrs.inputClass} input inputTextValueHolder" style="#{cc.attrs.inputStyle}"
                          value="#{cc.attrs.value}">
-                <f:convertDateTime dateStyle="short" type="date" />
-                <composite:insertChildren></composite:insertChildren>
+
                  <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
             </h:inputText>
             <ezws:inputPopup id="date_popup" for="input">
