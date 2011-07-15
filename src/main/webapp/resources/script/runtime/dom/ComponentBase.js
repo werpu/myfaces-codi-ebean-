@@ -165,28 +165,18 @@
                 this._AjaxQueue.enqueue(this._ajaxInit);
                 this._ErrorQueue.enqueue(this._ajaxInit);
             } else {
-                /*internal postinit*/
                 this.addOnLoad(window, _Lang.hitch(this, function() {
-                            this._onBeforePostInit();
+                            /*internal postinit*/
                             this._postInit();
-                            this._onAfterPostInit();
-                        }
-                ));
-                /*external postinit*/
-                this.addOnLoad(window, _Lang.hitch(this, function() {
+                            /*external postinit*/
                             this.postInit_();
-
                         }
                 ));
-
             }
 
-            this._initProperties();
         },
 
-        _initProperties: function() {
 
-        },
 
         //TODO apply ecmascript 2
         // setters and getters for the private vars
@@ -194,6 +184,7 @@
         _ajaxInit: function(data) {
             try {
                 this._postInit();
+                this.postInit();
                 this.postInit_();
             } finally {
                 //we ran into stack problems here with our slice code
@@ -208,25 +199,10 @@
         },
 
         addOnLoad: function(target, func) {
-            document.addEventListener("DOMContentLoaded",func, false);
-            /*var oldonload = (target) ? target.onload : null;
-            target.onload = (!oldonload) ? func : function() {
-                try {
-                    oldonload();
-
-                } catch (e) {
-                    console.error(e);
-                    throw e;
-                } finally {
-                    func();
-
-                }
-            };*/
+            document.addEventListener("DOMContentLoaded", func, false);
         },
 
-        _onBeforePostInit: function() {
 
-        },
 
         _postInit: function() {
 
@@ -244,7 +220,11 @@
             if (extras.apache.ComponentBase._preRenderTimer) {
                 clearTimeout(extras.apache.ComponentBase._preRenderTimer);
             }
-            extras.apache.ComponentBase._preRenderStack.push(this._LANG.hitch(this, this._postRender));
+            extras.apache.ComponentBase._preRenderStack.push(this._LANG.hitch(this, function() {
+                this._postRender();
+                this.postRender();
+                this.postRender_();
+            }));
             setTimeout(function() {
                 try {
                     var stack = extras.apache.ComponentBase._preRenderStack;
@@ -262,11 +242,13 @@
 
         },
 
-        _postRender: function() {
+        postInit: function() {
 
         },
 
-        _onAfterPostInit: function() {
+
+
+        postInit_: function() {
             var dataUpdateListeners = this.rootNode.getAttribute("data-ezw-update-listener");
             if (dataUpdateListeners) {
                 dataUpdateListeners = dataUpdateListeners.split(" ");
@@ -278,6 +260,10 @@
                 }, 0);
             }
         },
+
+        _postRender: function() {},
+        postRender: function() {},
+        postRender_: function() {},
 
         querySelectorAll: function(queryStr) {
             return this.rootNode.querySelectorAll(queryStr);
@@ -436,10 +422,6 @@
                 c[unescape(parts[0])] = unescape(parts[1]);
             }
             return name ? c[name] : c;
-        },
-
-        postInit_: function() {
-
         },
 
         _defineProperty: function(name, getter, setter) {

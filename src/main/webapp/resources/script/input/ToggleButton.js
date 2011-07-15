@@ -12,6 +12,7 @@
 
         constructor_:function(args) {
             this._callSuper("constructor", args);
+            this._initProperties();
         },
 
         _postInit: function() {
@@ -25,20 +26,23 @@
          * javascript mechanisms for setters and getters
          */
         _initProperties: function() {
-            this._callSuper("_initProperties", arguments);
-            /*checked property setter and getter*/
-            this._defineProperty("checked", function() {
-                return this.valueHolder.toDomNode().checked;
-            }, function(val) {
-                this.valueHolder.toDomNode().checked = !!val;
-            });
+            try {
+                /*checked property setter and getter*/
+                this._defineProperty("checked", function() {
+                    return this.valueHolder.toDomNode().checked;
+                }, function(val) {
+                    this.valueHolder.toDomNode().checked = !!val;
+                });
 
-            /*value property setter and getter*/
-            this._defineProperty("value", function() {
-                return this.valueHolder.toDomNode().value;
-            }, function(val) {
-                this.valueHolder.toDomNode().value = val;
-            });
+                /*value property setter and getter*/
+                this._defineProperty("value", function() {
+                    return this.valueHolder.toDomNode().value;
+                }, function(val) {
+                    this.valueHolder.toDomNode().value = val;
+                });
+            } catch(e) {
+
+            }
         },
 
         _onmousedown: function(evt) {
