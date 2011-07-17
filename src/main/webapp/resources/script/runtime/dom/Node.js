@@ -65,6 +65,22 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                     },
                     readonly: true
                 });
+
+                Object.defineProperty(this, "childNodes", {
+                    get: function() {
+                        return new myfaces._impl._dom.NodeList(this._referencedNode.childNodes);
+                    }
+                });
+                Object.defineProperty(this, "parentNode", {
+                    get: function() {
+                        return new myfaces._impl._dom.Node(this._referencedNode.parentNode);
+                    }
+                });
+                 Object.defineProperty(this, "nodeName", {
+                    get: function() {
+                        return this._referencedNode.nodeName;
+                    }
+                });
             },
 
 
@@ -99,7 +115,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             },
 
             purgeChilds: function() {
-                this.childNodes().purge();
+                this.childNodes.purge();
                 return this;
             },
 
@@ -165,13 +181,13 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 return this._referencedNode.innerHTML;
             },
 
-            childNodes: function() {
-                return new NodeList(this._referencedNode.childNodes);
-            },
+            //childNodes: function() {
 
-            parentNode: function() {
-                return new Node(this._referencedNode.parentNode);
-            },
+            //},
+
+            //parentNode: function() {
+            //    return new Node(this._referencedNode.parentNode);
+            //},
 
             sibling: function() {
                 return new Node(this._referencedNode.sibling);
@@ -370,8 +386,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
              */
             jsVar: function() {
                 return window[this._referencedNode.getAttribute(this.DATA_ATTR_JAVASCRIPT_VAR)];
+            },
+            equals: function(node) {
+                return this._referencedNode == node.referencedNode;
             }
-
 
         },
 //static methods

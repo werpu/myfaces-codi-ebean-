@@ -26,18 +26,23 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
             _NODE_UTILS: myfaces._impl._dom._NodeUtils,
 
             _nodes: null, /*array of nodes to process*/
-            length: null,
+
 
             constructor_: function(nodes) {
                 this._nodes = [];
+
                 if (nodes.length) {
                     for (var cnt = 0; cnt < nodes.length; cnt++) {
                         this._nodes.push(new myfaces._impl._dom.Node(nodes[cnt]));
                     }
-                    this.length = this._nodes.length;
-                } else {
-                    this._nodes.push(new myfaces._impl._dom.Node(nodes));
+
                 }
+                Object.defineProperty(this,"length", {
+                    get: function() {
+                        return (this._nodes)? this._nodes.length: 0;
+                    },
+                    readOnly:true
+                });
             },
 
             concat: function(node) {
@@ -49,11 +54,11 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.NodeList", Object, {
                     for (var cnt = 0; cnt < node.length; cnt++) {
                         this._nodes.push(node.get(cnt));
                     }
-                    this.length = this._nodes.length;
+
 
                 } else {
                     this._nodes.push(node);
-                    this.length = this._nodes.length;
+
                 }
 
             },

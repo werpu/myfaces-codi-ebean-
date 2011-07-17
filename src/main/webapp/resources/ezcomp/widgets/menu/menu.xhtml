@@ -12,13 +12,16 @@
         <composite:attribute name="labelStyleClass"/>
         <composite:attribute name="style"/>
         <composite:attribute name="styleClass"/>
+
     </composite:interface>
     <composite:implementation>
         <div id="#{cc.clientId}" class="menu #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
-            <h:outputFormat styleClass="#{cc.attrs.labelStyleClass}" value="#{cc.attrs.label}"></h:outputFormat>
+            <h:panelGroup styleClass="#{cc.attrs.labelStyleClass}" layout="block" >#{cc.attrs.label}</h:panelGroup>
             <ul class="menuItems">
                 <composite:insertChildren></composite:insertChildren>
             </ul>
+
         </div>
+
     </composite:implementation>
 </ui:component>

@@ -12,6 +12,7 @@
 	margin: 0px;
 	padding: 0px;
 	margin-left: 0.133em;
+	
 }
 
 .menuBar .menu > .menuItems {
@@ -40,7 +41,7 @@
 
 .menuBar .menu .menuItems .menu {
 	position: relative;
-
+	width: 100%;
   
 }
 
@@ -52,8 +53,7 @@
 }
 
 /*behavior*/
-.menuBar .menu:hover > .menuItems, .menuBar .menu > .menuItems:hover,
-.menuBar .menu.activated > .menuItems, menuBar .menu > .menuItems.activated{
+.menuBar .menu.active > .menuItems {
 	height: auto;
 	overflow:visible;
     display:;
@@ -88,14 +88,14 @@
 }
 
 
-.menuBar .menu > .menuItems > li:hover, .menuBar .menu > .menuItems > .menu > span:hover, {
+.menuBar .menu > .menuItems > li:hover, .menuBar .menu > .menuItems > .menu > div:hover, {
 	background-color: yellow;
 	color: blue;
 	font-weight: bold;
 }
 
 .menuBar .menu {
-	border-radius 5px;
+	border-radius: 5px;
 }
 
 .menuBar > .menu > .menuItems  {

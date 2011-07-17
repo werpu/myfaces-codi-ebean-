@@ -8,10 +8,27 @@
         >
     <composite:interface componentType="at.irian.MenuBar">
         <composite:attribute name="id" required="true"/>
-        <composite:attribute name="style" />
-        <composite:attribute name="styleClass" />
+        <composite:attribute name="javascriptVar"/>
+        <composite:attribute name="javascriptClass" default="extras.apache.Menu"/>
+        <composite:attribute name="style"/>
+        <composite:attribute name="styleClass"/>
+        <composite:attribute name="autoPos" default="true" type="java.lang.Boolean"/>
     </composite:interface>
     <composite:implementation>
-        <div id="#{cc.clientId}" class="menuBar #{cc.attrs.styleClass}" style="#{cc.attrs.style}"><composite:insertChildren></composite:insertChildren></div>
+        <h:outputScript library="script" name="layout/Menu.js"/>
+
+        <div id="#{cc.clientId}" class="menuBar #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
+            <composite:insertChildren></composite:insertChildren>
+
+            <script type="text/javascript">
+                var #{cc.javascriptVar} =
+                new #{cc.attrs.javascriptClass}({
+                    id:"#{cc.clientId}",
+                    ajaxRequest:#{cc.ajaxState.toString()},
+                    javascriptVar:"#{cc.javascriptVar}",
+                    autoPos:#{cc.attrs.autoPos}
+                });
+            </script>
+        </div>
     </composite:implementation>
 </ui:component>
