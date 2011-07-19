@@ -49,8 +49,9 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
             constructor_: function(elem) {
                 this._referencedNode = this._NODE_UTILS.byIdOrName(elem);
-
-                Object.defineProperty(this, "id", {
+                var _defProp = Object.defineProperty;
+                
+                _defProp(this, "id", {
                     set: function(id) {
                         this._referencedNode = id;
                     },
@@ -59,24 +60,24 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                     }
                 });
 
-                Object.defineProperty(this, "javascriptVar", {
+                _defProp(this, "javascriptVar", {
                     get: function() {
                         return window[ this._referencedNode.getAttribute(this.DATA_ATTR_JAVASCRIPT_VAR)];
                     },
                     readonly: true
                 });
 
-                Object.defineProperty(this, "childNodes", {
+                _defProp(this, "childNodes", {
                     get: function() {
                         return new myfaces._impl._dom.NodeList(this._referencedNode.childNodes);
                     }
                 });
-                Object.defineProperty(this, "parentNode", {
+                _defProp(this, "parentNode", {
                     get: function() {
                         return new myfaces._impl._dom.Node(this._referencedNode.parentNode);
                     }
                 });
-                 Object.defineProperty(this, "nodeName", {
+                _defProp(this, "nodeName", {
                     get: function() {
                         return this._referencedNode.nodeName;
                     }

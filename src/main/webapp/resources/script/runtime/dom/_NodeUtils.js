@@ -132,6 +132,8 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils"
         this.getEngine().setAttribute(node, attr, val);
     },
 
+
+
     getAttribute : function(node, attr) {
         return this.getEngine().getAttribute(node, attr);
     },

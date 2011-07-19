@@ -1,14 +1,13 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui
 
-import components.common.{StandardJavascriptComponent, JavascriptComponent, AttributeHandler}
-import javax.faces.event.ComponentSystemEvent
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
 import javax.faces.context.FacesContext
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestController
 
 import scala.collection.mutable._
 import scala.collection.JavaConversions._
-import javax.faces.component.{UIInput, UIComponent, UINamingContainer, FacesComponent}
-import org.extrasapache.myfaces.codi.examples.ebean.support.ui._
+import javax.faces.component.{UIInput, UIComponent, FacesComponent}
+import javax.faces.event._
 
 /**
  *
@@ -30,22 +29,43 @@ object InputSuggest {
 
   val ATTR_MODEL = "model"
   val ATTR_INPUT_VALUE = "inputValue"
+
+  val VALUE_HOLDER = "valueHolder"
+  val PLACE_HOLDER = "placeHolder"
 }
 
 @FacesComponent("at.irian.InputSuggest")
 @serializable
+@ListenerFor(systemEventClass = classOf[PostAddToViewEvent])
 class InputSuggest extends StandardJavascriptComponent {
 
   import InputSuggest._
 
   var placeHolder: UIComponent = _
-  var valueHolder: UIInput = _
+  var valHolder: UIInput = _
+  var _model: InputSuggestController[_, _] = _
+
+  /**
+   * conversion from UIComponent 2 UIInput
+   */
+
+
+  override def processEvent(event: ComponentSystemEvent) {
+    event match {
+      case evt: PostAddToViewEvent => {
+        valHolder = findComponent(VALUE_HOLDER)
+        placeHolder = findComponent(PLACE_HOLDER)
+      }
+      case _ => null
+    }
+
+    super.processEvent(event)
+  }
 
   /**
    * note we do not use
    * the state helper here to prevent the model to be savestated
    */
-  var _model: InputSuggestController[_, _] = _
 
   def model: InputSuggestController[_, _] = {
     if (_model != null) _model else getAttr[InputSuggestController[_, _]]("model", null)
