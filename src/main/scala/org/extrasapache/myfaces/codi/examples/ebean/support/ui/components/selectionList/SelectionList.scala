@@ -32,7 +32,8 @@ object SelectionList {
 @serializable
 @ListenersFor(Array(
   new ListenerFor(systemEventClass = classOf[PostAddToViewEvent]),
-  new ListenerFor(systemEventClass = classOf[PreRenderComponentEvent])
+  new ListenerFor(systemEventClass = classOf[PreRenderComponentEvent]),
+  new ListenerFor(systemEventClass = classOf[PostRestoreStateEvent])
   ))
 class SelectionList extends StandardJavascriptComponent {
 
@@ -53,6 +54,7 @@ class SelectionList extends StandardJavascriptComponent {
   implicit def SelectItem2SelectItem(in: SelectItem): SelectionItem = new SelectionItem(in, "")
 
   override def processEvent(event: ComponentSystemEvent) {
+    super.processEvent(event)
     event match {
       case evt: PostAddToViewEvent => {
         initModel()
@@ -62,7 +64,7 @@ class SelectionList extends StandardJavascriptComponent {
       }
       case _ => null
     }
-    super.processEvent(event)
+
   }
 
   /**
@@ -73,11 +75,6 @@ class SelectionList extends StandardJavascriptComponent {
   protected def initModel() {
     val model = getAttr[java.util.ArrayList[AnyRef]]("model", null)
     if (model != null) {
-      // model match {
-      //   case m:java.util.ArrayList[SelectionItem] => return
-      //   case _ =>
-      // }
-
       val newModel = new java.util.ArrayList[SelectionItem](model.size())
       for (item <- model) {
         item match {
@@ -96,7 +93,6 @@ class SelectionList extends StandardJavascriptComponent {
           //conversion done via an implicit conversion
           case x: UISelectItem => newModel.append(x)
           case x: UISelectItems => handleSelectItems(newModel, x)
-          case _ =>; //do nothing because other childs are visual
         }
       }
       setAttr[java.util.ArrayList[SelectionItem]]("model", newModel)
@@ -106,7 +102,6 @@ class SelectionList extends StandardJavascriptComponent {
   protected def handleSelectItems(targetModel: java.util.ArrayList[SelectionItem], items: UISelectItems) {
     items.getValue match {
       case items: java.util.Collection[SelectItem] => for (item <- items) targetModel.add(item)
-      case _ =>;
     }
 
   }
@@ -145,6 +140,8 @@ class SelectionList extends StandardJavascriptComponent {
 
   }
 
+
+
   def initValues() {
     val attr: String = getAttr[String](VALUE_HOLDER, this.getClientId(FacesContext.getCurrentInstance) + ":" + this.getId + "_valueHolder")
 
@@ -153,8 +150,21 @@ class SelectionList extends StandardJavascriptComponent {
     //the component values accordingly
     val requestValue = getReqAttr(attr)
 
-    if (requestValue == null) return else setAttr[String](SELECTION_VALUE, requestValue)
+    if (requestValue != null) setAttr[String](SELECTION_VALUE, requestValue)
+    else {
+      extractFromValue()
+    }
 
+  }
+
+  private def extractFromValue() {
+    val value = getAttr[java.util.List[SelectionItem]](VALUE, null)
+    var finalVal = value.foldLeft(new StringBuffer)((target, singleVal) => {
+      target.append(singleVal)
+      target.append(",")
+    }).toString
+    finalVal = if (finalVal != "") finalVal.substring(finalVal.length() - 1) else finalVal
+    setAttr[String](SELECTION_VALUE, finalVal)
   }
 
 }
