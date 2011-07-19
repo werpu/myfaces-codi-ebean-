@@ -32,8 +32,9 @@
                         </ui:repeat>
                     </ul>
                 </h:panelGroup>
-                <h:inputHidden id="#{cc.attrs.id}_valueHolder"/>
+                <h:inputHidden id="#{cc.attrs.id}_valueHolder" value="#{cc.attrs.selectionValue}"/>
             </h:panelGroup>
+            value="#{cc.attrs.selectionValue}"
         </div>
 
         <script type="text/javascript">

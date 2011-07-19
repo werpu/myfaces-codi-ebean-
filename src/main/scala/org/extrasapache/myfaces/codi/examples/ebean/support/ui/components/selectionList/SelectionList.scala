@@ -5,9 +5,11 @@ import javax.faces.context.FacesContext
 import collection.JavaConversions._
 import collection.mutable.{HashMap, Buffer}
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
-import javax.faces.event.{ComponentSystemEvent, PostAddToViewEvent, ListenerFor}
-import javax.faces.component.{UISelectItems, UISelectItem, FacesComponent}
 import javax.faces.FacesException
+import javax.faces.component.{UIInput, UISelectItems, UISelectItem, FacesComponent}
+import reflect.BeanProperty
+import javax.faces.event._
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -23,12 +25,17 @@ object SelectionList {
   val STYLE_CLASS = "styleClass"
   val VALUE_HOLDER = "valueHolder"
   val _MODEL_IDX = "_modelIDX"
+  val SELECTION_VALUE = "selectionValue"
 }
 
 @FacesComponent("at.irian.SelectionList")
 @serializable
-@ListenerFor(systemEventClass = classOf[PostAddToViewEvent])
+@ListenersFor(Array(
+  new ListenerFor(systemEventClass = classOf[PostAddToViewEvent]),
+  new ListenerFor(systemEventClass = classOf[PreRenderComponentEvent])
+  ))
 class SelectionList extends StandardJavascriptComponent {
+
 
   import SelectionList._
 
@@ -43,12 +50,15 @@ class SelectionList extends StandardJavascriptComponent {
     ret
   }
 
-  implicit def SelectItem2SelectItem(in: SelectItem): SelectionItem = new SelectionItem(in,"")
+  implicit def SelectItem2SelectItem(in: SelectItem): SelectionItem = new SelectionItem(in, "")
 
   override def processEvent(event: ComponentSystemEvent) {
     event match {
       case evt: PostAddToViewEvent => {
         initModel()
+      }
+      case evt: PreRenderComponentEvent => {
+        initValues()
       }
       case _ => null
     }
@@ -63,10 +73,10 @@ class SelectionList extends StandardJavascriptComponent {
   protected def initModel() {
     val model = getAttr[java.util.ArrayList[AnyRef]]("model", null)
     if (model != null) {
-     // model match {
-     //   case m:java.util.ArrayList[SelectionItem] => return
-     //   case _ =>
-     // }
+      // model match {
+      //   case m:java.util.ArrayList[SelectionItem] => return
+      //   case _ =>
+      // }
 
       val newModel = new java.util.ArrayList[SelectionItem](model.size())
       for (item <- model) {
@@ -122,17 +132,28 @@ class SelectionList extends StandardJavascriptComponent {
 
     val modelIdx = new HashMap[String, SelectionItem]()
     val theModel: Buffer[SelectionItem] = getAttr[java.util.ArrayList[SelectionItem]]("model", null)
-    theModel.foreach(item => {
-      modelIdx.put(item.getValue.toString, item)
-    })
+
 
     val value = getAttr[java.util.List[SelectionItem]](VALUE, null)
     value.clear()
     //TODO getting an error here
 
+
     for (item <- requestValue.split(",")) {
-      if(modelIdx.get(item) != None) value.add(modelIdx.get(item).get)
+      if (modelIdx.get(item) != None) value.add(modelIdx.get(item).get)
     }
+
+  }
+
+  def initValues() {
+    val attr: String = getAttr[String](VALUE_HOLDER, this.getClientId(FacesContext.getCurrentInstance) + ":" + this.getId + "_valueHolder")
+
+
+    //attribute found we transform our request params into select items and then set the
+    //the component values accordingly
+    val requestValue = getReqAttr(attr)
+
+    if (requestValue == null) return else setAttr[String](SELECTION_VALUE, requestValue)
 
   }
 
