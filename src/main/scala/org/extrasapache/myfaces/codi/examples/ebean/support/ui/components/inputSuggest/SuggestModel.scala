@@ -1,6 +1,8 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.inputSuggest
 
 import java.util.Collection
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.selectionList.SelectionItem
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -13,5 +15,5 @@ import java.util.Collection
 @serializable
 abstract class SuggestModel {
   def filter(itemFilter: String);
-  def getItems(): Collection[SuggestItem]
+  def getItems(): Collection[SelectionItem]
 }

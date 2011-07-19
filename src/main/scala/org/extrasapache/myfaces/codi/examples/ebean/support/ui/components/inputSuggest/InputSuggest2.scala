@@ -1,6 +1,5 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.inputSuggest
 
-import javax.faces.event.ListenerFor._
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
 import javax.faces.component.{UIInput, UIComponent, FacesComponent}
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestController
@@ -37,8 +36,6 @@ object InputSuggest2 {
 @serializable
 @ListenerFor(systemEventClass = classOf[PostAddToViewEvent])
 class InputSuggest2 extends StandardJavascriptComponent {
-
-  import InputSuggest2._
 
   var placeHolder: UIComponent = _
   var valHolder: UIInput = _

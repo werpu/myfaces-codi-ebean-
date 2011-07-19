@@ -2,6 +2,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.input
 
 import collection.JavaConversions._
 import collection.mutable.ArrayBuffer
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.selectionList.SelectionItem
 
 /**
  *
@@ -15,14 +16,12 @@ import collection.mutable.ArrayBuffer
 
 class SimpleListSuggestModel extends SuggestModel {
 
-  protected var items = new ArrayBuffer[SuggestItem]()
-  private val shadowItems = new ArrayBuffer[SuggestItem](items.size)
+  protected var items: ArrayBuffer[SelectionItem] = _
+  protected var shadowItems: ArrayBuffer[SelectionItem] = _
 
-  shadowItems.appendAll(items)
-
-  def getItems(): java.util.Collection[SuggestItem] = items
+  def getItems(): java.util.Collection[SelectionItem] = items
 
   def filter(itemFilter: String) {
-    items = shadowItems.filter(item => item.label.startsWith(itemFilter))
+    items = shadowItems.filter(item => item.getLabel.startsWith(itemFilter))
   }
 }
