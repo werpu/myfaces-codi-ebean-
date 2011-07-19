@@ -75,7 +75,7 @@
         multiSelect: false,
 
         /*custom data-* html5 attibute for keeping the key for instance data-key */
-        keyAttribute: null,
+        keyAttribute: "data-key",
 
         _onKeyDownHandler:  null,
         _onKeyUpHandler: null,
@@ -251,8 +251,9 @@
 
         onSelectionChange: function(evt) {
            var res = [];
+           var _t = this;
            var nodes = this.rootNode.querySelectorAll(this.selectorIdentifier+"."+this.selectionSelected).forEach(function item(elem){
-              res.push(elem.getAttribute(this.keyAttribute))
+              res.push(elem.getAttribute(_t.keyAttribute))
            });
            this.valueHolder.setAttribute("value", res.join(","));
         },

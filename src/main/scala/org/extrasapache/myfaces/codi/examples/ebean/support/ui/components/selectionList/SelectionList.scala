@@ -55,9 +55,19 @@ class SelectionList extends StandardJavascriptComponent {
     super.processEvent(event)
   }
 
+  /**
+   * we have to convert our standard jsf models to the models
+   * we use internally, if not already done so
+   *
+   */
   protected def initModel() {
     val model = getAttr[java.util.ArrayList[AnyRef]]("model", null)
     if (model != null) {
+     // model match {
+     //   case m:java.util.ArrayList[SelectionItem] => return
+     //   case _ =>
+     // }
+
       val newModel = new java.util.ArrayList[SelectionItem](model.size())
       for (item <- model) {
         item match {
@@ -69,7 +79,7 @@ class SelectionList extends StandardJavascriptComponent {
       setAttr[java.util.ArrayList[SelectionItem]]("model", newModel)
     } else {
       var children = getChildren
-      if (children == null) return;
+      if (children == null || children.size() == null) return;
       val newModel = new java.util.ArrayList[SelectionItem](children.size())
       for (child <- children) {
         child match {
@@ -121,7 +131,7 @@ class SelectionList extends StandardJavascriptComponent {
     //TODO getting an error here
 
     for (item <- requestValue.split(",")) {
-      value.add(modelIdx.get(item).get)
+      if(modelIdx.get(item) != None) value.add(modelIdx.get(item).get)
     }
 
   }
