@@ -137,6 +137,7 @@ class SelectionList extends StandardJavascriptComponent {
 
 
     val value = getAttr[java.util.List[SelectionItem]](VALUE, null)
+    if(value == null) return
     value.clear()
     //TODO getting an error here
 
