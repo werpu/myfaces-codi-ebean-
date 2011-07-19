@@ -57,18 +57,7 @@
             <ezw:maskedInput label="Masked input for a telephone number" value="" id="maskedInput"
                              inputMask="(###)###-###.####"/>
             <ezw:inputDate label="input date" value="#{testBean.testDate}" id="myinput"/>
-            <ezw:inputSuggest id="mySuggest" value="booga"
-                              inputStyleClass="inputStyle"
-                              label="Input suggest" model="#{groupView.suggestModel}" selectorIdentifier="ul li">
-                <h:panelGroup id="suggestResult">
-                    <ul>
-                        <ui:repeat value="#{groupView.suggestModel.suggestData}" var="item">
-                            <li>#{item}</li>
-                        </ui:repeat>
-                    </ul>
-                </h:panelGroup>
-                <h:outputFormat value="hello from suggest"/>
-            </ezw:inputSuggest>
+
 
         </h:form>
 

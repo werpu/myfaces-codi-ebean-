@@ -1,7 +1,5 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.inputSuggest
 
-import java.security.PublicKey
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -12,7 +10,7 @@ class SuggestItem {
   /**
    * secondary constructor to ()
    */
-  def this(theVal = "", lab = "", mark = "") {
+  def this(theVal:String = "", lab:String = "", mark:String = "") {
     this()
     this.value = theVal
     this.label = lab
