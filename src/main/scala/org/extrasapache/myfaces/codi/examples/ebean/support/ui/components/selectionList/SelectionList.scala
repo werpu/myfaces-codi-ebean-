@@ -6,8 +6,7 @@ import collection.JavaConversions._
 import collection.mutable.{HashMap, Buffer}
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
 import javax.faces.FacesException
-import javax.faces.component.{UIInput, UISelectItems, UISelectItem, FacesComponent}
-import reflect.BeanProperty
+import javax.faces.component.{UISelectItems, UISelectItem, FacesComponent}
 import javax.faces.event._
 
 /**
@@ -37,6 +36,7 @@ object SelectionList {
   ))
 class SelectionList extends StandardJavascriptComponent {
 
+  var appliedValue = false;
 
   import SelectionList._
 
@@ -59,8 +59,14 @@ class SelectionList extends StandardJavascriptComponent {
       case evt: PostAddToViewEvent => {
         initModel()
       }
+      case evt: PostRestoreStateEvent => {
+        applyValue()
+        appliedValue = true;
+      }
       case evt: PreRenderComponentEvent => {
-        initValues()
+        if(!appliedValue)
+          applyValue()
+        initValueHolderValues()
       }
       case _ => null
     }
@@ -112,10 +118,11 @@ class SelectionList extends StandardJavascriptComponent {
    * of select items we have as final value
    */
 
-  override def decode(context: FacesContext) {
-    super.decode(context)
-    val attr: String = getAttr[String](VALUE_HOLDER, this.getClientId(context) + ":" + this.getId + "_valueHolder")
+  def applyValue() {
 
+
+
+    val attr: String = getAttr[String](VALUE_HOLDER, this.getClientId(FacesContext.getCurrentInstance) + ":" + this.getId + "_valueHolder")
 
     //attribute found we transform our request params into select items and then set the
     //the component values accordingly
@@ -142,7 +149,7 @@ class SelectionList extends StandardJavascriptComponent {
 
 
 
-  def initValues() {
+  def initValueHolderValues() {
     val attr: String = getAttr[String](VALUE_HOLDER, this.getClientId(FacesContext.getCurrentInstance) + ":" + this.getId + "_valueHolder")
 
 

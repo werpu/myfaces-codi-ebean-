@@ -282,6 +282,12 @@
             if(this._resizable) {
                 this.rootNode.setAttribute("resizable", this._resizable);
             }
+            var values = this.valueHolder.getAttribute("value").split(",");
+            for(var cnt = values.length - 1 ; cnt >= 0; cnt--) {
+                if(values[cnt] == "") continue;
+                this.rootNode.querySelector( "["+this.keyAttribute+"='"+values[cnt]+"']" ).addClass(this.selectionSelected);
+            }
+
         },
 
         onAjaxDomUnload: function() {
