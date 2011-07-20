@@ -6,8 +6,8 @@ import collection.JavaConversions._
 import collection.mutable.{HashMap, Buffer}
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
 import javax.faces.FacesException
-import javax.faces.component.{UISelectItems, UISelectItem, FacesComponent}
 import javax.faces.event._
+import javax.faces.component.{UIComponent, UISelectItems, UISelectItem, FacesComponent}
 
 /**
  *
