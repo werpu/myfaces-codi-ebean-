@@ -42,7 +42,7 @@ class SelectionList extends StandardJavascriptComponent {
 
   implicit def UISelectItem2SelectItem(in: UISelectItem): SelectionItem = {
     val ret = new SelectionItem()
-    ret.setValue(in.getValue)
+    ret.setValue(in.getItemValue)
     ret.setLabel(in.getItemLabel)
     ret.setDisabled(in.isItemDisabled)
     ret.setDescription(in.getItemDescription)
@@ -51,7 +51,7 @@ class SelectionList extends StandardJavascriptComponent {
     ret
   }
 
-  implicit def SelectItem2SelectItem(in: SelectItem): SelectionItem = new SelectionItem(in, "")
+  implicit def SelectItem2SelectionItem(in: SelectItem): SelectionItem = new SelectionItem(in, "")
 
   override def processEvent(event: ComponentSystemEvent) {
     super.processEvent(event)

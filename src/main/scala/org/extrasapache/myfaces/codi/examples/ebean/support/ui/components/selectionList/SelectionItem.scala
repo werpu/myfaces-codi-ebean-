@@ -13,7 +13,7 @@ class SelectionItem extends SelectItem {
 
   def this(item: SelectItem, mark:String = "") {
     this()
-    this.setValue(item.getValue())
+    this.setValue(item.getValue)
     this.setLabel(item.getLabel)
     this.setDescription(item.getDescription)
     this.setDisabled(item.isDisabled)
