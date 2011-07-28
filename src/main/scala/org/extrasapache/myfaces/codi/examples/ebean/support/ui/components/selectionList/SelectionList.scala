@@ -92,7 +92,7 @@ class SelectionList extends StandardJavascriptComponent {
       setAttr[java.util.ArrayList[SelectionItem]]("model", newModel)
     } else {
       var children = getChildren
-      if (children == null || children.size() == null) return;
+      if (children == null || children.size() == 0) return;
       val newModel = new java.util.ArrayList[SelectionItem](children.size())
       for (child <- children) {
         child match {

@@ -1,0 +1,30 @@
+package debug.blog
+
+import debug.blog.behaviors._
+import javax.faces.bean.{RequestScoped, ManagedBean}
+import javax.annotation.PostConstruct
+import javax.faces.FacesException
+
+/**
+ *
+ * @author Werner Punz (latest modification by $Author$)
+ * @version $Revision$ $Date$
+ */
+@ManagedBean
+@RequestScoped
+@serializable
+class ReportingView
+  extends ViewController
+  /*Permission set for this page*/
+  with AdminAllowed
+  with AuthorAllowed
+  with ReaderAllowed {
+  var hello:String= "Hello world from ReportingView"
+
+  @PostConstruct
+  def postCreate() {
+    if (!this.allowed()) throw new FacesException("Permission Error you dont have the right to access this page")
+  }
+
+
+}

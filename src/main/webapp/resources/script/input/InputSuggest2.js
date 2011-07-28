@@ -53,6 +53,5 @@
         valueHolderReplaced: function() {
 
         }
-
     });
 })();
