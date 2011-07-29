@@ -1,6 +1,9 @@
 package debug.blog.behaviors
 
 import javax.faces.context.FacesContext
+import javax.annotation.PostConstruct
+import javax.faces.FacesException
+
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -18,4 +21,9 @@ class ViewController extends PermissionAware {
 
   /*general userAllowed check*/
   override def allowed():Boolean  = false
+
+  @PostConstruct
+  def postCreate() {
+    if (!this.allowed()) throw new FacesException("Permission Error you dont have the right to access this page")
+  }
 }
