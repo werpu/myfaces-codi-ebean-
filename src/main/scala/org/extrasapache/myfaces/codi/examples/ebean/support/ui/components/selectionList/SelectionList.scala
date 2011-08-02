@@ -72,27 +72,6 @@ class SelectionList extends StandardJavascriptComponent {
   protected def initModel() {
     val model = getAttr[java.util.ArrayList[AnyRef]]("model", null)
 
-    /*if (model != null) {
-      val newModel = new java.util.ArrayList[SelectionItem](model.size())
-      var conversionPerformed = false
-      for (item <- model) {
-        item match {
-          case x: SelectionItem => {
-            newModel.append(x)
-
-          }
-          case y: SelectItem => {
-            newModel.append(y)
-            conversionPerformed = true
-          }
-          case _ => throw new FacesException("Selection List Element must be derived from SelectItem")
-        }
-      }
-      //only if an item is converted we assign the new model
-      if(conversionPerformed) {
-        setAttr[java.util.ArrayList[SelectionItem]]("model", newModel)
-      }
-    } else {*/
     if(model == null) {
       var children = getChildren
       if (children == null || children.size() == 0) return;

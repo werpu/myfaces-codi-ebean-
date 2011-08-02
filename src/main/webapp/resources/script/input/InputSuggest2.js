@@ -46,12 +46,41 @@
                 this._initComponentListeners = true;
             }
         },
+
+        _initReferences: function() {
+            this._selectionPopup = this.rootNode.querySelector(".inputPopup");
+            this._selectionList = this._selectionPopup.querySelector(".selectionList");
+
+            this._selectionPopup.javascriptVar.referencedNode = this.valueHolder;
+            this._selectionList.javascriptVar.valueHolder = this.valueHolder
+        },
+
         onChildPostInit: function() {
 
         },
 
-        valueHolderReplaced: function() {
+        valueHolderReplaced: function(evt) {
+            var _t = this;
 
+            setTimeout(function() {
+                _t._postInit();
+                _t._postRender();
+                _t._selectionPopup.dispatchEvent(_t.CEVT_PARENT_CHANGE, {src:_t, srcType:"valueHolderReplaced" });
+            }, 0);
+            evt.consumeEvent();
+        },
+        /**
+         * on key up should trigger a refresh of the preview
+         * @param evt
+         */
+        onkeypress: function(evt) {
+            this._callSuper("onkeypress", evt);
+            jsf.ajax.request(evt.target, evt, {
+                execute:this.id,
+                render:this._selectionList.id+" "+this.rootNode.querySelector(".preRenderTrigger").id,
+                mf_ajaxSearch:"true",
+                myfaces:{delay: 500}
+            });
         }
     });
 })();

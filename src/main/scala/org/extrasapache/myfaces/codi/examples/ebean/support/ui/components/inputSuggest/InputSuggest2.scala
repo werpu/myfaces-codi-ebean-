@@ -4,14 +4,14 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestController
 import javax.faces.FacesException
 import javax.faces.event._
-import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.selectionList.SelectionItem
-
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.UIConversions._
 
 import java.util.LinkedList
 import javax.faces.model.SelectItem
 import javax.faces.component._
 import collection.JavaConversions._
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.popup.Popup
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.selectionList.{SelectionList, SelectionItem}
 
 /**
  *
@@ -43,8 +43,7 @@ object InputSuggest2 {
 @FacesComponent("at.irian.InputSuggest")
 @serializable
 @ListenersFor(Array(
-  new ListenerFor(systemEventClass = classOf[PostAddToViewEvent]),
-  new ListenerFor(systemEventClass = classOf[PreRenderComponentEvent])
+  new ListenerFor(systemEventClass = classOf[PostAddToViewEvent])
 ))
 class InputSuggest2 extends StandardJavascriptComponent {
 
@@ -114,6 +113,9 @@ class InputSuggest2 extends StandardJavascriptComponent {
     if (model == null) throw new FacesException("Model on input suggest not set")
     var value = getAttr[String]("value", "");
     model.filter(value)
+    //TODO set the component of the child as well anew
+    val selectionList = findComponent("input_popup").findComponent("selection_panel").asInstanceOf[SelectionList]
+
   }
 
 }
