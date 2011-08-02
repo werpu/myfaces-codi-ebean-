@@ -131,8 +131,9 @@ class PickerMonth(var displayValue: Calendar) {
       }
     }
 
+    val noDays:Int =  days.asInstanceOf[Int]
     //we now increment all days and generate the meta data for our view
-    for (cnt <- (0 until days.asInstanceOf[Int])) {
+    for (cnt <- (0 to noDays-1)) {
       currentDate.setTimeInMillis(currentDate.getTimeInMillis + DAY_LENGTH)
       val currPickerDay = new PickerDay
       currPickerDay.cal = makeDay(currentDate)

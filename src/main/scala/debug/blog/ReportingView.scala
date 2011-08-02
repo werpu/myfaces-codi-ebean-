@@ -2,9 +2,6 @@ package debug.blog
 
 import debug.blog.behaviors._
 import javax.faces.bean.{RequestScoped, ManagedBean}
-import javax.annotation.PostConstruct
-import javax.faces.FacesException
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
@@ -16,8 +13,8 @@ import javax.faces.FacesException
 class ReportingView
   extends ViewController
   /*Permission set for this page*/
-  with AdminAllowed
+  /*with AdminAllowed
   with AuthorAllowed
-  with ReaderAllowed {
+  with ReaderAllowed */{
   var hello:String= "Hello world from ReportingView"
 }

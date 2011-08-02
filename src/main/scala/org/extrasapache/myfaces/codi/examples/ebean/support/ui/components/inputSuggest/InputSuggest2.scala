@@ -3,8 +3,8 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.input
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
 import javax.faces.component.{UIInput, UIComponent, FacesComponent}
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestController
-import javax.faces.event.{ComponentSystemEvent, PostAddToViewEvent, ListenerFor}
 import javax.faces.FacesException
+import javax.faces.event._
 
 /**
  *
@@ -34,7 +34,10 @@ object InputSuggest2 {
 
 @FacesComponent("at.irian.InputSuggest")
 @serializable
-@ListenerFor(systemEventClass = classOf[PostAddToViewEvent])
+@ListenersFor(Array(
+  new ListenerFor(systemEventClass = classOf[PostRestoreStateEvent]),
+  new ListenerFor(systemEventClass = classOf[PreRenderComponentEvent])
+))
 class InputSuggest2 extends StandardJavascriptComponent {
 
   var placeHolder: UIComponent = _
@@ -45,6 +48,9 @@ class InputSuggest2 extends StandardJavascriptComponent {
     event match {
       case evt: PostAddToViewEvent => {
 
+      }
+      case evt: PreRenderComponentEvent => {
+        prerenderComponent(evt)
       }
       case _ => null
     }

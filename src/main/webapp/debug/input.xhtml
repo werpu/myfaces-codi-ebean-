@@ -58,7 +58,11 @@
                              inputMask="(###)###-###.####"/>
             <ezw:inputDate label="input date" value="#{testBean.testDate}" id="myinput"/>
 
-
+            <ezw:inputSuggest value="bla" id="blax">
+                <f:selectItem itemValue="bla1" itemLabel="bla1" />
+                <f:selectItem itemValue="bla2" itemLabel="bla2" />
+                <f:selectItem itemValue="bla3" itemLabel="bla3" />
+            </ezw:inputSuggest>
         </h:form>
 
         <div id="bla">

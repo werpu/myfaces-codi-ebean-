@@ -33,7 +33,7 @@ object SelectionList {
   new ListenerFor(systemEventClass = classOf[PostAddToViewEvent]),
   new ListenerFor(systemEventClass = classOf[PreRenderComponentEvent]),
   new ListenerFor(systemEventClass = classOf[PostRestoreStateEvent])
-  ))
+))
 class SelectionList extends StandardJavascriptComponent {
 
   var appliedValue = false;
@@ -64,7 +64,7 @@ class SelectionList extends StandardJavascriptComponent {
         appliedValue = true;
       }
       case evt: PreRenderComponentEvent => {
-        if(!appliedValue)
+        if (!appliedValue)
           applyValue()
         initValueHolderValues()
       }
@@ -120,8 +120,6 @@ class SelectionList extends StandardJavascriptComponent {
 
   def applyValue() {
 
-
-
     val attr: String = getAttr[String](VALUE_HOLDER, this.getClientId(FacesContext.getCurrentInstance) + ":" + this.getId + "_valueHolder")
 
     //attribute found we transform our request params into select items and then set the
@@ -132,30 +130,51 @@ class SelectionList extends StandardJavascriptComponent {
       return
     }
 
-    val modelIdx = new HashMap[String, SelectionItem]()
-    val theModel: Buffer[SelectionItem] = getAttr[java.util.ArrayList[SelectionItem]]("model", null)
-
-
-    val value = getAttr[java.util.List[SelectionItem]](VALUE, null)
-    if(value == null) return
-    value.clear()
-    //TODO getting an error here
-
-
-    for (item <- requestValue.split(",")) {
-      if (modelIdx.get(item) != None) value.add(modelIdx.get(item).get)
-    }
+    transformValue(requestValue)
 
   }
 
+  def transformValue(incomingStrValue: String) {
 
+    val value = getVal()
+    val modelIdx = getModelIdx()
+    value.clear()
+
+    for (item <- incomingStrValue.split(",") if modelIdx.get(item) != None) {
+      value.add(modelIdx.get(item).get)
+    }
+  }
+
+  def getModelIdx(): HashMap[String, SelectionItem] = {
+    val modelIdx = new HashMap[String, SelectionItem]()
+    val theModel: Buffer[SelectionItem] = getAttr[java.util.ArrayList[SelectionItem]]("model", new java.util.ArrayList[SelectionItem])
+
+    for (item <- theModel) {
+      modelIdx.put(item.getValue.toString, item)
+    }
+    modelIdx
+  }
+
+  def getVal(): java.util.List[SelectionItem] = {
+
+    val theValue = getAttr[AnyRef](VALUE, new java.util.LinkedList[SelectionItem]())
+    theValue match {
+      case theVal: String => {
+        setAttr[AnyRef](VALUE, new java.util.LinkedList[SelectionItem]())
+        getAttr[java.util.LinkedList[SelectionItem]](VALUE, null)
+      }
+      case theVal: java.util.List[SelectionItem] => {
+        theVal
+      }
+      case _ => theValue.asInstanceOf[java.util.List[SelectionItem]]
+    }
+
+
+  }
 
   def initValueHolderValues() {
     val attr: String = getAttr[String](VALUE_HOLDER, this.getClientId(FacesContext.getCurrentInstance) + ":" + this.getId + "_valueHolder")
 
-
-    //attribute found we transform our request params into select items and then set the
-    //the component values accordingly
     val requestValue = getReqAttr(attr)
 
     if (requestValue != null) setAttr[String](SELECTION_VALUE, requestValue)
@@ -166,7 +185,8 @@ class SelectionList extends StandardJavascriptComponent {
   }
 
   private def extractFromValue() {
-    val value = getAttr[java.util.List[SelectionItem]](VALUE, null)
+    val value = getVal()
+
     var finalVal = value.foldLeft(new StringBuffer)((target, singleVal) => {
       target.append(singleVal)
       target.append(",")
@@ -174,5 +194,4 @@ class SelectionList extends StandardJavascriptComponent {
     finalVal = if (finalVal != "") finalVal.substring(finalVal.length() - 1) else finalVal
     setAttr[String](SELECTION_VALUE, finalVal)
   }
-
 }

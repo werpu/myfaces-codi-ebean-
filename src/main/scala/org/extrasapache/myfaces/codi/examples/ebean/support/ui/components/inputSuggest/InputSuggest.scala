@@ -34,7 +34,7 @@ object InputSuggest {
   val PLACE_HOLDER = "placeHolder"
 }
 
-@FacesComponent("at.irian.InputSuggest")
+
 @serializable
 @ListenerFor(systemEventClass = classOf[PostAddToViewEvent])
 class InputSuggest extends StandardJavascriptComponent {

@@ -4,6 +4,7 @@ import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessS
 import javax.faces.model.SelectItem
 import javax.inject.Named
 import javax.enterprise.context.RequestScoped
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.selectionList.SelectionItem
 
 /**
  *
@@ -18,13 +19,16 @@ class SelectionHolder {
 
   import java.util.ArrayList
 
-  var selectionModel = new ArrayList[SelectItem]
-  var selectionValue = new ArrayList[SelectItem]
-  var selectionValue2 = new ArrayList[SelectItem]
+  var selectionModel = new ArrayList[SelectionItem]
+  var selectionValue = new ArrayList[SelectionItem]
+  var selectionValue2 = new ArrayList[SelectionItem]
 
   //constructor initializer
-  for (item <- (0 until 10)) {
-    selectionModel.add(new SelectItem(item.toString, "item label" + item.toString))
+  for (item <- (0 to 9)) {
+    var theItem = new SelectionItem()
+    theItem.setValue(item.toString)
+    theItem.setLabel("item label" + item.toString)
+    selectionModel.add(new SelectionItem(theItem))
   }
 
   def doSelection: String = {
