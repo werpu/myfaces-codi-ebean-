@@ -16,10 +16,20 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.select
 
 class SimpleListSuggestModel extends SuggestModel {
 
-  protected var items: ArrayBuffer[SelectionItem] = _
-  protected var shadowItems: ArrayBuffer[SelectionItem] = _
+  protected var items: ArrayBuffer[SelectionItem] = new ArrayBuffer[SelectionItem]
+  protected var shadowItems: ArrayBuffer[SelectionItem] = new ArrayBuffer[SelectionItem]
 
   def getItems(): java.util.Collection[SelectionItem] = items
+
+  def addItem(item:SelectionItem) {
+    items.add(item)
+    shadowItems.add(item)
+  }
+
+  def removeItem(item:SelectionItem) {
+    items.remove(item)
+    shadowItems.remove(item)
+  }
 
   def filter(itemFilter: String) {
     items = shadowItems.filter(item => item.getLabel.startsWith(itemFilter))

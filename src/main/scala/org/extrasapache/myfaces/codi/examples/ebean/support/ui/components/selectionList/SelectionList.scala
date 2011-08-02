@@ -8,6 +8,10 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common
 import javax.faces.FacesException
 import javax.faces.event._
 import javax.faces.component.{UIComponent, UISelectItems, UISelectItem, FacesComponent}
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.inputSuggest.SuggestModel
+
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.UIConversions._
+
 
 /**
  *
@@ -40,19 +44,6 @@ class SelectionList extends StandardJavascriptComponent {
 
   import SelectionList._
 
-  implicit def UISelectItem2SelectItem(in: UISelectItem): SelectionItem = {
-    val ret = new SelectionItem()
-    ret.setValue(in.getItemValue)
-    ret.setLabel(in.getItemLabel)
-    ret.setDisabled(in.isItemDisabled)
-    ret.setDescription(in.getItemDescription)
-    ret.setEscape(in.isItemEscaped)
-
-    ret
-  }
-
-  implicit def SelectItem2SelectionItem(in: SelectItem): SelectionItem = new SelectionItem(in, "")
-
   override def processEvent(event: ComponentSystemEvent) {
     super.processEvent(event)
     event match {
@@ -80,16 +71,27 @@ class SelectionList extends StandardJavascriptComponent {
    */
   protected def initModel() {
     val model = getAttr[java.util.ArrayList[AnyRef]]("model", null)
+
     if (model != null) {
       val newModel = new java.util.ArrayList[SelectionItem](model.size())
+      var conversionPerformed = false
       for (item <- model) {
         item match {
-          case x: SelectionItem => newModel.append(x)
-          case y: SelectItem => newModel.append(y)
+          case x: SelectionItem => {
+            newModel.append(x)
+
+          }
+          case y: SelectItem => {
+            newModel.append(y)
+            conversionPerformed = true
+          }
           case _ => throw new FacesException("Selection List Element must be derived from SelectItem")
         }
       }
-      setAttr[java.util.ArrayList[SelectionItem]]("model", newModel)
+      //only if an item is converted we assign the new model
+      if(conversionPerformed) {
+        setAttr[java.util.ArrayList[SelectionItem]]("model", newModel)
+      }
     } else {
       var children = getChildren
       if (children == null || children.size() == 0) return;
@@ -109,7 +111,6 @@ class SelectionList extends StandardJavascriptComponent {
     items.getValue match {
       case items: java.util.Collection[SelectItem] => for (item <- items) targetModel.add(item)
     }
-
   }
 
   /**

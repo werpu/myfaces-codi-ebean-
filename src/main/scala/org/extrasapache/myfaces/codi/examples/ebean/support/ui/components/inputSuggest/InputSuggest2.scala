@@ -1,10 +1,17 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.inputSuggest
 
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
-import javax.faces.component.{UIInput, UIComponent, FacesComponent}
 import org.extrasapache.myfaces.codi.examples.ebean.support.data.InputSuggestController
 import javax.faces.FacesException
 import javax.faces.event._
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.selectionList.SelectionItem
+
+import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.UIConversions._
+
+import java.util.LinkedList
+import javax.faces.model.SelectItem
+import javax.faces.component._
+import collection.JavaConversions._
 
 /**
  *
@@ -30,12 +37,13 @@ object InputSuggest2 {
   val ATTR_INPUT_VALUE = "inputValue"
 
   val VALUE_HOLDER = "input"
+  val SELECTION_VALUE="selectionValue"
 }
 
 @FacesComponent("at.irian.InputSuggest")
 @serializable
 @ListenersFor(Array(
-  new ListenerFor(systemEventClass = classOf[PostRestoreStateEvent]),
+  new ListenerFor(systemEventClass = classOf[PostAddToViewEvent]),
   new ListenerFor(systemEventClass = classOf[PreRenderComponentEvent])
 ))
 class InputSuggest2 extends StandardJavascriptComponent {
@@ -44,10 +52,14 @@ class InputSuggest2 extends StandardJavascriptComponent {
   var valHolder: UIInput = _
   var _model: InputSuggestController[_, _] = _
 
+  import InputSuggest2._
+
   override def processEvent(event: ComponentSystemEvent) {
     event match {
       case evt: PostAddToViewEvent => {
+        //we default the value for the selection list to an empty value
 
+        initModel()
       }
       case evt: PreRenderComponentEvent => {
         prerenderComponent(evt)
@@ -56,14 +68,38 @@ class InputSuggest2 extends StandardJavascriptComponent {
     }
     super.processEvent(event)
   }
+  //TODO we have to transform embedded selection lists into a simple model if given
 
-  def initModel() {
-    var model = getAttr[SuggestModel]("model", null);
-    model = if(model != null) model else {
-      //TODO check for existing select items and transform them into a model
-      null
+
+   /**
+   * we have to convert our standard jsf models to the models
+   * we use internally, if not already done so
+   *
+   */
+  protected def initModel() {
+    val model = getAttr[SuggestModel](TABLEMODEL, null)
+    if(model == null) {
+
+      val children = getChildren
+      if (children == null || children.size() == 0) return;
+      val newModel = new SimpleListSuggestModel()
+      for (child <- children) {
+        child match {
+          //conversion done via an implicit conversion
+          case x: UISelectItem => newModel.addItem(x)
+          case x: UISelectItems => handleSelectItems(newModel.getItems(), x)
+        }
+      }
+      setAttr[SuggestModel]("model", newModel)
     }
-    setAttr[SuggestModel]("model", model)
+    setAttr[java.util.LinkedList[SelectionItem]](SELECTION_VALUE, new java.util.LinkedList[SelectionItem]())
+
+  }
+
+ protected def handleSelectItems(targetModel: java.util.Collection[SelectionItem], items: UISelectItems) {
+    items.getValue match {
+      case items: java.util.Collection[SelectItem] => for (item <- items) targetModel.add(item)
+    }
   }
 
   /**
@@ -74,7 +110,7 @@ class InputSuggest2 extends StandardJavascriptComponent {
   def prerenderComponent(event: ComponentSystemEvent) {
     val isAjaxSearch = getReqAttr("mf_ajaxSearch");
     if (isAjaxSearch == null) return;
-    var model = getAttr[SuggestModel]("model", null);
+    var model = getAttr[SuggestModel](TABLEMODEL, null);
     if (model == null) throw new FacesException("Model on input suggest not set")
     var value = getAttr[String]("value", "");
     model.filter(value)

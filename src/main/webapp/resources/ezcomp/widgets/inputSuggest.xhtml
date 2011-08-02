@@ -81,7 +81,7 @@
             </h:inputText>
 
             <ezws:inputPopup id="input_popup" for="input">
-                <ezw:selectionList id="selection_panel" model="#{cc.attrs.model}" value="" />
+                <ezw:selectionList id="selection_panel" model="#{cc.attrs.model.getItems()}" value="#{cc.attrs.selectionValue}" />
             </ezws:inputPopup>
             <ezws:message for="input" id="message" styleClass="‘message"
                        infoClass="#{cc.attrs.infoClass} infoClass"
