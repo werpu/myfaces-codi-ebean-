@@ -25,22 +25,21 @@
 
         <div id="#{cc.clientId}" class="selectionList">
             <h:panelGroup id="#{cc.attrs.id}" layout="block">
-                <h:panelGroup id="#{cc.attrs.id}_placeHolder" layout="block">
+                <h:panelGroup id="#{cc.attrs.id}_placeHolder" styleClass="selectionPlaceHolder" layout="block">
                     <ul>
                         <ui:repeat value="#{cc.attrs.model}" var="item">
                             <li class="#{item.markerClass}" data-key="#{item.value}">#{item.label}</li>
                         </ui:repeat>
                     </ul>
                 </h:panelGroup>
-                <h:inputHidden id="#{cc.attrs.id}_valueHolder" value="#{cc.attrs.selectionValue}"/>
+                <h:inputHidden id="#{cc.attrs.id}_valueHolder" styleClass="selectionValueHolder" value="#{cc.attrs.selectionValue}"/>
             </h:panelGroup>
             value="#{cc.attrs.selectionValue}"
         </div>
 
         <script type="text/javascript">
             var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
-                        clientId:"#{cc.clientId}",
-                        id:"#{cc.clientId}:#{cc.attrs.id}",
+                        id:"#{cc.clientId}",
                         multiSelect:#{cc.attrs.multiselect},
                         _resizable:#{cc.attrs.resizable},
                         selectorIdentifier:"#{cc.attrs.selectorIdentifier}",

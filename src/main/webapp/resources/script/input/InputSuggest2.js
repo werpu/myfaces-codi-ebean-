@@ -33,6 +33,7 @@
         constructor_: function(args) {
             this._callSuper("constructor_", args);
             this._unloadAware = true;
+            this._listReplaced = _Lang.hitch(this, this._listReplaced);
         },
         _postInit: function() {
             this._callSuper("_postInit", arguments);
@@ -69,16 +70,38 @@
             }, 0);
             evt.consumeEvent();
         },
+
+        _listReplaced: function(evt) {
+             if (evt.status == "complete") {
+                this._initReferences();
+             }
+        },
+
         /**
          * on key up should trigger a refresh of the preview
          * @param evt
          */
         onkeypress: function(evt) {
             this._callSuper("onkeypress", evt);
+
+            if(evt.keyCode == this.KEY_ARROW_DOWN) {
+                //down pressed menu has to pop open and the first item is selected
+                this._selectionPopup.javascriptVar.show();
+                this._selectionList.javascriptVar.onfocus();
+                this._selectionList.javascriptVar.onkeydown(evt);
+                return;
+            }
+            if(evt.keyCode == this.KEY_ARROW_UP) {
+                this._selectionPopup.javascriptVar.show();
+                this._selectionList.javascriptVar.onfocus();
+                this._selectionList.javascriptVar.onkeydown(evt);
+            }
+
             jsf.ajax.request(evt.target, evt, {
                 execute:this.id,
                 render:this._selectionList.id+" "+this.rootNode.querySelector(".preRenderTrigger").id,
                 mf_ajaxSearch:"true",
+                onevent: this._listReplaced,
                 myfaces:{delay: 500}
             });
         }

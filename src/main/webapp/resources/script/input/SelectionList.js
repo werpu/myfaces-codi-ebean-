@@ -268,8 +268,8 @@
         _postInit: function() {
             this._callSuper("_postInit", arguments);
 
-            this.placeHolder = this.rootNode.querySelector("#" + this.placeHolderId.replace(/:/g, "\\:"));
-            this.valueHolder = this.rootNode.querySelector("#" + this.valueHolderId.replace(/:/g, "\\:"));
+            this.placeHolder = this.rootNode.querySelector(".selectionPlaceHolder");
+            this.valueHolder = this.rootNode.querySelector(".selectionValueHolder");
 
             this.placeHolder.setAttribute("tabindex", this.tabIndex);
 
