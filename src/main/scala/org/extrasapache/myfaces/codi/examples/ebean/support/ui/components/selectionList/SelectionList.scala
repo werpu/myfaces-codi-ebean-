@@ -72,7 +72,7 @@ class SelectionList extends StandardJavascriptComponent {
   protected def initModel() {
     val model = getAttr[java.util.ArrayList[AnyRef]]("model", null)
 
-    if (model != null) {
+    /*if (model != null) {
       val newModel = new java.util.ArrayList[SelectionItem](model.size())
       var conversionPerformed = false
       for (item <- model) {
@@ -92,7 +92,8 @@ class SelectionList extends StandardJavascriptComponent {
       if(conversionPerformed) {
         setAttr[java.util.ArrayList[SelectionItem]]("model", newModel)
       }
-    } else {
+    } else {*/
+    if(model == null) {
       var children = getChildren
       if (children == null || children.size() == 0) return;
       val newModel = new java.util.ArrayList[SelectionItem](children.size())
