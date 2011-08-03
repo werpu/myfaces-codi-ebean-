@@ -32,7 +32,7 @@
                         </ui:repeat>
                     </ul>
                 </h:panelGroup>
-                <h:inputHidden id="#{cc.attrs.id}_valueHolder" styleClass="selectionValueHolder" value="#{cc.attrs.selectionValue}"/>
+                <h:inputText style="display:none" id="#{cc.attrs.id}_valueHolder" styleClass="selectionValueHolder" value="#{cc.attrs.selectionValue}"/>
             </h:panelGroup>
             value="#{cc.attrs.selectionValue}"
         </div>
@@ -42,6 +42,7 @@
                         id:"#{cc.clientId}",
                         multiSelect:#{cc.attrs.multiselect},
                         _resizable:#{cc.attrs.resizable},
+                         ajaxRequest:#{cc.ajaxState.toString()},
                         selectorIdentifier:"#{cc.attrs.selectorIdentifier}",
                         javascriptVar:"#{cc.javascriptVar}"
                     });

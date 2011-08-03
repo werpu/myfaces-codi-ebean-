@@ -73,8 +73,12 @@
 
         _listReplaced: function(evt) {
              if (evt.status == "complete") {
-                this._initReferences();
-             }
+                 var _t = this;
+                 var insertId = this._selectionList.id;
+                 setTimeout( function() {
+                    _t._initReferences();
+                 }, 100);
+                }
         },
 
         /**
