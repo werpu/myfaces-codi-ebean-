@@ -14,6 +14,13 @@
      */
     _RT.extendClass("extras.apache.InputPopup", extras.apache.Popup, {
 
+        /**
+         * if set to true the popup comes
+         * automatically once the referencenode
+         * gets a focus
+         */
+        autoPopup: true,
+
         constructor_:function(args) {
 
             this._callSuper("constructor_", args);
@@ -40,7 +47,9 @@
 
         _initReferenceBehavior: function() {
             this._referencedNode.addEventListener(this.EVT_CLICK, this._onFocus, false);
-            this._referencedNode.addEventListener(this.EVT_FOCUS, this._onFocus, false);
+            if(this.autoPopup) {
+                this._referencedNode.addEventListener(this.EVT_FOCUS, this._onFocus, false);
+            }
             this._referencedNode.addEventListener(this.EVT_BLUR, this._onBlur, false);
         },
 

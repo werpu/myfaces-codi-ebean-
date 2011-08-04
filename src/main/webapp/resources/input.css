@@ -1,18 +1,27 @@
-.input {
+
+
+.inputSuggest .inputContainer {
+    position: relative;
+}
+
+.inputSuggest .inputTextValueHolder, .input .inputUnderlay {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    padding:  2px;
+}
+
+.inputSuggest .inputTextValueHolder {
+    z-index: 100;
+    background-color: transparent;
+    border: none;
 
 }
 
-.input .label {
-    min-width: 80px;
-    font-weight: bold;
+.inputSuggest .inputUnderlay {
+    z-index: 99;
+    color: silver;
+    background-color: white;
+    border:  1px solid silver;
 }
 
-.input .input {
-
-}
-
-.input .message {
-
-
-
-}

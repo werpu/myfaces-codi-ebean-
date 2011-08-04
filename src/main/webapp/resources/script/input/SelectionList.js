@@ -221,7 +221,9 @@
                         evt.stopPropagation();
                         var selectionChangeEvent = {};
                         selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier).get(this.focusLine);
+
                         this.onSelectionChange(selectionChangeEvent);
+
                         return false;
                     case this.KEY_ARROW_DOWN:
 
@@ -229,6 +231,7 @@
                         evt.stopPropagation();
                         var selectionChangeEvent = {};
                         selectionChangeEvent.target = this.rootNode.querySelectorAll(this.selectorIdentifier).get(this.focusLine);
+
                         this.onSelectionChange(selectionChangeEvent);
 
                         return false;
@@ -267,10 +270,11 @@
               res.push(elem.getAttribute(_t.keyAttribute))
            });
            this.valueHolder.value = res.join(",");
+           this._emitListenerEvent(this.CEVT_SELECTION_CHANGED, {src: this});
         },
 
         onFinalSelection: function(evt) {
-            this._emitListenerEvent(this.CEVT_CHILD_VALUE_CHANGED, {src: this});
+            this._emitListenerEvent(this.CEVT_VALUE_CHANGED, {src: this});
         },
 
         /**

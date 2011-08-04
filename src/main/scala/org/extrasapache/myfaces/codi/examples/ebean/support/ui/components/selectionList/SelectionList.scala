@@ -70,7 +70,7 @@ class SelectionList extends StandardJavascriptComponent {
    *
    */
   protected def initModel() {
-    val model = getAttr[java.util.ArrayList[AnyRef]]("model", null)
+    val model:java.util.List[AnyRef] = getAttr[java.util.List[AnyRef]]("model", null)
 
     if(model == null) {
       var children = getChildren

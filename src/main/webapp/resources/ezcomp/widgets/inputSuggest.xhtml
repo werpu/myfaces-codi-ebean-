@@ -45,7 +45,7 @@
         <composite:attribute name="inputStyle"/>
         <composite:attribute name="form"/>
 
-        <composite:editableValueHolder name="input" targets="input" />
+        <composite:editableValueHolder name="input" targets="input"/>
 
     </composite:interface>
     <composite:implementation>
@@ -66,7 +66,7 @@
         <h:outputScript library="script" name="input/InputSuggest2.js"/>
 
 
-        <div id="#{cc.clientId}" class="input">
+        <div id="#{cc.clientId}" class="input inputSuggest">
 
             <h:outputLabel id="label" styleClass="#{cc.attrs.labelClass} label" style="#{cc.attrs.labelStyle}"
                            for="input" value="#{cc.attrs.label}"/>
@@ -74,31 +74,37 @@
             todo make the date time conversion more flexible
             by allowing converters to be appended as childs
             -->
-            <h:inputText id="input" styleClass="#{cc.attrs.inputClass} input inputTextValueHolder" style="#{cc.attrs.inputStyle}"
-                         value="#{cc.attrs.value}">
+            <div class="inputContainer">
+                <h:inputText id="input" styleClass="#{cc.attrs.inputClass} input inputTextValueHolder"
+                             style="#{cc.attrs.inputStyle}"
+                             value="#{cc.attrs.value}">
+                </h:inputText>
 
+                <div class="inputUnderlay">
+                    <!-- underlay for the input text to get a google like behavior -->
+                </div>
 
-            </h:inputText>
-            <!-- we use an external prerender trigger because we need the prerender event
-            although our ajax calls do not render the main component-->
-            <h:panelGroup id="preRenderTrigger" class="preRenderTrigger" style="display: none">
-                <f:event type="preRenderComponent" listener="#{cc.prerenderComponent}" />
-            </h:panelGroup>
-            <ezws:inputPopup id="input_popup" for="input">
-                <ezw:selectionList id="selection_panel"
-                                   model="#{cc.attrs.model.getItems()}"
-                                   componentListeners="#{cc.javascriptVar}"
-                                   value="#{cc.attrs.selectionValue}" />
-            </ezws:inputPopup>
-
+                <!-- we use an external prerender trigger because we need the prerender event
+       although our ajax calls do not render the main component-->
+                <h:panelGroup id="preRenderTrigger" class="preRenderTrigger" style="display: none">
+                    <f:event type="preRenderComponent" listener="#{cc.prerenderComponent}"/>
+                </h:panelGroup>
+                <ezws:inputPopup id="input_popup" for="input">
+                    <ezw:selectionList id="selection_panel"
+                                       model="#{cc.attrs.model.getItems()}"
+                                       componentListeners="#{cc.javascriptVar}"
+                                       value="#{cc.attrs.selectionValue}"
+                                       enterFinalSelection="true"/>
+                </ezws:inputPopup>
+            </div>
             <ezws:message for="input" id="message" styleClass="‘message"
-                       infoClass="#{cc.attrs.infoClass} infoClass"
-                       errorClass="#{cc.attrs.errorClass} errorClass"
-                       fatalClass="#{cc.attrs.fatalClass} fatalClass"
-                       infoStyle="#{cc.attrs.infoStyle}"
-                       errorStyle="#{cc.attrs.errorStyle}"
-                       fatalStyle="#{cc.attrs.fatalStyle}"
-                       rendered="#{cc.attrs.showMessage}"/>
+                          infoClass="#{cc.attrs.infoClass} infoClass"
+                          errorClass="#{cc.attrs.errorClass} errorClass"
+                          fatalClass="#{cc.attrs.fatalClass} fatalClass"
+                          infoStyle="#{cc.attrs.infoStyle}"
+                          errorStyle="#{cc.attrs.errorStyle}"
+                          fatalStyle="#{cc.attrs.fatalStyle}"
+                          rendered="#{cc.attrs.showMessage}"/>
 
             <script type="text/javascript">
                 var #{cc.javascriptVar} =
@@ -109,6 +115,7 @@
                     inputMask:"#{cc.attrs.inputMask}",
                     validationRegexp:"#{cc.attrs.validationRegexp}",
                     form:"#{cc.attrs.form}"
+
                 });
             </script>
 
