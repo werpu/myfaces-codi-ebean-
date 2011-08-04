@@ -59,6 +59,34 @@
      * for subtemplating we can move over but for now
      * what we have suffices.
      *
+     * All components have to go through a special lifecycle
+     * constructor
+     *
+     * ajax and non ajax cases
+     *
+     * _postInit
+     * postInit
+     * postInit_
+     *
+     * _postRender
+     * postRender
+     * postRender_
+     *
+     * the system usually uses _postInit and postInit_
+     * so if you override those methods normally put _postInit on top and postInit_ on the bottom
+     *
+     * also for embedded components we have an upwards eventing system in place
+     * parent components can register themselves as component listeners
+     * depending on the phase they will receive
+     *
+     * Events which can be listened to are for instance
+     * CEVT_VALUE_HOLDER_REPLACED
+     * CEVT_AFTER_POST_INIT
+     * CEVT_AFTER_POST_RENDER etc...
+     *
+     * This can be used to notify the parent about child changes (mostly ajax updates)
+     * so that the parent can readjust its references
+     *
      * @namespace extras.apache.ComponentBase
      */
     _RT.extendClass("extras.apache.ComponentBase", Object, {
@@ -91,6 +119,10 @@
          */
         javascriptVar: null,
 
+        /**
+         * is set to true if the component is currently
+         * refreshed in an ajax request
+         */
         ajaxRequest: false,
 
         NODE: myfaces._impl._dom.Node,
@@ -284,6 +316,8 @@
                 this._postRender();
                 this.postRender();
                 this.postRender_();
+                 /*post render, ajax is out of the game again now*/
+                this.ajaxRequest = false;
                 this._emitListenerEvent(this.CEVT_AFTER_POST_RENDER, {src:this});
 
             }));
@@ -309,6 +343,7 @@
         postRender: function() {
         },
         postRender_: function() {
+
         },
 
         querySelectorAll: function(queryStr) {
