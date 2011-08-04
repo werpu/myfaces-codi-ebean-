@@ -47,7 +47,7 @@
             //this works because we have the correct calling order with our parent being the last
             if (!this._initComponentListeners) {
                 this.rootNode.addEventListener(this.CEVT_AFTER_POST_INIT, this._LANG.hitch(this, this.onChildPostInit));
-                this.rootNode.addEventListener(this.CEVT_VALUE_HOLDER_REPLACED, this._LANG.hitch(this, this.valueHolderReplaced));
+                this.rootNode.addEventListener(this.CEVT_CHILD_VALUE_CHANGED, this._LANG.hitch(this, this.childValueChanged));
                 this._initComponentListeners = true;
             }
         },
@@ -64,7 +64,14 @@
             this._initReferences();
         },
 
-        valueHolderReplaced: function(evt) {
+        /**
+         * the selection child has changed its selected value
+         * @param evt
+         */
+        childValueChanged: function(evt) {
+            if(evt.src.id !== this._selectionList.id) return;
+            //this._selectionPopup.hide();
+            //this.valueHolder.value =
         },
 
         /**

@@ -34,7 +34,7 @@
 
             if(!this._initComponentListeners) {
                 this.rootNode.addEventListener(this.CEVT_AFTER_POST_INIT, this._LANG.hitch(this, this.onChildPostInit));
-                this.rootNode.addEventListener(this.CEVT_VALUE_HOLDER_REPLACED, this._LANG.hitch(this, this.valueHolderReplaced));
+                this.rootNode.addEventListener(this.CEVT_VALUE_HOLDER_REPLACED, this._LANG.hitch(this, this.childValueChanged));
                 this._initComponentListeners = true;
             }
         },
@@ -54,7 +54,7 @@
             evt.consumeEvent();
         },
 
-        valueHolderReplaced: function(evt) {
+        childValueChanged: function(evt) {
             var _t = this;
             //this seems to be a nasty browser bug,
             //if we dont add the timeout here

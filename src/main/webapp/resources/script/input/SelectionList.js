@@ -265,7 +265,7 @@
         },
 
         onFinalSelection: function(evt) {
-            //enter or click
+            this._emitListenerEvent(this.CEVT_CHILD_VALUE_CHANGED, {src: this});
         },
 
         /**

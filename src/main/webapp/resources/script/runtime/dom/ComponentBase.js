@@ -122,8 +122,17 @@
         /**
          * is set to true if the component is currently
          * refreshed in an ajax request
+         * this is a temporary true value
+         * which is reset once the component has finished initializing
          */
         ajaxRequest: false,
+
+        /**
+         * is set permanently to the value
+        * of whether the component was created during an ajax request
+         * will normally not be used
+        */
+        ajaxInitialized: false,
 
         NODE: myfaces._impl._dom.Node,
         /**
@@ -163,6 +172,7 @@
          *
          */
         CEVT_VALUE_HOLDER_REPLACED: "ezw_valueHolderReplaced",
+        CEVT_CHILD_VALUE_CHANGED: "ezw_childValueChanged",
         CEVT_PARENT_CHANGE: "ezw_parentChange",
         /*event which is bubbled up to its parents if a subcontent of a control replaces its content
          * it is bubbled after all operations have been performed (including postInit) */
@@ -196,6 +206,8 @@
 
         constructor_: function(argsMap) {
             _Lang.applyArgs(this, argsMap);
+
+            this.ajaxInitialized = this.ajaxRequest;
 
             //we enforce the scope for the onAjaxEvent
             this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
@@ -317,6 +329,7 @@
                 this.postRender();
                 this.postRender_();
                  /*post render, ajax is out of the game again now*/
+
                 this.ajaxRequest = false;
                 this._emitListenerEvent(this.CEVT_AFTER_POST_RENDER, {src:this});
 
