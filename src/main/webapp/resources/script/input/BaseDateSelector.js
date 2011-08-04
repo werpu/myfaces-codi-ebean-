@@ -5,6 +5,9 @@
      * and date picker and other similar classes
      *
      * @namespace extras.apache.BaseDateSelector
+     *
+     * TODO change our value changed listener and content listeners to a child change
+     * listener, wich is easier to handle than our mf-data objects
      */
     var _RT = myfaces._impl.core._Runtime;
 
@@ -98,17 +101,22 @@
 
         onDateSelect: function(date) {
 
-            var dataUpdateListeners = this.rootNode.getAttribute("data-ezw-update-listener");
-            if (dataUpdateListeners) {
-                dataUpdateListeners = dataUpdateListeners.split(" ");
-                var _t = this;
+            //var dataUpdateListeners = this.rootNode.getAttribute("data-ezw-update-listener");
+            //if(!dataUpdateListeners) {
+            //   dataUpdateListeners = this.rootNode.parentNode.getAttribute("data-ezw-update-listener");
+            //}
+            if (!this.listeners.isEmpty()) {
+                //dataUpdateListeners = dataUpdateListeners.split(" ");
+                //var _t = this;
                 setTimeout(function() {
-                    for (var cnt = dataUpdateListeners.length - 1; cnt >= 0; cnt--) {
-                        for (var cnt = dataUpdateListeners.length - 1; cnt >= 0; cnt--) {
-                            window[dataUpdateListeners[cnt]].rootNode.dispatchEvent(_t.CEVT_DATE_SELECT, {src:_t});
-                            window[dataUpdateListeners[cnt]].rootNode.dispatchEvent(_t.CEVT_VALUE_HOLDER_REPLACED, {src:_t});
-                        }
-                    }
+                   // for (var cnt = dataUpdateListeners.length - 1; cnt >= 0; cnt--) {
+                   //     for (var cnt = dataUpdateListeners.length - 1; cnt >= 0; cnt--) {
+                   _t.listeners.each(function(elem) {
+                            window[elem].rootNode.dispatchEvent(_t.CEVT_DATE_SELECT, {src:_t});
+                            window[elem].rootNode.dispatchEvent(_t.CEVT_VALUE_HOLDER_REPLACED, {src:_t});
+                   });
+                   //     }
+                   // }
                 }, 0);
             }
 

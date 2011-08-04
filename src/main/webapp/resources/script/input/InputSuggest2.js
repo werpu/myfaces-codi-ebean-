@@ -37,10 +37,14 @@
         },
         _postInit: function() {
             this._callSuper("_postInit", arguments);
+            //we register the component Listeners
+            //because we want to know if the ajax cycled causes
+            //one of the children to reinitialize
+
         },
         _postRender: function() {
             this._initReferences();
-
+            //this works because we have the correct calling order with our parent being the last
             if (!this._initComponentListeners) {
                 this.rootNode.addEventListener(this.CEVT_AFTER_POST_INIT, this._LANG.hitch(this, this.onChildPostInit));
                 this.rootNode.addEventListener(this.CEVT_VALUE_HOLDER_REPLACED, this._LANG.hitch(this, this.valueHolderReplaced));
@@ -55,30 +59,12 @@
             this._selectionPopup.javascriptVar.referencedNode = this.valueHolder;
             this._selectionList.javascriptVar.valueHolder = this.valueHolder
         },
-
+        /*once the child post render is done we can read our references*/
         onChildPostInit: function() {
-
+            this._initReferences();
         },
 
         valueHolderReplaced: function(evt) {
-            var _t = this;
-
-            setTimeout(function() {
-                _t._postInit();
-                _t._postRender();
-                _t._selectionPopup.dispatchEvent(_t.CEVT_PARENT_CHANGE, {src:_t, srcType:"valueHolderReplaced" });
-            }, 0);
-            evt.consumeEvent();
-        },
-
-        _listReplaced: function(evt) {
-             if (evt.status == "complete") {
-                 var _t = this;
-                 var insertId = this._selectionList.id;
-                 setTimeout( function() {
-                    _t._initReferences();
-                 }, 100);
-                }
         },
 
         /**
@@ -105,7 +91,8 @@
                 execute:this.id,
                 render:this._selectionList.id+" "+this.rootNode.querySelector(".preRenderTrigger").id,
                 mf_ajaxSearch:"true",
-                onevent: this._listReplaced,
+
+                //onevent: this._listReplaced,
                 myfaces:{delay: 500}
             });
         }

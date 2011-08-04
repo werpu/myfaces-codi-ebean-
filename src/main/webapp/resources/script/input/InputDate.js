@@ -47,11 +47,7 @@
             this._datePicker.javascriptVar.valueHolder = this.valueHolder;
             this._datePopup.javascriptVar.referencedNode = this.valueHolder;
             this._datePicker.referencingInstance = this;
-            /**
-             * we register ourselves into the date component
-             * to be notified whenever the content changes
-             */
-            this._datePicker.setAttribute(this.DATA_ATTR_UPDATE_LISTENER, this.rootNode.getAttribute(this.DATA_ATTR_JAVASCRIPT_VAR));
+
         },
         onChildPostInit: function(evt) {
             this._initReferences();

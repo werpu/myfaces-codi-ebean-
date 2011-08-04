@@ -84,6 +84,12 @@
 
         _shiftDown: false,
 
+        /**
+         * set from the outside
+         * from a component which wants to listen for child changes
+         */
+        _childChangeListener: null,
+
         constructor_: function(argsMap) {
             this._callSuper("constructor", argsMap);
 

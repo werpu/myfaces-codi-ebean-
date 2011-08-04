@@ -125,11 +125,19 @@
         CEVT_ON_TOGGLE_OPEN: "ezw_onToggleOpen",
         CEVT_ON_TOGGLE_CLOSE: "ezw_onToggleClose",
         CEVT_AFTER_POST_INIT: "ezw_afterPostInit",
+        CEVT_AFTER_POST_RENDER: "ezw_afterPostRender",
+        /**
+         * event which is bubbled to its listeners
+         *
+         */
         CEVT_VALUE_HOLDER_REPLACED: "ezw_valueHolderReplaced",
         CEVT_PARENT_CHANGE: "ezw_parentChange",
+        /*event which is bubbled up to its parents if a subcontent of a control replaces its content
+         * it is bubbled after all operations have been performed (including postInit) */
+        CEVT_CONTENT_REPLACED: "ezw_PostAjaxContentReplace",
 
 
-        DATA_ATTR_UPDATE_LISTENER: "data-ezw-update-listener",
+        //DATA_ATTR_UPDATE_LISTENER: "data-ezw-update-listener",
         DATA_ATTR_JAVASCRIPT_VAR: "data-ezw_javascriptvar",
         DATA_ATTR_COMPONENTTYPE:"data-ezw_componentType",
 
@@ -149,6 +157,11 @@
          */
         referencingInstance: null,
 
+        /**
+         * listeners for components which need notification
+         */
+        listeners:null,
+
         constructor_: function(argsMap) {
             _Lang.applyArgs(this, argsMap);
 
@@ -156,6 +169,8 @@
             this.onAjaxEvent = _Lang.hitch(this, this.onAjaxEvent);
             this.onAjaxError = _Lang.hitch(this, this.onAjaxError);
             this._ajaxInit = _Lang.hitch(this, this._ajaxInit);
+
+            this.listeners = new myfaces._impl._util._Queue();
 
             this.id = this.id || this.clientId + ":" + this.clientId;
 
@@ -173,9 +188,22 @@
                         }
                 ));
             }
+            ;
+            if (argsMap.componentListeners) {
+
+                for (var cnt = 0; cnt < argsMap.componentListeners.length; cnt++) {
+                    this.addComponentListener(argsMap.componentListeners[cnt]);
+                }
+            }
 
         },
 
+        addComponentListener: function(listener) {
+            this.listeners.enqueue(listener);
+        },
+        removeComponentListener: function(listener) {
+            this.listeners.remove(listener);
+        },
 
 
         //TODO apply ecmascript 2
@@ -220,11 +248,46 @@
             if (extras.apache.ComponentBase._preRenderTimer) {
                 clearTimeout(extras.apache.ComponentBase._preRenderTimer);
             }
+
+        },
+
+        postInit: function() {
+
+        },
+
+        _emitListenerEvent:function(evt, data, defer) {
+            if (!this.listeners.isEmpty()) {
+                //    dataUpdateListeners = dataUpdateListeners.split(" ");
+                var _t = this;
+                if (!defer) {
+                    _t.listeners.each(function(elem) {
+                        window[elem].rootNode.dispatchEvent(evt, data);
+                    });
+                } else {
+
+                    setTimeout(function() {
+                        _t.listeners.each(function(elem) {
+                            window[elem].rootNode.dispatchEvent(evt, data);
+                        });
+                    }, 0);
+                }
+            }
+        },
+
+        postInit_: function() {
+            this._emitListenerEvent(this.CEVT_AFTER_POST_INIT, {src:this});
+
+            //var dataUpdateListeners = this.rootNode.getAttribute("data-ezw-update-listener")|| [];
+            //dataUpdateListeners = dataUpdateListeners.concat(this.listeners.toA);
             extras.apache.ComponentBase._preRenderStack.push(this._LANG.hitch(this, function() {
+
                 this._postRender();
                 this.postRender();
                 this.postRender_();
+                this._emitListenerEvent(this.CEVT_AFTER_POST_RENDER, {src:this});
+
             }));
+
             setTimeout(function() {
                 try {
                     var stack = extras.apache.ComponentBase._preRenderStack;
@@ -238,32 +301,15 @@
                 } finally {
                     extras.apache.ComponentBase._preRenderStack = [];
                 }
-            });
-
+            }, 100);
         },
 
-        postInit: function() {
-
+        _postRender: function() {
         },
-
-
-
-        postInit_: function() {
-            var dataUpdateListeners = this.rootNode.getAttribute("data-ezw-update-listener");
-            if (dataUpdateListeners) {
-                dataUpdateListeners = dataUpdateListeners.split(" ");
-                var _t = this;
-                setTimeout(function() {
-                    for (var cnt = dataUpdateListeners.length - 1; cnt >= 0; cnt--) {
-                        window[dataUpdateListeners[cnt]].rootNode.dispatchEvent(_t.CEVT_AFTER_POST_INIT, {src:this});
-                    }
-                }, 0);
-            }
+        postRender: function() {
         },
-
-        _postRender: function() {},
-        postRender: function() {},
-        postRender_: function() {},
+        postRender_: function() {
+        },
 
         querySelectorAll: function(queryStr) {
             return this.rootNode.querySelectorAll(queryStr);

@@ -115,7 +115,7 @@ class InputSuggest2 extends StandardJavascriptComponent {
     model.filter(value)
     //TODO set the component of the child as well anew
     val selectionList = findComponent("input_popup").findComponent("selection_panel").asInstanceOf[SelectionList]
-
+    selectionList.setAttr[String]("childChangeListener", this.getClientId)
   }
 
 }

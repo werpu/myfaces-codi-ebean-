@@ -2,6 +2,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.commo
 
 import javax.faces.context.FacesContext
 import javax.faces.component._
+import com.sun.jdi.Value
 
 /**
  *
@@ -15,6 +16,14 @@ class StandardJavascriptComponent extends UINamingContainer with JavascriptCompo
   def ajaxState(): Boolean = {
     FacesContext.getCurrentInstance.getPartialViewContext.isPartialRequest || FacesContext.getCurrentInstance.getPartialViewContext.isAjaxRequest
   }
+
+  def getSubAjaxRequest: String = {
+    getReqAttr("subAjaxRequest") match {
+      case x:String => x
+      case _ => ""
+    }
+  }
+
 
   implicit def component2Input(in: UIComponent): UIInput = {
     in match {

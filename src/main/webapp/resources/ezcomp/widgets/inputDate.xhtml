@@ -80,7 +80,7 @@
                  <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
             </h:inputText>
             <ezws:inputPopup id="date_popup" for="input">
-                <ezw:datePanel id="date_panel" />
+                <ezw:datePanel id="date_panel" componentListeners="#{cc.javascriptVar}" />
             </ezws:inputPopup>
             <ezws:message for="input" id="message" styleClass="‘message"
                        infoClass="#{cc.attrs.infoClass} infoClass"

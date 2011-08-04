@@ -34,6 +34,8 @@ trait AttributeHandler {
     FacesContext.getCurrentInstance.getExternalContext.getRequestParameterMap
   }
 
+
+
   def getReqAttr(key:String): String = {
     reqAttrMap.get(key)
   }

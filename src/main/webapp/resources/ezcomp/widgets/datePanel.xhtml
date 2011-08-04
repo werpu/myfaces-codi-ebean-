@@ -24,6 +24,8 @@
 
         <composite:editableValueHolder name="input" targets="input" />
 
+        <composite:attribute name="componentListeners" />
+
     </composite:interface>
     <composite:implementation>
 
@@ -103,7 +105,8 @@
                                 new #{cc.attrs.javascriptClass}({
                                     id:"#{cc.clientId}",
                                     ajaxRequest:#{cc.ajaxState.toString()},
-                                    javascriptVar:"#{cc.javascriptVar}"
+                                    javascriptVar:"#{cc.javascriptVar}",
+                                    componentListeners:["#{cc.attrs.componentListeners}"]
                                 });
                         </script>
 

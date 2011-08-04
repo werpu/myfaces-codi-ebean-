@@ -17,6 +17,7 @@
         <composite:attribute name="resizable" required="false" default="false"></composite:attribute>
         <composite:attribute name="selectorIdentifier" default="ul li"/>
         <composite:attribute name="javascriptClass" default="extras.apache.SelectionList" />
+        <composite:attribute name="componentListeners" default="" />
     </composite:interface>
     <composite:implementation>
 
@@ -44,7 +45,9 @@
                         _resizable:#{cc.attrs.resizable},
                          ajaxRequest:#{cc.ajaxState.toString()},
                         selectorIdentifier:"#{cc.attrs.selectorIdentifier}",
-                        javascriptVar:"#{cc.javascriptVar}"
+                        javascriptVar:"#{cc.javascriptVar}",
+                        childChangeListener:"#{cc.attrs.childChangeListener}",
+                        componentListeners:["#{cc.attrs.componentListeners}"]
                     });
         </script>
     </composite:implementation>
