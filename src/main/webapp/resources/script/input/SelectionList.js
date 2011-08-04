@@ -261,7 +261,7 @@
            var nodes = this.rootNode.querySelectorAll(this.selectorIdentifier+"."+this.selectionSelected).forEach(function item(elem){
               res.push(elem.getAttribute(_t.keyAttribute))
            });
-           this.valueHolder.setAttribute("value", res.join(","));
+           this.valueHolder.value = res.join(",");
         },
 
         onFinalSelection: function(evt) {

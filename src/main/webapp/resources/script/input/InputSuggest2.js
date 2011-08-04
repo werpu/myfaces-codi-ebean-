@@ -70,7 +70,7 @@
          */
         childValueChanged: function(evt) {
             if(evt.src.id !== this._selectionList.id) return;
-            //this._selectionPopup.hide();
+            this._selectionPopup.hide();
             //this.valueHolder.value =
         },
 

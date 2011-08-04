@@ -59,6 +59,14 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                         return this._referencedNode.id;
                     }
                 });
+                 _defProp(this, "value", {
+                    set: function(value) {
+                        this._referencedNode.value = value;
+                    },
+                    get: function() {
+                        return this._referencedNode.value;
+                    }
+                });
 
                 _defProp(this, "javascriptVar", {
                     get: function() {
