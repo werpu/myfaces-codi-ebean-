@@ -74,6 +74,11 @@
          */
         multiSelect: false,
 
+        /**
+         * if set to true the final selection happens only on enter
+         */
+        enterFinalSelection: false,
+
         /*custom data-* html5 attibute for keeping the key for instance data-key */
         keyAttribute: "data-key",
 

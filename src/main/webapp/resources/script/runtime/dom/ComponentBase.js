@@ -173,6 +173,7 @@
          */
         CEVT_VALUE_HOLDER_REPLACED: "ezw_valueHolderReplaced",
         CEVT_CHILD_VALUE_CHANGED: "ezw_childValueChanged",
+        CEVT_SELECTION_CHANGED: "ezw_selectionChanged",
         CEVT_PARENT_CHANGE: "ezw_parentChange",
         /*event which is bubbled up to its parents if a subcontent of a control replaces its content
          * it is bubbled after all operations have been performed (including postInit) */
