@@ -6,35 +6,36 @@
               xmlns:c="http://java.sun.com/jsp/jstl/core"
               xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
         >
-    <composite:interface componentType="at.irian.ContentPane">
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="javascriptVar" />
         <composite:attribute name="open" default="true" />
-        <composite:attribute name="javascriptClass" default="extras.apache.AccordionPanel"/>
+        <composite:attribute name="javascriptClass" default="extras.apache.TabbedPane"/>
 
         <composite:attribute name="styleClass" />
         <composite:attribute name="style" />
-        <composite:attribute name="headStyleClass" />
-        <composite:attribute name="headStyle" />
-        <composite:attribute name="contentStyleClass" />
-        <composite:attribute name="contentStyle" />
 
+        <composite:attribute name="lazyLoad" default="false" />
+        <composite:attribute name="tabClasses" default="" />
 
-        <composite:valueHolder name="valueHolder" />
-
-        <composite:facet name="head" required="true" />
-        <composite:facet name="content" required="true" />
     </composite:interface>
     <composite:implementation>
-        <h:outputScript library="script" name="layout/AccordionPanel.js"/>
+        <h:outputScript library="script" name="layout/TabbedPane.js"/>
 
 
         <div id="#{cc.clientId}" class="toggle #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
-                <h:panelGroup style="#{cc.attrs.headStyle}" styleClass="accordionHead #{cc.attrs.headStyleClass}" id="accordionHead" layout="block">
+                <h:panelGroup style="#{cc.attrs.headStyle}" styleClass="tabbedPaneHead #{cc.attrs.headStyleClass}" id="accordionHead" layout="block">
                     <composite:renderFacet name="head"></composite:renderFacet>
                 </h:panelGroup>
-                <h:panelGroup tyle="#{cc.attrs.contentStyle}" styleClass="accordionContent #{cc.attrs.contentStyleClass}" layout="block" id="accordionContent">
-                   <composite:insertChildren></composite:insertChildren>
+                <h:panelGroup tyle="#{cc.attrs.contentStyle}" styleClass="tabbedPaneContent #{cc.attrs.contentStyleClass}" layout="block" id="accordionContent">
+                    <ul class="tabs">
+                       <!-- we uirepeat the children information here to generate the tabs as tabbed controls
+                       -->
+                      <!-- debugging tabs -->
+                      <li class="tab active">First Tab</li>
+                      <li class="tab">Second Tab</li>
+                    </ul>
+                    <composite:insertChildren></composite:insertChildren>
                 </h:panelGroup>
 
 

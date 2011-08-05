@@ -4,7 +4,7 @@
               xmlns:f="http://java.sun.com/jsf/core"
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <composite:interface componentType="at.irian.StandardJavascriptComponent">
+    <composite:interface componentType="at.irian.ContentPane">
         <composite:attribute name="id" required="true"/>
         <composite:attribute name="javascriptVar"></composite:attribute>
         <composite:attribute name="javascriptClass" default="extras.apache.ContentPane"/>
@@ -25,14 +25,14 @@
         <composite:attribute name="externalContentTarget" default=".content"/>
         <composite:attribute name="evalExternalContent" default="false"/>
 
-
+        <composite:attribute name="active" default="true" />
     </composite:interface>
     <composite:implementation>
         <h:outputScript library="script" name="layout/ContentPane.js"/>
 
 
         <div id="#{cc.clientId}" class="contentPane #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
-             tabindex="#{cc.attrs.tabIndex}">
+             tabindex="#{cc.attrs.tabIndex}" data-mf-active="#{cc.attrs.active}">
             <h:panelGroup layout="block" id="head" class="#{cc.attrs.headStyleClass} head"
                           style="#{cc.attrs.headStyle}">
                 <h:outputFormat value="#{cc.attrs.title}" rendered="#{cc.attrs.title != null}"/>
