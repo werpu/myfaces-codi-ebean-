@@ -36,6 +36,7 @@
                     if (this._externalContentUrl) {
                         this.refreshContent(this._externalContentUrl);
                     }
+                    this.rootNode.setAttribute("data-mf-contentPane","true");
                 },
 
                 refreshContent: function(contentUrl) {

@@ -27,27 +27,26 @@
                 <h:panelGroup style="#{cc.attrs.headStyle}" styleClass="tabbedPaneHead #{cc.attrs.headStyleClass}" id="accordionHead" layout="block">
                     <composite:renderFacet name="head"></composite:renderFacet>
                 </h:panelGroup>
-                <h:panelGroup tyle="#{cc.attrs.contentStyle}" styleClass="tabbedPaneContent #{cc.attrs.contentStyleClass}" layout="block" id="accordionContent">
-                    <ul class="tabs">
+                 <ul class="tabs">
                        <!-- we uirepeat the children information here to generate the tabs as tabbed controls
                        -->
                       <!-- debugging tabs -->
-                      <li class="tab active">First Tab</li>
-                      <li class="tab">Second Tab</li>
-                    </ul>
+                      <ui:repeat value="#{cc.attrs.tabs}" var="tab"  varStatus="cnt">
+                          <li class="tab #{var.styleClass} #{var.active}" data-mf-for="#{var.clientId}">#{var.label}</li>
+                      </ui:repeat>
+                 </ul>
+                <h:panelGroup tyle="#{cc.attrs.contentStyle}" styleClass="tabbedPaneContent #{cc.attrs.contentStyleClass}" layout="block" id="accordionContent">
+
                     <composite:insertChildren></composite:insertChildren>
                 </h:panelGroup>
-
+                <h:inputText id="tabValueHolder" class="tabValueHolder" value="#{cc.attrs.activeTab}" />
 
                 <script type="text/javascript">
-
-
                         var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
                             id:"#{cc.clientId}",
-
+                            ajaxRequest:#{cc.ajaxState.toString()},
                             javascriptVar:"#{cc.javascriptVar}"
                         });
-
                 </script>
         </div>
 
