@@ -95,6 +95,11 @@
         },
 
         _refreshUnderlay: function(evt) {
+            /*in case of nothing selected or no selection list we have no underlay*/
+            if(this._selectionList.isEmpty() || this._selectionList.valueHolder.value == "") {
+                this._underlay.innerHTML("",false);
+                return;
+            }
             var splitPos = Math.min(this._selectionList.valueHolder.value.length,this.valueHolder.value.length);
             var underlayValue = "<span style='visibility: hidden;'>"+this._selectionList.valueHolder.value.substring(0,splitPos)+"</span>";
             var valueLen = this._selectionList.valueHolder.value.length;
@@ -113,8 +118,14 @@
         onkeypress: function(evt) {
             this._callSuper("onkeypress", evt);
 
+
+
             if (evt.keyCode == this.KEY_ARROW_DOWN || evt.keyCode == this.KEY_ARROW_UP) {
                 //down pressed menu has to pop open and the first item is selected
+                if(!this._inPopup) {
+                    this._selectionList.clear();
+                }
+
                 this._selectionPopup.show();
                 this._selectionList.onfocus();
                 this._selectionList.onkeydown(evt);
@@ -136,7 +147,13 @@
             }
            else if (evt.keyCode == this.KEY_DELETE || evt.keyCode == this.KEY_BACKSPACE) {
                 var _t = this;
-                setTimeout(function() {
+                if(this._deleteTimer) {
+                    clearTimeout(this._deleteTimer);
+                    this._deleteTimer = null;
+                }
+                this._deleteTimer = setTimeout(function() {
+                    clearTimeout(this._deleteTimer);
+                    this._deleteTimer = null;
                      _t._refreshUnderlay();
                 }, 10);
             }

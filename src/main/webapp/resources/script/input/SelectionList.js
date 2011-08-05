@@ -325,12 +325,17 @@
             }));
         },
 
+        isEmpty: function() {
+            return !this._numberOfItems;
+        },
+
         clear: function() {
             this.rootNode.querySelectorAll(this.selectorIdentifier).removeClass(this.selectionSelected);
             this.valueHolder.setAttribute("value", "");
             this.focusLine = -1;
 
         },
+
 
         moveSelectionUp: function() {
             this.rootNode.querySelectorAll(this.selectorIdentifier + "." + this.selectionSelected).moveUp();

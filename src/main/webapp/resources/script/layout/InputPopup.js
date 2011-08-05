@@ -46,8 +46,8 @@
         },
 
         _initReferenceBehavior: function() {
-            this._referencedNode.addEventListener(this.EVT_CLICK, this._onFocus, false);
             if(this.autoPopup) {
+                this._referencedNode.addEventListener(this.EVT_CLICK, this._onFocus, false);
                 this._referencedNode.addEventListener(this.EVT_FOCUS, this._onFocus, false);
             }
             this._referencedNode.addEventListener(this.EVT_BLUR, this._onBlur, false);

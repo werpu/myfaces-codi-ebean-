@@ -16,7 +16,7 @@
 
 
         <composite:attribute name="for" required="true"/>
-
+        <composite:attribute name="autoPopup" default="true" />
     </composite:interface>
     <composite:implementation>
         <h:outputScript library="script" name="layout/_LayoutController.js"/>
@@ -38,7 +38,8 @@
                     popupDelay: 0,
                     position:"bottom",
                     mousePositioned:false,
-                    referencedNode:"#{cc.attrs.forClientId}"
+                    referencedNode:"#{cc.attrs.forClientId}",
+                    autoPopup: #{cc.attrs.autoPopup}
                 });
             </script>
         </div>

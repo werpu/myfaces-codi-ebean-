@@ -35,6 +35,6 @@
     z-index: 99;
     color: silver;
     background-color: white;
-    border:  1px solid silver;
+    border:  1px solid transparent;
 }
 
