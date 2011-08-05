@@ -33,7 +33,7 @@ h2 {
 
 #header {
     height: 100px;
-    background: url(images/header.jpg) no-repeat;
+    background: url(../images/header.jpg) no-repeat;
 }
 
 #header h1 {
@@ -63,7 +63,7 @@ h2 {
 }
 
 #menu {
-    background: url(images/menu.jpg) no-repeat;
+    background: url(../images/menu.jpg) no-repeat;
     height: 40px;
     line-height: 30px;
 }
@@ -90,11 +90,11 @@ h2 {
 
 #menu ul li a:hover {
     color: #fff;
-    background: url(images/menuover.png) repeat-x;
+    background: url(../images/menuover.png) repeat-x;
 }
 
 #contentwrap {
-    background: url(images/content.jpg) repeat-y;
+    background: url(../images/content.jpg) repeat-y;
     padding: 0 20px 0 30px;
 }
 
@@ -155,7 +155,7 @@ h2 {
     text-align: center;
     color: #fff;
     font-size: 12px;
-    background: url(images/footer.jpg) no-repeat;
+    background: url(../images/footer.jpg) no-repeat;
     height: 30px;
     line-height: 30px;
 }

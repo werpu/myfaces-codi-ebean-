@@ -34,6 +34,7 @@
             this._callSuper("constructor_", args);
             this._unloadAware = true;
             this._listReplaced = _Lang.hitch(this, this._listReplaced);
+            this._ajaxEventTrigger = _Lang.hitch(this, this._ajaxEventTrigger);
         },
         _postInit: function() {
             this._callSuper("_postInit", arguments);
@@ -109,7 +110,7 @@
         },
 
         onkeyup: function(evt) {
-             this._refreshUnderlay();
+
         },
         /**
          * on key up should trigger a refresh of the preview
@@ -151,9 +152,9 @@
                     clearTimeout(this._deleteTimer);
                     this._deleteTimer = null;
                 }
-                this._deleteTimer = setTimeout(function() {
+                this._underlayTimer = setTimeout(function() {
                     clearTimeout(this._deleteTimer);
-                    this._deleteTimer = null;
+                    this._underlayTimer = null;
                      _t._refreshUnderlay();
                 }, 10);
             }
@@ -165,10 +166,16 @@
                 execute:this.id,
                 render:this._selectionList.id + " " + this.rootNode.querySelector(".preRenderTrigger").id,
                 mf_ajaxSearch:"true",
-
+                onevent: this._ajaxEventTrigger,
                 //onevent: this._listReplaced,
                 myfaces:{delay: 500}
             });
+        },
+        _ajaxEventTrigger: function(evt) {
+            if(evt.data == "complete") {
+                this._refreshUnderlay();
+            }
         }
+
     });
 })();
