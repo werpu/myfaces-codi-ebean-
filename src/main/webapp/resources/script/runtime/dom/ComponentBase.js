@@ -146,6 +146,7 @@
          */
         KEY_ARROW_UP:   38,
         KEY_ARROW_DOWN: 40,
+        KEY_BACKSPACE:   8,
         KEY_TAB:         9,
         KEY_ESCAPE:     27,
         KEY_ENTER:      13,
@@ -233,8 +234,8 @@
                         }
                 ));
             }
-            ;
-            if (argsMap.componentListeners) {
+
+            if (argsMap && argsMap.componentListeners) {
 
                 for (var cnt = 0; cnt < argsMap.componentListeners.length; cnt++) {
                     this.addComponentListener(argsMap.componentListeners[cnt]);

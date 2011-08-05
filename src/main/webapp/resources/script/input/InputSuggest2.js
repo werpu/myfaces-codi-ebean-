@@ -42,9 +42,13 @@
             //one of the children to reinitialize
             this._underlay = this.rootNode.querySelector(".inputUnderlay");
             //we now realign the underlay straight below our input control
+            /*old box model where padding is not part of the width*/
+            var width =  parseInt(this.valueHolder.offsetWidth()) - parseInt(this._underlay.getStyle("padding-left")|| 0)-parseInt(this._underlay.getStyle("padding-right")|| 0);
+            var height =  parseInt(this.valueHolder.offsetHeight()) - parseInt(this._underlay.getStyle("padding-top")|| 0)-parseInt(this._underlay.getStyle("padding-bottom")|| 0);
+
             this._underlay.style({
-                width: parseInt(this.valueHolder.offsetWidth())+"px",
-                height: parseInt(this.valueHolder.offsetHeight())+"px"
+                width: width+"px",
+                height: height+"px"
             });
         },
         _postRender: function() {
@@ -81,11 +85,16 @@
             this._selectionPopup.hide();
             this._underlay.innerHTML("", false);
             this.valueHolder.value = this._selectionList.valueHolder.value;
+            his._selectionList.valueHolder.value="";
             //this.valueHolder.value =
         },
 
         childSelectionChanged: function(evt) {
             if (evt.additionalData.src.id !== this._selectionList.id) return;
+            this._refreshUnderlay();
+        },
+
+        _refreshUnderlay: function(evt) {
             var splitPos = Math.min(this._selectionList.valueHolder.value.length,this.valueHolder.value.length);
             var underlayValue = "<span style='visibility: hidden;'>"+this._selectionList.valueHolder.value.substring(0,splitPos)+"</span>";
             var valueLen = this._selectionList.valueHolder.value.length;
@@ -94,6 +103,9 @@
             this._underlay.innerHTML(underlayValue, false);
         },
 
+        onkeyup: function(evt) {
+             this._refreshUnderlay();
+        },
         /**
          * on key up should trigger a refresh of the preview
          * @param evt
@@ -113,6 +125,7 @@
             else if (evt.keyCode == this.KEY_ESCAPE) {
                 this._selectionPopup.hide();
                 this._inPopup = false;
+                this._selectionList.valueHolder.value="";
                 return;
             }
             else if (evt.keyCode == this.KEY_ENTER) {
@@ -120,7 +133,13 @@
                 if(!this._inPopup) return;
                 this._selectionList.onkeydown(evt);
                 return;
-             }
+            }
+           else if (evt.keyCode == this.KEY_DELETE || evt.keyCode == this.KEY_BACKSPACE) {
+                var _t = this;
+                setTimeout(function() {
+                     _t._refreshUnderlay();
+                }, 10);
+            }
 
             this._selectionPopup.show();
             this._selectionList.onfocus();

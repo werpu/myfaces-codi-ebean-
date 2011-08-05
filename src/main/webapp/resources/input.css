@@ -1,20 +1,33 @@
 
-
+/**
+* input container
+* position relative because we need a position flag for further subpositioning
+* display: inline it should behave as a normal control
+*/
 .inputSuggest .inputContainer {
     position: relative;
+    display: inline;
 }
 
 .inputSuggest .inputTextValueHolder, .input .inputUnderlay {
+
     position: absolute;
     left: 0px;
     top: 0px;
     padding:  2px;
+
+}
+
+.input .inputUnderlay {
+    padding-left: 4px;
+    padding-top: 1px;
+    border:  none;
 }
 
 .inputSuggest .inputTextValueHolder {
     z-index: 100;
     background-color: transparent;
-    border: none;
+    border: 1px solid gray;
 
 }
 
