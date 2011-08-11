@@ -535,7 +535,15 @@
                 </dependencies>
             </plugin>
 
+             <plugin>
+                 <!-- mit license -->
+                 <groupId>org.jsdoctoolkit</groupId>
+                 <artifactId>jsdoc</artifactId>
+                 <version>2.1.0</version>
+                 <configuration>
 
+                 </configuration>
+             </plugin>
         </plugins>
 
         <finalName>testenterpriseweb2</finalName>
