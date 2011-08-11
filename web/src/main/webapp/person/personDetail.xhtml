@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/person"
+      >
+    <ui:composition template="../templates/template.xhtml">
+
+        <ui:define name="content">
+            <h:form id="editForm" prependId="false">
+                <!-- keepalive marker for our viewAccessScope detail view -->
+                <h:outputText value="#{personDetailView.searchData['firstName']}" style="display:none;"/>
+
+                <h3>#{msgs.person_details}</h3>
+                <h:panelGroup id="editArea" rendered="#{personDetailView.viewMode != 'delete'}">
+
+                    <ezcomp:personEdit value="#{personDetailView.person}" addressModel="#{personDetailView.address}"
+                                       addAddress="#{personDetailView.addAddress}"
+                                       removeAddress="#{personDetailView.removeAddress}"/>
+
+                    <h:commandLink action="#{personDetailView.doSave}" value="&gt;&gt; #{msgs.save}"/>
+                    <h:commandLink action="#{personDetailView.doCancel}" style="margin-left: 5px;" value="&gt;&gt; Cancel"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="displayArea" rendered="#{personDetailView.viewMode == 'delete'}">
+                    <h:panelGrid columns="2" id="searchAreaReadonly">
+                        <h:outputText value="#{msgs.person_firstnm}"/>
+                        <h:outputFormat value="#{personDetailView.person.firstName}"/>
+                        <h:outputText value="#{msgs.person_lastnm}"/>
+                        <h:outputFormat value="#{personDetailView.person.lastName}"/>
+                    </h:panelGrid>
+
+                    <h:commandLink action="#{personDetailView.doDelete}" value="&gt;&gt; #{msgs.delete}"/>
+
+                    <h:commandLink action="#{personDetailView.doCancel}" value="&gt;&gt; #{msgs.cancel}"/>
+                </h:panelGroup>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+
+</html>
+

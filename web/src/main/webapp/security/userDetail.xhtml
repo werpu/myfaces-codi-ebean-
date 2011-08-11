@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
+      xmlns:ezp="http://java.sun.com/jsf/composite/ezcomp/person"
+      xmlns:widgets="http://java.sun.com/jsf/composite/ezcomp/widgets"
+      xmlns:ez="http://java.sun.com/jsf/composite/ezcomp/person">
+<ui:composition template="../templates/template.xhtml">
+
+    <ui:define name="content">
+        <h:form id="editForm" prependId="false">
+
+            <h3>
+                <c:if test="#{userDetailView.pageMode eq 'create'}">
+                    #{msgs.user_create}
+                </c:if>
+                <c:if test="#{userDetailView.pageMode eq 'edit'}">
+                    #{msgs.user_edit}
+                </c:if>
+            </h3>
+
+            <h3>#{msgs.user_groups}</h3>
+
+            <widgets:shuttle labelLeft="#{msgs.user_groups_assigned}" labelRight="#{msgs.user_groups_unassigned}"
+                             controller="#{userDetailView.shuttleController}"/>
+
+
+            <h:panelGroup id="person_selector" rendered="#{userDetailView.pageMode eq 'create'}">
+
+
+                <h:panelGroup id="new_person" rendered="#{userDetailView.model.id eq null}">
+
+                    <h:commandLink action="#{userDetailView.goExistingPerson}"
+                                   value="#{msgs.user_use_existing_person} &gt;&gt;">
+                    </h:commandLink>
+                    <h4>#{msgs.user_new_person}</h4>
+
+
+                </h:panelGroup>
+
+                <h:panelGroup id="existing_person" rendered="#{userDetailView.model.id ne null}">
+
+                    <h:commandLink action="#{userDetailView.goNewPerson}" value="#{msgs.user_use_new_person} &gt;gt;">
+                    </h:commandLink>
+                    <h4>#{msgs.user_existing_person}</h4>
+
+                    <h:panelGroup layout="block" id="searchArea" styleClass="searchArea insight">
+                        <h:inputText value="#{userDetailView.personSearchData['firstLastName']}">
+                            <f:ajax execute="@this" onevent="keyup" render="searchResult"></f:ajax>
+                        </h:inputText>
+                    </h:panelGroup>
+
+
+
+                </h:panelGroup>
+
+                <!-- dodo find the correct ui elements for the person editing -->
+                <h:panelGroup id="personEdit" rendered="#{userDetailView.model.person != null}">
+                    <ezp:personEdit value="#{userDetailView.model.person}" addressModel="#{userDetailView.address}"
+                                    addAddress="#{userDetailView.addAddress}"
+                                    removeAddress="#{userDetailView.removeAddress}"/>
+                </h:panelGroup>
+
+
+            </h:panelGroup>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

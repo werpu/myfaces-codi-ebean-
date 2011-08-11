@@ -1,0 +1,65 @@
+.ajaxStatus {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+
+.ajaxStatus .statusArea {
+    opacity: 0;
+}
+
+.ajaxStatus .statusArea .ajaxComplete,
+.ajaxStatus .statusArea .ajaxSuccess,
+.ajaxStatus .statusArea .ajaxError,
+.ajaxStatus .statusArea .ajaxBegin {
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.ajaxStatus .statusArea.ajaxComplete .ajaxComplete {
+    background-color: yellow;
+    opacity: 1;
+}
+
+.ajaxStatus .statusArea.ajaxSuccess .ajaxSuccess {
+    background-color: green;
+    opacity: 0;
+}
+
+.ajaxStatus .statusArea.ajaxError .ajaxError {
+    background-color: red;
+    opacity: 1;
+}
+
+.ajaxStatus .statusArea.ajaxBegin .ajaxBegin {
+    opacity: 1;
+    background-color: #99ff99;
+}
+
+/*we hide subelements if they are not from the same type as our parent type*/
+.ajaxStatus .statusArea.ajaxComplete .ajaxSuccess,
+.ajaxStatus .statusArea.ajaxComplete .ajaxBegin,
+.ajaxStatus .statusArea.ajaxComplete .ajaxError,
+.ajaxStatus .statusArea.ajaxBegin .ajaxSuccess,
+.ajaxStatus .statusArea.ajaxBegin .ajaxComplete,
+.ajaxStatus .statusArea.ajaxBegin .ajaxError,
+.ajaxStatus .statusArea.ajaxSuccess .ajaxBegin,
+.ajaxStatus .statusArea.ajaxSuccess .ajaxComplete,
+.ajaxStatus .statusArea.ajaxSuccess .ajaxError,
+.ajaxStatus .statusArea.ajaxError .ajaxComplete,
+.ajaxStatus .statusArea.ajaxError .ajaxComplete,
+.ajaxStatus .statusArea.ajaxError .ajaxSuccess {
+    opacity: 0;
+}
+
+/**
+initial state success success no display
+*/
+.ajaxStatus .statusArea.ajaxSuccess .ajaxSuccess {
+    opacity: 0;
+}

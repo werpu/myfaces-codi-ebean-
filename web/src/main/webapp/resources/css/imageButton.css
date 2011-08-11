@@ -1,0 +1,195 @@
+.imageButton {
+
+    background-color: #E0E0E0;
+    border: 2px groove gray;
+    display: block;
+    width: 80px;
+    height: 22px;
+
+    position: relative;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+}
+
+.imageButton:focus {
+
+}
+
+.imageButton .imageNormal, .imageButton .imageFocus,
+.imageButton .imagePressed {
+    position: absolute;
+    left: 3px;
+    top: 2px;
+}
+
+.imageButton .label {
+    position: absolute;
+    left: 22px;
+    top: 3px;
+    color: black;
+    text-shadow: 0px 1px 1px #fff;
+}
+
+/**
+* focus non focus display behavior
+*/
+.imageButton .imageNormal,
+.imageButton:focus .imageFocus {
+    display: block;
+}
+
+.imageButton .imageFocus,
+.imageButton .imagePressed,
+.imageButton.clicked .imageFocus,
+.imageButton.clicked .imageNormal,
+.imageButton .imageCommand,
+.imageButton:focus .imageNormal {
+    display: none;
+}
+
+.imageButton.clicked {
+    box-shadow: 2px 2px 3px 0 #777777 inset;
+    border: 1px solid black;
+}
+
+/**
+* the clicked styleclass is appended
+* if the button goes down
+*/
+.imageButton.clicked .imagePressed {
+    display: block;
+}
+
+imageButton a:hover {
+    text-decoration: none;
+}
+
+/*image button light, basic structure div as
+root element with a href as only subelemet*/
+.imageButtonLight, .toggleButton {
+    padding: 0px;
+    width: 10px;
+    display: table;
+
+    background: rgb(242, 245, 246); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(242, 245, 246, 1)), color-stop(37%, rgba(227, 234, 237, 1)), color-stop(100%, rgba(200, 215, 220, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f2f5f6', endColorstr = '#c8d7dc', GradientType = 0); /* IE6-9 */
+    background: linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* W3C */
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+}
+
+.imageButtonLight a:hover, .toggleButton a:hover {
+    text-decoration: none;
+}
+
+.imageButtonLight .imageCommand, .toggleButton .imageCommand {
+
+    border: 1px groove gray;
+    display: table;
+
+    background-repeat: no-repeat;
+    padding: 3px 3px 2px 25px;
+    margin: 0px;
+
+    width: 10px;
+}
+
+.toggleButton .imageCommand {
+    -webkit-transition: all 0.1s ease-out;
+    -moz-transition: all 0.1s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.1s ease-out;
+    transition: all 0.1s ease-out;
+}
+
+.imageButtonLight .imageCommand.clicked, .toggleButton .imageCommand.clicked {
+    background-position: 3px 3px;
+    box-shadow: 2px 2px 3px 0 #777777 inset;
+    border: 1px solid black;
+}
+
+.imageButtonLight .label, .toggleButton .label {
+    color: black;
+    text-shadow: 0px 1px 1px #fff;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+
+    user-select: none;
+
+}
+
+/*toggle button*/
+.toggleButton .valueHolder {
+    display: none;
+}
+
+.imageButtonLight .imageCommand, .toggleButton .imageCommand {
+    background-repeat: no-repeat;
+    background-position: 3px 2px;
+}
+
+/*various standard background images*/
+.transparent.imageButtonLight {
+    background: none;
+}
+
+.transparent.imageButtonLight .imageCommand {
+    border: 0px groove gray;
+}
+
+.small.imageButtonLight .imageCommand, .small.toggleButton .imageCommand.small {
+    width: 22px;
+    height: 22px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.imageButtonLight .imageCommand.accept, .toggleButton .imageCommand.accept {
+    background-image: url(/javax.faces.resource/icons/famfam/accept.png.jsf?ln=images);
+}
+
+.imageButtonLight .imageCommand.add, .toggleButton .imageCommand.add {
+    background-image: url(/javax.faces.resource/icons/famfam/add.png.jsf?ln=images);
+
+}
+
+.imageButtonLight .imageCommand.cancel, .toggleButton .imageCommand.cancel {
+    background-image: url(/javax.faces.resource/icons/famfam/cancel.png.jsf?ln=images);
+}
+
+.imageButtonLight .imageCommand.delete, .toggleButton .imageCommand.delete {
+    background-image: url(/javax.faces.resource/icons/famfam/delete.png.jsf?ln=images);
+}
+
+.imageButtonLight .imageCommand.search, .toggleButton .imageCommand.search {
+    background-image: url(/javax.faces.resource/icons/famfam/magnifier.png.jsf?ln=images);
+}
+
+.imageButtonLight .imageCommand.edit, .toggleButton .imageCommand.edit {
+    background-image: url(/javax.faces.resource/icons/famfam/pencil.png.jsf?ln=images);
+}
+
+.small.imageButtonLight .imageCommand .label, .small.toggleButton .imageCommand .label {
+    display: none;
+}
+
+
+
+

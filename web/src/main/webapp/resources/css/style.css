@@ -1,0 +1,323 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    font-size: 12px;
+    background: #DFDFDF;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #08568F;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+}
+
+#wrap {
+    width: 800px;
+    margin: 0 auto;
+}
+
+#header {
+    height: 100px;
+    background: url(../images/header.jpg) no-repeat;
+}
+
+#header h1 {
+    margin: 0;
+    padding: 15px 0 0 30px;
+    font-weight: 100;
+    font-size: 25px;
+    letter-spacing: -2px;
+}
+
+#header h1 a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#header h1 a:hover {
+    text-decoration: none;
+    border-bottom: 1px solid #F9F7ED;
+}
+
+#header h2 {
+    padding: 0 0 0 30px;
+    margin: 0;
+    color: #fff;
+    font-weight: 100;
+    font-size: 17px;
+}
+
+#menu {
+    background: url(../images/menu.jpg) no-repeat;
+    height: 40px;
+    line-height: 30px;
+}
+
+#menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 20px;
+}
+
+#menu ul li {
+    display: block;
+    float: left;
+}
+
+#menu ul li a {
+    display: block;
+    padding: 0 10px 0 10px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#menu ul li a:hover {
+    color: #fff;
+    background: url(../images/menuover.png) repeat-x;
+}
+
+#contentwrap {
+    background: url(../images/content.jpg) repeat-y;
+    padding: 0 20px 0 30px;
+}
+
+#content {
+    float: left;
+    width: 520px;
+}
+
+#content h2 {
+    margin: 0;
+    color: #1f1f1f;
+    line-height: 30px;
+    font-size: 17px;
+    font-weight: 100;
+}
+
+#content p {
+    padding: 0 0 10px 0;
+    color: #232323;
+}
+
+#content ul {
+    padding: 0 20px 10px 30px;
+}
+
+#sidebar {
+    float: right;
+    width: 200px;
+}
+
+#sidebar h3 {
+    height: 30px;
+    line-height: 30px;
+    font-weight: 600;
+    font-size: 12px;
+    margin: 0;
+    padding: 0 0 0 10px;
+    color: #343434;
+}
+
+#sidebar p {
+    padding: 0 10px 10px 10px;
+    color: #232323;
+}
+
+#sidebar ul {
+    padding: 10px 0 25px 30px;
+    margin: 0;
+    list-style-type: circle;
+}
+
+#sidebar ul li {
+    padding: 0;
+    margin: 0;
+}
+
+#footer {
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    background: url(../images/footer.jpg) no-repeat;
+    height: 30px;
+    line-height: 30px;
+}
+
+#footer p {
+    padding: 0;
+    margin: 0;
+}
+
+#footer a {
+    color: #fff;
+}
+
+#footer a:hover {
+    text-decoration: underline;
+}
+
+/*===== application specific styles ===*/
+
+.searchfields input {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.dialog {
+    display: none;
+    border: 1px solid black;
+    position: absolute;
+    left: auto;
+    right: auto;
+}
+
+.groupDetaDialog {
+    top: 250px;
+    width: 500px;
+    height: 150px;
+    background-color: white;
+}
+
+.groupDetaDialog h2 {
+    background: url(http://localhost:9090/resources/images/menu.jpg) no-repeat;
+    background-position: -30px 0;
+    height: 30px;
+    line-height: 30px;
+
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px #888;
+    -o-box-shadow: 0 0 5px #888;
+
+    box-shadow: 0 0 5px #888;
+
+    padding-left: 0.2em;
+}
+
+.dialog .about, .window .about {
+    background-color: #e7eef4;
+    border-left: 1px groove silver;
+    bottom: 0px;
+    right: 0px;
+    overflow: hidden;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: absolute;
+    top: 31px;
+    width: 160px;
+}
+
+.window .about {
+    top: 0px;
+}
+
+.editform input {
+    min-width: 18em;
+}
+
+div.actions {
+    width: 200px;
+    border-top: 1px dashed gray;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    font-size: 13px;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+div.actions a {
+    margin-right: 0.2em;
+}
+
+div.actions>a {
+    margin-left: 0.2em;
+}
+
+.fadeIn {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+
+}
+
+.ops a {
+    margin-right: 0.2em;
+}
+
+table.resultList tr:hover {
+    background-color: #d0d2d6;
+}
+
+/* type ahead*/
+.inputSuggest {
+    /*root marker of the entire input suggest control*/
+    display: block;
+    position: relative;
+    /*we have to add the position flag to enable position absolute
+as relative coordinate to the input*/
+}
+
+.inputSuggest .suggestArea {
+    border: 1px solid gray;
+    -moz-box-shadow: 0 0 2px #888;
+    -webkit-box-shadow: 0 0 2px #888;
+    -o-box-shadow: 0 0 2px #888;
+
+    box-shadow: 0 0 2px #888888;
+    position: absolute;
+    background-color: white;
+    padding: 0.3em;
+    display: block;
+}
+
+/**
+general image button site style
+*/
+.imageButtonLight {
+    float: left;
+    margin: 5px;
+}
+
+.groupEdit.window {
+    width: 500px;
+    height: 200px;
+
+}
+.groupDelete.window {
+    width: 500px;
+    height: 200px;
+}
+
+
+.ews_underlay {
+    background-color: gray;
+    opacity: 0.5;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10100;
+
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+}

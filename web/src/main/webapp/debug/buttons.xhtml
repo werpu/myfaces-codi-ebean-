@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
+      xmlns:ezwd="http://java.sun.com/jsf/composite/ezcomp/widgets/deprecated"
+        >
+
+<ui:composition template="../templates/template.xhtml">
+
+    <ui:define name="header">
+
+        <title>Person List view</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
+        </f:metadata>
+
+        <!-- we have to force an import because we rely on single files in the impl -->
+        <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
+        --></script>
+
+
+    </ui:define>
+
+    <ui:define name="search">
+
+
+
+    </ui:define>
+
+
+    <ui:define name="content">
+
+
+        <h:form id="mainForm" prependId="false">
+
+            <ezw:ajaxStatus id="pull">
+                Ajax in progress
+            </ezw:ajaxStatus>
+            <h2>image button which allows the definition of images directly</h2>
+            <ezwd:imageButton id="myImageButton"
+                             action="#{imageButtonController.doAction}"
+                             library="images"
+                             imageNormal="icons/famfam/accept.png"
+                             value="Press me"  >
+                 <f:ajax render="@none" execute="@this" />
+             </ezwd:imageButton>
+             <h2>small prototyping testbutton</h2>
+
+             <ezwd:testButton id="imageBt" value="test" action="#{imageButtonController.doAction}">
+                <f:ajax render="@none" event="click" execute="@this" />
+             </ezwd:testButton>
+
+            <h2>css style lightweight image button which works entirely over css</h2>
+
+            <ezw:imageButtonLight id="imageBtLight" styleClass="accept" label="test" action="#{imageButtonController.doAction}">
+                <f:ajax render="@none" event="click" execute="@this" />
+             </ezw:imageButtonLight>
+
+            <ezw:toggleButton id="toggle" styleClass="accept" label="toggle"   >
+
+             </ezw:toggleButton>
+
+            <h:commandLink id="blarb" action="#{imageButtonController.doVisible}" value="make visible"
+                           onclick="jsf.ajax.request(this, event, {execute:'@this', render:'@this bla'}); return false;" />
+        </h:form>
+        <div id="bla">
+            <ezwd:testbuttonrow id="bla" />
+        </div>
+
+    </ui:define>
+</ui:composition>
+
+
+</html>
+
