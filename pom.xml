@@ -65,7 +65,9 @@
 
     <modules>
         <module>web</module>
+        <module>plugin</module>
     </modules>
+
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
@@ -85,7 +87,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
-
+            <!-- scala tools plugin -->
             <plugin>
                 <groupId>org.scala-tools</groupId>
                 <artifactId>maven-scala-plugin</artifactId>
@@ -113,14 +115,8 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.source.version}</source>
-                    <target>${java.source.version}</target>
-                </configuration>
-            </plugin>
 
+            <!-- maven compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -131,6 +127,7 @@
                 </configuration>
             </plugin>
 
+            <!-- enforcer plugin, optional -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -156,6 +153,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

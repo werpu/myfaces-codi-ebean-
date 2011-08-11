@@ -461,6 +461,8 @@ able to use Apache OWB outside of the typical EE realm. (Yes here in Jetty). -->
                         </dependencies>
 
                     </plugin>
+
+
                 </plugins>
             </build>
 

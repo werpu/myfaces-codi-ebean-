@@ -3,15 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>at.irian</groupId>
     <artifactId>plugin</artifactId>
-    <packaging>jar</packaging>
+    <packaging>maven-plugin</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>testenterpriseweb2 Java EE 6 Webapp</name>
-    <url>http://maven.apache.org</url>
+    <name>Sample Parameter-less Maven Plugin</name>
+
     <parent>
         <groupId>at.irian</groupId>
         <artifactId>testenterpriseweb2</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <dependencies>
         <dependency>
             <!-- mit license -->
@@ -19,5 +20,11 @@
             <artifactId>jsdoc</artifactId>
             <version>2.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>2.2.1</version>
+        </dependency>
     </dependencies>
+
 </project>
