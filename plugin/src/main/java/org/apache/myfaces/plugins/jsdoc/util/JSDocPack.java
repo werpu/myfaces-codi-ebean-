@@ -29,13 +29,15 @@ import java.util.jar.JarFile;
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
+ *
+ * base class for all our jsdoc unpackers
  */
 
-public abstract class JSDocUnpacker {
+public abstract class JSDocPack {
     String _jarPath;
     File _jsdocContainer;
 
-    protected JSDocUnpacker() {
+    protected JSDocPack() {
 
     }
 

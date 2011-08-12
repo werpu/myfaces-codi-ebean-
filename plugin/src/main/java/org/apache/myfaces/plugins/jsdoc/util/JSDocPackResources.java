@@ -29,13 +29,15 @@ import java.util.jar.JarFile;
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
+ *
+ * unpacks a locally hosted jsdoc (which is placed in our resources folder
  */
 
-public class JSDocUnpackerLocal extends JSDocUnpacker {
+public class JSDocPackResources extends JSDocPack {
     /**
      * constructor
      */
-    public JSDocUnpackerLocal() {
+    public JSDocPackResources() {
         super();
     }
 

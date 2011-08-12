@@ -19,12 +19,8 @@
 
 package org.apache.myfaces.plugins.jsdoc.util;
 
-import java.awt.*;
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
@@ -40,24 +36,39 @@ import java.util.jar.JarFile;
  * The jsdoc toolkit itself can be streamed in via maven.
  */
 
-public class JSDocUnpackerMaven extends JSDocUnpacker {
+public class JSDocPackMaven extends JSDocPack {
 
     /**
      * constructor
      *
-
      */
-    public JSDocUnpackerMaven() {
+    public JSDocPackMaven() {
         super();
         _jarPath = fetchJarLocation();
 
     }
 
+    /**
+     * public method which is called from the outside
+     * unpacks the current jsdoc package into our target dir
+     *
+     * @param targetDir the target dir to unpack to
+     * @param log the target log to log into
+     * @throws IOException in case of an error
+     */
     public void unpack(String targetDir, org.apache.maven.plugin.logging.Log log) throws IOException {
         JarFile jarFile = new JarFile(_jarPath);
         _expandJarFile(targetDir, log, jarFile);
     }
 
+    /**
+     * fetches the location of the jsdoc hosting jar,
+     * the location already should be in maven and our main
+     * constant is the <code>app/main.js</code> file which should be present
+     * everywhere
+     *
+     * @return a string to the location
+     */
     protected String fetchJarLocation() {
         URL markerResourceLocation = this.getClass().getClassLoader().getResource("app/main.js");
         String markerResource = markerResourceLocation.getFile();

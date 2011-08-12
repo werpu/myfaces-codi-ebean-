@@ -24,7 +24,6 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.myfaces.plugins.jsdoc.util.*;
-import org.mozilla.javascript.tools.shell.Main;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
@@ -105,7 +104,7 @@ public class JSDocMojo extends AbstractMojo {
      */
     XMLConfig fileMap;
 
-    JSDocUnpacker unpacker;
+    JSDocPack unpacker;
 
     String jsdocTargetPath = null;
 
@@ -120,7 +119,7 @@ public class JSDocMojo extends AbstractMojo {
             throw new MojoExecutionException(e.toString());
         }
         //unpacker = new JSDocUnpackerMaven()
-        unpacker = new JSDocUnpackerMaven();
+        unpacker = new JSDocPackMaven();
 
         jsdocTargetPath = projectBuildDir + File.separator + "temp" + File.separator + "jsdoc";
         File pathCreator = new File(jsdocTargetPath);
