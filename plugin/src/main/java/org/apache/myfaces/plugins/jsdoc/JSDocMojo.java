@@ -85,13 +85,7 @@ public class JSDocMojo extends AbstractMojo {
      */
     private boolean includeUndocumentedUnderscored;
 
-    /**
-     * Use the -j option, must be set to <code>false</code> for JSDoc Toolkit 1.x. or
-     * <code>true</code> for JSDoc Toolkit version 2.0 and above. Default is <code>true</code>.
-     *
-     * @parameter expression="true"
-     */
-    private boolean jArgument;
+
 
      /**
      * template directory used by jsdoc the default is <code>templates/jsdoc</code> under the jsdoc root
@@ -159,9 +153,8 @@ public class JSDocMojo extends AbstractMojo {
         args.addAll(getSources());
          //according to the run.js source the last argument
         //must be a -j param pointing to the jsdoc javascripts
-        if(this.jArgument){
-			args.add("-j=" + runJsPath);
-		}
+		args.add("-j=" + runJsPath);
+
         getLog().info("[JSDOC] Executing within maven: '" + args.toString().replaceAll(",","") + "'");
 
 		// tell Rhino to run JSDoc with the provided params
