@@ -27,6 +27,8 @@ import java.io.File;
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
+ *
+ * A javascript filename filter which can be used within the context of commons-io
  */
 public class JSFileNameFilter implements IOFileFilter {
 

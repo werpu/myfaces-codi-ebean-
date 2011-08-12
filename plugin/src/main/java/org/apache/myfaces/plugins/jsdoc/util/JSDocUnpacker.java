@@ -19,10 +19,9 @@
 
 package org.apache.myfaces.plugins.jsdoc.util;
 
-import java.awt.*;
+import org.apache.maven.plugin.logging.Log;
+
 import java.io.*;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -30,48 +29,24 @@ import java.util.jar.JarFile;
 /**
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
- *
- * An unpacker for the jsdoc toolkit
- * Unfortunately we have to unpack the jsdoc toolkit during
- * the build process because we have a set of js files
- * running via rhino which will not work unless we have them
- * on the filesystem instead of the jar.
- *
- * The jsdoc toolkit itself can be streamed in via maven.
  */
 
-public class JSDocUnpacker {
+public abstract class JSDocUnpacker {
     String _jarPath;
-
     File _jsdocContainer;
 
-
-    /**
-     * constructor
-     *
-     * @param jarPath The path to the jar
-     */
-    public JSDocUnpacker() {
-        final String SEP = File.separator;
-        _jarPath = fetchJarLocation();
+    protected JSDocUnpacker() {
 
     }
 
-     private String fetchJarLocation() {
-        URL markerResourceLocation = this.getClass().getClassLoader().getResource("app/main.js");
-        String markerResource = markerResourceLocation.getFile();
-        markerResource = markerResource.substring(5);
-        markerResource = markerResource.substring(0, markerResource.length()-"!/app/main.js".length());
-        return markerResource;
-    }
+    public abstract void unpack(String targetDir, org.apache.maven.plugin.logging.Log log) throws IOException;
 
-    public void unpack(String targetDir, org.apache.maven.plugin.logging.Log log) throws IOException {
-        JarFile jarFile = new JarFile(_jarPath);
+    protected void _expandJarFile(String targetDir, Log log, JarFile jarFile) throws IOException {
         Enumeration<JarEntry> entries = jarFile.entries();
         while (entries.hasMoreElements()) {
             JarEntry entry = entries.nextElement();
 
-            File targetFile = new File(targetDir + java.io.File.separator + entry.getName());
+            File targetFile = new File(targetDir + File.separator + entry.getName());
             if (entry.isDirectory()) {
                 targetFile.mkdir();
                 continue;

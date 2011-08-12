@@ -66,6 +66,7 @@
     <modules>
         <module>web</module>
         <module>plugin</module>
+        <module>plugintest</module>
     </modules>
 
     <dependencies>

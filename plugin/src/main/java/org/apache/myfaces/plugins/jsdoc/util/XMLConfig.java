@@ -29,7 +29,8 @@ import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashSet;
+import java.util.List;
+import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -43,11 +44,11 @@ public class XMLConfig {
 
     String _fileName = null;
 
-     Set<String> _fileNames = null;
+     List<String> _fileNames = null;
 
     public XMLConfig(String fileName) throws XMLStreamException, FileNotFoundException {
         _fileName = fileName;
-        _fileNames = new HashSet<String>();
+        _fileNames = new LinkedList<String>();
         postCreate();
     }
 
@@ -93,11 +94,11 @@ public class XMLConfig {
         _fileName = fileName;
     }
 
-    public Set<String> getFileNames() {
+    public List<String> getFileNames() {
         return _fileNames;
     }
 
-    public void setFileNames(Set<String> fileNames) {
+    public void setFileNames(List<String> fileNames) {
         _fileNames = fileNames;
     }
 }
