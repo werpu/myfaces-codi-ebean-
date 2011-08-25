@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-
 /**
- * A collection of dom helper routines
+ * @class
+ * @name _Dom
+ * @memberOf myfaces._impl._util
+ * @extends myfaces._impl.core._Runtime
+ * @description Object singleton collection of dom helper routines
  * (which in later incarnations will
  * get browser specific speed optimizations)
  *
@@ -25,20 +28,12 @@
  * the parts which our impl uses.
  * A jquery like query API would be nice
  * but this would blow up our codebase significantly
- *
- * TODO we have to split this class and make it more oo
- * with a node and nodelist class which then can be utilized
- * by the other parts of the system
- *
  */
-/** @namespace myfaces._impl._util._Dom */
-
-/** @namespace NodeFilter */
-/** @namespace NodeFilter.FILTER_ACCEPT */
-/** @namespace NodeFilter.FILTER_SKIP */
-/** @namespace NodeFilter.FILTER_REJECT */
-/** @namespace NodeFilter.SHOW_ELEMENT */
-myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._util._Dom", Object, {
+myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._util._Dom", Object,
+/**
+ * @lends myfaces._impl._util._Dom.prototype
+ */
+{
     IE_QUIRKS_EVENTS : {
         "onabort": true,
         "onload":true,
@@ -75,6 +70,9 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._util._Dom", Obj
     _RT:    myfaces._impl.core._Runtime,
     _dummyPlaceHolder:null,
 
+    /**
+     * standard constructor
+     */
     constructor_: function() {
         //we have to trigger it upfront because mozilla runs the eval
         //after the dom updates and hence causes a race conditon if used on demand
@@ -105,7 +103,7 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._util._Dom", Obj
     /**
      * Run through the given Html item and execute the inline scripts
      * (IE doesn't do this by itself)
-     * @param {|Node|} item
+     * @param {Node} item
      */
     runScripts: function(item, xmlData) {
         var finalScripts = [];
@@ -179,7 +177,7 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._util._Dom", Obj
      * determines to fetch a node
      * from its id or name, the name case
      * only works if the element is unique in its name
-     * @param elem
+     * @param {String} elem
      */
     byIdOrName: function(elem) {
         if (!this._Lang.isString(elem)) return elem;
@@ -317,7 +315,12 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._util._Dom", Obj
         this._removeNode(item, false);
         return null;
     },
-
+    /**
+     * detchaes a set of nodes from their parent elements
+     * in a browser independend manner
+     * @param {Nodelist} items the items which need to be detached
+     * @return {Array} an array of nodes with the detached dom nodes
+     */
     detach: function(items) {
         var ret = [];
         if ('undefined' != typeof items.nodeType) {
@@ -328,7 +331,8 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._util._Dom", Obj
             }
             return ret;
         }
-
+        //all ies treat node lists not as arrays so we have to take
+        //an intermediate step
         var items = this._Lang.objToArray(items);
         for (var cnt = 0; cnt < items.length; cnt++) {
             ret.push(items[cnt].parentNode.removeChild(items[cnt]));

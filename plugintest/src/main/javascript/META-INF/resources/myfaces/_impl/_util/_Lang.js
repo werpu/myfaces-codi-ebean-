@@ -44,8 +44,7 @@
  * @extends myfaces._impl.core._Runtime
  * @description Object singleton for Language related methods, this object singleton
  * decorates the namespace myfaces._impl.core._Runtime and adds a bunch of new methods to
- * what _Runtime provides
- *
+ * what _Runtime provided
  * */
 var _Lang = myfaces._impl.core._Runtime.singletonDelegateObj("myfaces._impl._util._Lang", myfaces._impl.core._Runtime,
         /**

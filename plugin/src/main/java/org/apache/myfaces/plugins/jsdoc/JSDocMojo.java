@@ -129,7 +129,7 @@ public class JSDocMojo extends AbstractMojo {
             getLog().error(e);
             throw new MojoExecutionException(e.toString());
         }
-        //unpacker = new JSDocUnpackerMaven()
+        //unpacker = new JSDocPackMaven();
         unpacker = new JSDocPackResources();
 
         jsdocRunPath = projectBuildDir + File.separator  + JSDOC;
