@@ -23,6 +23,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 
 import java.io.File;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -34,31 +36,51 @@ public class JSFileNameFilter implements IOFileFilter {
 
     XMLConfig _fileMap = null;
 
+    Map<Integer, String> _sortedResults = new TreeMap<Integer, String>();
+
+
     public JSFileNameFilter(XMLConfig fileMap) {
         this._fileMap = fileMap;
     }
 
     private boolean matchNames(String fileName) {
         for (String matchPattern : _fileMap.getFileNames()) {
-            boolean ret = FilenameUtils.wildcardMatch(fileName, matchPattern);
-            if (ret) return ret;
+            boolean matches = FilenameUtils.wildcardMatch(fileName, matchPattern);
+            if (matches) {
+                _sortedResults.put(_fileMap.getFileNameIdx().get(matchPattern), fileName);
+                return matches;
+            }
         }
         return false;
     }
 
     @Override
     public boolean accept(File file) {
-
         //no js file no match
         if (!file.getName().endsWith(".js")) return false;
-
         return matchNames(file.getAbsolutePath());
-    }
+   }
 
     @Override
     public boolean accept(File file, String s) {
         if (!s.endsWith(".js")) return false;
         return matchNames(file.getAbsolutePath() + "/" + s);  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public XMLConfig getFileMap() {
+        return _fileMap;
+    }
+
+    public void setFileMap(XMLConfig fileMap) {
+        _fileMap = fileMap;
+    }
+
+    public Map<Integer, String> getSortedResults() {
+        return _sortedResults;
+    }
+
+    public void setSortedResults(Map<Integer, String> sortedResults) {
+        _sortedResults = sortedResults;
     }
 }
 

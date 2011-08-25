@@ -30,8 +30,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import static org.apache.myfaces.plugins.jsdoc.JSDocMojoConst.*;
 
@@ -50,7 +50,6 @@ import static org.apache.myfaces.plugins.jsdoc.JSDocMojoConst.*;
  */
 public class JSDocMojo extends AbstractMojo {
 
-
     /**
      * the root project build dir (target directory)
      *
@@ -61,14 +60,14 @@ public class JSDocMojo extends AbstractMojo {
     /**
      * The project source directory
      *
-     * @parameter expression="${project.build.directory}/../src/"
+     * @parameter expression="${project.build.directory}/../src/main/javascript/META-INF/"
      */
     String buildSourceDirectory;
 
     /**
      * Path to the assembly file containing the file paths to our source javascript files
      *
-     * @parameter expression="${project.build.directory}/../src/assembler/jsfscripts-compiler.xml"
+     * @parameter expression="${project.build.directory}/../src/assembler/jsdoc-compiler.xml"
      */
     String assemblyFile;
 
@@ -116,6 +115,9 @@ public class JSDocMojo extends AbstractMojo {
     JSDocPack unpacker;
 
     String jsdocTargetPath = null;
+    String javascriptTargetPath = null;
+    String jsdocRunPath = null;
+
 
     protected void _setup() throws MojoExecutionException {
         try {
@@ -130,9 +132,15 @@ public class JSDocMojo extends AbstractMojo {
         //unpacker = new JSDocUnpackerMaven()
         unpacker = new JSDocPackResources();
 
+        jsdocRunPath = projectBuildDir + File.separator  + JSDOC;
         jsdocTargetPath = projectBuildDir + File.separator + TEMP + File.separator + JSDOC;
+
+        javascriptTargetPath = jsdocRunPath + File.separator + JAVASCRIPT;
+
         File pathCreator = new File(jsdocTargetPath);
+        File jsdocPathCreator = new File(javascriptTargetPath);
         pathCreator.mkdirs();
+        jsdocPathCreator.mkdirs();
     }
 
     public void _tearDown() {
@@ -140,7 +148,10 @@ public class JSDocMojo extends AbstractMojo {
     }
 
     protected void _execute() throws MojoExecutionException, IOException {
-        getLog().info("[JSDOC] Unpacking jsdoc toolkit for further processing");
+
+        getLog().info("[JSDOC] Copying all javascript sources to the target dir for later reference");
+        copySourceToTarget();
+         getLog().info("[JSDOC] Copying done without any errors");
         getSources();
         //now we have all files we now can now work on our plugin call
         getLog().info("[JSDOC] Unpacking jsdoc toolkit for further processing");
@@ -148,8 +159,10 @@ public class JSDocMojo extends AbstractMojo {
         getLog().info("[JSDOC] Unpacking jsdoc toolkit for further processing done");
 
         String systemJsdocDir = System.getProperty(JSDOC_DIR);
-        System.setProperty(JSDOC_DIR, jsdocTargetPath);
-
+        System.setProperty(JSDOC_DIR, jsdocTargetPath+File.separator);
+        String userDir = System.getProperty("user.dir");
+        System.setProperty("user.dir", jsdocTargetPath+File.separator);
+        try {
         List<String> args = _initArguments();
 
         getLog().info("[JSDOC] Executing within maven: '" + args.toString().replaceAll(",", "") + "'");
@@ -157,9 +170,24 @@ public class JSDocMojo extends AbstractMojo {
         // tell Rhino to run JSDoc with the provided params
         // without calling System.exit
         org.mozilla.javascript.tools.shell.Main.main(args.toArray(new String[0]));
+
+        this.fixHTML();
         if (systemJsdocDir != null) {
             System.setProperty(JSDOC_DIR, systemJsdocDir);
         }
+        } finally {
+            if(userDir != null) {
+                System.setProperty("user.dir", userDir);
+            }
+        }
+    }
+
+    /**
+     * initially copies all source files from the given source dir to the target
+     * dir so that the files can be referenced later on by the html files
+     */
+    private void copySourceToTarget() throws IOException {
+        FileUtils.copyDirectory(new File(buildSourceDirectory), new File(javascriptTargetPath));
     }
 
     private final List<String> _initArguments() {
@@ -186,12 +214,19 @@ public class JSDocMojo extends AbstractMojo {
         return args;
     }
 
+    /**
+     * @return the directory as absolute path holding the jsdoc toolkit templates
+     */
     private final String getTemplateDirectory() {
         return (TEMPLATES_JSDOC.equals(this.templates)) ?
                 this.jsdocTargetPath + File.separator + this.templates :
                 this.templates;
     }
 
+    /**
+     *
+     * @return the target directory for the jsdoc files
+     */
     private final String getOutputDirectory() {
         return (this.outputDirectory == null || this.outputDirectory.equals("")) ?
                 projectBuildDir + File.separator + JSDOC :
@@ -199,16 +234,27 @@ public class JSDocMojo extends AbstractMojo {
 
     }
 
+    /**
+     * @return fetches the sources for the javascripts in the order given by the xml
+     */
     private List<String> getSources() {
-        Iterator<File> it = FileUtils.iterateFiles(new File(buildSourceDirectory), new JSFileNameFilter(fileMap), TrueFileFilter.INSTANCE);
-        List toProcess = new ArrayList(40);
-        while (it.hasNext()) {
-            File currFile = it.next();
-            toProcess.add(currFile.getAbsolutePath());
+        JSFileNameFilter fileNameFilter  = new JSFileNameFilter(fileMap);
+        FileUtils.iterateFiles(new File(getOutputDirectory()), fileNameFilter, TrueFileFilter.INSTANCE);
 
+        Map<Integer, String> sortedResult = fileNameFilter.getSortedResults();
+        List<String> sources = new ArrayList<String>(sortedResult.size());
+        for(Map.Entry<Integer, String> singleItem: sortedResult.entrySet()) {
+            String finalFileName = singleItem.getValue();
+            sources.add(finalFileName);
         }
-        return toProcess;
+
+        return sources;
     }
+
+    private void fixHTML() {
+        FileUtils.iterateFiles(new File(getOutputDirectory()), new HTMLFileContentFilter(getOutputDirectory()), TrueFileFilter.INSTANCE);
+    }
+
 
     public void execute() throws MojoExecutionException {
         _setup();

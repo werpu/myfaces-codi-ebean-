@@ -38,4 +38,5 @@ public class JSDocMojoConst {
     public static final String PARAM_TEMPLATE = "-t";
     public static final String PARAM_JS_FLAG = "-j";
     public static final String EQUALS = "=";
+    public static final String JAVASCRIPT = "javascript";
 }

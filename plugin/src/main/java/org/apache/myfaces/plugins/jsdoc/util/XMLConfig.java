@@ -29,9 +29,7 @@ import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -44,7 +42,9 @@ public class XMLConfig {
 
     String _fileName = null;
 
-     List<String> _fileNames = null;
+    List<String> _fileNames = null;
+    Map<String, Integer> _fileNameIdx = new HashMap<String, Integer>();
+
 
     public XMLConfig(String fileName) throws XMLStreamException, FileNotFoundException {
         _fileName = fileName;
@@ -54,12 +54,12 @@ public class XMLConfig {
 
     protected void postCreate() throws XMLStreamException, FileNotFoundException {
         XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-// einen neuen eventReader einrichten
+        // einen neuen eventReader einrichten
         InputStream in = new FileInputStream(_fileName);
         XMLEventReader parser = inputFactory.createXMLEventReader(in);
         StringBuilder elementText = null;
 
-
+        int cnt = 0;
         while (parser.hasNext()) {
             XMLEvent event = parser.nextEvent();
             switch (event.getEventType()) {
@@ -78,6 +78,8 @@ public class XMLConfig {
                     if (!event.asEndElement().getName().toString().equals("include")) break;
                     if (elementText == null) break;
                     _fileNames.add(elementText.toString());
+                    _fileNameIdx.put(elementText.toString(), cnt);
+                    cnt++;
                     elementText = null;
                     break;
                 default: break;
@@ -100,5 +102,13 @@ public class XMLConfig {
 
     public void setFileNames(List<String> fileNames) {
         _fileNames = fileNames;
+    }
+
+    public Map<String, Integer> getFileNameIdx() {
+        return _fileNameIdx;
+    }
+
+    public void setFileNameIdx(Map<String, Integer> fileNameIdx) {
+        _fileNameIdx = fileNameIdx;
     }
 }
