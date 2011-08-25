@@ -114,8 +114,19 @@ public class JSDocMojo extends AbstractMojo {
 
     JSDocPack unpacker;
 
-    String jsdocTargetPath = null;
+    /**
+     * target path for the unpacked jsdoc engine
+     */
+    String jsdocEngineUnpacked = null;
+
+    /**
+     * target patchs for the javascript
+     */
     String javascriptTargetPath = null;
+
+    /**
+     * run path for the jsdoc engine
+     */
     String jsdocRunPath = null;
 
 
@@ -133,11 +144,11 @@ public class JSDocMojo extends AbstractMojo {
         unpacker = new JSDocPackResources();
 
         jsdocRunPath = projectBuildDir + File.separator  + JSDOC;
-        jsdocTargetPath = projectBuildDir + File.separator + TEMP + File.separator + JSDOC;
+        jsdocEngineUnpacked = projectBuildDir + File.separator + TEMP + File.separator + JSDOC;
 
         javascriptTargetPath = jsdocRunPath + File.separator + JAVASCRIPT;
 
-        File pathCreator = new File(jsdocTargetPath);
+        File pathCreator = new File(jsdocEngineUnpacked);
         File jsdocPathCreator = new File(javascriptTargetPath);
         pathCreator.mkdirs();
         jsdocPathCreator.mkdirs();
@@ -155,13 +166,13 @@ public class JSDocMojo extends AbstractMojo {
         getSources();
         //now we have all files we now can now work on our plugin call
         getLog().info("[JSDOC] Unpacking jsdoc toolkit for further processing");
-        unpacker.unpack(jsdocTargetPath, getLog());
+        unpacker.unpack(jsdocEngineUnpacked, getLog());
         getLog().info("[JSDOC] Unpacking jsdoc toolkit for further processing done");
 
         String systemJsdocDir = System.getProperty(JSDOC_DIR);
-        System.setProperty(JSDOC_DIR, jsdocTargetPath+File.separator);
+        System.setProperty(JSDOC_DIR, jsdocEngineUnpacked +File.separator);
         String userDir = System.getProperty("user.dir");
-        System.setProperty("user.dir", jsdocTargetPath+File.separator);
+        System.setProperty("user.dir", jsdocEngineUnpacked +File.separator);
         try {
         List<String> args = _initArguments();
 
@@ -192,7 +203,7 @@ public class JSDocMojo extends AbstractMojo {
 
     private final List<String> _initArguments() {
         List<String> args = new ArrayList<String>();
-        String runJsPath = jsdocTargetPath + File.separator + APP + File.separator + RUN_JS;
+        String runJsPath = jsdocEngineUnpacked + File.separator + APP + File.separator + RUN_JS;
         args.add(runJsPath);
 
         if (this.includeUndocumented) {
@@ -219,7 +230,7 @@ public class JSDocMojo extends AbstractMojo {
      */
     private final String getTemplateDirectory() {
         return (TEMPLATES_JSDOC.equals(this.templates)) ?
-                this.jsdocTargetPath + File.separator + this.templates :
+                this.jsdocEngineUnpacked + File.separator + this.templates :
                 this.templates;
     }
 
