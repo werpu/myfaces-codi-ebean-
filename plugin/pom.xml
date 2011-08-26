@@ -25,13 +25,13 @@
             <artifactId>stax</artifactId>
             <version>1.2.0</version>
         </dependency>
-        <!--
+
         <dependency>
             <groupId>org.jsdoctoolkit</groupId>
             <artifactId>jsdoc</artifactId>
             <version>2.1.0</version>
         </dependency>
-        -->
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
