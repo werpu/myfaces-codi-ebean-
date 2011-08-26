@@ -27,7 +27,7 @@
  space is not worth the loss of readability
  */
 
-//Intellij Warnings settings
+
 /**
  * @memberOf myfaces._impl
  * @namespace

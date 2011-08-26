@@ -22,10 +22,10 @@ package org.apache.myfaces.plugins.jsdoc.util;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -47,8 +47,10 @@ public class HTMLFileContentFilter implements IOFileFilter {
         if(!fileName.toLowerCase().endsWith(".html")) return false;
         String fileContents = FileUtils.readFileToString(new File(fileName));
         List currFile =  FileUtils.readLines(new File(fileName));
-        List<String> targetLines = new ArrayList<String>(currFile.size());
-        for(Object line : currFile) {
+        List targetLines = new ArrayList(currFile.size());
+        Iterator it = currFile.iterator();
+        while(it.hasNext()) {
+            Object line = it.next();
             String sLine = (String) line;
             targetLines.add(sLine.replaceAll(substitutionDir, ""));
         }
@@ -56,7 +58,6 @@ public class HTMLFileContentFilter implements IOFileFilter {
         return true;
     }
 
-    @Override
     public boolean accept(File file) {
         if(file.isDirectory()) return false;
         try {
@@ -67,7 +68,6 @@ public class HTMLFileContentFilter implements IOFileFilter {
         return true;
     }
 
-    @Override
     public boolean accept(File file, String s) {
         if(file.isDirectory()) return false;
         try {

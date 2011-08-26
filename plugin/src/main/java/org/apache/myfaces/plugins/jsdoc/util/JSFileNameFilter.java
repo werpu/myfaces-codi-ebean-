@@ -23,6 +23,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -36,7 +37,7 @@ public class JSFileNameFilter implements IOFileFilter {
 
     XMLConfig _fileMap = null;
 
-    Map<Integer, String> _sortedResults = new TreeMap<Integer, String>();
+    Map _sortedResults = new TreeMap();
 
 
     public JSFileNameFilter(XMLConfig fileMap) {
@@ -44,7 +45,9 @@ public class JSFileNameFilter implements IOFileFilter {
     }
 
     private boolean matchNames(String fileName) {
-        for (String matchPattern : _fileMap.getFileNames()) {
+        Iterator it = _fileMap.getFileNames().iterator();
+        while (it.hasNext()) {
+            String matchPattern = (String) it.next();
             boolean matches = FilenameUtils.wildcardMatch(fileName, matchPattern);
             if (matches) {
                 _sortedResults.put(_fileMap.getFileNameIdx().get(matchPattern), fileName);
@@ -54,14 +57,12 @@ public class JSFileNameFilter implements IOFileFilter {
         return false;
     }
 
-    @Override
     public boolean accept(File file) {
         //no js file no match
         if (!file.getName().endsWith(".js")) return false;
         return matchNames(file.getAbsolutePath());
    }
 
-    @Override
     public boolean accept(File file, String s) {
         if (!s.endsWith(".js")) return false;
         return matchNames(file.getAbsolutePath() + "/" + s);  //To change body of implemented methods use File | Settings | File Templates.
@@ -75,11 +76,11 @@ public class JSFileNameFilter implements IOFileFilter {
         _fileMap = fileMap;
     }
 
-    public Map<Integer, String> getSortedResults() {
+    public Map getSortedResults() {
         return _sortedResults;
     }
 
-    public void setSortedResults(Map<Integer, String> sortedResults) {
+    public void setSortedResults(Map sortedResults) {
         _sortedResults = sortedResults;
     }
 }

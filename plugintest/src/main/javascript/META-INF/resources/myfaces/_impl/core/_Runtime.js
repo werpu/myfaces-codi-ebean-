@@ -41,6 +41,7 @@
 */
 
 
+
 if(!window.myfaces) {
     /**
      * @namespace
@@ -63,7 +64,7 @@ myfaces._impl = (myfaces._impl) ?  myfaces._impl : {};
  * @namespace
  * @name core
  */
-myfaces._impl.core = new function(){};
+myfaces._impl.core = (myfaces._impl.core)?myfaces._impl.core: {};
 //now this is the only time we have to do this cascaded and manually
 //for the rest of the classes our reserveNamespace function will do the trick
 //Note, this class uses the classical closure approach (to save code)

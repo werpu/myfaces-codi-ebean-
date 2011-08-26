@@ -41,12 +41,12 @@ public abstract class JSDocPack {
 
     }
 
-    public abstract void unpack(String targetDir, org.apache.maven.plugin.logging.Log log) throws IOException;
+    public abstract void unpack(String targetDir, Log log) throws IOException;
 
     protected void _expandJarFile(String targetDir, Log log, JarFile jarFile) throws IOException {
-        Enumeration<JarEntry> entries = jarFile.entries();
+        Enumeration entries = jarFile.entries();
         while (entries.hasMoreElements()) {
-            JarEntry entry = entries.nextElement();
+            JarEntry entry = (JarEntry) entries.nextElement();
 
             File targetFile = new File(targetDir + File.separator + entry.getName());
             if (entry.isDirectory()) {

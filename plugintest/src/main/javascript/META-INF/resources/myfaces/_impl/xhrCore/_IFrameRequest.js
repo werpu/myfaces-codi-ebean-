@@ -22,6 +22,11 @@
  * @description
  * iframe transport for an alternative way to do ajax communication
  * <p />
+ * The idea to make a frame a protocol transport is, to make a form submit
+ * with the iframe as target, and once done use the result in the iframe
+ * as result for the request.
+ *
+ * <p />
  * This method can be used by older browsers and if you have
  * a multipart request which includes
  * a fileupload element, fileuploads cannot be handled by
@@ -202,6 +207,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._IFrameRequest", 
         appendHiddenValue(this.MF_PART_IFRAME, "true");
 
     },
+
 
     _removeAjaxParams: function(oldTarget) {
         var _Impl = this._getImpl();

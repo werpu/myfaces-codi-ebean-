@@ -21,15 +21,18 @@ package org.apache.myfaces.plugins.jsdoc.util;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
-
-import static javax.xml.stream.XMLStreamConstants.*;
-
+import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+//import static javax.xml.stream.XMLStreamConstants.*;
 
 /**
  * @author Werner Punz (latest modification by $Author$)
@@ -42,13 +45,13 @@ public class XMLConfig {
 
     String _fileName = null;
 
-    List<String> _fileNames = null;
-    Map<String, Integer> _fileNameIdx = new HashMap<String, Integer>();
+    List _fileNames = null;
+    Map _fileNameIdx = new HashMap();
 
 
     public XMLConfig(String fileName) throws XMLStreamException, FileNotFoundException {
         _fileName = fileName;
-        _fileNames = new LinkedList<String>();
+        _fileNames = new LinkedList();
         postCreate();
     }
 
@@ -63,18 +66,18 @@ public class XMLConfig {
         while (parser.hasNext()) {
             XMLEvent event = parser.nextEvent();
             switch (event.getEventType()) {
-                case END_DOCUMENT:
+                case XMLStreamConstants.END_DOCUMENT:
                     parser.close();
                     break;
-                case START_ELEMENT:
+                case XMLStreamConstants.START_ELEMENT:
                     if (!event.asStartElement().getName().toString().equals("include")) break;
                     elementText = new StringBuilder(100);
                     break;
-                case CHARACTERS:
+                case XMLStreamConstants.CHARACTERS:
                     if (elementText == null) break;
                     elementText.append(event.asCharacters().getData());
                     break;
-                case END_ELEMENT:
+                case XMLStreamConstants.END_ELEMENT:
                     if (!event.asEndElement().getName().toString().equals("include")) break;
                     if (elementText == null) break;
                     _fileNames.add(elementText.toString());
@@ -96,19 +99,19 @@ public class XMLConfig {
         _fileName = fileName;
     }
 
-    public List<String> getFileNames() {
+    public List getFileNames() {
         return _fileNames;
     }
 
-    public void setFileNames(List<String> fileNames) {
+    public void setFileNames(List fileNames) {
         _fileNames = fileNames;
     }
 
-    public Map<String, Integer> getFileNameIdx() {
+    public Map getFileNameIdx() {
         return _fileNameIdx;
     }
 
-    public void setFileNameIdx(Map<String, Integer> fileNameIdx) {
+    public void setFileNameIdx(Map fileNameIdx) {
         _fileNameIdx = fileNameIdx;
     }
 }

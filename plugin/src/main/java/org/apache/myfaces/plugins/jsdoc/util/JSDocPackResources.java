@@ -21,7 +21,8 @@ package org.apache.myfaces.plugins.jsdoc.util;
 
 import org.apache.commons.io.FileUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.jar.JarFile;

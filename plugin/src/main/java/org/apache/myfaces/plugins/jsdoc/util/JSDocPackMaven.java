@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.plugins.jsdoc.util;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.jar.JarFile;
 
@@ -54,7 +54,7 @@ public class JSDocPackMaven extends JSDocPack {
      *
      * @param targetDir the target dir to unpack to
      * @param log the target log to log into
-     * @throws IOException in case of an error
+     * @throws java.io.IOException in case of an error
      */
     public void unpack(String targetDir, org.apache.maven.plugin.logging.Log log) throws IOException {
         JarFile jarFile = new JarFile(_jarPath);
