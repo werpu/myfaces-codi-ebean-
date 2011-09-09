@@ -36,7 +36,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
             _contentType: "application/x-www-form-urlencoded",
             /*source element issuing the request*/
             _source: null,
-            /*encoding*/
+            /*encoding for the submit*/
             _encoding:null ,
             /*context passed down from the caller*/
             _context:null,
@@ -47,17 +47,23 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
 
             /*queue control*/
             _timeout: null,
+            /*enqueuing delay*/
             _delay:null,
+            /*queue size*/
             _queueSize:-1,
+
+            /*
+             back reference to the xhr queue,
+             only set if the object really is queued
+             */
             _xhrQueue: null,
 
-            /*pps*/
+            /*pps an array of identifiers which should be part of the submit, the form is ignored*/
             _partialIdsArray : null,
 
-            //non exposed params
-            _ajaxUtil: null,
             /*xhr object, internal param*/
             _xhr: null,
+
             // _exception: null,
             // _requestParameters: null,
             /**
@@ -106,7 +112,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                         targetURL = this._sourceForm.elements["javax.faces.encodedURL"].value;
                     }
 
-                    var formData = this.getViewState();
+                    var formData = this.getFormData();
                     for (var key in this._passThrough) {
                         formData.append(key, this._passThrough[key]);
                     }
@@ -131,8 +137,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                     this._xhr.onload = this._Lang.hitch(this, this.onsuccess);
                     this._xhr.onerror = this._Lang.hitch(this, this.onerror);
 
-                    var _Impl = this._getImpl();
-                    _Impl.sendEvent(this._xhr, this._context, _Impl.BEGIN);
+                    this.sendEvent("BEGIN");
 
                     this._xhr.send((this._ajaxType != "GET") ? formData : null);
 
@@ -144,13 +149,13 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
 
 
             ondone: function() {
-                this._getImpl().sendEvent(this._xhr, this._context, this._getImpl().COMPLETE);
+                this.sendEvent("COMPLETE");
             },
 
 
             onsuccess: function(evt) {
                 try {
-                    var _Impl = this._getImpl();
+
 
                     //now we have to reroute into our official api
                     //because users might want to decorate it, we will split it apart afterwards
@@ -159,12 +164,11 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
 
                     jsf.ajax.response(this._xhr, this._context);
 
-                    _Impl.sendEvent(this._xhr, this._context, _Impl.SUCCESS);
-
+                    this.sendEvent("SUCCESS");
                 } catch (e) {
                     this._onException(this._xhr, this._context, "myfaces._impl.xhrCore._AjaxRequest", "callback", e);
                 } finally {
-                    if (this.isQueued()) {
+                    if (this._isQueued()) {
                         this._xhrQueue.processQueue();
                     }
                     //ie6 helper cleanup
@@ -174,9 +178,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
             },
 
             onerror: function(evt) {
-                var _Impl = this._getImpl();
 
-                //_onError
                 var errorText = "";
                 try {
                     var UNKNOWN = this._Lang.getMessage("UNKNOWN");
@@ -188,14 +190,15 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                     errorText = this._Lang.getMessage("ERR_REQ_FAILED_UNKNOWN", null);
                 } finally {
                     try {
+                        var _Impl = this._getImpl();
                         _Impl.sendError(this._xhr, this._context, _Impl.HTTPERROR,
                                 _Impl.HTTPERROR, errorText);
                     } finally {
-                        if (this._xhrQueue) {
+                        if (this._isQueued()) {
                             this._xhrQueue.processQueue();
                         }
                         //ie6 helper cleanup
-                        delete this.getContext().source;
+                        delete this._context.source;
 
                     }
                     this._finalize();
@@ -209,22 +212,17 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
 
             ontimeout: function(evt) {
                 try {
-                    var _Impl = this._getImpl();
-
                     //we issue an event not an error here before killing the xhr process
-                    _Impl.sendEvent(this._xhr, this._context, _Impl.TIMEOUT_EVENT,
-                            _Impl.TIMEOUT_EVENT);
+                    this.sendEvent("TIMEOUT_EVENT");
                     //timeout done we process the next in the queue
                 } finally {
                     //We trigger the next one in the queue
-                    if (this._xhrQueue) {
+                    if (this._isQueued()) {
                         this._xhrQueue.processQueue();
                     }
                     this._finalize();
                 }
             },
-
-
 
             _formDataToURI: function(formData) {
                 formData.makeFinal();
@@ -247,7 +245,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
              * @return  an element of formDataWrapper
              * which keeps the final Send Representation of the
              */
-            getViewState : function() {
+            getFormData : function() {
                 var ret = this._Lang.createFormDataDecorator(new Array());
 
                 this._ajaxUtil.encodeSubmittableFields(ret, this._xhr, this._context, this._source,
@@ -285,19 +283,12 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                 }
             },
 
-            getXhr: function() {
-                return this._xhr;
+            sendEvent: function(evtType) {
+                var _Impl = this._getImpl();
+                _Impl.sendEvent(this._xhr, this._context, _Impl[evtType]);
             },
 
-            getContext: function() {
-                return this._context;
-            },
-
-            setQueue: function(queue) {
-                this._xhrQueue = queue;
-            },
-
-            isQueued: function() {
+            _isQueued: function() {
                 return this._xhrQueue;
             },
 

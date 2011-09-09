@@ -22,7 +22,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._IFrameRequest", 
         this._callSuper("constructor_", arguments);
     },
 
-    getViewState: function() {
+    getFormData: function() {
         var _Lang = myfaces._impl._util._Lang;
         var _ret;
         if (!this._partialIdsArray || this._partialIdsArray.length == 0) {
@@ -38,7 +38,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._IFrameRequest", 
     _formDataToURI: function(formData) {
         if (formData.makeFinal()) return formData.makeFinal();
         //deficit in the html5 spec for a uri we have to work over the old method
-        return this._callSuper("getViewState").makeFinal();
+        return this._callSuper("getFormData").makeFinal();
     },
 
     _getTransport: function() {

@@ -22,7 +22,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._IFrameRequest", 
         this._callSuper("constructor_", arguments);
     },
 
-    getViewState: function() {
+    getFormData: function() {
         return new myfaces._impl.xhrCore.engine.FormData(this._sourceForm);
     },
 
