@@ -29,7 +29,7 @@
  * @memberOf myfaces._impl.xhrCore
  * @extends myfaces._impl.xhrCore._BaseRequest
  */
-myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", myfaces._impl.xhrCore._BaseRequest,
+myfaces._impl.core._Runtime.extendClass(this, ERR_AJAX_REQ, myfaces._impl.xhrCore._BaseRequest,
         /** myfaces._impl.xhrCore._AjaxRequest.prototype */
         {
 
@@ -64,6 +64,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
             /*xhr object, internal param*/
             _xhr: null,
 
+            //CONSTANTS
+            ERR_AJAX_REQ:"myfaces._impl.xhrCore._AjaxRequest",
+            ENCODED_URL:"javax.faces.encodedURL",
+
             // _exception: null,
             // _requestParameters: null,
             /**
@@ -92,7 +96,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                     this._ajaxUtil = new myfaces._impl.xhrCore._AjaxUtils(this._onException, this._onWarn);
                 } catch (e) {
                     //_onError
-                    this._onException(this._xhr, this._context, "myfaces._impl.xhrCore._AjaxRequest", "constructor", e);
+                    this._onException(this._xhr, this._context, this, this.ERR_AJAX_REQ, "constructor", e);
                 }
             },
 
@@ -101,8 +105,6 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
              */
             send : function() {
                 try {
-                    /*we wrap the xhr object*/
-                    /*TODO move this into a reusable place*/
                     this._xhr = this._getTransport();
                     this._xhr.onprogress = this._Lang.hitch(this, this.onprogress);
                     this._xhr.ontimeout = this._Lang.hitch(this, this.ontimeout);
@@ -110,15 +112,11 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                     this._xhr.onload = this._Lang.hitch(this, this.onsuccess);
                     this._xhr.onerror = this._Lang.hitch(this, this.onerror);
 
-                    var targetURL;
-                    if (typeof this._sourceForm.elements["javax.faces.encodedURL"] == 'undefined') {
-                        targetURL = this._sourceForm.action;
-                    } else {
-                        targetURL = this._sourceForm.elements["javax.faces.encodedURL"].value;
-                    }
+                    var targetURL = (typeof this._sourceForm.elements[this.ENCODED_URL] == 'undefined') ?
+                            this._sourceForm.action :
+                            this._sourceForm.elements[this.ENCODED_URL].value;
 
                     var formData = this.getFormData();
-
                     for (var key in this._passThrough) {
                         formData.append(key, this._passThrough[key]);
                     }
@@ -143,7 +141,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
 
                 } catch (e) {
                     //_onError//_onError
-                    this._onException(this._xhr, this._context, "myfaces._impl.xhrCore._AjaxRequest", "send", e);
+                    this._onException(this._xhr, this._context, this, this.ERR_AJAX_REQ, "send", e);
                 }
             },
 
@@ -164,14 +162,9 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
 
                     this._sendEvent("SUCCESS");
                 } catch (e) {
-                    this._onException(this._xhr, this._context, "myfaces._impl.xhrCore._AjaxRequest", "callback", e);
+                    this._onException(this._xhr, this._context, this, this.ERR_AJAX_REQ, "callback", e);
                 } finally {
-                    if (this._isQueued()) {
-                        this._xhrQueue.processQueue();
-                    }
-                    //ie6 helper cleanup
-                    delete this._context.source;
-                    this._finalize();
+                    this._requestDone();
                 }
             },
 
@@ -192,14 +185,9 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                         _Impl.sendError(this._xhr, this._context, _Impl.HTTPERROR,
                                 _Impl.HTTPERROR, errorText);
                     } finally {
-                        if (this._isQueued()) {
-                            this._xhrQueue.processQueue();
-                        }
-                        //ie6 helper cleanup
-                        delete this._context.source;
-
+                        this._requestDone();
                     }
-                    this._finalize();
+
                 }
                 //_onError
             },
@@ -214,11 +202,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                     this._sendEvent("TIMEOUT_EVENT");
                     //timeout done we process the next in the queue
                 } finally {
-                    //We trigger the next one in the queue
-                    if (this._isQueued()) {
-                        this._xhrQueue.processQueue();
-                    }
-                    this._finalize();
+                    this._requestDone();
                 }
             },
 
@@ -257,7 +241,6 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                 return this._Impl;
             },
 
-
             /**
              * Client error handlers which also in the long run route into our error queue
              * but also are able to deliver more meaningful messages
@@ -286,8 +269,13 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                 _Impl.sendEvent(this._xhr, this._context, _Impl[evtType]);
             },
 
-            _isQueued: function() {
-                return this._xhrQueue;
+            _requestDone: function() {
+                if (this._xhrQueue) {
+                    this._xhrQueue.processQueue();
+                }
+                //ie6 helper cleanup
+                delete this._context.source;
+                this._finalize();
             },
 
             //cleanup

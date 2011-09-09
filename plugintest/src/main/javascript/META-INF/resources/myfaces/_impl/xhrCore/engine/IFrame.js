@@ -33,8 +33,6 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
     FRAME_ID: "_mf_comm_frm",
     /*the target frame responsible for the communication*/
     _frame: null,
-    /*the sourceform*/
-    _sourceForm: null,
 
     CLS_NAME: "myfaces._impl.xhrCore._IFrameRequest",
 
@@ -61,6 +59,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
         this._Dom = myfaces._impl._util._Dom;
         this._RT = myfaces._impl.core._Runtime;
         this._XHRConst = myfaces._impl.xhrCore.engine.XhrConst;
+
         this.readyState = this._XHRConst.READY_STATE_UNSENT;
     },
 
@@ -88,9 +87,9 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
             this._frame.onload_IE = this._Lang.hitch(this, this._callback);
         }
 
-        this.method = method;
-        this.url = url;
-        this.async = async;
+        this.method = method || this.method;
+        this.url = url || this.url;
+        this.async = ('undefined' != typeof async)? async: this.async;
 
         var myevt = {};
         this._addProgressAttributes(myevt, 10, 100);
@@ -106,6 +105,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
         var oldTarget = formData.form.target;
         var oldMethod = formData.form.method;
         var oldAction = formData.form.action;
+
         try {
             //this._initAjaxParams();
             for (var key in this._requestHeader) {
@@ -124,9 +124,11 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
             formData.form.action = oldAction;
             formData.form.target = oldTarget;
             formData.form.method = oldMethod;
+
             formData._finalize();
         }
     },
+
     /*we can implement it, but it will work only on browsers
      * which have asynchronous iframe loading*/
     abort: function() {
@@ -140,17 +142,21 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
 
     onprogress: function(evt) {
     },
+
     onabort: function(evt) {
     },
+
     onerror: function(evt) {
     },
+
     onload: function(evt) {
     },
+
     ontimeout: function(evt) {
     },
+
     onloadend: function(evt) {
     },
-
 
     _addProgressAttributes: function(evt, percent, total) {
         //http://www.w3.org/TR/progress-events/#progressevent
@@ -159,7 +165,6 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
         evt.total = total;
 
     },
-
 
     _callback: function() {
         //aborted no further processing
@@ -186,13 +191,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
                 this.onerror();
             }
 
-
         } finally {
             this._frame = null;
         }
     },
-
-
 
     /**
      * returns the frame text in a browser independend manner
@@ -201,16 +203,14 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
         //we cover various browsers here, because almost all browsers keep the document in a different
         //position
         return this._frame.contentWindow.document || this._frame.contentDocument || this._frame.document;
-    }
-    ,
+    },
 
     _getFrameText: function() {
         var framedoc = this._getFrameDocument();
         //also ie keeps the body in framedoc.body the rest in documentElement
         var body = framedoc.body || framedoc.documentElement;
         return  body.innerHTML;
-    }
-    ,
+    },
 
     _clearFrame: function() {
         var framedoc = this._getFrameDocument();
@@ -219,8 +219,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
         //direct dom removal is less flakey and works
         //over all browsers, but is slower
         this._Dom._removeChildNodes(body, false);
-    }
-    ,
+    },
 
     /**
      * returns the processed xml from the frame
@@ -230,8 +229,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
         //same situation here, the xml is hosted either in xmlDocument or
         //is located directly under the frame document
         return  framedoc.XMLDocument || framedoc;
-    }
-    ,
+    },
 
     _createTransportFrame: function() {
         var _RT = this._RT;
@@ -276,7 +274,6 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.IFrame", m
         }
         //helps to for the onload handlers and innerhtml to be in sync again
         return document.getElementById(this._FRAME_ID);
-
     },
 
     _startTimeout: function() {

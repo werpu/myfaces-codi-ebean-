@@ -20,6 +20,8 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._IFrameRequest", 
 
     constructor_: function(arguments) {
         this._callSuper("constructor_", arguments);
+        //TODO xhr level2 can deal with real props
+
     },
 
     getFormData: function() {

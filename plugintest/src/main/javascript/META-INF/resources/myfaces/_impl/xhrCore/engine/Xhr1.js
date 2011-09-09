@@ -45,8 +45,10 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore.engine.Xhr1", myf
     // void open(DOMString method, DOMString url, boolean async);
     open: function(method, url, async) {
         this._startTimeout();
-
-        this._xhrObject.open(method, url, async);
+        this.method = method || this.method;
+        this.url = url || this.url;
+        this.async = ('undefined' != typeof async)? async: this.async;
+        this._xhrObject.open(this.method, this.url, this.async);
     },
 
     send: function(formData) {
