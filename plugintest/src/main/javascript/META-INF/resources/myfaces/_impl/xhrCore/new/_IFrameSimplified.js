@@ -16,17 +16,30 @@
 
 myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._IFrameRequest", myfaces._impl.xhrCore._AjaxRequest, {
 
-    _sourceForm: null,
+    /**
+     * @constant
+     * @description request marker that the request is an iframe based request
+     */
+    JX_PART_IFRAME: "javax.faces.partial.iframe",
+    /**
+     * @constant
+     * @description request marker that the request is an apache myfaces iframe request based request
+     */
+    MF_PART_IFRAME: "org.apache.myfaces.partial.iframe",
 
     constructor_: function(arguments) {
         this._callSuper("constructor_", arguments);
     },
 
     getFormData: function() {
-        return new myfaces._impl.xhrCore.engine.FormData(this._sourceForm);
+        var ret = new myfaces._impl.xhrCore.engine.FormData(this._sourceForm);
+        //marker that this is an ajax iframe request
+        ret.append(this.JX_PART_IFRAME, "true");
+        ret.append(this.MF_PART_IFRAME, "true");
     },
 
     _formDataToURI: function(formData) {
+        //http get alwyays sends the form data
         return "";
     },
 

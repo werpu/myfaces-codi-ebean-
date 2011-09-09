@@ -104,6 +104,11 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                     /*we wrap the xhr object*/
                     /*TODO move this into a reusable place*/
                     this._xhr = this._getTransport();
+                    this._xhr.onprogress = this._Lang.hitch(this, this.onprogress);
+                    this._xhr.ontimeout = this._Lang.hitch(this, this.ontimeout);
+                    this._xhr.onloadend = this._Lang.hitch(this, this.ondone);
+                    this._xhr.onload = this._Lang.hitch(this, this.onsuccess);
+                    this._xhr.onerror = this._Lang.hitch(this, this.onerror);
 
                     var targetURL;
                     if (typeof this._sourceForm.elements["javax.faces.encodedURL"] == 'undefined') {
@@ -113,6 +118,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                     }
 
                     var formData = this.getFormData();
+
                     for (var key in this._passThrough) {
                         formData.append(key, this._passThrough[key]);
                     }
@@ -131,13 +137,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
 
                     this._xhr.timeout = this._timeout || 0;
 
-                    this._xhr.onprogress = this._Lang.hitch(this, this.onprogress);
-                    this._xhr.ontimeout = this._Lang.hitch(this, this.ontimeout);
-                    this._xhr.onloadend = this._Lang.hitch(this, this.ondone);
-                    this._xhr.onload = this._Lang.hitch(this, this.onsuccess);
-                    this._xhr.onerror = this._Lang.hitch(this, this.onerror);
-
-                    this.sendEvent("BEGIN");
+                    this._sendEvent("BEGIN");
 
                     this._xhr.send((this._ajaxType != "GET") ? formData : null);
 
@@ -149,14 +149,12 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
 
 
             ondone: function() {
-                this.sendEvent("COMPLETE");
+                this._sendEvent("COMPLETE");
             },
 
 
             onsuccess: function(evt) {
                 try {
-
-
                     //now we have to reroute into our official api
                     //because users might want to decorate it, we will split it apart afterwards
                     this._context._mfInternal = this._context._mfInternal || {};
@@ -164,7 +162,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
 
                     jsf.ajax.response(this._xhr, this._context);
 
-                    this.sendEvent("SUCCESS");
+                    this._sendEvent("SUCCESS");
                 } catch (e) {
                     this._onException(this._xhr, this._context, "myfaces._impl.xhrCore._AjaxRequest", "callback", e);
                 } finally {
@@ -213,7 +211,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
             ontimeout: function(evt) {
                 try {
                     //we issue an event not an error here before killing the xhr process
-                    this.sendEvent("TIMEOUT_EVENT");
+                    this._sendEvent("TIMEOUT_EVENT");
                     //timeout done we process the next in the queue
                 } finally {
                     //We trigger the next one in the queue
@@ -283,7 +281,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl.xhrCore._AjaxRequest", my
                 }
             },
 
-            sendEvent: function(evtType) {
+            _sendEvent: function(evtType) {
                 var _Impl = this._getImpl();
                 _Impl.sendEvent(this._xhr, this._context, _Impl[evtType]);
             },
