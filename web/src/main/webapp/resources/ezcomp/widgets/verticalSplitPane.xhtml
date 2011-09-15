@@ -1,0 +1,58 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <composite:interface componentType="at.irian.VerticalSplitPane">
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="javascriptVar"></composite:attribute>
+        <composite:attribute name="javascriptClass" default="extras.apache.VerticalSplitPane"/>
+
+        <composite:attribute name="tabIndex" default="-1"></composite:attribute>
+        <composite:attribute name="styleClass"/>
+        <composite:attribute name="style"/>
+        <composite:attribute name="panelTitle" default=""/>
+        <composite:attribute name="sliderPos" type="java.lang.Integer"/>
+
+
+        <composite:attribute name="firstStyleClass" default=""/>
+        <composite:attribute name="secondStyleClass" default=""/>
+
+
+        <composite:attribute name="active" default="true"/>
+        <composite:facet name="head" required="true"/>
+        <composite:facet name="content" required="true"/>
+    </composite:interface>
+    <composite:implementation>
+        <h:outputScript library="script" name="layout/VerticalSplitPane.js"/>
+
+
+        <div id="#{cc.clientId}"
+             class="verticalSplitPane splitPane #{cc.attrs.styleClass}"
+             style="#{cc.attrs.style}"
+             tabindex="#{cc.attrs.tabIndex}"
+             data-mf-active="#{cc.attrs.active}">
+            <h:inputHidden id="valueHolder" value="#{cc.attrs.sliderPos}" styleClass="valueHolder"/>
+
+            <h:panelGroup layout="block" id="top" class="#{cc.attrs.firstStyleClass} sliderPane top first"
+                          style="#{cc.attrs.headStyle}">
+                #{cc.attrs.panelTitle}
+                <composite:renderFacet name="first"></composite:renderFacet>
+            </h:panelGroup>
+            <h:panelGroup styleClass="slider sliderStyleClass"></h:panelGroup>
+            <h:panelGroup layout="block" id="bottom" class="#{cc.attrs.contentStyleClass} sliderPane bottom second"
+                          style="#{cc.attrs.contentStyle}">
+                <composite:renderFacet name="second"></composite:renderFacet>
+            </h:panelGroup>
+            <script type="text/javascript">
+                var #{cc.javascriptVar} =
+                new #{cc.attrs.javascriptClass}({
+                    id:"#{cc.clientId}",
+                    ajaxRequest:#{cc.ajaxState.toString()}.
+                    sliderPos:#{cc.attrs.sliderPos}
+                });
+            </script>
+        </div>
+    </composite:implementation>
+</ui:component>
