@@ -65,8 +65,7 @@
 
     <modules>
         <module>web</module>
-        <module>jsdoc-maven-plugin</module>
-        <module>plugintest</module>
+
     </modules>
 
     <dependencies>
