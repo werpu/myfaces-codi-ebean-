@@ -9,7 +9,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common
  * @version $Revision$ $Date$
  */
 @serializable
-@FacesComponent("at.irian.Contentpane")
+@FacesComponent("at.irian.ContentPane")
 class ContentPane extends StandardJavascriptComponent {
   /*abbreviation to fetch the title*/
   def getTitle():String = {

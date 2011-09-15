@@ -12,36 +12,41 @@
         <composite:attribute name="tabIndex" default="-1"></composite:attribute>
         <composite:attribute name="styleClass"/>
         <composite:attribute name="style"/>
-        <composite:attribute name="title"/>
-        <composite:facet name="head"/>
-        <composite:facet name="content"/>
+        <composite:attribute name="panelTitle" default=""/>
 
-        <composite:attribute name="headStyleClass"/>
-        <composite:attribute name="headStyle"/>
-        <composite:attribute name="contentStyleClass"/>
-        <composite:attribute name="contentStyle"/>
+
+
+        <composite:attribute name="headStyleClass" default=""/>
+        <composite:attribute name="headStyle" default=""/>
+        <composite:attribute name="contentStyleClass" default=""/>
+        <composite:attribute name="contentStyle" default=""/>
 
         <composite:attribute name="externalContentUrl"/>
         <composite:attribute name="externalContentTarget" default=".content"/>
         <composite:attribute name="evalExternalContent" default="false"/>
 
         <composite:attribute name="active" default="true" />
+         <composite:facet name="head" required="true" />
+        <composite:facet name="content" required="true" />
     </composite:interface>
     <composite:implementation>
         <h:outputScript library="script" name="layout/ContentPane.js"/>
 
 
-        <div id="#{cc.clientId}" class="contentPane #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
-             tabindex="#{cc.attrs.tabIndex}" data-mf-active="#{cc.attrs.active}">
+        <div id="#{cc.clientId}"
+             class="contentPane #{cc.attrs.styleClass}"
+             style="#{cc.attrs.style}"
+             tabindex="#{cc.attrs.tabIndex}"
+             data-mf-active="#{cc.attrs.active}">
             <h:panelGroup layout="block" id="head" class="#{cc.attrs.headStyleClass} head"
                           style="#{cc.attrs.headStyle}">
-                <h:outputFormat value="#{cc.attrs.title}" rendered="#{cc.attrs.title != null}"/>
-                <composite:renderFacet name="head"/>
+                #{cc.attrs.panelTitle}
+                <composite:renderFacet name="head"></composite:renderFacet>
             </h:panelGroup>
             <h:panelGroup layout="block" id="content" class="#{cc.attrs.contentStyleClass} content"
                           style="#{cc.attrs.contentStyle}">
-                <composite:insertChildren/>
-                <composite:renderFacet name="content"/>
+                <composite:renderFacet name="content"></composite:renderFacet>
+				<composite:insertChildren />
             </h:panelGroup>
             <script type="text/javascript">
                 var #{cc.javascriptVar} =
