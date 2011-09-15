@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
+
+<ui:composition template="../templates/template.xhtml">
+
+    <ui:define name="header">
+
+        <title>Vertical split pane</title>
+
+        <!-- we have to force an import because we rely on single files in the impl -->
+        <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
+        --></script>
+
+
+    </ui:define>
+
+    <ui:define name="search">
+
+
+    </ui:define>
+
+
+    <ui:define name="content">
+
+
+        <h:form id="mainForm" prependId="false">
+
+            <div id="boogadd"
+                 class="verticalSplitPane splitPane "
+
+                    >
+                <h:inputHidden id="valueHolder" styleClass="valueHolder"/>
+
+                <!-- the top panel -->
+                <h:panelGroup layout="block" id="top" styleClass="sliderPane top first"
+                              style="#{cc.attrs.headStyle}">
+                    top
+                </h:panelGroup>
+
+                <!-- the slider element which allows the sliding of the panes to the left and right -->
+                <div class="slider sliderStyleClass">
+                    <!-- the on off toggle -->
+                    <div class="toggle" />
+                </div>
+                <!-- the bottom panel -->
+                <h:panelGroup layout="block" id="bottom"
+                              styleClass="#{cc.attrs.contentStyleClass} sliderPane bottom second"
+                              style="#{cc.attrs.contentStyle}">
+                    bottom
+                </h:panelGroup>
+
+                <script type="text/javascript">
+                    var boogadd =
+                            new extras.apache.SplitPane({
+                                id:"boogadd",
+                                ajaxRequest: false,
+                                sliderPos:30
+                            });
+                </script>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+
+
+</html>
+

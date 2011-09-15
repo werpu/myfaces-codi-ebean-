@@ -35,13 +35,15 @@
              data-mf-active="#{cc.attrs.active}">
             <h:inputHidden id="valueHolder" value="#{cc.attrs.sliderPos}" styleClass="valueHolder"/>
 
-            <h:panelGroup layout="block" id="top" class="#{cc.attrs.firstStyleClass} sliderPane top first"
+            <h:panelGroup layout="block" id="top" styleClass="#{cc.attrs.firstStyleClass} sliderPane top first"
                           style="#{cc.attrs.headStyle}">
                 #{cc.attrs.panelTitle}
                 <composite:renderFacet name="first"></composite:renderFacet>
             </h:panelGroup>
-            <h:panelGroup styleClass="slider sliderStyleClass"></h:panelGroup>
-            <h:panelGroup layout="block" id="bottom" class="#{cc.attrs.contentStyleClass} sliderPane bottom second"
+            <div class="slider sliderStyleClass">
+
+            </div>
+            <h:panelGroup layout="block" id="bottom" styleClass="#{cc.attrs.contentStyleClass} sliderPane bottom second"
                           style="#{cc.attrs.contentStyle}">
                 <composite:renderFacet name="second"></composite:renderFacet>
             </h:panelGroup>

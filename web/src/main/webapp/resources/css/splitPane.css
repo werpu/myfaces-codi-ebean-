@@ -1,0 +1,41 @@
+.splitPane {
+	position: relative;
+}
+
+.splitPane .slider {
+    background-color: #d0d0d0;
+	padding: 0px;
+	margin: 0px;
+}
+
+.verticalSplitPane .sliderPane {
+    border:  1px solid silver;
+}
+
+.verticalSplitPane .first,
+.verticalSplitPane .second,
+.verticalSplitPane .slider {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	height: 10px;
+}
+
+.verticalSplitPane .slider {
+	height: 5px;
+}
+
+.verticalSplitPane .first,
+.verticalSplitPane .second {
+	height: auto;
+	top: 0;
+	bottom: 0;
+	
+	margin: 0px;
+	
+}
+
+/*splitpane test specifics*/
+.splitPane {
+	height: 500px;
+}
