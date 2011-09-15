@@ -14,6 +14,7 @@
          */
         sliderPos: null,
         resizeVertical: true,
+        resizable: true,
 
         constructor_:function(args) {
             this._callSuper("constructor_", args);
