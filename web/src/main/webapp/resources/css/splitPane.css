@@ -10,6 +10,7 @@
 
 .verticalSplitPane .sliderPane {
     border:  1px solid silver;
+
 }
 
 .verticalSplitPane .first,
@@ -22,7 +23,8 @@
 }
 
 .verticalSplitPane .slider {
-	height: 5px;
+	height: 7px;
+	cursor: move;
 }
 
 .verticalSplitPane .first,

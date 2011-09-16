@@ -50,7 +50,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             constructor_: function(elem) {
                 this._referencedNode = this._NODE_UTILS.byIdOrName(elem);
                 var _defProp = Object.defineProperty;
-                
+
                 _defProp(this, "id", {
                     set: function(id) {
                         this._referencedNode = id;
@@ -59,7 +59,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                         return this._referencedNode.id;
                     }
                 });
-                 _defProp(this, "value", {
+                _defProp(this, "value", {
                     set: function(value) {
                         this._referencedNode.value = value;
                     },
@@ -83,6 +83,13 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 _defProp(this, "parentNode", {
                     get: function() {
                         return new myfaces._impl._dom.Node(this._referencedNode.parentNode);
+                    }
+                });
+                _defProp(this, "offsetParent", {
+                    get: function() {
+                        if (this._referencedNode.offsetParent)
+                            return new myfaces._impl._dom.Node(this._referencedNode.offsetParent);
+                        else return null;
                     }
                 });
                 _defProp(this, "nodeName", {

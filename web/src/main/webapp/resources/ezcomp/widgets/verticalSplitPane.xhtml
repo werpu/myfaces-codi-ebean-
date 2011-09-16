@@ -1,60 +1,100 @@
-<ui:component xmlns=""
-              xmlns:ui="http://java.sun.com/jsf/facelets"
-              xmlns:composite="http://java.sun.com/jsf/composite"
-              xmlns:f="http://java.sun.com/jsf/core"
-              xmlns:h="http://java.sun.com/jsf/html"
-              xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <composite:interface componentType="at.irian.VerticalSplitPane">
-        <composite:attribute name="id" required="true"/>
-        <composite:attribute name="javascriptVar"></composite:attribute>
-        <composite:attribute name="javascriptClass" default="extras.apache.VerticalSplitPane"/>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-        <composite:attribute name="tabIndex" default="-1"></composite:attribute>
-        <composite:attribute name="styleClass"/>
-        <composite:attribute name="style"/>
-        <composite:attribute name="panelTitle" default=""/>
-        <composite:attribute name="sliderPos" type="java.lang.Integer"/>
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp/security"
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets">
+
+<ui:composition template="../templates/template.xhtml">
+
+    <ui:define name="header">
+
+        <title>Vertical split pane</title>
+
+        <!-- we have to force an import because we rely on single files in the impl -->
+        <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
+        --></script>
 
 
-        <composite:attribute name="firstStyleClass" default=""/>
-        <composite:attribute name="secondStyleClass" default=""/>
+    </ui:define>
+
+    <ui:define name="search">
 
 
-        <composite:attribute name="active" default="true"/>
-        <composite:facet name="head" required="true"/>
-        <composite:facet name="content" required="true"/>
-    </composite:interface>
-    <composite:implementation>
-        <h:outputScript library="script" name="layout/VerticalSplitPane.js"/>
+    </ui:define>
 
 
-        <div id="#{cc.clientId}"
-             class="verticalSplitPane splitPane #{cc.attrs.styleClass}"
-             style="#{cc.attrs.style}"
-             tabindex="#{cc.attrs.tabIndex}"
-             data-mf-active="#{cc.attrs.active}">
-            <h:inputHidden id="valueHolder" value="#{cc.attrs.sliderPos}" styleClass="valueHolder"/>
+    <ui:define name="content">
+  		<h:outputScript library="script" name="_behaviors/_Behavior.js"/>
+        <h:outputScript library="script" name="_behaviors/_Movable.js"/>
+		 <h:outputScript library="script" name="layout/ContentPane.js"/>
+		 <h:outputScript library="script" name="layout/SplitPane.js"/>
 
-            <h:panelGroup layout="block" id="top" styleClass="#{cc.attrs.firstStyleClass} sliderPane top first"
-                          style="#{cc.attrs.headStyle}">
-                #{cc.attrs.panelTitle}
-                <composite:renderFacet name="first"></composite:renderFacet>
-            </h:panelGroup>
-            <div class="slider sliderStyleClass">
 
+asdf
+a
+sdf
+adf
+        <h:form id="mainForm" prependId="false">
+
+            <div id="boogadd"
+                 class="verticalSplitPane splitPane "
+
+                    >
+                <h:inputHidden id="valueHolder" styleClass="valueHolder"/>
+
+                <!-- the top panel -->
+                <h:panelGroup layout="block" id="top" styleClass="sliderPane top first"
+                              style="#{cc.attrs.headStyle}">
+                    top
+                </h:panelGroup>
+
+                <!-- the slider element which allows the sliding of the panes to the left and right -->
+                <div class="slider sliderStyleClass">
+                    <!-- the on off toggle -->
+                    <div class="toggle" />
+                </div>
+                <!-- the bottom panel -->
+                <h:panelGroup layout="block" id="bottom"
+                              styleClass="#{cc.attrs.contentStyleClass} sliderPane bottom second"
+                              style="#{cc.attrs.contentStyle}">
+                    bottom
+                </h:panelGroup>
+
+                <script type="text/javascript">
+                    var boogadd =
+                            new extras.apache.SplitPane({
+                                id:"boogadd",
+                                ajaxRequest: false,
+                                sliderPos:30
+                            });
+                </script>
             </div>
-            <h:panelGroup layout="block" id="bottom" styleClass="#{cc.attrs.contentStyleClass} sliderPane bottom second"
-                          style="#{cc.attrs.contentStyle}">
-                <composite:renderFacet name="second"></composite:renderFacet>
-            </h:panelGroup>
-            <script type="text/javascript">
-                var #{cc.javascriptVar} =
-                new #{cc.attrs.javascriptClass}({
-                    id:"#{cc.clientId}",
-                    ajaxRequest:#{cc.ajaxState.toString()}.
-                    sliderPos:#{cc.attrs.sliderPos}
-                });
-            </script>
-        </div>
-    </composite:implementation>
-</ui:component>
+
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+
+
+</html>
+

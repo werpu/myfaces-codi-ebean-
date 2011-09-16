@@ -43,7 +43,10 @@
 
 
     <ui:define name="content">
-
+        <h:outputScript library="script" name="_behaviors/_Behavior.js"/>
+        <h:outputScript library="script" name="_behaviors/_Movable.js"/>
+        <h:outputScript library="script" name="layout/ContentPane.js"/>
+        <h:outputScript library="script" name="layout/SplitPane.js"/>
 
         <h:form id="mainForm" prependId="false">
 
@@ -62,7 +65,7 @@
                 <!-- the slider element which allows the sliding of the panes to the left and right -->
                 <div class="slider sliderStyleClass">
                     <!-- the on off toggle -->
-                    <div class="toggle" />
+                    <div class="toggle"/>
                 </div>
                 <!-- the bottom panel -->
                 <h:panelGroup layout="block" id="bottom"
@@ -80,6 +83,7 @@
                             });
                 </script>
             </div>
+
 
         </h:form>
 

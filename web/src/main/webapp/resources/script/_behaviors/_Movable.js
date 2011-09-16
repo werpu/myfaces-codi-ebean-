@@ -41,8 +41,14 @@
                         var posX = evt.pageX - window.scrollX;
                         var posY = evt.pageY - window.scrollY;
 
-                        this.rootNode.style({"left": (posX - this._origDeltaX) + "px",
-                                    "top": (posY - this._origDeltaY) + "px"});
+                        if(this.onmove) {
+                            //pseudo event which can handle the movement
+                            this.onmove({"left": (posX - this._origDeltaX) + "px",
+                                    "top": (posY - this._origDeltaY) + "px", posX: posX, posY: posY});
+                        } else {
+                            this.rootNode.style({"left": (posX - this._origDeltaX) + "px",
+                                        "top": (posY - this._origDeltaY) + "px"});
+                        }
                     });
 
                     this._tmpEventTarget.addEventListener("mousedown", this._mouseDownMove, false);

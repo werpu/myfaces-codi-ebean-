@@ -522,6 +522,10 @@
             }
             return name ? c[name] : c;
         },
+        /*factory method which generates the behavior*/
+        _defineBehavior: function(behaviorName /*varargs*/) {
+            (window[behaviorName]).constructor.apply(this, arguments.slice(1));
+        },
 
         _defineProperty: function(name, getter, setter) {
             var props = {};
