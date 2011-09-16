@@ -92,6 +92,27 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                         else return null;
                     }
                 });
+                _defProp(this, "absoluteOffsetLeft", {
+                    get: function() {
+                        var offset = 0;
+                        var obj = this;
+                        do {
+                            offset += obj.offsetLeft();
+                        } while (obj = obj.offsetParent);
+                        return offset;
+                    }
+                });
+                _defProp(this, "absoluteOffsetTop", {
+                    get: function() {
+                        var offset = 0;
+                        var obj = this;
+                        do {
+                            offset += obj.offsetTop();
+                        } while (obj = obj.offsetParent);
+                        return offset;
+                    }
+                });
+
                 _defProp(this, "nodeName", {
                     get: function() {
                         return this._referencedNode.nodeName;

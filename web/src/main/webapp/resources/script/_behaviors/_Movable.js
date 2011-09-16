@@ -44,7 +44,7 @@
                         if(this.onmove) {
                             //pseudo event which can handle the movement
                             this.onmove({"left": (posX - this._origDeltaX) + "px",
-                                    "top": (posY - this._origDeltaY) + "px", posX: posX, posY: posY});
+                                    "top": (posY - this._origDeltaY) + "px", posX: posX, posY: posY, pageX: evt.pageX, pageY: evt.pageY });
                         } else {
                             this.rootNode.style({"left": (posX - this._origDeltaX) + "px",
                                         "top": (posY - this._origDeltaY) + "px"});

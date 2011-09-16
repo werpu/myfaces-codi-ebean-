@@ -1,7 +1,7 @@
 (function () {
     /**
-     * a pull component which pulls
-     * a certain area periodically
+     * A split pane which splits two panels within one parent panel
+     * and allows dynamic resizing of both child panes
      */
     var _RT = myfaces._impl.core._Runtime;
     var _Lang = myfaces._impl._util._Lang;
@@ -36,14 +36,12 @@
             this.firstPanel = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + "> .first"));
             this.secondPanel = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + "> .second"));
 
-            //valueholder overrides slider pos
-            this.sliderPos = this.valueHolder.value || this.sliderPos || 30;
             this.pack();
             //we now layout our container
 
             //TODO register sliding events on the slider
         },
-        /*initial packing*/
+        /*initial packing**/
         pack: function() {
             if (this.vertical) {
                 this._packVertically();
@@ -88,46 +86,63 @@
 
             //we now add a mouse behavior so that we can move the slider up and down
             new extras.apache._Movable(this, this.slider);
-
-            this._originRootNode = 0;
-            var obj = this.rootNode;
-            do {
-                this._originRootNode += obj.offsetLeft();
-            } while (obj = obj.offsetParent);
+            this.sliderPos = (null != this.sliderPos) ? this.sliderPos :
+                    ((this.vertical) ? this.firstPanel.offsetHeight() :
+                            this.firstPanel.offsetWidth());
+            /**
+             * we have to calculate the offset since our layout relies on absolute positioning
+             * relative to the root element, but we get fully absolute positioning
+             * relative to the viewport in by our movable behavior
+             */
+            this._originRootNode = (this.vertical) ? this.rootNode.absoluteOffsetTop : this.rootNode.absoluteOffsetLeft;
         },
 
         /**
          * callback from the movable handler
+         * the incoming data is position data relative to the viewport
+         * according to the movable behavior which calculates viewport positions
+         * instead of absolute ones (for now, this needs to be revisited)
          */
         onmove: function(positiondata) {
             if (this.vertical) {
-                this._onMoveVertically();
+                this._onMoveVertically(positiondata);
             } else {
-                this._onMoveHorizontally();
+                this._onMoveHorizontally(positiondata);
             }
+        },
+
+        onminimize: function() {
+            this._lastSize = this.sliderPos;
+            this.sliderPos = 0;
+            this.pack();
+        },
+
+        onnormal: function() {
+            this.sliderPos = this._lastSize || 30;
+            this.pack();
         },
 
         _onMoveVertically: function(positiondata) {
             //posY is the relativ position with the scroller position removed, within the viewport
             //we have to add the window scroller to the mix to get the final result
-            positiondata.top = Math.floor(parseInt(positiondata.posY - this.slider.offsetHeight() / 2 - this._originRootNode));
-            positiondata.top = Math.max(positiondata.top + window.scrollY, 0);
+            positiondata.top = Math.floor(parseInt(positiondata.pageY - this.slider.offsetHeight() / 2 - this._originRootNode));
+            positiondata.top = Math.max(positiondata.top, 0);
             positiondata.top = Math.min(this.rootNode.offsetHeight() - this.slider.offsetHeight(), positiondata.top);
             this.sliderPos = positiondata.top;
 
-            this.valueHolder.value = this.sliderPos;
+            //this.valueHolder.value = this.sliderPos;
             this.pack();
         },
 
         _onMoveHorizontally: function(positiondata) {
             //posY is the relativ position with the scroller position removed, within the viewport
             //we have to add the window scroller to the mix to get the final result
-            positiondata.left = Math.floor(parseInt(positiondata.posX - this.slider.offsetWidth() / 2 - this._originRootNode));
-            positiondata.left = Math.max(positiondata.left + window.scrollX, 0);
+            positiondata.left = Math.floor(parseInt(positiondata.pageX - this.slider.offsetWidth() / 2 - this._originRootNode));
+            positiondata.left = Math.max(positiondata.left, 0);
             positiondata.left = Math.min(this.rootNode.offsetWidth() - this.slider.offsetWidth(), positiondata.left);
             this.sliderPos = positiondata.left;
 
-            this.valueHolder.value = this.sliderPos;
+            //this.valueHolder.value = this.sliderPos;
             this.pack();
         }
 
