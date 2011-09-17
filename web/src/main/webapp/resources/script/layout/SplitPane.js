@@ -26,6 +26,10 @@
             this._callSuper("constructor_", args);
 
             this._componentType = "at.irian.VerticalSplitPane";
+            this._onminimize = _Lang.hitch(this, this._onminimize);
+            this._onnormal = _Lang.hitch(this, this._onnormal);
+            this.ontoggle = _Lang.hitch(this, this.ontoggle);
+            //move scoped by the behavior
         },
 
         _postInit: function() {
@@ -35,7 +39,8 @@
             this.slider = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + " > .slider"));
             this.firstPanel = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + "> .first"));
             this.secondPanel = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + "> .second"));
-
+            this.toggle = this.slider.querySelector(".toggle");
+            this.toogle.addEventListener("click", this.ontoggle);
             this.pack();
             //we now layout our container
 
@@ -105,24 +110,35 @@
          */
         onmove: function(positiondata) {
             if (this.vertical) {
-                this._onMoveVertically(positiondata);
+                this._onSliderMoveVertically(positiondata);
             } else {
-                this._onMoveHorizontally(positiondata);
+                this._onSliderMoveHorizontally(positiondata);
             }
         },
 
-        onminimize: function() {
+        ontoggle: function() {
+            if (!this._lastSize) {
+                this._onminimize();
+            } else {
+                this._onnormal();
+            }
+        },
+
+        _onminimize: function() {
             this._lastSize = this.sliderPos;
             this.sliderPos = 0;
+            this.toggle.addClass("minimized");
             this.pack();
         },
 
-        onnormal: function() {
+        _onnormal: function() {
             this.sliderPos = this._lastSize || 30;
+            this._lastSize = 0;
+            this.toogle.removeClass("minimized");
             this.pack();
         },
 
-        _onMoveVertically: function(positiondata) {
+        _onSliderMoveVertically: function(positiondata) {
             //posY is the relativ position with the scroller position removed, within the viewport
             //we have to add the window scroller to the mix to get the final result
             positiondata.top = Math.floor(parseInt(positiondata.pageY - this.slider.offsetHeight() / 2 - this._originRootNode));
@@ -134,7 +150,7 @@
             this.pack();
         },
 
-        _onMoveHorizontally: function(positiondata) {
+        _onSliderMoveHorizontally: function(positiondata) {
             //posY is the relativ position with the scroller position removed, within the viewport
             //we have to add the window scroller to the mix to get the final result
             positiondata.left = Math.floor(parseInt(positiondata.pageX - this.slider.offsetWidth() / 2 - this._originRootNode));
