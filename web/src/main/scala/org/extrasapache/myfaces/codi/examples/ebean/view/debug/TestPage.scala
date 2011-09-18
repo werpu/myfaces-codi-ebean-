@@ -17,5 +17,7 @@ import org.apache.myfaces.extensions.cdi.core.api.config.view.ViewConfig
 @Page
 class TestPage extends ViewConfig {
   val hello = "Hello world"
+
+  def doSubmit: String = null
 }
 

@@ -1,0 +1,58 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
+        >
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="javascriptVar"/>
+        <composite:attribute name="sliderPos" default="30"/>
+        <composite:attribute name="layout" default="vertical"/>
+
+        <composite:attribute name="javascriptClass" default="extras.apache.SplitPane"/>
+
+        <composite:attribute name="styleClass"/>
+        <composite:attribute name="style"/>
+
+        <composite:facet name="first" required="true"></composite:facet>
+        <composite:facet name="second" required="true"></composite:facet>
+    </composite:interface>
+    <composite:implementation>
+        <h:outputScript library="script" name="_behaviors/_Behavior.js"/>
+        <h:outputScript library="script" name="_behaviors/_Movable.js"/>
+        <h:outputScript library="script" name="_behaviors/_ValueHolder.js"/>
+        <h:outputScript library="script" name="layout/ContentPane.js"/>
+        <h:outputScript library="script" name="layout/SplitPane.js"/>
+
+        <div id="#{cc.clientId}"
+             class="splitPane #{cc.attrs.layout}SplitPane #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
+            <h:inputText style="display:none;" id="valueHolder" styleClass="valueHolder" value="#{cc.attrs.sliderPos}"/>
+            <h:panelGroup layout="block" id="first" styleClass="sliderPane first"
+                          style="#{cc.attrs.headStyle}">
+                <composite:renderFacet name="first"/>
+            </h:panelGroup>
+
+            <div class="slider sliderStyleClass">
+                <!-- the on off toggle -->
+                <div class="toggle"/>
+            </div>
+            <h:panelGroup layout="block" id="second" styleClass="sliderPane second"
+                          style="#{cc.attrs.headStyle}">
+                <composite:renderFacet name="first"/>
+            </h:panelGroup>
+            <script type="text/javascript">
+                var #{cc.javascriptVar} =
+                new #{cc.attrs.javascriptClass}({
+                    id:"#{cc.clientId}",
+                    ajaxRequest:#{cc.ajaxState.toString()},
+                    vertical:#{cc.attrs.layout eq 'vertical'},
+                    sliderPos:#{cc.attrs.sliderPos}
+                });
+            </script>
+        </div>
+
+    </composite:implementation>
+</ui:component>

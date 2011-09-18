@@ -6,6 +6,7 @@
     background-color: #d0d0d0;
     padding: 0px;
     margin: 0px;
+    cursor: move;
 }
 
 .splitPane .sliderPane {
@@ -21,28 +22,26 @@
 .splitPane .first,
 .splitPane .second,
 .splitPane .slider {
-    margin:  0px;
+    margin: 0px;
     position: absolute;
     left: 0px;
     top: 0px;
     height: auto;
 }
 
-
 /* Specialized vertical split pane stylings */
 
 .verticalSplitPane .slider {
     height: 7px;
-    cursor: move;
+
 }
 
 .verticalSplitPane .first,
 .verticalSplitPane .second,
-.verticalSplitPane .slider{
+.verticalSplitPane .slider {
     right: 0px;
     width: auto;
 }
-
 
 /* Specialized hoizontal split pane stylings */
 .horizontalSplitPane .first,
