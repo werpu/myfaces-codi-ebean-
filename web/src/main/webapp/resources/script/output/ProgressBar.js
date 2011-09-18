@@ -65,7 +65,7 @@
                     var progressHolder = this.rootNode.querySelector(".progressHolder");
                     var progressGauge = this.rootNode.querySelector(".progressGauge");
 
-                    progressGauge.setStyle("width", Math.round(newValue * parseFloat(progressHolder.getAttribute("offsetWidth")) / 100.0) + "px");
+                    progressGauge.style({width: Math.round(newValue * progressHolder.offsetWidth / 100.0) + "px"});
 
                     //rule set for the gauge coloring
                     if (newValue < this.thresholdLow) {
