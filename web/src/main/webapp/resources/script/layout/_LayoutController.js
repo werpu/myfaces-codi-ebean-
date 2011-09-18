@@ -28,7 +28,7 @@
                 },
                 /*-------------------layout functionality-------------------*/
                 _layoutBottom: function() {
-                    var parOffset = this._referencedNode.offset();
+                    var parOffset = this._referencedNode.offset;
                     this.rootNode.style({
                                 "position":"absolute",
                                 "left":parOffset.x + "px",
@@ -36,7 +36,7 @@
                             });
                 },
                 _layoutRight: function() {
-                    var parOffset = this._referencedNode.offset();
+                    var parOffset = this._referencedNode.offset;
                     this.rootNode.style({
                                 "position":"absolute",
                                 "left":(parOffset.x + parOffset.w ) + "px",
@@ -44,7 +44,7 @@
                             });
                 },
                 _layoutLeft: function() {
-                    var parOffset = this._referencedNode.offset();
+                    var parOffset = this._referencedNode.offset;
                     this.rootNode.style({
                                 "position":"absolute",
                                 "left":(parOffset.x - this.rootNode.offsetWidth(this._offsetWith) ) + "px",
@@ -52,7 +52,7 @@
                             });
                 },
                 _layoutTop: function() {
-                    var parOffset = this._referencedNode.offset();
+                    var parOffset = this._referencedNode.offset;
                     this.rootNode.style({
                                 "position":"absolute",
                                 "left":parOffset.x + "px",
@@ -60,7 +60,7 @@
                             });
                 },
                 _layoutTopLeft: function() {
-                    var parOffset = this._referencedNode.offset();
+                    var parOffset = this._referencedNode.offset;
                     this.rootNode.style({
                                 "position":"absolute",
                                 "left":(parOffset.x - this.rootNode.offsetWidth(this._offsetWith) ) + "px",
@@ -68,7 +68,7 @@
                             });
                 },
                 _layoutTopRight: function() {
-                    var parOffset = this._referencedNode.offset();
+                    var parOffset = this._referencedNode.offset;
                     this.rootNode.style({
                                 "position":"absolute",
                                 "left":(parOffset.x + parOffset.w ) + "px",
@@ -76,7 +76,7 @@
                             });
                 },
                 _layoutBottomLeft: function() {
-                    var parOffset = this._referencedNode.offset();
+                    var parOffset = this._referencedNode.offset;
                     this.rootNode.style({
                                 "position":"absolute",
                                 "left":(parOffset.x - this.rootNode.offsetWidth(this._offsetWith)) + "px",
@@ -84,7 +84,7 @@
                             });
                 },
                 _layoutBottomRight: function() {
-                    var parOffset = this._referencedNode.offset();
+                    var parOffset = this._referencedNode.offset;
                     this.rootNode.style({
                                 "position":"absolute",
                                 "left":(parOffset.x + parOffset.w) + "px",
