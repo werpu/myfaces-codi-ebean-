@@ -85,6 +85,42 @@
             </div>
 
 
+            <div id="boogadd2"
+                 class="horizontalSplitPane splitPane "
+
+                    >
+                <h:inputHidden id="valueHolder2" styleClass="valueHolder"/>
+
+                <!-- the top panel -->
+                <h:panelGroup layout="block" id="top2" styleClass="sliderPane top first"
+                              style="#{cc.attrs.headStyle}">
+                    top
+                </h:panelGroup>
+
+                <!-- the slider element which allows the sliding of the panes to the left and right -->
+                <div class="slider sliderStyleClass">
+                    <!-- the on off toggle -->
+                    <div class="toggle"/>
+                </div>
+                <!-- the bottom panel -->
+                <h:panelGroup layout="block" id="bottom2"
+                              styleClass="#{cc.attrs.contentStyleClass} sliderPane bottom second"
+                              style="#{cc.attrs.contentStyle}">
+                    bottom
+                </h:panelGroup>
+
+                <script type="text/javascript">
+                    var boogadd =
+                            new extras.apache.SplitPane({
+                                id:"boogadd2",
+                                ajaxRequest: false,
+                                sliderPos:30,
+                                vertical: false
+                            });
+                </script>
+            </div>
+
+
         </h:form>
 
     </ui:define>

@@ -29,18 +29,23 @@
             this._onminimize = _Lang.hitch(this, this._onminimize);
             this._onnormal = _Lang.hitch(this, this._onnormal);
             this.ontoggle = _Lang.hitch(this, this.ontoggle);
+            this.value = this.sliderPos || 0;
             //move scoped by the behavior
         },
 
         _postInit: function() {
             this._callSuper("_postInit", arguments);
-            this.valueHolder = this.rootNode.querySelector("input.valueHolder");
 
             this.slider = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + " > .slider"));
             this.firstPanel = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + "> .first"));
             this.secondPanel = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + "> .second"));
             this.toggle = this.slider.querySelector(".toggle");
             this.toggle.addEventListener("click", this.ontoggle);
+
+            //we now add a mouse behavior so that we can move the slider up and down
+            new extras.apache._Movable(this, this.slider);
+            //the ValueHolder behavior exposes a value property on this
+            new extras.apache._ValueHolder(this);
             this.pack();
             //we now layout our container
 
@@ -66,9 +71,6 @@
             this.slider.style({top: firstHeight + "px"});
             this.firstPanel.style({height: firstHeight + "px"});
             this.secondPanel.style({height: secondHeight + "px", top: secondTop + "px"});
-
-            //we now add a mouse behavior so that we can move the slider up and down
-            new extras.apache._Movable(this, this.slider);
 
             this._originRootNode = 0;
             var obj = this.rootNode;
@@ -127,12 +129,14 @@
         _onminimize: function() {
             this._lastSize = this.sliderPos;
             this.sliderPos = 0;
+            this.value = this.sliderPos;
             this.toggle.addClass("minimized");
             this.pack();
         },
 
         _onnormal: function() {
             this.sliderPos = this._lastSize || 30;
+            this.value = this.sliderPos;
             this._lastSize = 0;
             this.toogle.removeClass("minimized");
             this.pack();
@@ -145,7 +149,7 @@
             positiondata.top = Math.max(positiondata.top, 0);
             positiondata.top = Math.min(this.rootNode.offsetHeight - this.slider.offsetHeight, positiondata.top);
             this.sliderPos = positiondata.top;
-
+            this.value = this.sliderPos;
             //this.valueHolder.value = this.sliderPos;
             this.pack();
         },
@@ -157,7 +161,7 @@
             positiondata.left = Math.max(positiondata.left, 0);
             positiondata.left = Math.min(this.rootNode.offsetWidth - this.slider.offsetWidth, positiondata.left);
             this.sliderPos = positiondata.left;
-
+            this.value = this.sliderPos;
             //this.valueHolder.value = this.sliderPos;
             this.pack();
         }

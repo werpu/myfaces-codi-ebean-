@@ -1,43 +1,58 @@
 .splitPane {
-	position: relative;
+    position: relative;
 }
 
 .splitPane .slider {
     background-color: #d0d0d0;
-	padding: 0px;
-	margin: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
-.verticalSplitPane .sliderPane {
-    border:  1px solid silver;
+.splitPane .sliderPane {
+    border: 1px solid silver;
 
-}
-
-.verticalSplitPane .first,
-.verticalSplitPane .second,
-.verticalSplitPane .slider {
-	position: absolute;
-	left: 0px;
-	right: 0px;
-	height: 10px;
-}
-
-.verticalSplitPane .slider {
-	height: 7px;
-	cursor: move;
-}
-
-.verticalSplitPane .first,
-.verticalSplitPane .second {
-	height: auto;
-	top: 0;
-	bottom: 0;
-	
-	margin: 0px;
-	
 }
 
 /*splitpane test specifics*/
 .splitPane {
-	height: 500px;
+    height: 500px;
+}
+
+.splitPane .first,
+.splitPane .second,
+.splitPane .slider {
+    margin:  0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: auto;
+}
+
+
+/* Specialized vertical split pane stylings */
+
+.verticalSplitPane .slider {
+    height: 7px;
+    cursor: move;
+}
+
+.verticalSplitPane .first,
+.verticalSplitPane .second,
+.verticalSplitPane .slider{
+    right: 0px;
+    width: auto;
+}
+
+
+/* Specialized hoizontal split pane stylings */
+.horizontalSplitPane .first,
+.horizontalSplitPane .second,
+.horizontalSplitPane .slider {
+    position: absolute;
+    height: 500px;
+    left: 0px;
+}
+
+.horizontalSplitPane .slider {
+    width: 7px;
 }
