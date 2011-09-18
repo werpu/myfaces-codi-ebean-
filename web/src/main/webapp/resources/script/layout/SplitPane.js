@@ -43,7 +43,7 @@
             this.valueHolderToggle = this.rootNode.querySelector(".valueHolder_toggle");
 
             this.toggle = this.slider.querySelector(".toggle");
-            this.toggle.addEventListener("click", this.ontoggle);
+            this.toggle.addEventListener("dblclick", this.ontoggle);
 
             //we now add a mouse behavior so that we can move the slider up and down
             new extras.apache._Movable(this, this.slider);
@@ -73,12 +73,13 @@
                 this.slider.style({top: firstHeight + "px"});
                 this.firstPanel.style({height: firstHeight + "px"});
                 this.secondPanel.style({height: secondHeight + "px", top: secondTop + "px"});
-
+                this.toggle.removeClass("toggleOn");
                 this._originRootNode = (this.vertical) ? this.rootNode.absoluteOffsetTop : this.rootNode.absoluteOffsetLeft;
             } else {
                 this.slider.style({top: "0px"});
                 this.firstPanel.style({display: "none"});
                 this.secondPanel.style({height: (containerHeight - dividerHeight) + "px", top: dividerHeight + "px"});
+                this.toggle.addClass("toggleOn");
             }
         },
 
@@ -94,11 +95,13 @@
                 this.slider.style({left: firstWidth + "px"});
                 this.firstPanel.style({width: firstWidth + "px"});
                 this.secondPanel.style({width: secondWidth + "px", left: secondLeft + "px"});
+                this.toggle.removeClass("toggleOn");
             } else {
 
                 this.slider.style({left: "0px"});
                 this.firstPanel.style({display: "none"});
                 this.secondPanel.style({width: (containerWidth - dividerWidth) + "px", left: dividerWidth + "px"});
+                this.toggle.addClass("toggleOn");
             }
         },
 
