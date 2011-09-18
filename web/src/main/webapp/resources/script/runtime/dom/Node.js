@@ -104,12 +104,12 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 });
                 _defProp(this, "offsetHeight", {
                     get: function() {
-                        return this._referencedNode.offsetTop;
+                        return this._referencedNode.offsetHeight;
                     }
                 });
                 _defProp(this, "offsetWidth", {
                     get: function() {
-                        return this._referencedNode.offsetLeft;
+                        return this._referencedNode.offsetWidth;
                     }
                 });
 

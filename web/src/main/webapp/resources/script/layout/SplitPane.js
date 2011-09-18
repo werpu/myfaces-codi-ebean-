@@ -40,7 +40,7 @@
             this.firstPanel = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + "> .first"));
             this.secondPanel = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + "> .second"));
             this.toggle = this.slider.querySelector(".toggle");
-            this.toogle.addEventListener("click", this.ontoggle);
+            this.toggle.addEventListener("click", this.ontoggle);
             this.pack();
             //we now layout our container
 
