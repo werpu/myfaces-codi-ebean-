@@ -68,6 +68,15 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                     }
                 });
 
+                 _defProp(this, "checked", {
+                    set: function(value) {
+                        this._referencedNode.checked = value;
+                    },
+                    get: function() {
+                        return this._referencedNode.checked;
+                    }
+                });
+
                 _defProp(this, "javascriptVar", {
                     get: function() {
                         return window[ this._referencedNode.getAttribute(this.DATA_ATTR_JAVASCRIPT_VAR)];

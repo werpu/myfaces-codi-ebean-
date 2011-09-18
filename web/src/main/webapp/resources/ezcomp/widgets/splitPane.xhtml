@@ -30,6 +30,9 @@
         <div id="#{cc.clientId}"
              class="splitPane #{cc.attrs.layout}SplitPane #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
             <h:inputText style="display:none;" id="valueHolder" styleClass="valueHolder" value="#{cc.attrs.sliderPos}"/>
+            <h:selectBooleanCheckbox styleClass="valueHolder_toggle" id="valueHolder_toggle" style="display:none"
+                                                value="#{cc.attrs.value_toggle}"/>
+
             <h:panelGroup layout="block" id="first" styleClass="sliderPane first"
                           style="#{cc.attrs.headStyle}">
                 <composite:renderFacet name="first"/>
@@ -41,7 +44,7 @@
             </div>
             <h:panelGroup layout="block" id="second" styleClass="sliderPane second"
                           style="#{cc.attrs.headStyle}">
-                <composite:renderFacet name="first"/>
+                <composite:renderFacet name="second"/>
             </h:panelGroup>
             <script type="text/javascript">
                 var #{cc.javascriptVar} =

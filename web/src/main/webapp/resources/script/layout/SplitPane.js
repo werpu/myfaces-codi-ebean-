@@ -30,6 +30,7 @@
             this._onnormal = _Lang.hitch(this, this._onnormal);
             this.ontoggle = _Lang.hitch(this, this.ontoggle);
             this.value = this.sliderPos || 0;
+
             //move scoped by the behavior
         },
 
@@ -39,6 +40,8 @@
             this.slider = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + " > .slider"));
             this.firstPanel = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + "> .first"));
             this.secondPanel = new myfaces._impl._dom.Node(document.querySelector("#" + this.rootNode.id + "> .second"));
+            this.valueHolderToggle = this.rootNode.querySelector(".valueHolder_toggle");
+
             this.toggle = this.slider.querySelector(".toggle");
             this.toggle.addEventListener("click", this.ontoggle);
 
@@ -47,9 +50,6 @@
             //the ValueHolder behavior exposes a value property on this
             new extras.apache._ValueHolder(this);
             this.pack();
-            //we now layout our container
-
-            //TODO register sliding events on the slider
         },
         /*initial packing**/
         pack: function() {
@@ -58,6 +58,7 @@
             } else {
                 this._packHorizontally();
             }
+            this._originRootNode = (this.vertical) ? this.rootNode.absoluteOffsetTop : this.rootNode.absoluteOffsetLeft;
         },
 
         _packVertically: function() {
@@ -67,16 +68,18 @@
             var firstHeight = parseInt(this.sliderPos);
             var secondHeight = Math.floor(containerHeight - dividerHeight - firstHeight);
             var secondTop = Math.floor(firstHeight + dividerHeight);
+            if (!this.valueHolderToggle.checked) {
+                this.firstPanel.style({display: ""});
+                this.slider.style({top: firstHeight + "px"});
+                this.firstPanel.style({height: firstHeight + "px"});
+                this.secondPanel.style({height: secondHeight + "px", top: secondTop + "px"});
 
-            this.slider.style({top: firstHeight + "px"});
-            this.firstPanel.style({height: firstHeight + "px"});
-            this.secondPanel.style({height: secondHeight + "px", top: secondTop + "px"});
-
-            this._originRootNode = 0;
-            var obj = this.rootNode;
-            do {
-                this._originRootNode += obj.offsetTop;
-            } while (obj = obj.offsetParent);
+                this._originRootNode = (this.vertical) ? this.rootNode.absoluteOffsetTop : this.rootNode.absoluteOffsetLeft;
+            } else {
+                this.slider.style({top: "0px"});
+                this.firstPanel.style({display: "none"});
+                this.secondPanel.style({height: (containerHeight - dividerHeight) + "px", top: dividerHeight + "px"});
+            }
         },
 
         _packHorizontally: function() {
@@ -86,22 +89,17 @@
             var firstWidth = parseInt(this.sliderPos);
             var secondWidth = Math.floor(containerWidth - dividerWidth - firstWidth);
             var secondLeft = Math.floor(firstWidth + dividerWidth);
+            if (!this.valueHolderToggle.checked) {
+                this.firstPanel.style({display: ""});
+                this.slider.style({left: firstWidth + "px"});
+                this.firstPanel.style({width: firstWidth + "px"});
+                this.secondPanel.style({width: secondWidth + "px", left: secondLeft + "px"});
+            } else {
 
-            this.slider.style({left: firstWidth + "px"});
-            this.firstPanel.style({width: firstWidth + "px"});
-            this.secondPanel.style({width: secondWidth + "px", left: secondLeft + "px"});
-
-            //we now add a mouse behavior so that we can move the slider up and down
-            new extras.apache._Movable(this, this.slider);
-            this.sliderPos = (null != this.sliderPos) ? this.sliderPos :
-                    ((this.vertical) ? this.firstPanel.offsetHeight :
-                            this.firstPanel.offsetWidth);
-            /**
-             * we have to calculate the offset since our layout relies on absolute positioning
-             * relative to the root element, but we get fully absolute positioning
-             * relative to the viewport in by our movable behavior
-             */
-            this._originRootNode = (this.vertical) ? this.rootNode.absoluteOffsetTop : this.rootNode.absoluteOffsetLeft;
+                this.slider.style({left: "0px"});
+                this.firstPanel.style({display: "none"});
+                this.secondPanel.style({width: (containerWidth - dividerWidth) + "px", left: dividerWidth + "px"});
+            }
         },
 
         /**
@@ -119,7 +117,7 @@
         },
 
         ontoggle: function() {
-            if (!this._lastSize) {
+            if (!this.valueHolderToggle.checked) {
                 this._onminimize();
             } else {
                 this._onnormal();
@@ -127,18 +125,12 @@
         },
 
         _onminimize: function() {
-            this._lastSize = this.sliderPos;
-            this.sliderPos = 0;
-            this.value = this.sliderPos;
-            this.toggle.addClass("minimized");
+            this.valueHolderToggle.checked = true;
             this.pack();
         },
 
         _onnormal: function() {
-            this.sliderPos = this._lastSize || 30;
-            this.value = this.sliderPos;
-            this._lastSize = 0;
-            this.toogle.removeClass("minimized");
+            this.valueHolderToggle.checked = false;
             this.pack();
         },
 
