@@ -62,11 +62,11 @@
                     this.rootNode.toDomNode().addEventListener('click', this._onClickCallback, false)
 
                     if (this.autoWidth) {
-                        var innerWidth = parseInt(this._imageNormal.offsetWidth()) +
-                                parseInt(this._label.offsetWidth()) +
+                        var innerWidth = parseInt(this._imageNormal.offsetWidth) +
+                                parseInt(this._label.offsetWidth) +
                                 Math.min(
-                                        parseInt(this._imageNormal.offsetLeft()) * 3,
-                                        parseInt(this._label.offsetLeft()) * 3);
+                                        parseInt(this._imageNormal.offsetLeft) * 3,
+                                        parseInt(this._label.offsetLeft) * 3);
                         this.rootNode.setStyle("width", innerWidth + "px");
                     }
                 },

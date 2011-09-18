@@ -22,8 +22,8 @@
                         window.addEventListener("mouseup", this._mouseUpMove, true);
                         window.addEventListener("mousemove", this._mouseMoveMove, true);
 
-                        this._windowOriginX = parseInt(this.rootNode.offsetLeft());
-                        this._windowOriginY = parseInt(this.rootNode.offsetTop());
+                        this._windowOriginX = parseInt(this.rootNode.offsetLeft);
+                        this._windowOriginY = parseInt(this.rootNode.offsetTop);
 
                         this._mouseOriginX = evt.pageX - window.scrollX;
                         this._mouseOriginY = evt.pageY - window.scrollY;

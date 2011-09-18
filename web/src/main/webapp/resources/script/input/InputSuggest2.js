@@ -44,8 +44,8 @@
             this._underlay = this.rootNode.querySelector(".inputUnderlay");
             //we now realign the underlay straight below our input control
             /*old box model where padding is not part of the width*/
-            var width =  parseInt(this.valueHolder.offsetWidth()) - parseInt(this._underlay.getStyle("padding-left")|| 0)-parseInt(this._underlay.getStyle("padding-right")|| 0);
-            var height =  parseInt(this.valueHolder.offsetHeight()) - parseInt(this._underlay.getStyle("padding-top")|| 0)-parseInt(this._underlay.getStyle("padding-bottom")|| 0);
+            var width =  parseInt(this.valueHolder.offsetWidth) - parseInt(this._underlay.getStyle("padding-left")|| 0)-parseInt(this._underlay.getStyle("padding-right")|| 0);
+            var height =  parseInt(this.valueHolder.offsetHeight) - parseInt(this._underlay.getStyle("padding-top")|| 0)-parseInt(this._underlay.getStyle("padding-bottom")|| 0);
 
             this._underlay.style({
                 width: width+"px",

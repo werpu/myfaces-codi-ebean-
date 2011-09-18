@@ -92,12 +92,34 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                         else return null;
                     }
                 });
+                _defProp(this, "offsetTop", {
+                    get: function() {
+                        return this._referencedNode.offsetTop;
+                    }
+                });
+                _defProp(this, "offsetLeft", {
+                    get: function() {
+                        return this._referencedNode.offsetLeft;
+                    }
+                });
+                 _defProp(this, "offsetHeight", {
+                    get: function() {
+                        return this._referencedNode.offsetTop;
+                    }
+                });
+                _defProp(this, "offsetWidth", {
+                    get: function() {
+                        return this._referencedNode.offsetLeft;
+                    }
+                });
+
+
                 _defProp(this, "absoluteOffsetLeft", {
                     get: function() {
                         var offset = 0;
                         var obj = this;
                         do {
-                            offset += obj.offsetLeft();
+                            offset += obj.offsetLeft;
                         } while (obj = obj.offsetParent);
                         return offset;
                     }
@@ -107,7 +129,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                         var offset = 0;
                         var obj = this;
                         do {
-                            offset += obj.offsetTop();
+                            offset += obj.offsetTop;
                         } while (obj = obj.offsetParent);
                         return offset;
                     }
@@ -382,14 +404,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 offset = offset || 0;
                 return Math.max(this._referencedNode.offsetHeight, offset);
             },
-            offsetLeft: function(offset) {
-                offset = offset || 0;
-                return Math.max(this._referencedNode.offsetLeft, 0);
-            },
-            offsetTop: function(offset) {
-                offset = offset || 0;
-                return Math.max(this._referencedNode.offsetTop, 0);
-            },
+
 
             offset: function() {
                 return {x: this._referencedNode.offsetLeft,

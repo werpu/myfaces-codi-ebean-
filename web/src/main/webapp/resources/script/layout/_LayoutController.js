@@ -92,7 +92,7 @@
                             });
                 },
                 _layoutMouse: function() {
-                    var rightOverflow = this.rootNode.globalMousePos().x + this.rootNode.offsetWidth() > (window.innerWidth - window.scrollX);
+                    var rightOverflow = this.rootNode.globalMousePos().x + this.rootNode.offsetWidth > (window.innerWidth - window.scrollX);
                     var topOverflow = this.rootNode.globalMousePos().y + this.rootNode.offsetHeight(this._offsetHeight) > (window.innerHeight - window.scrollY)
                     var xPos = rightOverflow ? this.rootNode.globalMousePos().x - this.rootNode.offsetWidth(this._offsetWith) :
                             this.rootNode.globalMousePos().x;

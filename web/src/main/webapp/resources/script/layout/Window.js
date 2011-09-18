@@ -176,8 +176,8 @@
         pack: function(w, h) {
             //TODO add a proper border calculation here
 
-            var contentSizeH = this.rootNode.offsetHeight() - this._header.offsetHeight() - this._footer.offsetHeight();
-            var contentSizeW = this.rootNode.offsetWidth() - 2 * this.rootNode.toDomNode().borderWidth;
+            var contentSizeH = this.rootNode.offsetHeight - this._header.offsetHeight - this._footer.offsetHeight;
+            var contentSizeW = this.rootNode.offsetWidth - 2 * this.rootNode.toDomNode().borderWidth;
 
             this._content.setStyle("width", contentSizeW + "px").setStyle("height", contentSizeH + "px");
 
@@ -201,8 +201,8 @@
 
             this._dimensionStack.push(
                     {
-                        x:this.rootNode.offsetLeft() + "px", y: this.rootNode.offsetTop() + "px",
-                        w:this.rootNode.offsetWidth() + "px", h: this.rootNode.offsetHeight() + "px"
+                        x:this.rootNode.offsetLeft + "px", y: this.rootNode.offsetTop + "px",
+                        w:this.rootNode.offsetWidth + "px", h: this.rootNode.offsetHeight + "px"
                     });
             document.getElementsByTagName('body')[0].clientWidth
 

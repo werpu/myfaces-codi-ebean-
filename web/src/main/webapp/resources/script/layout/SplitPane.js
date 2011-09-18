@@ -56,8 +56,8 @@
         },
 
         _packVertically: function() {
-            var containerHeight = this.rootNode.offsetHeight();
-            var dividerHeight = this.slider.offsetHeight();
+            var containerHeight = this.rootNode.offsetHeight;
+            var dividerHeight = this.slider.offsetHeight;
 
             var firstHeight = parseInt(this.sliderPos);
             var secondHeight = Math.floor(containerHeight - dividerHeight - firstHeight);
@@ -73,13 +73,13 @@
             this._originRootNode = 0;
             var obj = this.rootNode;
             do {
-                this._originRootNode += obj.offsetTop();
+                this._originRootNode += obj.offsetTop;
             } while (obj = obj.offsetParent);
         },
 
         _packHorizontally: function() {
-            var containerWidth = this.rootNode.offsetWidth();
-            var dividerWidth = this.slider.offsetWidth();
+            var containerWidth = this.rootNode.offsetWidth;
+            var dividerWidth = this.slider.offsetWidth;
 
             var firstWidth = parseInt(this.sliderPos);
             var secondWidth = Math.floor(containerWidth - dividerWidth - firstWidth);
@@ -92,8 +92,8 @@
             //we now add a mouse behavior so that we can move the slider up and down
             new extras.apache._Movable(this, this.slider);
             this.sliderPos = (null != this.sliderPos) ? this.sliderPos :
-                    ((this.vertical) ? this.firstPanel.offsetHeight() :
-                            this.firstPanel.offsetWidth());
+                    ((this.vertical) ? this.firstPanel.offsetHeight :
+                            this.firstPanel.offsetWidth);
             /**
              * we have to calculate the offset since our layout relies on absolute positioning
              * relative to the root element, but we get fully absolute positioning
@@ -141,9 +141,9 @@
         _onSliderMoveVertically: function(positiondata) {
             //posY is the relativ position with the scroller position removed, within the viewport
             //we have to add the window scroller to the mix to get the final result
-            positiondata.top = Math.floor(parseInt(positiondata.pageY - this.slider.offsetHeight() / 2 - this._originRootNode));
+            positiondata.top = Math.floor(parseInt(positiondata.pageY - this.slider.offsetHeight / 2 - this._originRootNode));
             positiondata.top = Math.max(positiondata.top, 0);
-            positiondata.top = Math.min(this.rootNode.offsetHeight() - this.slider.offsetHeight(), positiondata.top);
+            positiondata.top = Math.min(this.rootNode.offsetHeight - this.slider.offsetHeight, positiondata.top);
             this.sliderPos = positiondata.top;
 
             //this.valueHolder.value = this.sliderPos;
@@ -153,9 +153,9 @@
         _onSliderMoveHorizontally: function(positiondata) {
             //posY is the relativ position with the scroller position removed, within the viewport
             //we have to add the window scroller to the mix to get the final result
-            positiondata.left = Math.floor(parseInt(positiondata.pageX - this.slider.offsetWidth() / 2 - this._originRootNode));
+            positiondata.left = Math.floor(parseInt(positiondata.pageX - this.slider.offsetWidth / 2 - this._originRootNode));
             positiondata.left = Math.max(positiondata.left, 0);
-            positiondata.left = Math.min(this.rootNode.offsetWidth() - this.slider.offsetWidth(), positiondata.left);
+            positiondata.left = Math.min(this.rootNode.offsetWidth - this.slider.offsetWidth, positiondata.left);
             this.sliderPos = positiondata.left;
 
             //this.valueHolder.value = this.sliderPos;

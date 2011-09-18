@@ -66,7 +66,7 @@
         },
 
         _onPositionMenuItems: function(target) {
-            var w = target.parentNode.offsetWidth();
+            var w = target.parentNode.offsetWidth;
             if (this._autoPos) {
                 target.querySelector(".menu > ul").style({
                     right:  "-" + (parseInt(w) / 2) + "px"

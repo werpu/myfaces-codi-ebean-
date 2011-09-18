@@ -23,8 +23,8 @@
                         this._NODE.querySelectorAll(".window").removeClass("focus");
                         this.rootNode.addClass("focus");
 
-                        this._windowOriginX = parseInt(this.rootNode.offsetLeft());
-                        this._windowOriginY = parseInt(this.rootNode.offsetTop());
+                        this._windowOriginX = parseInt(this.rootNode.offsetLeft);
+                        this._windowOriginY = parseInt(this.rootNode.offsetTop);
 
                         this._mouseOriginX = evt.pageX;
                         this._mouseOriginY = evt.pageY;
