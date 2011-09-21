@@ -25,50 +25,51 @@
 
 <ui:composition template="../templates/template.xhtml">
 
+
     <ui:define name="header">
-
-        <title>Person List view</title>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
-        </f:metadata>
-
+        <title>Collapsible Tree</title>
         <!-- we have to force an import because we rely on single files in the impl -->
         <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
         --></script>
-
-
     </ui:define>
 
     <ui:define name="search">
-        <h:outputScript library="script" name="dom/_DomEngine.js"/>
-        <h:outputScript library="script" name="dom/_DomEngineCompliant.js"/>
-        <h:outputScript library="script" name="dom/_DomEngineNonCompliant.js"/>
-
-        <h:outputScript library="script" name="dom/_NodeUtils.js"/>
-        <h:outputScript library="script" name="dom/Sizzle.js"/>
-        <h:outputScript library="script" name="dom/Node.js"/>
-        <h:outputScript library="script" name="dom/NodeList.js"/>
-
-        <h:outputScript library="script" name="dom/ComponentBase.js"/>
-        <h:outputScript library="script" name="SelectionList.js"/>
-        <h:outputScript library="script" name="layout/Toggle.js"/>
+    </ui:define>
 
 
+    <ui:define name="content">
+        <h:outputScript library="script" name="output/CollapsibleTree.js"/>
         <h3>Collapsible Tree Demo</h3>
         <h:form id="searchform" prependId="false">
-            <ol class="collapsibleTree">
-                <li id="item1" class="node">
-                    <input type="checkbox" id="item1_cb"></input>
-                    <label for="item1_cb"/>
-                    <ol class="subNodes">
-                        <li class="node">subnode 1</li>
-                        <li class="node">subnode 2</li>
-                    </ol>
-                </li>
-                <li id="item2" class="node">main node2</li>
-                <li id="item3" class="node">main node3</li>
-            </ol>
+            <div id="collapseTree">
+                <ol id="mainNodes" class="collapsibleTree">
+                    <li id="item1" class="node" data-mf-hassubnodes="true">
+                        <div  class="collapseIcon" />
+                        First Line
+                        <ol id="subnodes" class="subNodes">
+                            <li id="item1:1" class="node" data-mf-hassubnodes="true">
+                                 <div  class="collapseIcon" />
+                                subnode 1
+                                <ol id="subnodes:1" class="subNodes">
+                                    <li id="item21" class="node">main node21</li>
+                                    <li id="item31" class="node">main node31</li>
+                                </ol>
+                            </li>
+                            <li class="node">subnode 2</li>
+                        </ol>
+                    </li>
+                    <li id="item2" class="node">main node2</li>
+                    <li id="item3" class="node">main node3</li>
+                </ol>
+            </div>
         </h:form>
+        <script type="text/javascript">
+            var collapsTree = new extras.apache.CollapsibleTree({
+                id:"collapseTree",
+                javascriptVar:"collapsTree"
+            });
+
+        </script>
 
 
     </ui:define>

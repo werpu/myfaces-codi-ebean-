@@ -1,18 +1,18 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.tree
 
 import java.util.Collection
-import reflect.BeanProperty
-
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
+ *
+ * A TreeModel interface which defines the contract
+ * for the control
  */
-@serializable
-class TreeModel
+
+trait TreeModel
 {
-  @BeanProperty
-  var styleClass: String = _
-  @BeanProperty
-  var items: Collection[TreeItem] = _
+  def getChilds(ident: String): Collection[TreeItem]
+  def getNodeValue(ident:String): TreeItem
+  def getRootNode: TreeItem
 }

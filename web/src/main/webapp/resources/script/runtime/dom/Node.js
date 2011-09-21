@@ -157,6 +157,12 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                         return this._referencedNode.nodeName;
                     }
                 });
+
+                 _defProp(this, "tagName", {
+                    get: function() {
+                        return this._referencedNode.tagName;
+                    }
+                });
             },
 
             isTag: function(name) {

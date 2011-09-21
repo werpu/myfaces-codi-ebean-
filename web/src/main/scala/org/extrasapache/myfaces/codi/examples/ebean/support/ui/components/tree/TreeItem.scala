@@ -3,23 +3,23 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.tree
 import java.util.Collection
 import reflect.BeanProperty
 import java.io.Serializable
+import javax.faces.model.SelectItem
 
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
+ *
+ * a treeitem interface resembling a single entry for the tree
  */
 @serializable
-class TreeItem
+trait TreeItem
 {
-  @BeanProperty
-  var key: String = ""
-  @BeanProperty
-  var data: Serializable = _
-  @BeanProperty
-  var styleClass = ""
-  @BeanProperty
-  var childs: Collection[TreeItem] = _
+  def getItem() : AnyRef
 
-  def hasMore: Boolean = childs != null && childs.size() > 0
+  /**
+   * every item must be identifyable by an identifier
+   */
+  def getIdentifier() : String
+  def isChilds(): Boolean
 }
