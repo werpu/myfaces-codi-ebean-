@@ -21,6 +21,11 @@ ul.collapsibleTree,
 .collapsibleTree ol {
     height: 0px;
     overflow: hidden;
+	padding.left: 18px;
+}
+
+
+.collapsibleTree li, .collapsibleTree ol {
     /*the transition will help with the animation*/
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
@@ -28,12 +33,12 @@ ul.collapsibleTree,
     transition: all 0.2s ease-in;
 }
 
+
 .collapsibleTree li div.collapseIcon {
     display: none;
     margin-right: 5px;
     width: 16px;
     height: 16px;
-    margin-top: 2px;
 	float: left;
 }
 
@@ -45,6 +50,6 @@ ul.collapsibleTree,
     background: url(/javax.faces.resource/icons/dojo/treeExpandImages.png.jsf?ln=images) no-repeat -17px 0px;
 }
 
-.collapsibleTree li.expanded  div.collapseIcon {
-    background: url(/javax.faces.resource/icons/dojo/treeExpandImages.png.jsf?ln=images) no-repeat -53px x 0;
+.collapsibleTree li.expanded > div.collapseIcon {
+    background: url(/javax.faces.resource/icons/dojo/treeExpandImages.png.jsf?ln=images) no-repeat -53px 0px;
 }
