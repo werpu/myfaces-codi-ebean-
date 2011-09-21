@@ -13,6 +13,12 @@
         //temporary context for holding the event origin for a collapse expand event
         _origin: null,
 
+       /**
+        * ajax subnode handling
+        * TODO, do the ajax subnode handling
+        * after we have wired the basic logic together on the jsf side
+        */
+        ajaxSubnodes: false,
 
         constructor_:function(args) {
             this._callSuper("constructor", args);
@@ -108,7 +114,7 @@
         //I guess we can live with a little bit more server traffic, and by not introducing
         //a construct which might collide with other component libs
         _onUpdate: function(args) {
-            delete this._expandedChilds[this._origin.id];
+
 
         }
 
