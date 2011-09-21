@@ -42,6 +42,7 @@
         <h3>Collapsible Tree Demo</h3>
         <h:form id="searchform" prependId="false">
             <div id="collapseTree">
+                <input class="valueHolder" name="treeValueHolder" />
                 <ol id="mainNodes" class="collapsibleTree">
                     <li id="item1" class="node" data-mf-hassubnodes="true">
                         <div  class="collapseIcon" />
@@ -66,7 +67,8 @@
         <script type="text/javascript">
             var collapsTree = new extras.apache.CollapsibleTree({
                 id:"collapseTree",
-                javascriptVar:"collapsTree"
+                javascriptVar:"collapsTree",
+                expanded:"{\"subnodes\":true}"
             });
 
         </script>

@@ -9,18 +9,27 @@
 
     _RT.extendClass("extras.apache.CollapsibleTree", extras.apache.ComponentBase, {
         _Node: myfaces._impl._dom.Node,
-        _remoteChilds: [],
+        _expandedChilds: null,
         //temporary context for holding the event origin for a collapse expand event
         _origin: null,
+
 
         constructor_:function(args) {
             this._callSuper("constructor", args);
             this.expandCollapseHandler = _Lang.hitch(this, this.expandCollapseHandler);
+            var expandedStr = args.expanded || "{}";
+            this._expandedChilds = JSON.parse(expandedStr);
         },
         _postInit: function(args) {
             this._callSuper("_postInit", args);
             /*all tree elements which have subnodes will get their expand collapse listener*/
             this.rootNode.querySelectorAll("[data-mf-hassubnodes]").addEventListener("click", this.expandCollapseHandler);
+            this._valueHolder = this.rootNode.querySelector(".valueHolder");
+            for(var key in this._expandedChilds) {
+                var node = this.rootNode.querySelector("#"+key);
+                if(!node) continue;
+                this.expand(node.parentNode, node);
+            }
         },
 
         /**
@@ -36,7 +45,7 @@
 
             //check for a dynamic attribute which marks the node
             //as has remote childs
-            if (this._remoteChilds[this._origin.id]) {
+            if (this._expandedChilds[this._origin.id]) {
                 //issue the ajax request
             } else {
                 this._expandCollapse(this._origin);
@@ -68,6 +77,8 @@
             collapsePane.style({height: finalHeight + "px"});
             collapsePane.addClass(CLS_EXPANDED);
             rootNode.addClass(CLS_EXPANDED);
+            this._expandedChilds[collapsePane.id] = true;
+            this.valueHolder.value = JSON.stringify(this._expandedChilds);
 
         },
 
@@ -75,7 +86,6 @@
             var CLS_EXPANDED = "expanded";
             //we remove the auto so that our animation can trigger
             var transitionEnd = function() {
-                alert("transition end");
                 collapsePane.removeEventListener("transitionend", transitionEnd);
             }
             collapsePane.addEventListener("transitionend", transitionEnd);
@@ -83,6 +93,8 @@
             collapsePane.style({height: "0px"});
             collapsePane.removeClass(CLS_EXPANDED);
             rootNode.removeClass(CLS_EXPANDED);
+            delete this._expandedChilds[collapsePane.id];
+            this.valueHolder.value = JSON.stringify(this._expandedChilds);
         },
 
         //TODO we only update the contents we need to update
@@ -96,7 +108,7 @@
         //I guess we can live with a little bit more server traffic, and by not introducing
         //a construct which might collide with other component libs
         _onUpdate: function(args) {
-            delete this._remoteChilds[this._origin.id];
+            delete this._expandedChilds[this._origin.id];
 
         }
 
