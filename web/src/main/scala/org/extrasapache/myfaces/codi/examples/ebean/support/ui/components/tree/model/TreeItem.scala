@@ -16,5 +16,5 @@ class TreeItem extends SelectItem
   val identifier: String = _
   val value: AnyRef = _
   def hasChilds: Boolean = childs.hashChilds()
-  def getChild(identifier: String) : TreeItem = childs.
+  def getChild(identifier: String) : TreeItem = childs.get(identifier)
 }

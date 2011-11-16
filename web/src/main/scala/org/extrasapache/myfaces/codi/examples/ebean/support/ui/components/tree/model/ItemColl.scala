@@ -31,16 +31,10 @@ class ItemColl[T <: SelectItem]
 
   def iterator = childs.iterator()
 
-  def get(identifier: String)
+  def get(identifier: String): T =
   {
     val pos = childIdx.get(identifier).get
-    if (pos != null)
-    {
-      childs.get(pos)
-    } else
-    {
-      null
-    }
+    if (pos != null) childs.get(pos) else null
   }
 
   def remove(child: T)
