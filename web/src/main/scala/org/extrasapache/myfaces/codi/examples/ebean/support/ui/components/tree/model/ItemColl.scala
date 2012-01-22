@@ -2,7 +2,6 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.tree.
 
 import java.util.ArrayList
 import scala.collection.mutable.HashMap
-import javax.faces.model.SelectItem
 
 /**
  *
@@ -12,7 +11,7 @@ import javax.faces.model.SelectItem
 @serializable
 class ItemColl[S, T] {
     var childs = new ArrayList[T]
-    private var childIdx = new HashMap[String, java.lang.Integer]
+    private var childIdx = new HashMap[String, Int]
 
     def hashChilds: Boolean = childs.isEmpty()
 
@@ -20,13 +19,11 @@ class ItemColl[S, T] {
         child match {
             case child2: TreeItem[S] => {
                 val label = child2.label;
-
-                val item = childIdx.get(label).get;
-                if (item == null) {
+                if (childIdx.get(label) == None) {
                     childs.add(child)
                     childIdx.put(label, childs.size() - 1)
                 } else {
-                    childs.set(childIdx.get(label).get.intValue(), child)
+                    childs.set(childIdx.get(label).get, child)
                 }
             }
 
@@ -43,20 +40,68 @@ class ItemColl[S, T] {
         childs.get(pos.intValue())
     }
 
+    def down(child: T) {
+        child match {
+            case child2: TreeItem[S] => {
+                val label = child2.label;
+                val pos = childIdx.get(label).get;
+                if (pos == childs.size() - 1) return;
+                for {cnt <- 0 until childs.size();
+                     if cnt == pos} {
+                    val replacement = childs.get(pos - 1)
+                    val orig = childs.get(pos);
+                    childs.set(pos, replacement)
+                    childs.set(pos + 1, orig)
+                    childIdx.put(replacement.asInstanceOf[TreeItem[_]].label, pos)
+                    childIdx.put(child2.label, pos + 1)
+                    return;
+                }
+            }
+            case _ => throw new ClassCastException
+        }
+    }
+
+
+    def up(child: T) {
+        child match {
+            case child2: TreeItem[S] => {
+                val label = child2.label;
+                val pos = childIdx.get(label).get;
+                if (pos == 0) return;
+                for {cnt <- 0 until childs.size();
+                     if cnt == pos} {
+                    val replacement = childs.get(pos - 1)
+                    val orig = childs.get(pos);
+                    childs.set(pos, replacement)
+                    childs.set(pos - 1, orig)
+                    childIdx.put(replacement.asInstanceOf[TreeItem[_]].label, pos)
+                    childIdx.put(child2.label, pos - 1)
+                    return;
+                }
+            }
+            case _ => throw new ClassCastException
+        }
+    }
+
     def remove(child: T) {
-        /*val pos = childIdx.get(child.getLabel).get
-       if (pos != null)
-       {
-         childs.remove(pos)
-         val newMap = new HashMap[String, Integer]
-         for (elem <- childIdx)
-         {
-           var (key, value) = elem;
-           value = if (value > value) value - 1 else value
-           newMap.put(key, value)
-         }
-         childIdx = newMap
-       } */
+        child match {
+            case child2: TreeItem[S] => {
+                val label = child2.label;
+
+                if (childIdx.get(label) != None) {
+                    val pos = childIdx.get(label).get;
+                    childs.remove(pos)
+                    val newMap = new HashMap[String, Int]
+                    for (elem <- childIdx) {
+                        var (key, value) = elem;
+                        value = if (value > pos) value - 1 else value
+                        newMap.put(key, value)
+                    }
+                    childIdx = newMap
+                }
+            }
+            case _ => throw new ClassCastException
+        }
     }
 
 }
