@@ -4,6 +4,11 @@ import javax.faces.model.SelectItem
 import reflect.BeanProperty
 
 /**
+ * Builder pattern for easier tree creation
+ * */
+
+
+/**
  *
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
@@ -29,9 +34,7 @@ class TreeItem[T <: SelectItem] {
   def TreeItem() {
   }
 
-  def TreeItem(newVal: T) {
-    _value = newVal
-  }
+
 
   def hasChilds: Boolean = childs.hashChilds
 
