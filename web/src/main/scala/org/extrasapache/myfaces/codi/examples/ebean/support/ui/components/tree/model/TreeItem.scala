@@ -1,18 +1,28 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.tree.model
 
 import javax.faces.model.SelectItem
+import reflect.BeanProperty
 
 /**
  *
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
+ *
+ * a a tree item, which has the same identifier as the select item it holds
+ *
+ * <h3>Additional attributes:</h3>
+ * <li>childs: an ItemColl holding its children with convenience methods</li>
+ * <li>expanded: if set to true then the tree node is expanded</li>
+ * <li>identifier: the identifier (equals the label)</li>
+ * <li>value: the SelectItem holding the current node value</li>
  */
 @serializable
 class TreeItem[T <: SelectItem] {
-
+  @BeanProperty
   val childs = new ItemColl[T, TreeItem[T]]()
+  @BeanProperty
   var expanded: Boolean = false
-
+  @BeanProperty
   var identifier: String = _
   protected var _value: T = _ //setters and getters see below
 
@@ -29,7 +39,7 @@ class TreeItem[T <: SelectItem] {
 
   def append(value: T): TreeItem[T] = {
     val finalValue = new TreeItem[T]
-    finalValue.value = value
+    finalValue.setValue ( value )
     childs.set(finalValue)
     finalValue
   }
@@ -45,18 +55,21 @@ class TreeItem[T <: SelectItem] {
     childs.remove(child)
   }
 
-  def value_$eq(newVal: T) = {
+  def setValue(newVal: T) = {
     _value = newVal
     identifier = newVal.getLabel
   }
 
-  def value: T = _value
+  def getValue: T = _value
 
-  def label_$eq(newVal: String) = {
+  def setLabel(newVal: String) = {
     _value.setLabel(newVal)
     identifier = newVal
   }
 
-  def label: String = _value.getLabel
+  def getLabel: String = _value.getLabel
+
+
+
 
 }
