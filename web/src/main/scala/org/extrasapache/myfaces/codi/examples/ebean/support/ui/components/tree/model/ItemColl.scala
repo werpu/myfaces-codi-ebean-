@@ -11,7 +11,7 @@ import scala.collection.mutable.HashMap
 @serializable
 class ItemColl[S, T] {
     var childs = new ArrayList[T]
-    private var childIdx = new HashMap[String, Int]
+    var childIdx = new HashMap[String, Int]
 
     def hashChilds: Boolean = childs.isEmpty()
 
