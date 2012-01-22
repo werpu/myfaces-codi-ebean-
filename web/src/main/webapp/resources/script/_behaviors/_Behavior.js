@@ -13,7 +13,7 @@
 
     _RT.extendClass("extras.apache._Behavior", Object, {
 
-        constructor_: function(scope, eventTarget, eventOverrides) {
+        constructor_:function (scope, eventTarget, eventOverrides) {
             eventTarget = eventTarget || scope.rootNode;
             eventOverrides = eventOverrides || {};
             scope._tmpEventTarget = eventTarget;
@@ -25,11 +25,10 @@
                 scope._tmpEventOverrides = null;
             }
         },
-        _defineProperty: function(name, getter, setter) {
+        _defineProperty:function (name, getter, setter) {
             var props = {};
-            (getter)? props.get = getter: null;
-            (setter)? props.set = setter: props.readonly = true;
-
+            (getter) ? props.get = getter : null;
+            (setter) ? props.set = setter : props.readonly = true;
             Object.defineProperty(this, name, props);
         }
 

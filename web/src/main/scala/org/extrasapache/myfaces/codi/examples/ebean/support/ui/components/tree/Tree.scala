@@ -1,6 +1,6 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.tree
 
-import model.SimpleTreeModel
+//import model.SimpleTreeModel
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
 import javax.faces.component.FacesComponent
 

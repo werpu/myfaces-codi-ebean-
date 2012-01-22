@@ -1,6 +1,8 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.tree
 
+import model.TreeItem
 import reflect.BeanProperty
+import javax.faces.model.SelectItem
 
 /**
  *
@@ -24,7 +26,7 @@ class TreeViewEntry
   @BeanProperty
   var ajaxChilds = false
   @BeanProperty
-  var item: TreeItem = _
+  var item: TreeItem[SelectItem] = _
 
   @BeanProperty
   var identifier: String = ""
