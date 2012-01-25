@@ -8,12 +8,12 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.tree.
  * A simple tree model
  */
 
-trait TreeModel {
+abstract trait TreeModel[T <: AnyRef] {
     /**
      * returns the content
      * of the current node level
      * given the
      * @param label, which identifies the holding node
      */
-     def getNodeLevel(label: String):TreeItem
+     def getNodeLevel(label: String): TreeItem[T]
 }

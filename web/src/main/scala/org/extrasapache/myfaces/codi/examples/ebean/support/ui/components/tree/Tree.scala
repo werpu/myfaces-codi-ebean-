@@ -2,7 +2,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.tree
 
 //import model.SimpleTreeModel
 
-import model.TreeItem
+import model.{TreeModel, TreeItem}
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.StandardJavascriptComponent
 import javax.faces.component.FacesComponent
 
@@ -39,9 +39,9 @@ class Tree extends StandardJavascriptComponent
      * json representation of the tree
      *
      */
-  def getModel(): TreeItem = {
+  def getModel(): TreeModel[_] = {
 
-    ""
+    null
   }
 
   /**

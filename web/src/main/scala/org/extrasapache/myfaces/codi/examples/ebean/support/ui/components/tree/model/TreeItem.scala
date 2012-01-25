@@ -55,9 +55,16 @@ class TreeItem[T <: AnyRef] {
 
     def getChild(identifier: String): TreeItem[T] = childs.get(identifier)
 
-    def append(value: T): TreeItem[T] = {
+    def append(label: String, description: String, value: T): TreeItem[T] = {
         val finalValue = new TreeItem[T]
         finalValue.setValue(value)
+        finalValue.setLabel(label)
+        finalValue.setDescription(description)
+        childs.set(finalValue)
+        finalValue
+    }
+
+    def append(finalValue: TreeItem[T]): TreeItem[T] = {
         childs.set(finalValue)
         finalValue
     }
@@ -101,7 +108,7 @@ class TreeItem[T <: AnyRef] {
             case value2: JSONAble => {
                 value2.toJSON
             }
-            case value3: String =>  ("\"") + (value3.replaceAll("\"", "\\\\\"")) + ("\"")
+            case value3: String => ("\"") + (value3.replaceAll("\"", "\\\\\"")) + ("\"")
             case _ => value
         }
         jsonBuilder.append("value: ").append(valueFinal)

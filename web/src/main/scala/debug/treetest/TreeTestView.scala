@@ -15,20 +15,16 @@ import javax.faces.model.SelectItem
 @ViewAccessScoped
 class TreeTestView
 {
-  var tree = new TreeItem[SelectItem]
+  var tree = new TreeItem[String]
 
   for (cnt2 <- 1 to 10)
   {
-    val item = new SelectItem()
-    item.setLabel("identifier" + cnt2)
-    item.setValue("value" + cnt2);
-    val tree2 = tree.append(item)
+
+    val tree2 = tree.append("identifier" + cnt2 + "_1", "value" + cnt2 + "_1", "value" + cnt2 + "_1")
     for (cnt <- 1 to 10)
     {
-      val item = new SelectItem()
-      item.setLabel("identifier" + cnt + "_1")
-      item.setValue("value" + cnt + "_1");
-      tree2.append(item);
+
+      tree2.append("identifier" + cnt + "_1", "value" + cnt + "_1", "value" + cnt + "_1");
     }
   }
 }
