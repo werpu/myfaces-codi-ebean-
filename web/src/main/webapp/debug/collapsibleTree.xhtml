@@ -41,6 +41,11 @@
         <h:outputScript library="script" name="output/CollapsibleTree.js"/>
         <h3>Collapsible Tree Demo</h3>
         <h:form id="searchform" prependId="false">
+
+            <div id="collapseTree2">
+                #{treeTestView.treeModel.rootNode.label}
+            </div>
+
             <div id="collapseTree">
                 <input class="valueHolder" name="treeValueHolder" />
                 <ol id="mainNodes" class="collapsibleTree">
@@ -64,6 +69,7 @@
                 </ol>
             </div>
         </h:form>
+        <!--
         <script type="text/javascript">
             var collapsTree = new extras.apache.CollapsibleTree({
                 id:"collapseTree",
@@ -72,7 +78,7 @@
             });
 
         </script>
-
+        -->
 
     </ui:define>
 </ui:composition>

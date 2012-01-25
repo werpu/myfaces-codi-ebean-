@@ -64,10 +64,10 @@ class TreeItem[T <: AnyRef] {
         finalValue
     }
 
-    def append(finalValue: TreeItem[T]): TreeItem[T] = {
+  /*  def append(finalValue: TreeItem[T]): TreeItem[T] = {
         childs.set(finalValue)
         finalValue
-    }
+    }*/
 
     def remove(identifier: String) {
         val child = childs.get(identifier)
