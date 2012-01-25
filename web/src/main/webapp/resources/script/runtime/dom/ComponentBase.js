@@ -92,7 +92,7 @@
     _RT.extendClass("extras.apache.ComponentBase", Object, {
         _AjaxQueue : extras.apache.ExtendedEventQueue,
         _ErrorQueue : extras.apache.ExtendedErrorQueue,
-        _LANG:  myfaces._impl._util._Lang,
+        _Lang:  myfaces._impl._util._Lang,
 
         /**
          * the root node for grouped elements
@@ -264,7 +264,7 @@
                 //we ran into stack problems here with our slice code
                 //we are going to defer here (the stack problems also can be fixed
                 //by not using splice but using immutable data structures
-                setTimeout(this._LANG.hitch(this, function() {
+                setTimeout(this._Lang.hitch(this, function() {
                     //TODO check why this fails without timeout
                     this._AjaxQueue.remove(this._ajaxInit);
                     this._ErrorQueue.remove(this._ajaxInit);
@@ -328,7 +328,7 @@
 
             //var dataUpdateListeners = this.rootNode.getAttribute("data-ezw-update-listener")|| [];
             //dataUpdateListeners = dataUpdateListeners.concat(this.listeners.toA);
-            extras.apache.ComponentBase._preRenderStack.push(this._LANG.hitch(this, function() {
+            extras.apache.ComponentBase._preRenderStack.push(this._Lang.hitch(this, function() {
 
                 this._postRender();
                 this.postRender();

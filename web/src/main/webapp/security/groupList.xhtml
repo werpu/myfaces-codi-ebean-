@@ -28,15 +28,11 @@
     <ui:define name="header">
 
         <title>Person List view</title>
-        <f:metadata>
+        <!--
+        <f:metadata id="bla">
             <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
         </f:metadata>
-
-        <!-- we have to force an import because we rely on single files in the impl -->
-        <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
-        --></script>
-
-
+        -->
     </ui:define>
 
     <ui:define name="search">
@@ -44,6 +40,7 @@
 
         <h3>${msgs.group_search}</h3>
         <h:form id="searchform" prependId="false">
+
 
             <div id="search">
                 <h:panelGrid columns="6" id="searchArea">

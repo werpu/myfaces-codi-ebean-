@@ -2,7 +2,7 @@
  * movable modal or non modal window
  * with resizing capaibilities.
  */
-( function() {
+( function () {
 
     var _RT = myfaces._impl.core._Runtime;
     var _Lang = myfaces._impl._util._Lang;
@@ -10,28 +10,28 @@
     _RT.extendClass("extras.apache.Window", extras.apache.ComponentBase, {
 
         _NODE:myfaces._impl._dom.Node,
-        _Lang: myfaces._impl._util._Lang,
+        _Lang:myfaces._impl._util._Lang,
 
-        _moveable: false,
-        _resizable: false,
-        _modal: false,
-        _focusOnCreate: true,
+        _moveable:false,
+        _resizable:false,
+        _modal:false,
+        _focusOnCreate:true,
 
-        _header: null,
-        _footer: null,
-        _content: null,
+        _header:null,
+        _footer:null,
+        _content:null,
 
         /* nodes */
-        _closer: null,
-        _minimizer: null,
-        _maximizer: null,
-        _title: null,
-        _resizeHandler: null,
+        _closer:null,
+        _minimizer:null,
+        _maximizer:null,
+        _title:null,
+        _resizeHandler:null,
 
         /*underlay is dynamically generated*/
-        _underlay: null,
+        _underlay:null,
 
-        _initialVisible: true,
+        _initialVisible:true,
 
         /*delta origins for mouse movements*/
         /*helpers only declared implicitely*/
@@ -45,7 +45,7 @@
 
 
 
-        constructor_: function(args) {
+        constructor_:function (args) {
             this._callSuper("constructor", args);
 
             this._onfocus = _Lang.hitch(this, this._onfocus);
@@ -62,7 +62,7 @@
             }
         },
 
-        _postInit: function() {
+        _postInit:function () {
             this._callSuper("_postInit", arguments);
             if (this._underlay) {
                 this._underlay._postInit();
@@ -118,28 +118,28 @@
 
         },
 
-        fadeIn: function() {
+        fadeIn:function () {
             this.rootNode.querySelectorAll(".fadeIn").delay(0).setStyle("opacity", "1");
         },
 
-        fadeInFullForce: function() {
+        fadeInFullForce:function () {
             this.rootNode.querySelectorAll(".fadeIn")
-                    .setTransitionDuration("0s")
-                    .setStyle("opacity", "1")
-                    .delay(10)
-                    .setTransitionDuration("");
+                .setTransitionDuration("0s")
+                .setStyle("opacity", "1")
+                .delay(10)
+                .setTransitionDuration("");
         },
 
-        _onfocus: function() {
+        _onfocus:function () {
             this._NODE.querySelectorAll(".window").removeClass("focus");
             this.rootNode.addClass("focus");
         },
 
-        focus: function() {
+        focus:function () {
             this._onfocus();
         },
 
-        hide: function() {
+        hide:function () {
 
             if (!this.onHide()) {
                 return;
@@ -159,11 +159,11 @@
             }
         },
 
-        onHide: function() {
+        onHide:function () {
             return true;
         },
 
-        show: function() {
+        show:function () {
             if (this._modal) {
                 if (this._underlay)
                     this._underlay.show();
@@ -173,7 +173,7 @@
             this.focus();
         },
 
-        pack: function(w, h) {
+        pack:function (w, h) {
             //TODO add a proper border calculation here
 
             var contentSizeH = this.rootNode.offsetHeight - this._header.offsetHeight - this._footer.offsetHeight;
@@ -183,7 +183,7 @@
 
         },
 
-        maximize: function(evt) {
+        maximize:function (evt) {
 
             if (!this.onMaximize()) {
                 return false;
@@ -200,27 +200,29 @@
             }
 
             this._dimensionStack.push(
-                    {
-                        x:this.rootNode.offsetLeft + "px", y: this.rootNode.offsetTop + "px",
-                        w:this.rootNode.offsetWidth + "px", h: this.rootNode.offsetHeight + "px"
-                    });
+                {
+                    x:this.rootNode.offsetLeft + "px", y:this.rootNode.offsetTop + "px",
+                    w:this.rootNode.offsetWidth + "px", h:this.rootNode.offsetHeight + "px"
+                });
             document.getElementsByTagName('body')[0].clientWidth
-
+            //transition: all 0.2s linear;
             this.rootNode.addClass("fastScale")
-                    .style({"width": window.innerWidth + "px",
-                        "height": window.innerHeight + "px",
-                        "height": window.innerHeight + "px",
-                        "left": "0px",
-                        "top": "0px"}).delayTransition(500)
-                    .removeClass("fastScale")
-                    .exec(this._Lang.hitch(this, function() {
-                this.pack();
-            }));
+                .style({"width":window.innerWidth + "px",
+                    "height":window.innerHeight + "px",
+                    "height":window.innerHeight + "px",
+                    "left":"0px",
+                    "top":"0px"}).delayTransition(500)
+                .removeClass("fastScale")
+                .exec(
+                    this._Lang.hitch(this, function () {
+                        this.pack();
+                    }
+                ));
             this._moveable = false;
             this._maximizer.removeClass("stateNormal").addClass("stateMaximized");
         },
 
-        normalize: function(evt) {
+        normalize:function (evt) {
             this._moveable = true;
             if (!this.onNormalize()) {
                 return false;
@@ -228,29 +230,29 @@
             if (evt) {
                 evt.stopPropagation();
             }
-            if (!this._dimensionStack || ! this._dimensionStack.length) {
+            if (!this._dimensionStack || !this._dimensionStack.length) {
                 return;
             }
             var oldDimension = this._dimensionStack.splice(0, 1)[0];
             var _t = this;
             this.rootNode.addClass("fastScale")
-                    .style({"left": oldDimension.x,
-                        "top": oldDimension.y,
-                        "width": oldDimension.w,
-                        "height": oldDimension.h})
-                    .delayTransition(500).removeClass("fastScale")
-                    .exec(this._Lang.hitch(this, function() {
+                .style({"left":oldDimension.x,
+                    "top":oldDimension.y,
+                    "width":oldDimension.w,
+                    "height":oldDimension.h})
+                .delayTransition(500).removeClass("fastScale")
+                .exec(this._Lang.hitch(this, function () {
                 this.pack();
             }));
 
             this._maximizer.removeClass("stateMaximized").addClass("stateNormal");
         },
 
-        onMaximize: function(evt) {
+        onMaximize:function (evt) {
             //overridable callback handler
             return true;
         },
-        onNormalize: function(evt) {
+        onNormalize:function (evt) {
             //overridable callback handler
             return true;
         },
@@ -258,12 +260,12 @@
          * callback from the movable behavior
          * @param position
          */
-        onmove: function(position) {
-            this.rootNode.style({"left": position.left,
-                "top": position.top});
+        onmove:function (position) {
+            this.rootNode.style({"left":position.left,
+                "top":position.top});
         },
 
-        _onAjaxDomUnload: function(evt) {
+        _onAjaxDomUnload:function (evt) {
             this._callSuper("_onAjaxDomUnload", evt);
             if (this._underlay) {
                 this._underlay.hide();

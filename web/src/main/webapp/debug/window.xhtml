@@ -28,9 +28,7 @@
     <ui:define name="header">
 
         <title>Person List view</title>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
-        </f:metadata>
+
 
         <!-- we have to force an import because we rely on single files in the impl -->
         <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
@@ -43,6 +41,9 @@
     </ui:define>
 
     <ui:define name="content">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
+        </f:metadata>
         <h:form id="mainForm" prependId="false">
 
             <ezw:ajaxStatus id="pull">
@@ -53,13 +54,13 @@
             <ezw:window id="myWindow2" resizable="true">
                 <f:facet name="title">my header2</f:facet>
                 <f:facet name="content">dummy content bla bla bla</f:facet>
-                <f:facet name="footer" />
+                <f:facet name="footer"/>
             </ezw:window>
 
             <ezw:window id="myWindow" resizable="true" modal="true">
                 <f:facet name="title">my header</f:facet>
                 <f:facet name="content">dummy content bla bla bla</f:facet>
-                <f:facet name="footer" />
+                <f:facet name="footer"/>
             </ezw:window>
 
 

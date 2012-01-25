@@ -2,10 +2,98 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-       xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets"
+      xmlns:ezc="http://java.sun.com/jsf/composite/ezcomp"
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp/widgets" xmlns:h="http://java.sun.com/jsf/html"
       xml:lang="en" lang="en">
-<head>
+<h:head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+    <!-- runtime -->
+    <h:outputScript name="myfaces_tmp/_impl/core/_EvalHandlers.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/core/_Runtime.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/core/_StartImpl.js" library="script" />
+
+    <!-- i18n -->
+    <h:outputScript name="myfaces_tmp/_impl/i18n/Messages.js" library="script" />
+
+    <!-- utils / support classes -->
+    <h:outputScript name="myfaces_tmp/_impl/_util/_Lang.js" library="script" />
+
+    <h:outputScript name="myfaces_tmp/_impl/core/Object.js" library="script" />
+
+    <h:outputScript name="myfaces_tmp/_impl/_util/_Queue.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/_util/_ListenerQueue.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/_util/_Dom.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/_util/_DomQuirks.js" library="script" />
+
+
+    <h:outputScript name="myfaces_tmp/_impl/_util/_HtmlStripper.js" library="script" />
+
+    <!-- xhr engine -->
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/engine/XhrConst.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/engine/FormData.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/engine/BaseRequest.js" library="script" />
+
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/engine/Xhr1.js" library="script" />
+
+
+    <!-- xhr jsf mappers -->
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/_AjaxUtils.js" library="script" />
+
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/_AjaxRequestQueue.js" library="script" />
+
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/_AjaxRequest.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/_ExtAjaxRequest.js" library="script" />
+
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/_AjaxRequestLevel2.js" library="script" />
+
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/_AjaxResponse.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/_Transports.js" library="script" />
+
+
+
+    <!-- Implementation -->
+    <h:outputScript name="myfaces_tmp/_impl/core/Impl.js" library="script" 
+                    rendered="#{information.implementation == 'myfaces'}"/>
+    <!--
+        we try to register our overrides deliberately later
+        to check whether they register themselves properly
+        into the system post init
+    -->
+
+
+
+    <!-- clean up the init code -->
+
+    <!-- API -->
+    <h:outputScript name="myfaces_tmp/_impl/core/_RuntimeQuirks.js" library="script" />
+
+    <h:outputScript name="myfaces_tmp/_impl/i18n/Messages_de.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/i18n/Messages_nl.js" library="script" />
+
+    <h:outputScript name="myfaces_tmp/_impl/_util/_LangQuirks.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/_util/_DomQuirks.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/_util/_DomExperimental.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/_ExtTransport.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/engine/IFrame.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/_IFrameRequest.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/xhrCore/_PartialSubmitUtils.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/_util/_UnitTest.js" library="script" />
+    <h:outputScript name="myfaces_tmp/_impl/core/_EndImpl.js" library="script" 
+                    rendered="#{information.implementation == 'myfaces'}"/>
+
+
+    <h:outputScript name="myfaces_tmp/api/jsf.js" library="script"    />
+
+
+
+    <script type="text/javascript" defer="defer">
+        myfaces = window.myfaces ||{};
+        myfaces.config = myfaces.config ||{};
+        myfaces.config.projectStage = "Development";
+        window.myfaces = myfaces;
+    </script>
+
     <link rel="stylesheet" type="text/css" href="../resources/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="../resources/css/ajaxStatus.css"/>
     <link rel="stylesheet" type="text/css" href="../resources/css/progressBar.css"/>
@@ -29,8 +117,8 @@
         <title>#{msgs.title_webstack}</title>
     </ui:insert>
     <ezw:js_includes />
-</head>
-<body>
+</h:head>
+<h:body>
 
 <div id="wrap">
 
@@ -180,5 +268,5 @@
 
 </div>
 
-</body>
+</h:body>
 </html>

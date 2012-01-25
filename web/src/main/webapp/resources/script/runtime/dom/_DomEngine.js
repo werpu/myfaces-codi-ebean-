@@ -375,8 +375,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom._DomEngine", Object,
                 //first we generate the delegation map
                 var transitionEvent = this.getTransitionEndEvent();
                 if(!transitionEvent) {
-                    this.decorateDelay(target, fallbackDelay);
-                    return;
+                   return  this.decorateDelay(target, fallbackDelay);
                 }
                 var _Lang = myfaces._impl._util._Lang;
                 var delegationMap = {};
