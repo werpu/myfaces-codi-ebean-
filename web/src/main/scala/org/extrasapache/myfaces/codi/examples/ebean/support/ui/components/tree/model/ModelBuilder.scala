@@ -12,50 +12,57 @@ import java.util.LinkedList
  *
  * val treeModel = ModelBuilder.instance[MySelectItem]
  * .start(rootNode)
- * .appendChild(node00)
- * .appendChild(node01)
+ * .appendChild("id00","value02")
+ * .appendChild(id01","value02")
  * .down(node11)    //goes one level down with the initial node in that level
- * .appendChild(node12)
+ * .appendChild(id12","value12")
  * .up()            //one level up the last appended node is picked up in that level
- * .appendChild(node02)
+ * .appendChild(id02","value13")
  * .makeFinal()     //returns the final model representation
  *
  */
 
 object ModelBuilder {
-    def instance[T <: SelectItem]: ModelBuilder[T] = {
+    def instance[T <: AnyRef]: ModelBuilder[T] = {
         new ModelBuilder[T]()
     }
 }
 
-class ModelBuilder[S <: SelectItem] {
+class ModelBuilder[S <: AnyRef] {
     var root:  TreeItem[S] = _
     var currentTree: TreeItem[S] = _
     var currentPos: TreeItem[S] = _
     var lastAppended: TreeItem[S] = _
     var posStack: LinkedList[TreeItem[S]] = _
 
-    def start(item: S): ModelBuilder[S] = {
+    def start(label: String, item: S): ModelBuilder[S] = {
         currentTree = new TreeItem[S]()
-        root = currentTree
         currentTree.setValue(item)
+        currentTree.setLabel(label)
+
+        root = currentTree
         currentPos = currentTree
         lastAppended = currentPos;
         this
     }
 
-    def appendChild(item: S): ModelBuilder[S] = {
+    def appendChild(label: String, item: S): ModelBuilder[S] = {
         val treeItem = new TreeItem[S]();
         treeItem.setValue(item)
+        treeItem.setLabel(label)
+
         currentPos.getChilds().set(treeItem)
         lastAppended = treeItem;
         this
     }
 
-    def down(item: S): ModelBuilder[S] = {
+    def down(label: String, item: S): ModelBuilder[S] = {
         posStack.push(lastAppended)
         val treeItem = new TreeItem[S]();
         treeItem.setValue(item)
+        treeItem.setLabel(label)
+
+
         lastAppended.getChilds().set(treeItem)
         lastAppended = treeItem
         currentPos = lastAppended;

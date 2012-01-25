@@ -22,11 +22,12 @@ class ItemCollTest {
     def setup(): ItemColl[SelectItem, TreeItem[SelectItem]] = {
         val probe = new ItemColl[SelectItem, TreeItem[SelectItem]]
         for (cnt <- 0 until 20) {
-            var item = new SelectItem()
-            item.setLabel("label" + cnt);
-            item.setDescription("description" + cnt)
+            //var item = new SelectItem()
             var treeItem = new TreeItem[SelectItem]
-            treeItem.setValue( item)
+            treeItem.setLabel("label" + cnt);
+            treeItem.setDescription("description" + cnt)
+
+            treeItem.setValue("value" + cnt)
             probe.set(treeItem)
         }
         probe
@@ -105,10 +106,10 @@ class ItemCollTest {
 
         probe.remove(first);
 
-        assertTrue("probe now must be removed 1", probe.childs.size() == len1-1)
-        assertTrue("probe now must be removed 2", probe.childIdx.size == len2-1)
+        assertTrue("probe now must be removed 1", probe.childs.size() == len1 - 1)
+        assertTrue("probe now must be removed 2", probe.childIdx.size == len2 - 1)
         var cnt = 0
-        for(cnt <- 0 until  probe.childs.size()) {
+        for (cnt <- 0 until probe.childs.size()) {
             val child = probe.childs.get(cnt)
             val pos = probe.childIdx.get(child.getLabel).get
             assertTrue("index position must be correct", pos == cnt)

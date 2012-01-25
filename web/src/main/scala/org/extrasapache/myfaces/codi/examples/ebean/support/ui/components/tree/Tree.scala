@@ -33,16 +33,25 @@ class Tree extends StandardJavascriptComponent
 {
   import Tree._
 
+    /**
+     * json representation of the tree
+     *
+     */
+  def getModel(): String = {
+
+    ""
+  }
+
   /**
    * transforms the tree into a flat representation
    * with elements indicating the begging and end of a level in between
    */
-  def getFlatTreeRepresentation: java.util.List[TreeViewEntry] = {
-    var isAjax = getAttr[Boolean](AJAX_LOADING, false)
+  //def getFlatTreeRepresentation: java.util.List[TreeViewEntry] = {
+  //  var isAjax = getAttr[Boolean](AJAX_LOADING, false)
     //var model = getAttr[SimpleTreeModel](MODEL, null)
 
-    null
-  }
+  //  null
+  //}
 
 
 

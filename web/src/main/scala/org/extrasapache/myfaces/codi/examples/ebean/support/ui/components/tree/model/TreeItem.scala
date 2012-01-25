@@ -1,11 +1,11 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.tree.model
 
-import javax.faces.model.SelectItem
 import reflect.BeanProperty
+import org.extrasapache.myfaces.codi.examples.ebean.support.data.JSONAble
 
 /**
  * Builder pattern for easier tree creation
- * */
+ **/
 
 
 /**
@@ -19,60 +19,96 @@ import reflect.BeanProperty
  * <li>childs: an ItemColl holding its children with convenience methods</li>
  * <li>expanded: if set to true then the tree node is expanded</li>
  * <li>identifier: the identifier (equals the label)</li>
- * <li>value: the SelectItem holding the current node value</li>
+ * <li>value: the TreeValueHolder holding the current node value</li>
  */
 @serializable
-class TreeItem[T <: SelectItem] {
-  @BeanProperty
-  val childs = new ItemColl[T, TreeItem[T]]()
-  @BeanProperty
-  var expanded: Boolean = false
-  @BeanProperty
-  var identifier: String = _
-  protected var _value: T = _ //setters and getters see below
+class TreeItem[T <: AnyRef] {
+    @BeanProperty
+    val childs = new ItemColl[T, TreeItem[T]]()
+    @BeanProperty
+    var expanded = false
+    @BeanProperty
+    var label: String = _
+    @BeanProperty
+    var description: String = _
+    @BeanProperty
+    var disabled: Boolean = _
+    @BeanProperty
+    var value: AnyRef = _
 
-  def TreeItem() {
-  }
+    /**
+     * determines whether the node is lazy loaded
+     * in that case the component gets back
+     * a callback which tells the component
+     * to load the next node level
+     */
+    @BeanProperty
+    var lazyLoaded = false
 
+    protected var _value: T = _ //setters and getters see below
 
-
-  def hasChilds: Boolean = childs.hashChilds
-
-  def getChild(identifier: String): TreeItem[T] = childs.get(identifier)
-
-  def append(value: T): TreeItem[T] = {
-    val finalValue = new TreeItem[T]
-    finalValue.setValue ( value )
-    childs.set(finalValue)
-    finalValue
-  }
-
-  def remove(identifier: String) {
-    val child = childs.get(identifier)
-    if (child != null) {
-      childs.remove(child)
+    def TreeItem() {
     }
-  }
-
-  def remove(child: TreeItem[T]) {
-    childs.remove(child)
-  }
-
-  def setValue(newVal: T) = {
-    _value = newVal
-    identifier = newVal.getLabel
-  }
-
-  def getValue: T = _value
-
-  def setLabel(newVal: String) = {
-    _value.setLabel(newVal)
-    identifier = newVal
-  }
-
-  def getLabel: String = _value.getLabel
 
 
+    def hasChilds: Boolean = childs.hashChilds
+
+    def getChild(identifier: String): TreeItem[T] = childs.get(identifier)
+
+    def append(value: T): TreeItem[T] = {
+        val finalValue = new TreeItem[T]
+        finalValue.setValue(value)
+        childs.set(finalValue)
+        finalValue
+    }
+
+    def remove(identifier: String) {
+        val child = childs.get(identifier)
+        if (child != null) {
+            childs.remove(child)
+        }
+    }
+
+    def remove(child: TreeItem[T]) {
+        childs.remove(child)
+    }
+
+
+    def toJSON: String = {
+        val jsonBuilder = new StringBuilder
+        /*helper to make the jsonify code simpler*/
+        def appendJSON(label: String, value: Any) {
+            var theValue = value
+            jsonBuilder.append(label).append(": ")
+            if (theValue == null) theValue = ""
+
+            theValue match {
+                case value2: String => {
+                    jsonBuilder.append("\"").append(value2.replaceAll("\"", "\\\\\"")).append("\"");
+                }
+                case _ => jsonBuilder.append(theValue);
+            }
+            jsonBuilder.append(",");
+        }
+        jsonBuilder.append("{")
+        appendJSON("type", "TreeItem");
+        appendJSON("label", label);
+        appendJSON("disabled", disabled);
+        appendJSON("expanded", expanded);
+        appendJSON("description", description);
+
+        val valueFinal = value match {
+            case value2: JSONAble => {
+                value2.toJSON
+            }
+            case value3: String =>  ("\"") + (value3.replaceAll("\"", "\\\\\"")) + ("\"")
+            case _ => value
+        }
+        jsonBuilder.append("value: ").append(valueFinal)
+
+        jsonBuilder.append("}")
+        jsonBuilder.toString()
+    }
 
 
 }
