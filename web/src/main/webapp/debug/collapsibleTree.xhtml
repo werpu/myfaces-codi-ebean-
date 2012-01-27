@@ -39,22 +39,35 @@
 
     <ui:define name="content">
         <h:outputScript library="script" name="output/CollapsibleTree.js"/>
+
         <h3>Collapsible Tree Demo</h3>
         <h:form id="searchform" prependId="false">
 
             <div id="collapseTree2">
-                #{treeTestView.treeModel.rootNode.label}
+                <ol id="mainnodesstart" class="collapsibleTree">
+                    <li id=" #{treeTestView.treeModel.rootNode.label}" data-mf-hassubnodes="#{treeTestView.treeModel.rootNode.hasChilds}">
+                        <h:panelGroup class="nodeContent">
+                            <h:panelGroup class="collapseIcon" layout="block" rendered="#{treeTestView.isCollapsed}"/>
+                            <h:panelGroup class="expandIcon" layout="block" rendered="#{!treeTestView.isCollapsed}"/>
+                            #{treeTestView.treeModel.rootNode.description}
+                            <ol id="#{treeTestView.treeModel.rootNode.label}_panel" class="subNodes">
+                            </ol>
+                        </h:panelGroup>
+                    </li>
+                </ol>
+
             </div>
+            <!-- todo write the json mapper which maps the components in -->
 
             <div id="collapseTree">
-                <input class="valueHolder" name="treeValueHolder" />
+                <input class="valueHolder" name="treeValueHolder"/>
                 <ol id="mainNodes" class="collapsibleTree">
                     <li id="item1" class="node" data-mf-hassubnodes="true">
-                        <div  class="collapseIcon" />
+                        <div class="collapseIcon"/>
                         First Line
                         <ol id="subnodes" class="subNodes">
                             <li id="item1:1" class="node" data-mf-hassubnodes="true">
-                                 <div  class="collapseIcon" />
+                                <div class="collapseIcon"/>
                                 subnode 1
                                 <ol id="subnodes:1" class="subNodes">
                                     <li id="item21" class="node">main node21</li>

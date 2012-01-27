@@ -33,7 +33,10 @@ class TreeTestView
     }
   }
 
-
+  def isCollapsed: Boolean = {
+        treeModel.getRootNode().hasChilds &&
+        !treeModel.getRootNode().getExpanded()
+  }
 
 
 }

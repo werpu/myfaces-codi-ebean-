@@ -15,7 +15,7 @@ class ItemColl[S, T] {
     var childs = new ArrayList[T]
     var childIdx = new HashMap[String, Int]
 
-    def hashChilds: Boolean = childs.isEmpty()
+    def hashChilds: Boolean = !childs.isEmpty()
 
     /**
      * sets a new element after the position given.

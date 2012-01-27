@@ -28,6 +28,9 @@
     <ui:define name="header">
 
         <title>Person List view</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
+        </f:metadata>
 
 
         <!-- we have to force an import because we rely on single files in the impl -->
@@ -41,9 +44,6 @@
     </ui:define>
 
     <ui:define name="content">
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
-        </f:metadata>
         <h:form id="mainForm" prependId="false">
 
             <ezw:ajaxStatus id="pull">
