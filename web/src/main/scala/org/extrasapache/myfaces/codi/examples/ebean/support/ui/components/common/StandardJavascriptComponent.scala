@@ -2,7 +2,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.commo
 
 import javax.faces.context.FacesContext
 import javax.faces.component._
-import com.sun.jdi.Value
+
 
 /**
  *
