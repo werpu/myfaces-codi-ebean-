@@ -65,7 +65,9 @@ myfaces._impl.core._Runtime.singletonExtendClass("myfaces._impl._dom._NodeUtils"
         return ((items.length == 1) ? items[0] : null);
     },
 
-
+    byId: function(id) {
+        return document.getElementById(id);
+    },
 
     /**
      * Simple delete on an existing item

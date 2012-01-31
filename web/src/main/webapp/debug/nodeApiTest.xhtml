@@ -28,9 +28,7 @@
     <ui:define name="header">
 
         <title>Node API</title>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
-        </f:metadata>
+
 
         <!-- we have to force an import because we rely on single files in the impl -->
         <script type="text/javascript" src="#{resource['javax.faces/jsf.js']}"><!--
