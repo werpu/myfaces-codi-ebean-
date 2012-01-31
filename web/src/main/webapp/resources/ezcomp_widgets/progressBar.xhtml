@@ -1,0 +1,43 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp_widgets">
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
+        <composite:attribute name="id" required="true"></composite:attribute>
+        <composite:attribute name="label" default=""></composite:attribute>
+        <composite:attribute name="value" required="true"></composite:attribute>
+        <composite:attribute name="javascriptVar" ></composite:attribute>
+    </composite:interface>
+    <composite:implementation>
+
+
+        <h:outputScript library="script" name="output/Pull.js"/>
+        <h:outputScript library="script" name="output/ProgressBar.js"/>
+
+        <div id="#{cc.clientId}" class="progressBar">
+            <h:panelGroup id="#{cc.attrs.id}" layout="block" styleClass="progressContent">
+                <h:outputFormat styleClass="label" value="#{cc.attrs.label}"></h:outputFormat>
+                <h:panelGroup layout="block" id="#{cc.attrs.id}_holder" styleClass="progressHolder">
+                    <h:panelGroup layout="block" id="#{cc.attrs.id}_gauge" styleClass="progressGauge">
+                        <h:panelGroup id="progressText" styleClass="progressText">#{cc.attrs.value.text}</h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+
+                <h:inputHidden id="#{cc.attrs.id}_valueHolder" styleClass="valueHolder"
+                               value="#{cc.attrs.value.value}"></h:inputHidden>
+
+                <script type="text/javascript">
+                    var #{cc.javascriptVar} = new extras.apache.ProgressBar({
+                        clientId:"#{cc.clientId}",
+                        id:"#{cc.clientId}:#{cc.attrs.id}",
+                        javascriptVar:"#{cc.javascriptVar}"
+                    });
+                </script>
+            </h:panelGroup>
+        </div>
+    </composite:implementation>
+</ui:component>

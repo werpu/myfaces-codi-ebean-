@@ -1,0 +1,83 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp_widgets">
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="javascriptVar" required="false"></composite:attribute>
+        <composite:attribute name="javascriptClass" default="extras.apache.Window"/>
+
+        <composite:attribute name="resizable" default="false"/>
+        <composite:attribute name="closeable" default="false"/>
+        <composite:attribute name="minimizable" default="false"/>
+        <composite:attribute name="maximizable" default="false"/>
+        <composite:attribute name="moveable" default="true"/>
+
+        <composite:attribute name="modal" default="false"/>
+
+        <composite:attribute name="styleClass"/>
+        <composite:attribute name="style"/>
+
+        <composite:attribute name="rendered" default="true"/>
+
+        <composite:facet name="title"></composite:facet>
+        <composite:facet name="content" required="true"></composite:facet>
+        <composite:facet name="footer" required="true"></composite:facet>
+
+    </composite:interface>
+    <composite:implementation>
+        <h:outputScript library="script" name="_behaviors/_Behavior.js"/>
+        <h:outputScript library="script" name="_behaviors/_Movable.js"/>
+        <h:outputScript library="script" name="_behaviors/_Resizable.js"/>
+        <h:outputScript library="script" name="_behaviors/_Focusable.js"/>
+
+
+        <h:outputScript library="script" name="layout/Underlay.js"/>
+        <h:outputScript library="script" name="layout/Window.js"/>
+
+        <div id="#{cc.clientId}">
+            <h:panelGroup layout="block" id="#{cc.attrs.id}" styleClass="#{cc.attrs.styleClass} window forgeround"
+                          style="#{cc.attrs.style}">
+
+
+                <div class="header moveHandler">
+                    <div class="windowTitle">
+                        <composite:renderFacet name="title"/>
+                    </div>
+                    <div class="minimize"></div>
+                    <div class="maximize stateNormal"></div>
+                    <div class="close">X</div>
+                </div>
+                <div class="content">
+                    <composite:renderFacet name="content"/>
+                </div>
+                <div class="footer">
+                    <composite:renderFacet name="footer"/>
+                    <div class="resize"></div>
+                </div>
+                <!-- window init code -->
+                <script type="text/javascript">
+                    //<!--
+                    var #{cc.javascriptVar} =
+                    new #{cc.attrs.javascriptClass}({
+                        clientId:"#{cc.clientId}",
+                        id:"#{cc.clientId}:#{cc.attrs.id}",
+
+                        ajaxRequest: #{cc.ajaxState.toString()},
+                        _resizable: #{cc.attrs.resizable},
+                        _modal:#{cc.attrs.modal},
+                        closeable: #{cc.attrs.closeable},
+                        maximizable: #{cc.attrs.maximizable},
+                        minimizable: #{cc.attrs.minimizable},
+                        _moveable:#{cc.attrs.moveable}
+                    });
+                    //-->
+                </script>
+            </h:panelGroup>
+        </div>
+
+    </composite:implementation>
+</ui:component>

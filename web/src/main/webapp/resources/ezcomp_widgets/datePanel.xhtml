@@ -1,0 +1,123 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp_widgets">
+    <composite:interface componentType="at.irian.DatePicker">
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="javascriptVar" required="false"></composite:attribute>
+        <composite:attribute name="javascriptClass" default="extras.apache.DatePanel"/>
+
+
+        <composite:attribute name="styleClass"/>
+        <composite:attribute name="style"/>
+
+        <composite:attribute name="label" />
+
+        <composite:attribute name="rendered" default="true"/>
+
+        <composite:attribute name="dateFormat" />
+        <composite:attribute name="specialDays" />
+        <composite:attribute name="showWeekNumbers" default="false" />
+
+        <composite:editableValueHolder name="input" targets="input" />
+
+        <composite:attribute name="componentListeners" />
+
+    </composite:interface>
+    <composite:implementation>
+
+        <h:outputScript library="script" name="_behaviors/_Behavior.js"/>
+        <h:outputScript library="script" name="_behaviors/_KeyboardAware.js"/>
+        <h:outputScript library="script" name="_behaviors/_MouseAware.js"/>
+        <h:outputScript library="script" name="_behaviors/_Focusable.js"/>
+        <h:outputScript library="script" name="_behaviors/_ValueHolder.js"/>
+
+        <h:outputScript library="script" name="input/BaseDateSelector.js"/>
+        <h:outputScript library="script" name="input/DatePanel.js"/>
+
+
+        <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} datePanel">
+            <h:panelGroup id="datePanelRoot" styleClass="datePanelRoot" layout="block" rendered="#{cc.attrs.rendered}">
+                <h:panelGroup id="componentBinding" style="display:none">
+                    <f:event type="preRenderComponent" listener="#{cc.preRenderInput}"/>
+                    <h:inputText style="display:none" id="input" styleClass="dateValueHolder">
+
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup id="header" layout="block" styleClass="header">
+                    #{cc.attrs.label}
+                </h:panelGroup>
+
+                <h:panelGroup id="controls" layout="block" styleClass="controls">
+                    <!-- todo replace the command links with image buttons -->
+                    <h:commandLink id="previousYear"  styleClass="previousYear" actionListener="#{cc.previousYear}">
+                        <f:ajax render="header body controls" execute="@this"/>
+                        <div class="placeholder" />
+                    </h:commandLink>
+                    <h:commandLink id="previousMonth" styleClass="previousMonth" actionListener="#{cc.previousMonth}">
+                        <f:ajax render="header body controls" execute="@this"/>
+                        <div class="placeholder" />
+                    </h:commandLink>
+
+                    <h:selectOneMenu  value="#{cc.displayData.month}" styleClass="month monthSelector" id="monthSelector">
+                        <f:ajax render="header body"  execute="@this"/>
+                        <f:selectItems value="#{cc.montList()}" />
+                    </h:selectOneMenu>
+
+                    <h:inputText  value="#{cc.displayData.year}" styleClass="year yearselector" id="yearselector" >
+                         <f:ajax render="header body"  execute="@this"/>
+                        <div class="placeholder" />
+                    </h:inputText>
+
+                    <h:commandLink id="nextMonth"  styleClass="nextMonth" actionListener="#{cc.nextMonth}">
+                        <f:ajax render="header body controls" execute="@this"/>
+                        <div class="placeholder" />
+                    </h:commandLink>
+                    <h:commandLink id="nextYear"  styleClass="nextYear" actionListener="#{cc.nextYear}">
+                        <f:ajax render="header body controls" execute="@this"/>
+                        <div class="placeholder" />
+                    </h:commandLink>
+                </h:panelGroup>
+
+                <div class="title row">
+                    <ui:repeat value="#{cc.weekList}" var="day"  varStatus="cnt">
+                        <div class="cell column col_#{cnt.index}">#{day}</div>
+                    </ui:repeat>
+                    <div class="rowEnd"/>
+                </div>
+                <div class="flipContainer">
+                    <h:panelGroup id="body" layout="block" class="body">
+                        <ui:repeat value="#{cc.displayData.weeks}" var="week" varStatus="row">
+                            <div class="week row row_#{row.index} #{((row.index) % 2 == 1) ? 'odd':'even'}">
+                                <ui:repeat value="#{week.days}" var="day" varStatus="col">
+                                    <div class="day cell column col_#{col.index} #{day.selected ? 'selected':''} #{day.outsideSelectMonth ? 'outside':''} #{day.readOnly ? 'readOnly':''} #{day.specialMarker}"  data-mf-pickerdate="#{day.toLong}">
+                                        <h:outputFormat class="selector" id="daySelection" value="#{day.day}"/>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                            <div class="rowEnd"/>
+                        </ui:repeat>
+                        <script type="text/javascript">
+                                var #{cc.javascriptVar} =
+                                new #{cc.attrs.javascriptClass}({
+                                    id:"#{cc.clientId}",
+                                    ajaxRequest:#{cc.ajaxState.toString()},
+                                    javascriptVar:"#{cc.javascriptVar}",
+                                    componentListeners:["#{cc.attrs.componentListeners}"]
+                                });
+                        </script>
+
+                    </h:panelGroup>
+                </div>
+                <h:panelGroup layout="block" id="footer" class="footer">
+                    #{cc.selectedDate()}
+                </h:panelGroup>
+            </h:panelGroup>
+
+
+        </div>
+    </composite:implementation>
+</ui:component>

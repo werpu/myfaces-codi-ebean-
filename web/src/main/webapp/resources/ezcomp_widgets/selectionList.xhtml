@@ -1,0 +1,58 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp_widgets">
+    <composite:interface componentType="at.irian.SelectionList">
+        <composite:attribute name="id" required="true"></composite:attribute>
+        <composite:attribute name="label" default=""></composite:attribute>
+        <composite:attribute name="multiselect" type="java.lang.Boolean" default="false"></composite:attribute>
+        <composite:attribute name="value" required="true" type="java.util.List"></composite:attribute>
+        <composite:attribute name="model"></composite:attribute>
+        <composite:attribute name="style" required="false"></composite:attribute>
+        <composite:attribute name="styleClass" required="false"></composite:attribute>
+        <composite:attribute name="javascriptVar" required="false"></composite:attribute>
+        <composite:attribute name="resizable" required="false" default="false"></composite:attribute>
+        <composite:attribute name="selectorIdentifier" default="ul li"/>
+        <composite:attribute name="javascriptClass" default="extras.apache.SelectionList" />
+        <composite:attribute name="componentListeners" default="" />
+        <composite:attribute name="enterFinalSelection" default="false" />
+    </composite:interface>
+    <composite:implementation>
+
+
+        <h:outputScript library="script" name="input/SelectionList.js"/>
+
+        <div id="#{cc.clientId}" class="selectionList">
+            <h:panelGroup id="#{cc.attrs.id}" layout="block">
+                <h:panelGroup id="#{cc.attrs.id}_placeHolder" styleClass="selectionPlaceHolder" layout="block">
+                    <ul>
+                        <ui:repeat value="#{cc.attrs.model}" var="item">
+                            <li class="#{item.markerClass}" data-key="#{item.value}">#{item.label}</li>
+                        </ui:repeat>
+                    </ul>
+                </h:panelGroup>
+                <h:inputText style="display:none" id="#{cc.attrs.id}_valueHolder" styleClass="selectionValueHolder" value="#{cc.attrs.selectionValue}"/>
+            </h:panelGroup>
+            value="#{cc.attrs.selectionValue}"
+        </div>
+
+        <script type="text/javascript">
+            var #{cc.javascriptVar} = new #{cc.attrs.javascriptClass}({
+                        id:"#{cc.clientId}",
+                        multiSelect:#{cc.attrs.multiselect},
+                        _resizable:#{cc.attrs.resizable},
+                         ajaxRequest:#{cc.ajaxState.toString()},
+                        selectorIdentifier:"#{cc.attrs.selectorIdentifier}",
+                        javascriptVar:"#{cc.javascriptVar}",
+                        childChangeListener:"#{cc.attrs.childChangeListener}",
+                        componentListeners:["#{cc.attrs.componentListeners}"],
+                        enterFinalSelection:#{cc.attrs.enterFinalSelection}
+                    });
+        </script>
+    </composite:implementation>
+
+
+</ui:component>

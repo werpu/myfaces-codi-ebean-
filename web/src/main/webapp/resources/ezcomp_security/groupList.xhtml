@@ -1,0 +1,101 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:cc="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp_security"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp_widgets"
+        >
+
+    <cc:interface>
+        <cc:attribute name="value" required="true"/>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <h:dataTable id="groupResult" styleClass="groupResult resultList fadeIn" value="#{cc.attrs.value.listModel.pageAsList}"
+                     var="item"
+                     rendered="#{cc.attrs.value.listModel != null}">
+            <h:column id="groupNameDetaCol">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs.group_name}"/>
+                </f:facet>
+                <h:panelGroup id="nameop">
+
+
+                    <ezw:outputInputFormat id="groupn"
+                                           value="#{item.groupName}"
+                                           editable="#{groupView.spreadSheetController.isEditable(item)}"
+                                           required="true"/>
+                </h:panelGroup>
+            </h:column>
+            <h:column id="groupNameDescription">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs.description}"/>
+                </f:facet>
+                <h:panelGroup id="descop">
+
+                    <ezw:outputInputFormat id="groupd"
+                                           value="#{item.description}"
+                                           editable="#{groupView.spreadSheetController.isEditable(item)}"/>
+                </h:panelGroup>
+            </h:column>
+            <h:column id="groupTypeCol">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs.group_type}"></h:outputText>
+                </f:facet>
+
+                <h:panelGroup id="grpType">
+                    <ezw:outputInputSelectOne value="#{item.groupType}"
+                                              editable="#{groupView.spreadSheetController.isEditable(item)}"
+                                              items="#{groupTypes.allGroupTypes}"
+                            />
+                </h:panelGroup>
+            </h:column>
+
+            <h:column id="operation">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs.operation}"/>
+                </f:facet>
+                <h:panelGroup class="ops" id="ops">
+                    <h:panelGroup rendered="#{!groupView.spreadSheetController.isEditable(item)}">
+                        <h:commandLink id="saveit" action="#{cc.attrs.value.goDeta}" value="#{msgs.detail}">
+                            <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
+                            <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="edit"/>
+                            <f:ajax execute="@this" render="nameop descop grpType ops"/>
+                        </h:commandLink>
+                        <h:commandLink id="deleteit" action="#{cc.attrs.value.goDelete}"
+                                       value="#{msgs.delete}"
+                                        onclick="jsf.ajax.request(this,event, {execute:'@this', render:'groupDetaDialog:ajaxTargetDelete', 'javax.faces.behavior.event':'action'}); return false;">
+                            <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
+                            <f:setPropertyActionListener target="#{cc.attrs.value.pageMode}" value="delete"/>
+
+                        </h:commandLink>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{groupView.spreadSheetController.isEditable(item)}">
+
+
+                        <h:commandLink action="#{cc.attrs.value.doSave}" value="#{msgs.save}">
+                            <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
+                            <f:ajax execute="groupResult" render="nameop descop grpType ops"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{cc.attrs.value.doCancel}" value="#{msgs.cancel}">
+                            <f:setPropertyActionListener target="#{cc.attrs.value.deta}" value="#{item}"/>
+
+                            <f:ajax execute="@this" render="nameop descop grpType ops"/>
+                        </h:commandLink>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:column>
+
+        </h:dataTable>
+
+        <h:commandLink action="#{cc.attrs.value.doSaveAll}" value="[#{msgs.group_saveAll}]"
+                       rendered="#{!cc.attrs.value.spreadSheetController.isEmpty()}"/>
+
+        <ezw:paginator forTable="groupResult" value="#{cc.attrs.value.listModel}"/>
+
+
+    </cc:implementation>
+
+</ui:component>

@@ -1,0 +1,28 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp_widgets">
+    <composite:interface componentType="at.irian.StandardJavascriptComponent">
+
+        <composite:attribute name="id" required="true"/>
+        <composite:attribute name="helpText" default=""/>
+        <composite:attribute name="helpPosition" default="mouse"/>
+        <composite:attribute name="escape" default="false"/>
+
+    </composite:interface>
+    <composite:implementation>
+
+
+        <div id="#{cc.clientId}" class="#{cc.attrs.styleClass} inlineHelp" style="#{cc.attrs.style}">
+            <h:panelGroup layout="block" id="helpTrigger" class="helpTrigger"></h:panelGroup>
+            <ezw:popup id="helpArea" for="helpTrigger" position="#{cc.attrs.helpPosition}">
+                <h:outputFormat styleClass="helpText" escape="#{cc.attrs.escape}" value="#{cc.attrs.helpText}"/>
+                <composite:insertChildren></composite:insertChildren>
+            </ezw:popup>
+        </div>
+
+    </composite:implementation>
+</ui:component>

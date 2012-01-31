@@ -1,0 +1,17 @@
+<ui:component xmlns=""
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:composite="http://java.sun.com/jsf/composite"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp_widgets"
+        >
+    <composite:interface componentType="at.irian.MenuItem">
+        <composite:attribute name="id" />
+        <composite:attribute name="style" />
+        <composite:attribute name="styleClass" />
+    </composite:interface>
+    <composite:implementation>
+        <li id="#{cc.clientId}" class="menuItem #{cc.attrs.styleClass}" style="#{cc.attrs.style}"><composite:insertChildren></composite:insertChildren></li>
+    </composite:implementation>
+</ui:component>
