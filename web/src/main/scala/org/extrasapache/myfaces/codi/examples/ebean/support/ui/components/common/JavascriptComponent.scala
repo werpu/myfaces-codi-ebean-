@@ -1,7 +1,9 @@
 package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common
 
 import javax.faces.context.FacesContext
-import java.util.{TimeZone, Locale}
+import java.util.Locale
+import java.io.Serializable
+import javax.faces.component.StateHelper
 
 /**
  *
@@ -12,26 +14,31 @@ import java.util.{TimeZone, Locale}
  */
 
 object JavascriptComponent {
-  var JAVASCRIPT_VAR = "javascriptVar"
+    var JAVASCRIPT_VAR = "javascriptVar"
 }
 
 trait JavascriptComponent extends AttributeHandler {
-  import JavascriptComponent._
 
-  def javascriptVar_$eq(theJSVar: String) {}
+    import JavascriptComponent._
 
-  /**
-   * returns a unique name for the jsVar
-   */
-  def javascriptVar: String = {
-      val default = this.getClientId(FacesContext.getCurrentInstance).replaceAll(":","_")
-      getAttr[String](JAVASCRIPT_VAR, default)
-  }
+    def javascriptVar_$eq(theJSVar: String) {}
 
-  def getClientId(context: FacesContext): String
+    /**
+     * returns a unique name for the jsVar
+     */
+    def javascriptVar: String = {
+        val default = this.getClientId(FacesContext.getCurrentInstance).replaceAll(":", "_")
+        getAttr[String](JAVASCRIPT_VAR, default)
+    }
 
-  def getLocale: Locale = FacesContext.getCurrentInstance.getViewRoot.getLocale
+    def getClientId(context: FacesContext): String
 
+    def getLocale: Locale = FacesContext.getCurrentInstance.getViewRoot.getLocale
 
+    def getStateAttr[T](key: Serializable, default: T): T = getStateHelper().eval(key, default).asInstanceOf[T]
 
+    def putStateAttr[T](key: Serializable, default: T): T = getStateHelper().put(key, default).asInstanceOf[T]
+
+    /*implemented by the underlying component class*/
+    protected def getStateHelper():StateHelper
 }
