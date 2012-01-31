@@ -80,6 +80,9 @@ class TreeItem[T <: AnyRef] {
         childs.remove(child)
     }
 
+    def childIterator: Iterator[TreeItem[T]] = {
+        childs.iterator.asInstanceOf[Iterator[TreeItem[T]]]
+    }
 
     def toJSON: String = {
         val jsonBuilder = new StringBuilder

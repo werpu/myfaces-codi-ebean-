@@ -15,5 +15,7 @@ abstract trait TreeModel[T <: AnyRef] {
      * given the
      * @param label, which identifies the holding node
      */
-     def getNodeLevel(label: String): TreeItem[T]
+    def getNodeLevel(label: String): TreeItem[T]
+
+    def getRootNode: TreeItem[T]
 }
