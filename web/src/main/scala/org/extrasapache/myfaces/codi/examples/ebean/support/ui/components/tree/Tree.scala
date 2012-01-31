@@ -47,8 +47,8 @@ class Tree extends StandardJavascriptComponent {
         val writer = context.getResponseWriter
         val clientId = getClientId(context)
 
-        /*for (child <- parent.childIterator) {
-
+        for (theChild:AnyRef <- parent.childIterator) {
+            val child = theChild.asInstanceOf[TreeItem[_]]
             writer.write("""
                     <li id="$s" class="node" data-mf-hassubnodes="$s">
                 """.format(child.getLabel(), child.hasChilds.toString))
@@ -62,7 +62,7 @@ class Tree extends StandardJavascriptComponent {
                 writer.write(child.getDescription())
             }
             writer.write("</li>")
-        }*/
+        }
 
     }
 
