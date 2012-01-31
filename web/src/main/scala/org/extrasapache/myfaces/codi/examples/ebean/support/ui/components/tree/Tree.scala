@@ -42,21 +42,21 @@ class Tree extends StandardJavascriptComponent {
         null
     }
 
-    def renderNodeList(context: FacesContext, parent: TreeItem[_]) {
+    def renderNodeList(context: FacesContext, parent: TreeItem[_], depth: Int) {
         if (!parent.hasChilds) return
         val writer = context.getResponseWriter
         val clientId = getClientId(context)
-
+        
         for (theChild:AnyRef <- parent.childIterator) {
             val child = theChild.asInstanceOf[TreeItem[_]]
             writer.write("""
-                    <li id="$s" class="node" data-mf-hassubnodes="$s">
-                """.format(child.getLabel(), child.hasChilds.toString))
+                    <li id="$s:$s" class="node" data-mf-hassubnodes="$s">
+                """.format(clientId, child.getLabel(), child.hasChilds.toString))
             if (child.hasChilds) {
-                writer.write("<div class=\"collapseIcon\"></div>")
+                writer.write("<div  class=\"collapseIcon\"></div>")
                 writer.write(child.getDescription())
-                writer.write("""<ol class="subNodes"> """)
-                renderNodeList(context, child);
+                writer.write("""<ol id=\"$s:$s:subnodes\" class="subNodes"> """.format(clientId, child.getLabel()))
+                renderNodeList(context, child, depth++);
                 writer.write("</ol>");
             } else {
                 writer.write(child.getDescription())
@@ -83,7 +83,7 @@ class Tree extends StandardJavascriptComponent {
                  <ol id="$s" class="collapsibleTree">
         """.format(clientId, clientId + ":" + "mainNodes"))
 
-        renderNodeList(context, rootNode)
+        renderNodeList(context, rootNode , 0)
 
         //end of the component
         writer.write("""
