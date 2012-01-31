@@ -26,28 +26,15 @@
 <ui:composition template="../templates/template.xhtml">
 
     <ui:define name="header">
-
         <title>Person List view</title>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
-        </f:metadata>
-
-
-
-
     </ui:define>
 
     <ui:define name="search">
-
-
     </ui:define>
 
 
     <ui:define name="content">
-
-
         <h:form id="mainForm" prependId="false">
-
             <ezw:ajaxStatus id="pull">
                 Ajax in progress
             </ezw:ajaxStatus>
