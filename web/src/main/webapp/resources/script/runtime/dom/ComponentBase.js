@@ -308,14 +308,14 @@
                 var _t = this;
                 if (!defer) {
                     _t.listeners.each(function(elem) {
-                        (window[elem].rootNode) ?
+                        (window[elem] && window[elem].rootNode) ?
                                 window[elem].rootNode.dispatchEvent(evt, data) : null;
                     });
                 } else {
 
                     setTimeout(function() {
                         _t.listeners.each(function(elem) {
-                            (window[elem].rootNode) ?
+                            (window[elem] && window[elem].rootNode) ?
                                     window[elem].rootNode.dispatchEvent(evt, data) : null;
                         });
                     }, 0);
