@@ -26,6 +26,8 @@
  */
 myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
 
+        _BROWSER_PREFIXES:["-webkit-", "-safari-", "-konq-", "-ie-", "-opera-", "-moz-", ""],
+
         _NODE_UTILS:myfaces._impl._dom._NodeUtils,
         _QUERY:myfaces._impl._dom.Query,
 
@@ -231,7 +233,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
          * @param styleMap
          */
         styleCrossBrowser:function (styleMap) {
-            var browserPrefixes = ["-webkit-", "-safari-", "-konq-", "-ie-", "-opera-", "-moz-", ""];
+            var browserPrefixes = this._BROWSER_PREFIXES;
             var _t = this;
 
             var applyStyle = function (prefix) {
@@ -241,7 +243,8 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             for (var key in styleMap) {
                 if (!key) continue;
                 this.lang.arrForEach(browserPrefixes, applyStyle);
-            };
+            }
+            ;
         },
 
         removeStyle:function (key) {
@@ -249,8 +252,22 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
             return this;
         },
 
+        /**
+         * checks for a given style and also uses the browser prefixes to check
+         * for a given style to cover alpha and beta styles
+         *
+         * @param key
+         * @param val
+         */
         getStyle:function (key, val) {
-            return this._referencedNode.style[key];
+            var ret = this._referencedNode.style[key];
+            if ('undefined' != typeof ret && null != ret) return ret;
+            var browserPrefixes = this._BROWSER_PREFIXES;
+            for(var cnt = browserPrefixes.length - 1; cnt >= 0; cnt--) {
+                ret = this._referencedNode.style[browserPrefixes[cnt]+key];
+                if ('undefined' != typeof ret && null != ret) return ret;
+            }
+            return ret;
         },
 
         setAttribute:function (attr, val) {

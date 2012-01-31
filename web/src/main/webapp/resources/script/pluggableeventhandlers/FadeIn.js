@@ -24,6 +24,7 @@
         /*fading time 500ms*/
         _fadeTime:100,
 
+
         constructor_:function (args) {
             this.callSuper("constructor_", args);
             this._rootNode = new myfaces._impl._dom.Node(document.getElementById(this.id));
@@ -34,14 +35,12 @@
             var transition = [];
 
             var oldOpacity = this._rootNode.getStyle("opacity");
-            (!oldOpacity)?this._rootNode.styleCrossBrowser({"opacity":0}): null;
+            (!oldOpacity)?this._rootNode.styleCrossBrowser({"opacity":1}): null;
 
             transition.push("opacity");
-
             transition.push((parseFloat(this._fadeTime) / 1000.0) + "s");
-
             transition.push("ease-out");
-            this._rootNode.styleCrossBrowser({"transition":transition.join(" "), "opacity":1});
+            this._rootNode.styleCrossBrowser({"transition":transition.join(" "), "opacity":0});
             this._rootNode.styleCrossBrowser({});
         },
         _success:function () {
