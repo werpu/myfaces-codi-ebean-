@@ -267,7 +267,7 @@ myfaces._impl.core._Runtime.extendClass("myfaces._impl._dom.Node", Object, {
                 ret = this._referencedNode.style[browserPrefixes[cnt]+key];
                 if ('undefined' != typeof ret && null != ret) return ret;
             }
-            return ret;
+            return ret ||val;
         },
 
         setAttribute:function (attr, val) {
