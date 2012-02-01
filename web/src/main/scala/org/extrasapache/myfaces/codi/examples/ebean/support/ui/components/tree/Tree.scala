@@ -24,20 +24,20 @@ object Tree {
     val VALUE_HOLDER = "valueHolder"
     val AJAX_LOADING = "ajaxLoading"
 
-    val COMPONENT_TYPE = "at.irian.Tree"
+    val COMPONENT_TYPE = "extras.apache.Tree"
 }
 
 /**
  * Basic tree only with collapsibles
  */
 
-@FacesComponent("at.irian.Tree")
+@FacesComponent("extras.apache.Tree")
 @serializable
 class Tree extends UIOutput with JavascriptComponent {
 
     import Tree._
 
-    setRendererType("at.irian.Tree");
+    setRendererType("extras.apache.Tree");
 
     def setStyle(style: String) {
         putStateAttr[String](STYLE, style);
@@ -57,11 +57,11 @@ class Tree extends UIOutput with JavascriptComponent {
 
     def getMultiSelect(): java.lang.Boolean = getStateAttr[java.lang.Boolean](MULTI_SELECT, java.lang.Boolean.TRUE);
 
-    def setModel(style: TreeModel[_]) {
+    def setModel(style: AnyRef) {
         putStateAttr[AnyRef](MODEL, style);
     }
 
-    def getModel(): TreeModel[_] = getStateAttr[TreeModel[_]](MODEL, null);
+    def getModel(): AnyRef = getStateAttr[AnyRef](MODEL, null);
 
 
     def getStateAttr[T](key: Serializable, default: T): T = getStateHelper().eval(key, default).asInstanceOf[T]

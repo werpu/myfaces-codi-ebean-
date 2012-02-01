@@ -24,12 +24,12 @@ class TreeTestView
   treeModel.setRootNode(tree)
   for (cnt2 <- 1 to 10)
   {
-    val tree2 = tree.append("identifier" + cnt2 + "_1", "value" + cnt2 + "_1", "value" + cnt2 + "_1")
+    val tree2 = tree.append("identifier_" + cnt2 , "value" + cnt2 , "value" + cnt2)
     treeModel.updateIdx(tree2)
 
     for (cnt <- 1 to 10)
     {
-        treeModel.updateIdx(tree2.append("identifier" + cnt + "_1", "value" + cnt + "_1", "value" + cnt + "_1"));
+        treeModel.updateIdx(tree2.append("identifier_" +cnt2+":" + cnt , "value"+cnt2+":"  + cnt, "value"+cnt2+":" + cnt));
     }
   }
 

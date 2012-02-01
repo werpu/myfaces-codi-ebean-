@@ -8,7 +8,7 @@
     <tag>
         <tag-name>tree</tag-name>
         <component>
-            <component-type>etras.apache.Tree</component-type>
+            <component-type>extras.apache.Tree</component-type>
             <renderer-type>extras.apache.Tree</renderer-type>
         </component>
     </tag>

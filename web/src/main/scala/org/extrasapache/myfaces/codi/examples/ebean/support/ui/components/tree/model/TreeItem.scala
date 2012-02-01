@@ -80,8 +80,8 @@ class TreeItem[T <: AnyRef] {
         childs.remove(child)
     }
 
-    def childIterator: Iterator[TreeItem[T]] = {
-        childs.iterator.asInstanceOf[Iterator[TreeItem[T]]]
+    def childIterator: java.util.Iterator[TreeItem[T]] = {
+        childs.iterator
     }
 
     def toJSON: String = {
