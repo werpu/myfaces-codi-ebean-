@@ -41,6 +41,14 @@
         <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
     </listener>
 
+    <context-param>
+          <param-name>
+            javax.faces.FACELETS_LIBRARIES
+          </param-name>
+          <param-value>
+            /WEB-INF/ezcomp_widgets.taglib.xml
+          </param-value>
+        </context-param>
 
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>

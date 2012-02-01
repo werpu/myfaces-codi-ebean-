@@ -1,0 +1,15 @@
+<facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
+                version="2.0">
+
+    <namespace>http://java.sun.com/jsf/composite/ezcomp_widgets</namespace>
+    <composite-library-name>ezcomp_widgets</composite-library-name>
+    <tag>
+        <tag-name>tree</tag-name>
+        <component>
+            <component-type>etras.apache.Tree</component-type>
+            <renderer-type>extras.apache.Tree</renderer-type>
+        </component>
+    </tag>
+</facelet-taglib>

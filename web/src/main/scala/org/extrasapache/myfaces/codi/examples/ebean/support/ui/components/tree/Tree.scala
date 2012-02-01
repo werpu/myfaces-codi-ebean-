@@ -4,6 +4,7 @@ package org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.tree
 
 import model.TreeModel
 import org.extrasapache.myfaces.codi.examples.ebean.support.ui.components.common.JavascriptComponent
+import java.io.Serializable
 import javax.faces.component.{UIOutput, FacesComponent}
 
 /**
@@ -45,10 +46,10 @@ class Tree extends UIOutput with JavascriptComponent {
     def getStyle(): String = getStateAttr[String](STYLE, "")
 
     def setStyleClass(style: String) {
-        putStateAttr[String](STYLE, style);
+        putStateAttr[String](STYLE_CLASS, style);
     }
 
-    def getStyleClass(): String = getStateAttr[String](STYLE, "");
+    def getStyleClass(): String = getStateAttr[String](STYLE_CLASS, "");
 
     def setMultiSelect(select: java.lang.Boolean) {
         putStateAttr[java.lang.Boolean](MULTI_SELECT, select);
@@ -62,4 +63,11 @@ class Tree extends UIOutput with JavascriptComponent {
 
     def getModel(): TreeModel[_] = getStateAttr[TreeModel[_]](MODEL, null);
 
+
+    def getStateAttr[T](key: Serializable, default: T): T = getStateHelper().eval(key, default).asInstanceOf[T]
+
+    def putStateAttr[T](key: Serializable, default: T): T = getStateHelper().put(key, default).asInstanceOf[T]
+
+    /*implemented by the underlying component class*/
+    //    protected def getStateHelper():StateHelper
 }

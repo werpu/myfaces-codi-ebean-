@@ -34,11 +34,4 @@ trait JavascriptComponent extends AttributeHandler {
     def getClientId(context: FacesContext): String
 
     def getLocale: Locale = FacesContext.getCurrentInstance.getViewRoot.getLocale
-
-    def getStateAttr[T](key: Serializable, default: T): T = getStateHelper().eval(key, default).asInstanceOf[T]
-
-    def putStateAttr[T](key: Serializable, default: T): T = getStateHelper().put(key, default).asInstanceOf[T]
-
-    /*implemented by the underlying component class*/
-    protected def getStateHelper():StateHelper
 }
