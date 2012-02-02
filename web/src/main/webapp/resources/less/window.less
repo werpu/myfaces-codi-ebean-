@@ -1,3 +1,5 @@
+@import "commons";
+
 .window {
     -moz-box-shadow: 0 0 10px 5px #d5d5d5;
     -webkit-box-shadow: 0 0 10px 5px #d5d5d5;
@@ -44,38 +46,19 @@
 }
 
 .window .header, .window .footer {
-    background: rgb(242, 245, 246); /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(242, 245, 246, 1)), color-stop(37%, rgba(227, 234, 237, 1)), color-stop(100%, rgba(200, 215, 220, 1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f2f5f6', endColorstr = '#c8d7dc', GradientType = 0); /* IE6-9 */
-    background: linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(168, 168, 168, 1) 100%); /* W3C */
+    .GRADIENT();
+    .NO_USER_SELECT();
 
     border-color: silver gray gray;
 
 
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    -ms-user-select: none;
 
-    user-select: none;
     cursor: default;
 
 }
 
 .window.focus .header, .window.focus .footer {
-    background: rgb(242, 245, 246); /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(242, 245, 246, 1)), color-stop(50%, rgba(196,196,196, 1)), color-stop(100%, rgba(168, 168, 168,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f2f5f6', endColorstr = '#d8d8d8', GradientType = 0); /* IE6-9 */
-    background: linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(216, 216, 216, 1) 100%); /* W3C */
+    .GRADIENT_FOREGROUND();
 }
 
 /*buttons*/
@@ -103,7 +86,7 @@
 }
 
 .window .footer .resize {
-    background-image: url("/javax.faces.resource/icons/custom/resize.png.jsf?ln=images");
+    background-image: @RESIZE_IMG;
     background-repeat: no-repeat;
     height: 10px;
     opacity: 0.6;
@@ -146,14 +129,10 @@
 
 .window .header .minimize {
     /*for now not implemented*/
-    display: none;
+    .INVISIBLE();
 }
 
 
 .window.fastScale {
-    -webkit-transition: all 0.2s linear;
-    -moz-transition: all 0.2s linear;
-    -o-transition: all 0.2s linear;
-    -ms-transition: all 0.2s linear;
-    transition: all 0.2s linear;
+    .STANDARD_TRANSITION_IN();
 }

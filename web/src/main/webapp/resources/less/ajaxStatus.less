@@ -1,65 +1,95 @@
-.ajaxStatus {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-}
+/*=================  Less Macros begin ======================*/
+/**
+macro for the standard transitions
+*/
+@import "commons";
 
-.ajaxStatus .statusArea {
-    opacity: 0;
-}
-
-.ajaxStatus .statusArea .ajaxComplete,
-.ajaxStatus .statusArea .ajaxSuccess,
-.ajaxStatus .statusArea .ajaxError,
-.ajaxStatus .statusArea .ajaxBegin {
-    -webkit-transition: all 0.2s ease-in;
-    -moz-transition: all 0.2s ease-in;
-    -o-transition: all 0.2s ease-in;
-
-    position: absolute;
+.topLeftZero() {
     left: 0px;
     top: 0px;
-}
-
-.ajaxStatus .statusArea.ajaxComplete .ajaxComplete {
-    background-color: yellow;
-    opacity: 1;
-}
-
-.ajaxStatus .statusArea.ajaxSuccess .ajaxSuccess {
-    background-color: green;
-    opacity: 0;
-}
-
-.ajaxStatus .statusArea.ajaxError .ajaxError {
-    background-color: red;
-    opacity: 1;
-}
-
-.ajaxStatus .statusArea.ajaxBegin .ajaxBegin {
-    opacity: 1;
-    background-color: #99ff99;
-}
-
-/*we hide subelements if they are not from the same type as our parent type*/
-.ajaxStatus .statusArea.ajaxComplete .ajaxSuccess,
-.ajaxStatus .statusArea.ajaxComplete .ajaxBegin,
-.ajaxStatus .statusArea.ajaxComplete .ajaxError,
-.ajaxStatus .statusArea.ajaxBegin .ajaxSuccess,
-.ajaxStatus .statusArea.ajaxBegin .ajaxComplete,
-.ajaxStatus .statusArea.ajaxBegin .ajaxError,
-.ajaxStatus .statusArea.ajaxSuccess .ajaxBegin,
-.ajaxStatus .statusArea.ajaxSuccess .ajaxComplete,
-.ajaxStatus .statusArea.ajaxSuccess .ajaxError,
-.ajaxStatus .statusArea.ajaxError .ajaxComplete,
-.ajaxStatus .statusArea.ajaxError .ajaxComplete,
-.ajaxStatus .statusArea.ajaxError .ajaxSuccess {
-    opacity: 0;
 }
 
 /**
-initial state success success no display
+marker for an initial absolute value
 */
-.ajaxStatus .statusArea.ajaxSuccess .ajaxSuccess {
-    opacity: 0;
+.topLeftZeroAbsolute() {
+    position: absolute;
+    .topLeftZero;
+}
+
+
+
+/*=================  Less Macros end ======================*/
+
+.ajaxStatus {
+    position: fixed;
+
+    .topLeftZero();
+     //BEGIN STATUS AREA
+         .statusArea {
+            .TRANSPARENT();
+    
+            .ajaxComplete,
+            .ajaxSuccess,
+            .ajaxError,
+            .ajaxBegin {
+                .STANDARD_TRANSITION_IN();
+                .topLeftZeroAbsolute();
+            }
+        }
+        //END Status Area
+        .statusArea.ajaxComplete .ajaxComplete {
+            background-color: yellow;
+            .OPAQUE();
+        }
+    
+        .statusArea.ajaxSuccess .ajaxSuccess {
+            .BKG(green);
+            .TRANSPARENT();
+        }
+    
+        .ajaxStatus .statusArea.ajaxError .ajaxError {
+            .BKG(red);
+            .TRANSPARENT();
+        }
+    
+        .ajaxStatus .statusArea.ajaxBegin .ajaxBegin {
+            .TRANSPARENT();
+            .BKG(#99ff99);
+        }
+
+      /*we hide subelements if they are not from the same type as our parent type*/
+     .statusArea.ajaxComplete {
+        .ajaxSuccess,
+        .ajaxBegin,
+        .ajaxError {
+            .TRANSPARENT();
+        }
+     }
+    
+     .statusArea.ajaxBegin {
+    
+        .ajaxSuccess,
+        .ajaxComplete,
+        .ajaxError {
+            .TRANSPARENT();
+        }
+      }
+    
+     .statusArea.ajaxSuccess {
+            .ajaxBegin,
+            .ajaxComplete,
+            .ajaxError,
+            .ajaxSuccess {
+                .OPAQUE();
+        }
+     }
+     
+     .statusArea.ajaxError {
+            .ajaxComplete,
+            .ajaxComplete,
+            .ajaxSuccess {
+                .TRANSPARENT();
+        }
+     }
 }

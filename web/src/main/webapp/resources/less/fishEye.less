@@ -1,3 +1,6 @@
+@import "commons";
+
+
 /**
 Fisheye design
 
@@ -12,33 +15,15 @@ For the animation we use css transitions (the zoom property to be more precise)
 */
 .fishEye {
     /*we have to set the display to enable the box orientation layout*/
-    display: -webkit-box;
-    display: -o-box;
-    display: -ms-box;
-    display: -moz-box;
-    display: box;
+    .BOX();
 
-    -webkit-box-orient: horizontal;
-    -o-box-orient: horizontal;
-    -ms-box-orient: horizontal;
-    -moz-box-orient: horizontal;
-    box-orient: horizontal;
+    .BOX_ORIENT_HORIZONTAL();
 
     /*we set the alignment*/
-    -webkit-box-align: end;
-    -o-box-align: end;
-    -ms-box-align: end;
-    -moz-box-align: end;
-    box-align: end;
+    .BOX_ALIGN_END();
 
-   /*we set the alignment*/
-    -webkit-box-pack: center;
-    -o-box-pack: center;
-    -ms-box-pack: center;
-    -moz-box-pack: center;
-    box-pack: center;
-
-
+    /*Center Pack*/
+    .BOX_PACK_CENTER();
 }
 
 /*
@@ -47,20 +32,12 @@ we use the baseline
 */
 .fishEye.top {
     /*we set the alignment*/
-    -webkit-box-align: baseLine;
-    -o-box-align: baseLine;
-    -ms-box-align: baseLine;
-    -moz-box-align: baseLine;
-    box-align: baseLine;
+   .BOX_ALIGN_BASELINE()
 
 }
 
 .fishEye >* {
-    -webkit-transition: all 0.2s ease-out;
-    -moz-transition: all 0.2s ease-out;
-    -ms-transition:all 0.2s ease-out;
-    -o-transition: all 0.2s ease-out;
-    transition: all 0.2s ease-out;
+   .STANDARD_TRANSITION_OUT();
 }
 
 .fishEye >*:hover {
@@ -69,11 +46,7 @@ we use the baseline
     -o-zoom: 200%;
     -ms-zoom: 200%;
     zoom: 200%;   */
-    -webkit-transform: scale(1.5);
-    -moz-transform: scale(1.5);
-    -o-transform: scale(1.5);
-    -ms-transform: scale(1.5);
-    transform: scale(1.5);
+    .SCALE_EFFECT();
 
 }
 

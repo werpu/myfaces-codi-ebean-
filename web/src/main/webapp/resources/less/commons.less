@@ -1,0 +1,156 @@
+/**
+* SHARED definitions to be included
+*/
+
+.GRADIENT() {
+    background: rgb(242, 245, 246); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(242, 245, 246, 1)), color-stop(37%, rgba(227, 234, 237, 1)), color-stop(100%, rgba(200, 215, 220, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f2f5f6', endColorstr = '#c8d7dc', GradientType = 0); /* IE6-9 */
+    background: linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(227, 234, 237, 1) 37%, rgba(200, 215, 220, 1) 100%); /* W3C */
+}
+
+.GRADIENT_FOREGROUND() {
+    background: rgb(242, 245, 246); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(242, 245, 246, 1)), color-stop(50%, rgba(196,196,196, 1)), color-stop(100%, rgba(168, 168, 168,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(168, 168, 168,1) 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f2f5f6', endColorstr = '#d8d8d8', GradientType = 0); /* IE6-9 */
+    background: linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(216, 216, 216, 1) 100%); /* W3C */
+}
+
+
+//remove the user selection from a given element
+.NO_USER_SELECT() {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+//shadowed text apple like
+.STD_TEXT_SHADOW() {
+    text-shadow: 0 1px 0 #fff;
+}
+
+
+.STD_SHADOW() {
+    -moz-box-shadow: 0 0 5px 3px #d5d5d5;
+    -webkit-box-shadow: 0 0 5px 3px #d5d5d5;
+    -o-box-shadow: 0 0 5px 3px #d5d5d5;
+    -ms-box-shadow: 0 0 5px 3px #d5d5d5;
+    box-shadow: 0 0 5px 3px #d5d5d5;
+}
+.STD_BORDER_RADIUS() {
+    border-radius: 5px 5px 5px 5px;
+}
+
+
+.BOX() {
+    display: -webkit-box;
+    display: -o-box;
+    display: -ms-box;
+    display: -moz-box;
+    display: box;
+}
+
+.BOX_ORIENT_HORIZONTAL() {
+    -webkit-box-orient: horizontal;
+    -o-box-orient: horizontal;
+    -ms-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    box-orient: horizontal;
+}
+.BOX_ALIGN_END() {
+-webkit-box-align: end;
+    -o-box-align: end;
+    -ms-box-align: end;
+    -moz-box-align: end;
+    box-align: end;
+}
+
+.BOX_PACK_CENTER() {
+   -webkit-box-pack: center;
+   -o-box-pack: center;
+   -ms-box-pack: center;
+   -moz-box-pack: center;
+   box-pack: center;
+}
+
+.BOX_ALIGN_BASELINE() {
+    -webkit-box-align: baseLine;
+    -o-box-align: baseLine;
+    -ms-box-align: baseLine;
+    -moz-box-align: baseLine;
+    box-align: baseLine;
+}
+
+.STANDARD_TRANSITION_OUT(@easeEffect: all 0.2s ease-out) {
+    -webkit-transition: @easeEffect;
+    -moz-transition: @easeEffect;
+    -o-transition: @easeEffect;
+    transition: @easeEffect;
+}
+
+.STANDARD_TRANSITION_IN(@easeEffect: all 0.2s ease-in) {
+    -webkit-transition: @easeEffect;
+    -moz-transition: @easeEffect;
+    -o-transition: @easeEffect;
+    transition: @easeEffect;
+}
+
+.SCALE_EFFECT(@scale: scale(1.5)) {
+   -webkit-transform: @scale;
+       -moz-transform: @scale;
+       -o-transform: @scale;
+       -ms-transform: @scale;
+       transform: @scale;
+}
+
+.TRANSPARENT() {
+    opacity: 0;
+}
+
+.OPAQUE() {
+    opacity: 1;
+}
+
+.BLOCK() {
+    display: block;
+}
+
+
+.INVISIBLE() {
+    display: none;
+}
+
+.BKG(@color: white) {
+    background-color: @color;
+}
+
+//variables for the lookup paths
+@FAMFAM: "/javax.faces.resource/icons/famfam";
+@DOJO: "/javax.faces.resource/icons/dojo/";
+
+//image definitions to shorten the image references
+@COLLAPSED_IMG: url("@{DOJO}/treeExpandImages.png.jsf?ln=images") no-repeat -17px 0px;
+@EXPANDED_IMG: url("@{DOJO}/treeExpandImages.png.jsf?ln=images") no-repeat -53px 0px;
+@ACCEPT_IMG: url("@{FAMFAM}/accept.png.jsf?ln=images");
+@ADD_IMG: url("@{FAMFAM}/add.png.jsf?ln=images");
+@CANCEL_IMG: url("@{FAMFAM}/cancel.png.jsf?ln=images");
+@DELETE_IMG: url("@{FAMFAM}/delete.png.jsf?ln=images");
+@SEARCH_IMG: url("@{FAMFAM}/magnifier.png.jsf?ln=images");
+@EDIT_IMG: url("@{FAMFAM}/pencil.png.jsf?ln=images");
+@HELP_IMG: url("@{FAMFAM}/help.png.jsf?ln=images");
+@RESIZE_IMG:  url("/javax.faces.resource/icons/custom/resize.png.jsf?ln=images");
+
+
+
+

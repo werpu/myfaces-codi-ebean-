@@ -1,55 +1,48 @@
+@import "commons";
+
+
 /**
 Beginning of the collapsible tree output element
 */
 
+ol.collapsibleTree,
+ul.collapsibleTree {
+     list-style: none;
+}
+
 .collapsibleTree {
     position: relative;
     display: table;
-}
 
-.collapsibleTree .node {
-    left: 20px;
-}
-
-ol.collapsibleTree,
-ul.collapsibleTree,
-.collapsibleTree ol,
-.collapsibleTree ul {
-    list-style: none;
-}
-
-.collapsibleTree ol {
-    height: 0px;
-    overflow: hidden;
-	padding-left: 18px;
-}
+    .node {
+        left: 20px;
+    }
+    ol {
+        list-style: none;
+        height: 0px;
+        overflow: hidden;
+        padding-left: 18px;
+        .STANDARD_TRANSITION_IN();
+    }
 
 
-.collapsibleTree li, .collapsibleTree ol {
+    li {
     /*the transition will help with the animation*/
-    -webkit-transition: all 0.2s ease-in;
-    -moz-transition: all 0.2s ease-in;
-    -o-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-}
+        .STANDARD_TRANSITION_IN();
+         div.collapseIcon {
+            display: none;
+            margin-right: 5px;
+            width: 16px;
+            height: 16px;
+            float: left;
+        }
+    }
+    li[data-mf-hassubnodes] div.collapseIcon {
+        display: block;
+        background: @COLLAPSED_IMG;
+    }
 
-
-.collapsibleTree li div.collapseIcon {
-    display: none;
-    margin-right: 5px;
-    width: 16px;
-    height: 16px;
-	float: left;
-}
-
-.collapsibleTree li[data-mf-hassubnodes] div.collapseIcon {
-    display: block;
-    /*
-    background-image: url(/javax.faces.resource/images/icons/dojo/treeExpandImages.png.jsf?ln=images);
-    */
-    background: url(/javax.faces.resource/icons/dojo/treeExpandImages.png.jsf?ln=images) no-repeat -17px 0px;
-}
-
-.collapsibleTree li.expanded > div.collapseIcon {
-    background: url(/javax.faces.resource/icons/dojo/treeExpandImages.png.jsf?ln=images) no-repeat -53px 0px;
+    li.expanded > div.collapseIcon {
+        background: @EXPANDED_IMG;
+    }
 }
