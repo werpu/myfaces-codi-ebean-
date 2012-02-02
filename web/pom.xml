@@ -284,7 +284,23 @@ able to use Apache OWB outside of the typical EE realm. (Yes here in Jetty). -->
                 </executions>
             </plugin>
             -->
-
+            <!-- less css compiler -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>lesscss-maven-plugin</artifactId>
+                <version>1.0-beta-2</version>
+                <configuration>
+                    <sourceDirectory>${project.build.sourceDirectory}/../webapp/resources/less</sourceDirectory>
+                    <outputDirectory>${project.build.sourceDirectory}/../webapp/resources/css</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
