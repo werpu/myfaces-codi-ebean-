@@ -41,12 +41,12 @@
 }
 
 
-.STD_SHADOW() {
-    -moz-box-shadow: 0 0 5px 3px #d5d5d5;
-    -webkit-box-shadow: 0 0 5px 3px #d5d5d5;
-    -o-box-shadow: 0 0 5px 3px #d5d5d5;
-    -ms-box-shadow: 0 0 5px 3px #d5d5d5;
-    box-shadow: 0 0 5px 3px #d5d5d5;
+.STD_SHADOW(@box-shadow: 0 0 5px 3px #d5d5d5) {
+    -moz-box-shadow: @box-shadow;
+    -webkit-box-shadow: @box-shadow;
+    -o-box-shadow: @box-shadow;
+    -ms-box-shadow: @box-shadow;
+    box-shadow: @box-shadow;
 }
 .STD_BORDER_RADIUS() {
     border-radius: 5px 5px 5px 5px;
