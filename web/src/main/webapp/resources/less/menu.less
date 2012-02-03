@@ -1,4 +1,4 @@
-@import "commons";
+@import "commons.less";
 
 @STD_PADDING: 0.333em;
 
@@ -63,43 +63,44 @@
 
     @SHADOW: 0px 3px 3px #888;
     .STD_SHADOW(@SHADOW);
-}
-
-.menuBar > * {
-	font-weight:normal;
-	color: white;
-	font-weight: bold;
-}
-
-.menuBar .menuItems {
-	font-weight: bold;
-
-}
 
 
-.menuBar .menu > .menuItems > li:hover, .menuBar .menu > .menuItems > .menu > div:hover, {
-	background-color: yellow;
-	color: blue;
-	font-weight: bold;
-}
+    > * {
+        font-weight:normal;
+        color: white;
+        font-weight: bold;
+    }
 
-.menuBar .menu {
-	border-radius: 5px;
-}
+     .menuItems {
+        font-weight: bold;
 
-.menuBar > .menu > .menuItems  {
-	border-top: 0em;
-}
-
-.menuBar .menu > .menuItems {
-    @SHADOW: 0px 3px 3px #888;
-    .STD_SHADOW(@SHADOW);
-	.GRADIENT_BLUE();
+    }
 
 
+    .menu > .menuItems > li:hover,  .menu > .menuItems > .menu > div:hover, {
+        background-color: yellow;
+        color: blue;
+        font-weight: bold;
+    }
 
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    margin-top: 1px;
+     .menu {
+        border-radius: 5px;
+    }
+
+     > .menu > .menuItems  {
+        border-top: 0em;
+    }
+
+     .menu > .menuItems {
+        @SHADOW: 0px 3px 3px #888;
+        .STD_SHADOW(@SHADOW);
+        .GRADIENT_BLUE();
+
+
+
+        border-bottom: 1px solid black;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        margin-top: 1px;
+    }
 }
