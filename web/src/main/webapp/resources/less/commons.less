@@ -24,6 +24,16 @@
     background: linear-gradient(top, rgba(242, 245, 246, 1) 0%, rgba(196,196,196, 1) 37%, rgba(216, 216, 216, 1) 100%); /* W3C */
 }
 
+.GRADIENT_BLUE() {
+        background: rgb(122,188,255); /* Old browsers */
+        background: -moz-linear-gradient(top, rgba(122,188,255,1) 0%, rgba(96,171,248,1) 44%, rgba(64,150,238,1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(122,188,255,1)), color-stop(44%,rgba(96,171,248,1)), color-stop(100%,rgba(64,150,238,1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Opera11.10+ */
+        background: -ms-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* IE10+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
+        background: linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* W3C */
+}
 
 //remove the user selection from a given element
 .NO_USER_SELECT() {
@@ -49,9 +59,73 @@
     box-shadow: @box-shadow;
 }
 .STD_BORDER_RADIUS() {
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px;
 }
 
+
+
+
+.STANDARD_TRANSITION_OUT(@easeEffect: all 0.2s ease-out) {
+    -webkit-transition: @easeEffect;
+    -moz-transition: @easeEffect;
+    -o-transition: @easeEffect;
+    transition: @easeEffect;
+}
+
+.STANDARD_TRANSITION_IN(@easeEffect: all 0.2s ease-in) {
+    -webkit-transition: @easeEffect;
+    -moz-transition: @easeEffect;
+    -o-transition: @easeEffect;
+    transition: @easeEffect;
+}
+
+.SCALE_EFFECT(@scale: scale(1.5)) {
+   -webkit-transform: @scale;
+       -moz-transform: @scale;
+       -o-transform: @scale;
+       -ms-transform: @scale;
+       transform: @scale;
+}
+
+
+.STD_BORDER(@borderStyle: 1px solid silver) {
+     border: @borderStyle;
+}
+
+.TRANSPARENT() {
+    opacity: 0;
+}
+
+.OPAQUE() {
+    opacity: 1;
+}
+
+.BLOCK() {
+    display: block;
+}
+
+
+.INVISIBLE() {
+    display: none;
+}
+
+.BKG(@color: white) {
+    background-color: @color;
+}
+
+/*alignment and fill*/
+.FILL_HORIZ() {
+   width: auto;
+   left: 0px;
+   right: 0px;
+}
+
+
+.CENTER(@DEFAULT_WIDTH: 100px) {
+   width: @DEFAULT_WIDTH;
+   left: auto;
+   right: auto;
+}
 
 .BOX() {
     display: -webkit-box;
@@ -92,47 +166,9 @@
     box-align: baseLine;
 }
 
-.STANDARD_TRANSITION_OUT(@easeEffect: all 0.2s ease-out) {
-    -webkit-transition: @easeEffect;
-    -moz-transition: @easeEffect;
-    -o-transition: @easeEffect;
-    transition: @easeEffect;
-}
-
-.STANDARD_TRANSITION_IN(@easeEffect: all 0.2s ease-in) {
-    -webkit-transition: @easeEffect;
-    -moz-transition: @easeEffect;
-    -o-transition: @easeEffect;
-    transition: @easeEffect;
-}
-
-.SCALE_EFFECT(@scale: scale(1.5)) {
-   -webkit-transform: @scale;
-       -moz-transform: @scale;
-       -o-transform: @scale;
-       -ms-transform: @scale;
-       transform: @scale;
-}
-
-.TRANSPARENT() {
-    opacity: 0;
-}
-
-.OPAQUE() {
-    opacity: 1;
-}
-
-.BLOCK() {
-    display: block;
-}
-
-
-.INVISIBLE() {
-    display: none;
-}
-
-.BKG(@color: white) {
-    background-color: @color;
+.NO_MARGIN_PADDING() {
+    margin: 0em;
+    padding: 0em;
 }
 
 //variables for the lookup paths
@@ -150,7 +186,6 @@
 @EDIT_IMG: url("@{FAMFAM}/pencil.png.jsf?ln=images");
 @HELP_IMG: url("@{FAMFAM}/help.png.jsf?ln=images");
 @RESIZE_IMG:  url("/javax.faces.resource/icons/custom/resize.png.jsf?ln=images");
-
 
 
 
