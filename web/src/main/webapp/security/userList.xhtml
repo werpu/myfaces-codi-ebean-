@@ -27,9 +27,7 @@
     <ui:define name="header">
 
         <title>Person List view</title>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
-        </f:metadata>
+
 
     </ui:define>
 
@@ -38,6 +36,8 @@
 
         <h3>${msgs.user_search}</h3>
         <h:form id="searchform" prependId="false">
+            <f:event type="preRenderView" listener="#{personListView.preRenderView}"/>
+
             <div id="search">
                 <h:panelGrid columns="4" id="searchArea">
 

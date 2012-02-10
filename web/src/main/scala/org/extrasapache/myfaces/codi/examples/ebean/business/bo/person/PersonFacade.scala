@@ -7,6 +7,7 @@ import org.extrasapache.myfaces.codi.examples.ebean.support.data.PaginationContr
 import org.extrasapache.myfaces.codi.examples.ebean.business.util.{OrderEntry, FilterEntry}
 import javax.enterprise.context.Dependent
 import javax.inject.Named
+import org.extrasapache.myfaces.codi.examples.ebean.orm.security.User
 
 /*we make the overrides for list etc... because we do not need the scala collections here*/
 
@@ -26,7 +27,7 @@ class PersonFacade extends FacadeBase[Person] {
   clazz = classOf[Person]
 
   def create: Person = new Person
-
+  def createUser: User = new User
   def createAdr: Address = new Address
 
   override def loadFromTo(from: Int, pageSize: Int, filter: List[FilterEntry], orderBy: List[OrderEntry]): PaginationController[Person] = {

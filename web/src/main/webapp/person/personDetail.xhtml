@@ -20,9 +20,11 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ezw="http://java.sun.com/jsf/composite/ezcomp_widgets"
       xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp_person"
       >
-    <ui:composition template="../templates/template.xhtml">
+
+<ui:composition template="../templates/template.xhtml">
 
         <ui:define name="content">
             <h:form id="editForm" prependId="false">
@@ -36,6 +38,25 @@
                                        addAddress="#{personDetailView.addAddress}"
                                        removeAddress="#{personDetailView.removeAddress}"/>
 
+                    <ezw:toggleButton id="isUser" label="Person is User"
+                                      action="#{personDetailView.togglePerson}"
+                                      value="#{personDetailView.userDisplayMode}"
+                                      onClick="jsf.ajax.request(this ,event,{execute:'isUser', render:'userDisplayMode'}); return false;">
+
+                    </ezw:toggleButton>
+
+
+                    <h:panelGroup layout="block" id="userDisplayMode">
+                        <h:panelGroup layout="block" id="inner" rendered="#{personDetailView.userDisplayMode eq true}">
+                            <ezw:input value="#{personDetailView.user.userName}" label="#{msgs.user_name}" id="username" />
+                            <br />
+                            <ezw:input value="#{personDetailView.user.password}" label="#{msgs.password}" id="password" ></ezw:input>
+                            <br />
+                            <ezw:input value="#{personDetailView.passWordConfirm}" label="#{msgs.passwordConfirm}" id="passwordConfirm" ></ezw:input>
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+
                     <h:commandLink action="#{personDetailView.doSave}" value="&gt;&gt; #{msgs.save}"/>
                     <h:commandLink action="#{personDetailView.doCancel}" style="margin-left: 5px;" value="&gt;&gt; Cancel"/>
                 </h:panelGroup>
@@ -48,10 +69,15 @@
                         <h:outputFormat value="#{personDetailView.person.lastName}"/>
                     </h:panelGrid>
 
+
+
                     <h:commandLink action="#{personDetailView.doDelete}" value="&gt;&gt; #{msgs.delete}"/>
 
                     <h:commandLink action="#{personDetailView.doCancel}" value="&gt;&gt; #{msgs.cancel}"/>
                 </h:panelGroup>
+
+
+
             </h:form>
         </ui:define>
     </ui:composition>

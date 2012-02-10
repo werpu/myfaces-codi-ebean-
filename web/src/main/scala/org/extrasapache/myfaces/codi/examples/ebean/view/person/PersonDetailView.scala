@@ -3,7 +3,8 @@ package org.extrasapache.myfaces.codi.examples.ebean.view.person
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped
 import javax.inject.{Inject, Named}
 import org.extrasapache.myfaces.codi.examples.ebean.business.bo.person.PersonFacade
-import org.extrasapache.myfaces.codi.examples.ebean.orm.person.Address
+import org.extrasapache.myfaces.codi.examples.ebean.orm.person.{Person, Address}
+import org.extrasapache.myfaces.codi.examples.ebean.orm.security.User
 
 object PersConst {
   val MODE_CREATE = "create"
@@ -30,11 +31,17 @@ trait PersonDetailViewModel {
   @Inject
   var personFacade: PersonFacade = _
 
-  var person: org.extrasapache.myfaces.codi.examples.ebean.orm.person.Person = _
+  var person: Person = _
+
+  var user: User = _
 
   var address: Address = _
 
   var viewMode: String = PersConst.MODE_CREATE
+
+  var userDisplayMode = false
+
+  var passWordConfirm: String = _
 }
 
 /**
@@ -49,10 +56,14 @@ class PersonDetailView extends PersonDetailViewModel {
   //an import of Person enables GO_DETA and GO_LIST
   import Person._
 
+  def togglePerson: java.lang.Class[_] = {
+    null
+  }
+
   def goCreate: java.lang.Class[_] = {
     viewMode = PersConst.MODE_CREATE
     person = personFacade.create
-
+    user = personFacade.createUser
     GO_DETA
   }
 
