@@ -12,7 +12,7 @@
 
 .popup {
     .STD_BORDER_RADIUS();
-    .STD_SHADOW();
+    .BOX_SHADOW();
     .INVISIBLE();
     .TRANSPARENT();
     .GRADIENT();
@@ -26,5 +26,6 @@
 
 
 .popup.fastScale {
-    .STANDARD_TRANSITION_IN("opacity 0.2s linear");
+    @SCALE:opacity 0.2s linear;
+    .STANDARD_TRANSITION_IN( @SCALE);
 }

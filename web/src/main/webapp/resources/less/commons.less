@@ -46,12 +46,16 @@
 }
 
 //shadowed text apple like
-.STD_TEXT_SHADOW() {
-    text-shadow: 0 1px 0 #fff;
+.STD_TEXT_SHADOW(@COLOR: 0 1px 0 #fff) {
+    -ie-text-shadow: @COLOR;
+    -webkit-text-shadow: @COLOR;
+    -moz-text-shadow: @COLOR;
+    -opera-text-shadow: @COLOR;
+    text-shadow: @COLOR;
 }
 
 
-.STD_SHADOW(@box-shadow: 0 0 5px 3px #d5d5d5) {
+.BOX_SHADOW(@box-shadow: 0 0 5px 3px #d5d5d5) {
     -moz-box-shadow: @box-shadow;
     -webkit-box-shadow: @box-shadow;
     -o-box-shadow: @box-shadow;
@@ -79,7 +83,7 @@
     transition: @easeEffect;
 }
 
-.SCALE_EFFECT(@scale: scale(1.5)) {
+.TRANSFORM(@scale: scale(1.5)) {
    -webkit-transform: @scale;
        -moz-transform: @scale;
        -o-transform: @scale;
@@ -135,36 +139,30 @@
     display: box;
 }
 
-.BOX_ORIENT_HORIZONTAL() {
-    -webkit-box-orient: horizontal;
-    -o-box-orient: horizontal;
-    -ms-box-orient: horizontal;
-    -moz-box-orient: horizontal;
-    box-orient: horizontal;
+.BOX_ORIENT(@ORIENTATION: horizontal) {
+    -webkit-box-orient: @ORIENTATION;
+    -o-box-orient: @ORIENTATION;
+    -ms-box-orient: @ORIENTATION;
+    -moz-box-orient: @ORIENTATION;
+    box-orient: @ORIENTATION;
 }
-.BOX_ALIGN_END() {
--webkit-box-align: end;
-    -o-box-align: end;
-    -ms-box-align: end;
-    -moz-box-align: end;
-    box-align: end;
-}
-
-.BOX_PACK_CENTER() {
-   -webkit-box-pack: center;
-   -o-box-pack: center;
-   -ms-box-pack: center;
-   -moz-box-pack: center;
-   box-pack: center;
+.BOX_ALIGN(@ALIGN: end) {
+    -webkit-box-align: @ALIGN;
+    -o-box-align: @ALIGN;
+    -ms-box-align: @ALIGN;
+    -moz-box-align: @ALIGN;
+    box-align: @ALIGN;
 }
 
-.BOX_ALIGN_BASELINE() {
-    -webkit-box-align: baseLine;
-    -o-box-align: baseLine;
-    -ms-box-align: baseLine;
-    -moz-box-align: baseLine;
-    box-align: baseLine;
+.BOX_PACK(@PACK: center) {
+   -webkit-box-pack: @PACK;
+   -o-box-pack: @PACK;
+   -ms-box-pack: @PACK;
+   -moz-box-pack: @PACK;
+   box-pack: @PACK;
 }
+
+
 
 .NO_MARGIN_PADDING() {
     margin: 0em;

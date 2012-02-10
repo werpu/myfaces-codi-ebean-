@@ -16,14 +16,11 @@ For the animation we use css transitions (the zoom property to be more precise)
 .fishEye {
     /*we have to set the display to enable the box orientation layout*/
     .BOX();
-
-    .BOX_ORIENT_HORIZONTAL();
-
+    .BOX_ORIENT(horizontal);
     /*we set the alignment*/
-    .BOX_ALIGN_END();
-
+    .BOX_ALIGN(end);
     /*Center Pack*/
-    .BOX_PACK_CENTER();
+    .BOX_PACK(center);
 }
 
 /*
@@ -32,7 +29,8 @@ we use the baseline
 */
 .fishEye.top {
     /*we set the alignment*/
-   .BOX_ALIGN_BASELINE()
+
+   .BOX_ALIGN(baseline)
 
 }
 
@@ -41,12 +39,6 @@ we use the baseline
 }
 
 .fishEye >*:hover {
-    /*-moz-zoom: 200%;
-    -webkit-zoom: 200%;
-    -o-zoom: 200%;
-    -ms-zoom: 200%;
-    zoom: 200%;   */
-    .SCALE_EFFECT();
-
+    .TRANSFORM(scale(1.5));
 }
 

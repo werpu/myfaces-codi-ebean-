@@ -51,17 +51,17 @@
 .imageButton.clicked {
     box-shadow: 2px 2px 3px 0 #777777 inset;
     border: 1px solid black;
+
+    /**
+    * the clicked styleclass is appended
+    * if the button goes down
+    */
+    .imagePressed {
+        display: block;
+    }
 }
 
-/**
-* the clicked styleclass is appended
-* if the button goes down
-*/
-.imageButton.clicked .imagePressed {
-    display: block;
-}
-
-imageButton a:hover {
+.imageButton a:hover {
     text-decoration: none;
 }
 
